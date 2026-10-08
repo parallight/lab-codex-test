@@ -223,6 +223,9 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
 ### `:teachboard`(或"连接白板" / "画到白板上" / "把这个画成一块板")
 参数 = `$ARGUMENTS`(去掉多余空格)。
 
+**语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
+板上的一切(标题、文字、图注、标签、图表名、回复框)一律用用户提出这个请求时所用的语言写。用户用英文 → 调 `tb_describe_schema` 时传 `lang:"en"`,板 spec 里设 `lang:"en"`;中文 → `lang:"zh"`;其它语言 → 内容用该语言写,`lang` 取最接近的 en/zh(非中日韩文字用 en)。把工具消息转给用户时用用户的语言(用户不是中文时,翻译中文的工具文本)。
+
 **参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`,把结果原样告诉学员(含短码与网址)。若结果说「请在浏览器核对短码后点连接」,等学员说点好了再调一次 `tb_connect` 确认已连上。到此为止,不要顺手建板。
 
 **否则(参数是想学的主题 / 参考资料,或为空时先问学员想学什么)**:
@@ -236,6 +239,9 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
 **边界**:工具说「还没连上 / 未连接」→ 让学员先 :teachboard connect;返回 402(额度 / 预算不够)→ 原话转达,不要重试;其它错误按工具给的下一步走,不要把原始报错甩给学员。
 
 ### `:teachboard-install`(或"给环境装包" / "白板环境里装一下")
+**语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
+板上的一切(标题、文字、图注、标签、图表名、回复框)一律用用户提出这个请求时所用的语言写。用户用英文 → 调 `tb_describe_schema` 时传 `lang:"en"`,板 spec 里设 `lang:"en"`;中文 → `lang:"zh"`;其它语言 → 内容用该语言写,`lang` 取最接近的 en/zh(非中日韩文字用 en)。把工具消息转给用户时用用户的语言(用户不是中文时,翻译中文的工具文本)。
+
 参数 = `$ARGUMENTS`。拆成:要装的包(一个或多个 PyPI 包名,可带版本约束,如 `einops` `triton==3.1.0`)+ 可选的 `--env <环境id>`。没给任何包名 → 先问学员要装什么,不要猜。
 
 **定环境**:

@@ -57096,9 +57096,9 @@ var require_dist_cjs48 = __commonJS({
 });
 
 // src/index.ts
-import { mkdirSync as mkdirSync6, writeFileSync as writeFileSync6, readFileSync as readFileSync11, existsSync as existsSync11, chmodSync as chmodSync3 } from "node:fs";
+import { mkdirSync as mkdirSync7, writeFileSync as writeFileSync7, readFileSync as readFileSync12, existsSync as existsSync11, chmodSync as chmodSync3 } from "node:fs";
 import { homedir as homedir6 } from "node:os";
-import { join as join19, dirname as dirname5 } from "node:path";
+import { join as join20, dirname as dirname5 } from "node:path";
 
 // ../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v3/helpers/util.js
 var util;
@@ -84025,7 +84025,9 @@ function registerAssistantTool(server2, deps = {}) {
 }
 
 // src/tools/check.ts
-import { existsSync as existsSync9 } from "node:fs";
+import { existsSync as existsSync9, readFileSync as readFileSync10, writeFileSync as writeFileSync5, mkdirSync as mkdirSync5 } from "node:fs";
+import { createHash as createHash4 } from "node:crypto";
+import { join as join18 } from "node:path";
 import { spawn as spawn3 } from "node:child_process";
 
 // src/lab-tasks.ts
@@ -84037,9 +84039,68 @@ var err2 = (text) => ({ content: [{ type: "text", text: `\u26A0\uFE0F ${text}` }
 var TIMEOUT_MS = 6e4;
 var TAIL = 2e3;
 var TASK_RE2 = /^t\d{1,2}$/;
-function runShell(cmd, cwd, timeoutMs) {
+var BASE_ENV = [
+  "PATH",
+  "HOME",
+  "USER",
+  "LOGNAME",
+  "SHELL",
+  "TMPDIR",
+  "TERM",
+  "TZ",
+  "LANG",
+  "VIRTUAL_ENV",
+  "CONDA_PREFIX",
+  "CONDA_DEFAULT_ENV",
+  "PYENV_ROOT",
+  "PYENV_VERSION",
+  "NVM_DIR",
+  "NVM_BIN",
+  "PYTHONPATH",
+  "ANTHROPIC_BASE_URL"
+];
+var PRESENCE_ONLY = ["ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY"];
+var REDACTED = "redacted-by-lab-check";
+var NEVER_BY_VALUE = /^(ANTHROPIC_|OPENAI_|AWS_|GITHUB_|GH_|GOOGLE_|AZURE_|GEMINI_|HF_|HUGGING|PARALLIGHT|PL_|SUPABASE_|STRIPE_|NPM_|SSH_|GPG_|DAYTONA_|VERCEL_|CLAUDE_)/;
+var VAR_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
+function buildCheckEnv(host, declared = []) {
+  const env3 = {};
+  const forwarded = [];
+  const presenceOnly = [];
+  for (const k6 of BASE_ENV) if (host[k6] !== void 0) env3[k6] = host[k6];
+  for (const k6 of Object.keys(host)) if (k6.startsWith("LC_")) env3[k6] = host[k6];
+  const marker = (k6) => {
+    if (host[k6] === void 0 || presenceOnly.includes(k6)) return;
+    env3[k6] = REDACTED;
+    presenceOnly.push(k6);
+  };
+  for (const k6 of PRESENCE_ONLY) marker(k6);
+  for (const k6 of declared) {
+    if (!VAR_NAME.test(k6) || k6 in env3) continue;
+    if (NEVER_BY_VALUE.test(k6)) marker(k6);
+    else if (host[k6] !== void 0) {
+      env3[k6] = host[k6];
+      forwarded.push(k6);
+    }
+  }
+  return { env: env3, forwarded, presenceOnly };
+}
+var checkFingerprint = (cmd, declared = []) => createHash4("sha256").update(JSON.stringify([cmd, [...declared].sort()])).digest("hex").slice(0, 16);
+var APPROVALS_FILE = join18(AUTH_DIR, "check-approvals.json");
+function readApprovals() {
+  try {
+    return JSON.parse(readFileSync10(APPROVALS_FILE, "utf8"));
+  } catch {
+    return {};
+  }
+}
+function writeApproval(key, fp) {
+  mkdirSync5(AUTH_DIR, { recursive: true, mode: 448 });
+  writeFileSync5(APPROVALS_FILE, JSON.stringify({ ...readApprovals(), [key]: fp }, null, 2), { mode: 384 });
+}
+function runShell(cmd, cwd, timeoutMs, env3) {
   return new Promise((resolve5) => {
-    const child = spawn3("sh", ["-c", cmd], { cwd, env: process.env });
+    const child = spawn3("sh", ["-c", cmd], { cwd, env: env3 });
     let out = "";
     let timedOut = false;
     const cap = (b6) => {
@@ -84073,16 +84134,22 @@ function registerCheckTool(server2, deps = {}) {
     cwd: () => process.cwd(),
     runShell,
     platform: () => process.platform,
+    hostEnv: () => process.env,
+    getApproval: (key) => readApprovals()[key],
+    setApproval: writeApproval,
     ...deps
   };
   server2.registerTool(
     "lab_check",
     {
       title: "Run a task's local self-check",
-      description: "\u5728\u5B66\u5458\u672C\u673A\u8DD1\u8BE5 task \u7684 check.cmd(\u6765\u81EA\u8001\u5E08\u7EF4\u62A4\u7684 tasks.json),\u5E76\u628A\u7ED3\u679C\u4E0A\u62A5\u770B\u677F\u3002\u8BC4\u6D4B\u578B task \u8BF7\u7528 lab_evaluate\u3002",
-      inputSchema: { task: external_exports.string().describe("task id,\u5982 t1") }
+      description: "\u5728\u5B66\u5458\u672C\u673A\u8DD1\u8BE5 task \u7684 check.cmd(\u6765\u81EA\u8001\u5E08\u7EF4\u62A4\u7684 tasks.json),\u5E76\u628A\u7ED3\u679C\u4E0A\u62A5\u770B\u677F\u3002\u8BC4\u6D4B\u578B task \u8BF7\u7528 lab_evaluate\u3002\u67D0 task \u7684\u547D\u4EE4\u5728\u672C\u673A\u7B2C\u4E00\u6B21\u8DD1(\u6216\u5185\u5BB9\u53D8\u4E86)\u65F6\u4E0D\u4F1A\u6267\u884C,\u800C\u662F\u8FD4\u56DE\u547D\u4EE4\u539F\u6587\u548C\u4E00\u4E2A\u786E\u8BA4\u7801:\u5FC5\u987B\u5148\u7ED9\u5B66\u5458\u770B\u3001\u5B66\u5458\u540C\u610F\u540E\u624D\u80FD\u5E26 confirm=<\u8BE5\u786E\u8BA4\u7801> \u91CD\u8C03\u2014\u2014\u4E0D\u5F97\u81EA\u884C\u4EE3\u4E3A\u786E\u8BA4\u3002",
+      inputSchema: {
+        task: external_exports.string().describe("task id,\u5982 t1"),
+        confirm: external_exports.string().optional().describe("\u5B66\u5458\u770B\u8FC7\u547D\u4EE4\u539F\u6587\u5E76\u540C\u610F\u540E,\u4F20\u4E0A\u6B21\u8FD4\u56DE\u7684\u786E\u8BA4\u7801")
+      }
     },
-    async ({ task }) => {
+    async ({ task, confirm }) => {
       try {
         d6.requireToken();
       } catch {
@@ -84117,7 +84184,31 @@ function registerCheckTool(server2, deps = {}) {
         return err2(e6 instanceof Error ? e6.message : String(e6));
       }
       if (!d6.labDirExists(labDir)) return err2(labDirMissingMessage(labDir, s.labId));
-      const r6 = await d6.runShell(t.check.cmd, labDir, TIMEOUT_MS);
+      const declared = t.check.env ?? [];
+      const { env: env3, forwarded, presenceOnly } = buildCheckEnv(d6.hostEnv(), declared);
+      const envLine = `\u73AF\u5883\u53D8\u91CF:\u53EA\u4F20 PATH/HOME/\u8BED\u8A00\u7B49\u57FA\u7840\u9879` + (forwarded.length ? `;\u53E6\u4F20 ${forwarded.join(", ")}` : "") + (presenceOnly.length ? `;${presenceOnly.join(", ")} \u53EA\u544A\u77E5\u300C\u5DF2\u8BBE\u7F6E\u300D,\u4E0D\u7ED9\u503C` : "");
+      const key = `${s.labId}/${t.id}`;
+      const fp = checkFingerprint(t.check.cmd, declared);
+      const prev = d6.getApproval(key);
+      if (prev !== fp && confirm !== fp) {
+        return ok2(
+          [
+            confirm ? `\u26A0\uFE0F \u786E\u8BA4\u7801\u548C\u73B0\u5728\u7684\u547D\u4EE4\u5BF9\u4E0D\u4E0A(\u547D\u4EE4\u5728\u786E\u8BA4\u671F\u95F4\u53D8\u4E86),\u8FD8\u6CA1\u6267\u884C\u3002\u8BF7\u628A\u4E0B\u9762\u7684\u65B0\u547D\u4EE4\u91CD\u65B0\u7ED9\u5B66\u5458\u770B\u3002` : prev ? `\u26A0\uFE0F ${t.id} \u7684\u81EA\u68C0\u547D\u4EE4\u548C\u4E0A\u6B21\u4E0D\u4E00\u6837\u4E86,\u8FD8\u6CA1\u6267\u884C\u3002` : `${t.id} \u7684\u81EA\u68C0\u547D\u4EE4\u7B2C\u4E00\u6B21\u5728\u8FD9\u53F0\u673A\u5668\u4E0A\u8DD1,\u8FD8\u6CA1\u6267\u884C\u3002`,
+            "",
+            "```sh",
+            t.check.cmd,
+            "```",
+            `\u76EE\u5F55:${labDir}`,
+            envLine,
+            "",
+            `\u786E\u8BA4\u7801:${fp}`,
+            "",
+            `[NOW DO THIS] \u628A\u4E0A\u9762\u8FD9\u6761\u547D\u4EE4\u539F\u6837\u7ED9\u5B66\u5458\u770B,\u95EE ta \u662F\u5426\u540C\u610F\u5728\u672C\u673A\u6267\u884C\u3002\u5B66\u5458\u660E\u786E\u540C\u610F\u540E\u518D\u8C03 lab_check(task="${t.id}", confirm="${fp}");\u5B66\u5458\u6CA1\u540C\u610F\u5C31\u4E0D\u8981\u8DD1,\u4E5F\u4E0D\u8981\u66FF\u5B66\u5458\u4EE3\u4E3A\u786E\u8BA4\u3002`
+          ].join("\n")
+        );
+      }
+      if (prev !== fp) d6.setApproval(key, fp);
+      const r6 = await d6.runShell(t.check.cmd, labDir, TIMEOUT_MS, env3);
       const passed = !r6.timedOut && r6.code === 0;
       const tail = r6.output.slice(-TAIL);
       let report = "";
@@ -84131,6 +84222,7 @@ function registerCheckTool(server2, deps = {}) {
       return ok2(
         [
           `$ ${t.check.cmd}`,
+          envLine,
           "",
           head,
           tail ? "```\n" + tail.trimEnd() + "\n```" : "(\u65E0\u8F93\u51FA)",
@@ -84145,8 +84237,8 @@ function registerCheckTool(server2, deps = {}) {
 }
 
 // src/teachboard/creds.ts
-import { readFileSync as readFileSync10, writeFileSync as writeFileSync5, mkdirSync as mkdirSync5, existsSync as existsSync10, rmSync as rmSync5, renameSync, chmodSync as chmodSync2 } from "node:fs";
-import { join as join18 } from "node:path";
+import { readFileSync as readFileSync11, writeFileSync as writeFileSync6, mkdirSync as mkdirSync6, existsSync as existsSync10, rmSync as rmSync5, renameSync, chmodSync as chmodSync2 } from "node:fs";
+import { join as join19 } from "node:path";
 function createCredsStore(io, base) {
   return {
     get() {
@@ -84177,21 +84269,21 @@ function createCredsStore(io, base) {
   };
 }
 function createFileCredsIO(dir, authFile) {
-  const file2 = join18(dir, "teachboard.json");
+  const file2 = join19(dir, "teachboard.json");
   return {
     read() {
       try {
-        return existsSync10(file2) ? readFileSync10(file2, "utf8") : null;
+        return existsSync10(file2) ? readFileSync11(file2, "utf8") : null;
       } catch {
         return null;
       }
     },
     write(json2) {
-      mkdirSync5(dir, { recursive: true, mode: 448 });
-      const tmp = join18(dir, `.teachboard.json.${process.pid}.tmp`);
+      mkdirSync6(dir, { recursive: true, mode: 448 });
+      const tmp = join19(dir, `.teachboard.json.${process.pid}.tmp`);
       rmSync5(tmp, { force: true });
       try {
-        writeFileSync5(tmp, json2, { mode: 384, flag: "wx" });
+        writeFileSync6(tmp, json2, { mode: 384, flag: "wx" });
         renameSync(tmp, file2);
         chmodSync2(dir, 448);
         chmodSync2(file2, 384);
@@ -84208,7 +84300,7 @@ function createFileCredsIO(dir, authFile) {
     },
     readLabAuth() {
       try {
-        return existsSync10(authFile) ? JSON.parse(readFileSync10(authFile, "utf8")) : null;
+        return existsSync10(authFile) ? JSON.parse(readFileSync11(authFile, "utf8")) : null;
       } catch {
         return null;
       }
@@ -84429,8 +84521,12 @@ var EXAMPLE_EN = {
     }
   ]
 };
-var EXAMPLES = "## \u793A\u4F8B spec(\u4E2D\u6587)\n```json\n" + JSON.stringify(EXAMPLE_ZH, null, 2) + "\n```\n\n## Example spec (English)\n```json\n" + JSON.stringify(EXAMPLE_EN, null, 2) + "\n```\n";
+var EXAMPLE_EN_BLOCK = "## Example spec (English)\n```json\n" + JSON.stringify(EXAMPLE_EN, null, 2) + "\n```\n";
+var EXAMPLES_EN = EXAMPLE_EN_BLOCK;
+var EXAMPLES = "## \u793A\u4F8B spec(\u4E2D\u6587)\n```json\n" + JSON.stringify(EXAMPLE_ZH, null, 2) + "\n```\n\n" + EXAMPLE_EN_BLOCK;
 var SCHEMA_GUIDE_ZH = `# teachboard \u5143\u7D20\u5951\u7EA6(BoardSpec)
+
+**\u8BED\u8A00\u89C4\u5219**:\u677F\u4E0A\u6587\u5B57\u4E00\u5F8B\u7528\u7528\u6237\u63D0\u95EE\u7684\u8BED\u8A00;\u7528\u6237\u7528\u82F1\u6587\u5C31\u5199\u82F1\u6587\u5E76\u8BBE lang:"en"(\u8C03\u672C\u5DE5\u5177\u65F6\u4F20 lang:"en" \u8BFB\u82F1\u6587\u8BF4\u660E),\u7528\u4E2D\u6587\u5219 lang:"zh"\u3002\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587\u3002
 
 \u53EA\u7ED9**\u8BED\u4E49**:\u5750\u6807\u3001\u5B57\u53F7\u3001\u989C\u8272\u90FD\u7531\u670D\u52A1\u7AEF\u786E\u5B9A\u6027\u6392\u7248,\u4E0D\u8981\u7ED9\u3002
 
@@ -84500,6 +84596,8 @@ acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 c
 ${EXAMPLES}`;
 var SCHEMA_GUIDE_EN = `# teachboard element contract (BoardSpec)
 
+**Language rule**: everything on the board is written in the language the user asked in; an English user gets an English board with \`lang:"en"\` in the spec, a Chinese user \`lang:"zh"\`. Do not default to Chinese.
+
 Give **semantics only**: positions, font sizes and colors are laid out deterministically by the server.
 
 \`\`\`ts
@@ -84565,7 +84663,7 @@ Every element gets a board-local number E<n> (from 1), written \`tb:<8-char boar
 4. The first line of each result is a progress line for the user \u2014 relay it as is.
 5. When done: a one-sentence summary + the board link + "say 'run E12' and I'll run it in the env" (use the id of a real code block that has an env; skip this line if no block has one).
 
-${EXAMPLES}`;
+${EXAMPLES_EN}`;
 
 // src/teachboard/progress.ts
 function actProgressLine(o2) {
@@ -84803,6 +84901,8 @@ function registerTeachboardTools(rawServer, deps = {}) {
 }
 var RESULT_MAX = 48e3;
 var BOARD_ID_RE = /^[0-9a-f]{8}$/;
+var BOARD_LANG_RULE = "Board content language must match the user's language; set spec.lang accordingly; do not default to Chinese. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u4E0E\u7528\u6237\u8BED\u8A00\u4E00\u81F4,\u76F8\u5E94\u8BBE\u7F6E spec.lang,\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587\u3002";
+var LANG_PICK_NOTE = `Note / \u63D0\u793A: the board content language must follow the user's language (do not default to Chinese); this is the English guide \u2014 call again with lang:"zh" for the Chinese guide. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u8DDF\u968F\u7528\u6237\u8BED\u8A00(\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587);\u8FD9\u662F\u82F1\u6587\u8BF4\u660E,\u8981\u4E2D\u6587\u8BF4\u660E\u8BF7\u4F20 lang:"zh" \u518D\u8C03\u4E00\u6B21\u3002`;
 var CODE_MAX = 4e3;
 var isObj2 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
 var textOut = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX) }] });
@@ -84865,10 +84965,12 @@ function registerBoardTools(server2, d6) {
     "tb_describe_schema",
     {
       title: "teachboard board spec",
-      description: "\u8FD4\u56DE teachboard \u677F\u7684\u5143\u7D20\u5951\u7EA6(BoardSpec:item \u79CD\u7C7B\u4E0E\u5B57\u6BB5\u3001edges\u3001layout\u3001group\u3001defaultEnv\u3001code \u7684 env / run:{path,region,cmd}\u3001\u4E0A\u9650)+ \u4E2D\u82F1\u793A\u4F8B + \u6559\u6CD5\u4E0E\u5DE5\u4F5C\u65B9\u5F0F\u3002\u5EFA\u677F\u524D\u5148\u8BFB\u4E00\u6B21\u3002",
-      inputSchema: { lang: external_exports.enum(["zh", "en"]).optional().describe("\u8BF4\u660E\u6587\u5B57\u7684\u8BED\u8A00,\u7F3A\u7701 zh") }
+      description: "\u8FD4\u56DE teachboard \u677F\u7684\u5143\u7D20\u5951\u7EA6(BoardSpec:item \u79CD\u7C7B\u4E0E\u5B57\u6BB5\u3001edges\u3001layout\u3001group\u3001defaultEnv\u3001code \u7684 env / run:{path,region,cmd}\u3001\u4E0A\u9650)+ \u4E2D\u82F1\u793A\u4F8B + \u6559\u6CD5\u4E0E\u5DE5\u4F5C\u65B9\u5F0F\u3002\u5EFA\u677F\u524D\u5148\u8BFB\u4E00\u6B21\u3002 " + BOARD_LANG_RULE,
+      inputSchema: { lang: external_exports.enum(["zh", "en"]).optional().describe("Guide language / \u8BF4\u660E\u6587\u5B57\u7684\u8BED\u8A00;pass the user's language / \u4F20\u7528\u6237\u7684\u8BED\u8A00;omitted \u2192 English guide + note") }
     },
-    async ({ lang }) => textOut(lang === "en" ? SCHEMA_GUIDE_EN : SCHEMA_GUIDE_ZH)
+    async ({ lang }) => textOut(
+      lang === "zh" ? SCHEMA_GUIDE_ZH : lang === "en" ? SCHEMA_GUIDE_EN : LANG_PICK_NOTE + "\n\n" + SCHEMA_GUIDE_EN
+    )
   );
   server2.registerTool(
     "tb_list_boards",
@@ -84901,7 +85003,7 @@ ${lines.join("\n")}`);
     "tb_create_board",
     {
       title: "Create a teachboard board",
-      description: '\u6309 BoardSpec \u5EFA\u4E00\u5757\u65B0\u677F(\u5951\u7EA6\u89C1 tb_describe_schema)\u3002\u603B\u5171 \u22643 \u5E55\u624D\u4E00\u6B21\u5EFA\u5B8C;\u66F4\u591A\u5E55\u65F6\u53EA\u653E\u7B2C\u4E00\u5E55,\u4E4B\u540E\u4E00\u5E55\u4E00\u6B21 tb_add_act\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env / defaultEnv \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u8BBE\u7684 defaultEnv \u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1\u3002\u4EE3\u7801\u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u6BCF\u5E55\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u5E55\u4FEE\u6B63\u3002',
+      description: '\u6309 BoardSpec \u5EFA\u4E00\u5757\u65B0\u677F(\u5951\u7EA6\u89C1 tb_describe_schema)\u3002\u603B\u5171 \u22643 \u5E55\u624D\u4E00\u6B21\u5EFA\u5B8C;\u66F4\u591A\u5E55\u65F6\u53EA\u653E\u7B2C\u4E00\u5E55,\u4E4B\u540E\u4E00\u5E55\u4E00\u6B21 tb_add_act\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env / defaultEnv \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u8BBE\u7684 defaultEnv \u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1\u3002\u4EE3\u7801\u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u6BCF\u5E55\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u5E55\u4FEE\u6B63\u3002 ' + BOARD_LANG_RULE,
       inputSchema: {
         spec: external_exports.record(external_exports.string(), external_exports.unknown()).describe("BoardSpec:{title, lang?, defaultEnv?, acts:[{id,title,items,edges?,layout?}]}"),
         project: external_exports.string().optional().describe("\u653E\u8FDB\u54EA\u4E2A\u9879\u76EE(\u7F3A\u7701\u9ED8\u8BA4\u9879\u76EE)")
@@ -84961,14 +85063,14 @@ ${RUN_HINT}`;
     "tb_add_act",
     {
       title: "Add one act to a teachboard board",
-      description: '\u7ED9\u5DF2\u6709\u7684\u677F\u8FFD\u52A0\u4E00\u5E55(\u4E00\u5E55\u4E00\u6B21\u8C03\u7528)\u3002act \u7ED3\u6784\u540C BoardSpec \u91CC\u7684 Act(\u89C1 tb_describe_schema)\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u7684 defaultEnv \u4F1A\u5E26\u5230\u672C\u5E55\u7684 code \u5757;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1;code \u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002edges \u53EF\u4EE5\u5F15\u7528\u66F4\u65E9\u5E55\u91CC\u7684\u6761\u76EE id(\u8DE8\u5E55\u7BAD\u5934;\u627E\u4E0D\u5230\u7684 id \u88AB\u4E22\u5F03\u5E76\u5199\u8FDB problems,\u672C\u5E55\u540C\u540D\u6761\u76EE\u4F18\u5148)\u3002act.id \u6574\u5757\u677F\u5185\u552F\u4E00\u3002\u4F20 index/total \u8BA9\u8FDB\u5EA6\u884C\u663E\u793A\u300C\u7B2C 3/7 \u5E55\u300D\u3002\u7ED3\u679C\u9996\u884C\u662F\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u4FEE\u6B63\u540E\u518D\u52A0\u4E0B\u4E00\u5E55\u3002',
+      description: '\u7ED9\u5DF2\u6709\u7684\u677F\u8FFD\u52A0\u4E00\u5E55(\u4E00\u5E55\u4E00\u6B21\u8C03\u7528)\u3002act \u7ED3\u6784\u540C BoardSpec \u91CC\u7684 Act(\u89C1 tb_describe_schema)\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u7684 defaultEnv \u4F1A\u5E26\u5230\u672C\u5E55\u7684 code \u5757;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1;code \u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002edges \u53EF\u4EE5\u5F15\u7528\u66F4\u65E9\u5E55\u91CC\u7684\u6761\u76EE id(\u8DE8\u5E55\u7BAD\u5934;\u627E\u4E0D\u5230\u7684 id \u88AB\u4E22\u5F03\u5E76\u5199\u8FDB problems,\u672C\u5E55\u540C\u540D\u6761\u76EE\u4F18\u5148)\u3002act.id \u6574\u5757\u677F\u5185\u552F\u4E00\u3002\u4F20 index/total \u8BA9\u8FDB\u5EA6\u884C\u663E\u793A\u300C\u7B2C 3/7 \u5E55\u300D\u3002\u7ED3\u679C\u9996\u884C\u662F\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u4FEE\u6B63\u540E\u518D\u52A0\u4E0B\u4E00\u5E55\u3002 ' + BOARD_LANG_RULE,
       inputSchema: {
         boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex,tb_create_board / tb_list_boards \u7ED9\u7684)"),
         act: external_exports.record(external_exports.string(), external_exports.unknown()).describe("\u4E00\u5E55:{id,title,items,edges?,layout?}"),
         after: external_exports.string().optional().describe("\u653E\u5728\u54EA\u4E00\u5E55\u4E4B\u540E(actId);\u7F3A\u7701\u8FFD\u52A0\u5230\u672B\u5C3E"),
         index: external_exports.number().int().positive().optional().describe("\u8FD9\u662F\u7B2C\u51E0\u5E55(\u7ED9\u8FDB\u5EA6\u884C\u7528)"),
         total: external_exports.number().int().positive().optional().describe("\u8BA1\u5212\u5171\u51E0\u5E55(\u7ED9\u8FDB\u5EA6\u884C\u7528)"),
-        lang: external_exports.enum(["zh", "en"]).optional().describe("\u8FDB\u5EA6\u884C\u8BED\u8A00;\u7F3A\u7701\u6CBF\u7528\u5EFA\u677F\u65F6\u7684 spec.lang,\u672A\u77E5\u5219 zh")
+        lang: external_exports.enum(["zh", "en"]).optional().describe("Progress-line language / \u8FDB\u5EA6\u884C\u8BED\u8A00;omitted \u2192 reuse the create-time spec.lang (unknown \u2192 zh)")
       }
     },
     async ({ boardId, act, after, index, total, lang }) => {
@@ -86112,7 +86214,7 @@ server.registerTool(
       return err3("\u8FD8\u6CA1\u767B\u5F55\u3002\u5148\u7528 /lab-login \u767B\u5F55\u3002");
     }
     try {
-      const existingDir = join19(process.cwd(), lab_id);
+      const existingDir = join20(process.cwd(), lab_id);
       if (existsSync11(existingDir) && !force) {
         return err3(
           `\u68C0\u6D4B\u5230 ./${lab_id}/ \u5DF2\u5B58\u5728\u2014\u2014\u4F60\u4E4B\u524D\u5F00\u8FC7\u8FD9\u4E2A lab\u3002
@@ -86121,18 +86223,18 @@ server.registerTool(
         );
       }
       const starter = await getStarter(lab_id);
-      const labDir = join19(process.cwd(), lab_id);
+      const labDir = join20(process.cwd(), lab_id);
       for (const f6 of starter.files) {
-        const dest = join19(labDir, f6.path);
-        mkdirSync6(dirname5(dest), { recursive: true });
-        writeFileSync6(dest, f6.content);
+        const dest = join20(labDir, f6.path);
+        mkdirSync7(dirname5(dest), { recursive: true });
+        writeFileSync7(dest, f6.content);
       }
       for (const a6 of starter.assets ?? []) {
-        const dest = join19(labDir, a6.path);
-        mkdirSync6(dirname5(dest), { recursive: true });
+        const dest = join20(labDir, a6.path);
+        mkdirSync7(dirname5(dest), { recursive: true });
         const res = await fetch(a6.url);
         if (!res.ok) return err3(`\u4E0B\u8F7D\u8D44\u4EA7\u5931\u8D25 ${a6.path}\uFF1AHTTP ${res.status}`);
-        writeFileSync6(dest, Buffer.from(await res.arrayBuffer()));
+        writeFileSync7(dest, Buffer.from(await res.arrayBuffer()));
       }
       const example = starter.files.find((f6) => f6.path === ".env.example")?.content ?? "";
       let envContent = example.replace(/^PARALLIGHT_API_KEY=.*$/m, `PARALLIGHT_API_KEY=${token}`);
@@ -86165,7 +86267,7 @@ PARALLIGHT_TOKEN=${token}
 PARALLIGHT_SANDBOX_URL=${SANDBOX_PROXY_URL}
 `;
       }
-      writeFileSync6(join19(labDir, ".env"), envContent);
+      writeFileSync7(join20(labDir, ".env"), envContent);
       const writtenTree = fileTree([
         ...starter.files.map((f6) => f6.path),
         ...(starter.assets ?? []).map((a6) => a6.path),
@@ -86656,11 +86758,11 @@ server.registerTool(
         "\u8981\u770B\u4F1A\u8BDD\u5206\u6790,\u9700\u8981\u5148\u540C\u610F\u8BB0\u5F55\u4F60\u7684 lab \u4F1A\u8BDD\u6570\u636E(\u7528\u4E8E\u751F\u6210\u62A5\u544A + Mentor \u6559\u5B66\u652F\u6301;\u539F\u6587\u6700\u591A\u7559 30 \u5929)\u3002\u540C\u610F\u5C31\u7528 /lab-analysis \u65F6\u56DE\u7B54\u300C\u53EF\u4EE5\u300D,\u6216\u76F4\u63A5\u8BF4\u300C\u6211\u540C\u610F\u5206\u6790\u300D\u3002"
       );
     }
-    const dir = join19(homedir6(), ".parallight", "analysis");
-    const file2 = join19(dir, `${labId.replace(/[^a-zA-Z0-9_-]/g, "_")}.html`);
+    const dir = join20(homedir6(), ".parallight", "analysis");
+    const file2 = join20(dir, `${labId.replace(/[^a-zA-Z0-9_-]/g, "_")}.html`);
     try {
-      mkdirSync6(dir, { recursive: true });
-      writeFileSync6(file2, report.html ?? "");
+      mkdirSync7(dir, { recursive: true });
+      writeFileSync7(file2, report.html ?? "");
     } catch (e6) {
       return err3(`\u5199\u62A5\u544A\u6587\u4EF6\u5931\u8D25\uFF1A${String(e6)}`);
     }
@@ -86912,9 +87014,9 @@ function readClaudeEnvConfig() {
   let baseUrl = process.env.ANTHROPIC_BASE_URL ?? "";
   let authToken = process.env.ANTHROPIC_AUTH_TOKEN ?? "";
   try {
-    const p2 = join19(homedir6(), ".claude", "settings.json");
+    const p2 = join20(homedir6(), ".claude", "settings.json");
     if (existsSync11(p2)) {
-      const s = JSON.parse(readFileSync11(p2, "utf8"));
+      const s = JSON.parse(readFileSync12(p2, "utf8"));
       const e6 = s?.env ?? {};
       if (!baseUrl && typeof e6.ANTHROPIC_BASE_URL === "string") baseUrl = e6.ANTHROPIC_BASE_URL;
       if (!authToken && typeof e6.ANTHROPIC_AUTH_TOKEN === "string") authToken = e6.ANTHROPIC_AUTH_TOKEN;
@@ -86967,9 +87069,9 @@ server.registerTool(
     }
     let current2;
     try {
-      const p2 = join19(homedir6(), ".claude", "settings.json");
+      const p2 = join20(homedir6(), ".claude", "settings.json");
       if (existsSync11(p2)) {
-        const s = JSON.parse(readFileSync11(p2, "utf8"));
+        const s = JSON.parse(readFileSync12(p2, "utf8"));
         if (typeof s?.env?.ANTHROPIC_MODEL === "string") current2 = s.env.ANTHROPIC_MODEL;
       }
     } catch {
@@ -86994,16 +87096,16 @@ server.registerTool(
       );
     }
     const raw = dir && dir.trim() || "~/parallight-gw";
-    const target = raw.startsWith("~") ? join19(homedir6(), raw.slice(1).replace(/^[/\\]/, "")) : raw;
+    const target = raw.startsWith("~") ? join20(homedir6(), raw.slice(1).replace(/^[/\\]/, "")) : raw;
     const chosen = model && model.trim() || "claude-sonnet-5";
     try {
-      const claudeDir = join19(target, ".claude");
-      mkdirSync6(claudeDir, { recursive: true, mode: 448 });
-      const settingsPath = join19(claudeDir, "settings.json");
+      const claudeDir = join20(target, ".claude");
+      mkdirSync7(claudeDir, { recursive: true, mode: 448 });
+      const settingsPath = join20(claudeDir, "settings.json");
       let settings2 = {};
       try {
         if (existsSync11(settingsPath))
-          settings2 = JSON.parse(readFileSync11(settingsPath, "utf8"));
+          settings2 = JSON.parse(readFileSync12(settingsPath, "utf8"));
       } catch {
         settings2 = {};
       }
@@ -87012,10 +87114,10 @@ server.registerTool(
       env3.ANTHROPIC_AUTH_TOKEN = token;
       env3.ANTHROPIC_MODEL = chosen;
       settings2.env = env3;
-      writeFileSync6(settingsPath, JSON.stringify(settings2, null, 2) + "\n", { mode: 384 });
+      writeFileSync7(settingsPath, JSON.stringify(settings2, null, 2) + "\n", { mode: 384 });
       chmodSync3(settingsPath, 384);
       try {
-        writeFileSync6(join19(target, ".gitignore"), ".claude/\n");
+        writeFileSync7(join20(target, ".gitignore"), ".claude/\n");
       } catch {
       }
       return ok3(
@@ -87071,9 +87173,9 @@ server.registerTool(
       const cards = await fetchHotspots();
       const card = cards.find((c6) => c6.slug === slug);
       if (!card) return err3(`\u6CA1\u627E\u5230\u70ED\u70B9\u5361 ${slug}(\u53EF\u80FD\u5DF2\u4E0B\u7EBF),\u7528 list_hotspots \u91CD\u65B0\u770B\u5217\u8868\u3002`);
-      mkdirSync6(join19(process.cwd(), "fresh"), { recursive: true });
-      const file2 = join19(process.cwd(), "fresh", `${slug}.md`);
-      writeFileSync6(file2, hotspotMarkdown(card), "utf8");
+      mkdirSync7(join20(process.cwd(), "fresh"), { recursive: true });
+      const file2 = join20(process.cwd(), "fresh", `${slug}.md`);
+      writeFileSync7(file2, hotspotMarkdown(card), "utf8");
       let synced = false;
       try {
         const token = requireToken();
