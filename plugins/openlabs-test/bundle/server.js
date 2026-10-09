@@ -81170,6 +81170,9 @@ var PARALLIGHT_VERSION = "0.1.26-phase1";
 import { homedir } from "node:os";
 import { join } from "node:path";
 var BACKEND_URL = process.env.PARALLIGHT_BACKEND_URL ?? "https://lab-agent.parallight.ai";
+var rawPluginName = process.env.PARALLIGHT_PLUGIN_NAME ?? "";
+var PLUGIN_NAME = /^[a-z0-9][a-z0-9-]{0,39}$/.test(rawPluginName) ? rawPluginName : "openlabs";
+var PLUGIN_MARKET = PLUGIN_NAME.endsWith("-test") ? "parallight-test" : "parallight-cc";
 var AUTH_DIR = join(homedir(), ".parallight");
 var AUTH_FILE = join(AUTH_DIR, "auth.json");
 var LLM_PROXY_URL = `${BACKEND_URL}/api/llm`;
@@ -81821,10 +81824,10 @@ function isOutdated(installed, latest) {
   if (b6[1] !== a6[1]) return b6[1] > a6[1];
   return b6[2] > a6[2];
 }
-function updateBanner(latest) {
+function updateBanner(latest, names = { plugin: PLUGIN_NAME, market: PLUGIN_MARKET }) {
   return [
     `> \u{1F514} **\u63D2\u4EF6\u6709\u65B0\u7248\u53EF\u7528(${latest})\u3002** \u4F60\u88C5\u7684\u662F\u65E7\u7248,\u53EF\u80FD\u7F3A\u65B0\u547D\u4EE4\u6216\u4FEE\u590D(\u6BD4\u5982 \`/hotspot\`)\u3002`,
-    `> \u66F4\u65B0\u65B9\u6CD5:\u8FD0\u884C \`/plugin marketplace update parallight-cc\`,\u518D \`/reload-plugins\`(\u6216\u91CD\u542F Claude Code)\u3002`
+    `> \u66F4\u65B0\u65B9\u6CD5:\u8FD0\u884C \`/plugin marketplace update ${names.market}\`,\u518D \`/plugin update ${names.plugin}@${names.market}\`,\u7136\u540E \`/reload-plugins\`(\u6216\u91CD\u542F Claude Code)\u3002`
   ].join("\n");
 }
 function maybeUpdateBanner(installed, latest) {
@@ -84453,6 +84456,38 @@ var EXAMPLE_ZH = {
   defaultEnv: "llmsys26-cuda",
   acts: [
     {
+      id: "outline",
+      title: "\u4ECA\u5929\u7684\u8DEF\u7EBF",
+      layout: "column",
+      items: [
+        { kind: "text", id: "goal", role: "heading", text: "\u5B66\u5B8C\u8FD9\u5757\u677F,\u4F60\u80FD\u5728 GPU \u4E0A\u5199\u51FA\u5E76\u8DD1\u901A\u81EA\u5DF1\u7684\u7B2C\u4E00\u4E2A map kernel" },
+        {
+          kind: "group",
+          id: "route",
+          title: "\u6211\u4EEC\u4F1A\u8BB2",
+          items: [
+            { kind: "text", id: "r1", text: "1. \u4E3A\u4EC0\u4E48\u4E00\u4E2A\u7EBF\u7A0B\u7B97\u4E00\u4E2A\u5143\u7D20" },
+            { kind: "text", id: "r2", text: "2. \u52A8\u624B:\u5199 map kernel" }
+          ]
+        },
+        {
+          kind: "group",
+          id: "lab",
+          title: "\u52A8\u624B\u5B9E\u9A8C",
+          items: [{ kind: "text", id: "x1", text: "\u5728 llmsys26-cuda \u73AF\u5883\u91CC\u8865\u5168 HW1_1,\u8DD1\u5B98\u65B9\u6D4B\u8BD5\u770B\u5B83\u901A\u8FC7" }]
+        },
+        {
+          kind: "group",
+          id: "gain",
+          title: "\u5B66\u5B8C\u4F60\u4F1A",
+          items: [
+            { kind: "text", id: "g1", text: "\xB7 \u7528 blockIdx / threadIdx \u7B97\u51FA\u5168\u5C40\u4E0B\u6807" },
+            { kind: "text", id: "g2", text: "\xB7 \u77E5\u9053\u8D8A\u754C\u68C0\u67E5\u4E3A\u4EC0\u4E48\u4E0D\u80FD\u7701" }
+          ]
+        }
+      ]
+    },
+    {
       id: "why",
       title: "\u4E3A\u4EC0\u4E48\u4E00\u4E2A\u7EBF\u7A0B\u7B97\u4E00\u4E2A\u5143\u7D20",
       layout: "flow",
@@ -84460,7 +84495,7 @@ var EXAMPLE_ZH = {
         { kind: "text", id: "q", role: "heading", text: "100 \u4E07\u4E2A\u6570\u5404\u52A0 1,\u80FD\u4E0D\u80FD\u540C\u65F6\u505A?" },
         { kind: "shape", id: "cpu", shape: "rect", label: "CPU:\u4E00\u4E2A\u4E2A\u7B97", tone: "neutral" },
         { kind: "shape", id: "gpu", shape: "rect", label: "GPU:\u6BCF\u4E2A\u7EBF\u7A0B\u7B97\u4E00\u4E2A", tone: "accent" },
-        { kind: "math", id: "idx", latex: "i = \\text{blockIdx.x}\\cdot\\text{blockDim.x} + \\text{threadIdx.x}" }
+        { kind: "math", id: "idx", ascii: 'i = "blockIdx.x" * "blockDim.x" + "threadIdx.x"' }
       ],
       edges: [{ from: "cpu", to: "gpu", label: "\u6362\u4E2A\u505A\u6CD5", style: "arrow" }]
     },
@@ -84488,12 +84523,44 @@ var EXAMPLE_EN = {
   lang: "en",
   acts: [
     {
+      id: "outline",
+      title: "Today's route",
+      layout: "column",
+      items: [
+        { kind: "text", id: "goal", role: "heading", text: "By the end you can run gradient descent by hand and see why the step size matters" },
+        {
+          kind: "group",
+          id: "route",
+          title: "What we'll cover",
+          items: [
+            { kind: "text", id: "r1", text: "1. Walk downhill" },
+            { kind: "text", id: "r2", text: "2. Run it" }
+          ]
+        },
+        {
+          kind: "group",
+          id: "lab",
+          title: "Experiment",
+          items: [{ kind: "text", id: "x1", text: "Run 20 steps in python-cpu and watch x shrink toward 0" }]
+        },
+        {
+          kind: "group",
+          id: "gain",
+          title: "You'll walk away with",
+          items: [
+            { kind: "text", id: "g1", text: "- The update rule x <- x - eta * grad" },
+            { kind: "text", id: "g2", text: "- A feel for what a too-large step does" }
+          ]
+        }
+      ]
+    },
+    {
       id: "intuition",
       title: "Walk downhill",
       items: [
         { kind: "text", id: "q", role: "heading", text: "How do you find the bottom of a valley in the fog?" },
         { kind: "plot", id: "bowl", expr: "x^2", xmin: -3, xmax: 3, caption: "loss(x) = x\xB2" },
-        { kind: "math", id: "step", latex: "x \\leftarrow x - \\eta\\, \\nabla f(x)" },
+        { kind: "math", id: "step", ascii: "x larr x - eta grad f(x)" },
         { kind: "quote", id: "src", text: "Take a small step against the gradient.", source: "any optimization textbook" }
       ],
       edges: [{ from: "bowl", to: "step", style: "dashed" }]
@@ -84552,7 +84619,7 @@ type Act = {
 };
 type Item =
   | { kind:"text";   id; text; role?:"heading"|"body"|"note" }             // text \u2264600 \u5B57
-  | { kind:"math";   id; latex; display?:boolean }                          // latex \u2264600 \u5B57
+  | { kind:"math";   id; ascii; display?:boolean }                          // \u516C\u5F0F\u7528 AsciiMath \u5199(\u2264600 \u5B57),\u89C1\u4E0B\u300C\u516C\u5F0F\u300D;\u5B9E\u5728\u5199\u4E0D\u51FA\u6765\u624D\u7528 latex \u4EE3\u66FF ascii
   | { kind:"code";   id; language:"python"|"javascript"|"bash"|"c"|"cpp"|"cuda"; code; caption?;
                      env?: string;   // \u73AF\u5883 id,\u5FC5\u987B\u6765\u81EA tb_list_envs;\u7F3A\u7701\u7EE7\u627F defaultEnv;\u90FD\u6CA1\u6709 = \u9ED8\u8BA4\u6C99\u7BB1
                      recipe?: string;   // \u73AF\u5883\u914D\u65B9 id(tb_env_customize \u7ED9\u7684);\u5FC5\u987B\u540C\u65F6\u6709 env,\u4E14\u914D\u65B9\u7684\u57FA\u7840\u73AF\u5883\u987B\u7B49\u4E8E\u5757\u7684 env
@@ -84573,6 +84640,15 @@ type Edge = { from: string; to: string; label?: string; style?: "arrow"|"line"|"
 glyph \u7684 params \u539F\u6837\u4EA4\u7ED9\u56FE\u5143\u6E32\u67D3\u5668,\u9876\u5C42\u952E:number_line {min,max,step,intervals,points,title} \xB7 function_plot {xDomain,yDomain,curves,xScale,yScale,markers,xLabel,yLabel,title} \xB7 bar_compare {bars,max,unit,title} \xB7 array_cells {cells,pointers,title} \xB7 heatmap {data,min,max,scale,hue,annotate,rowLabels,colLabels,title} \xB7 frame_plot {xDomain,yDomain,frames,xScale,yScale,xLabel,slider,title}\u3002\u62FF\u4E0D\u51C6\u7ED3\u6784\u65F6\u6539\u7528 chart / plot / figure\u3002
 caption \u2264120 \u5B57\u3002\`image\` \u672C\u671F\u4E0D\u652F\u6301(\u4F1A\u88AB\u8DF3\u8FC7),\u8981\u56FE\u5C31\u7528 figure\u3002
 \u4FDD\u7559 id(\u4F1A\u88AB\u6539\u540D):title\u3001e<\u6570\u5B57>,\u4EE5\u53CA\u4EE5 -cap / -src / -box / -title / -lbl / -grp \u7ED3\u5C3E\u7684 id\u3002
+
+## \u516C\u5F0F:\u7528 AsciiMath(\`ascii\` \u5B57\u6BB5)
+\u5B66\u5458\u4F1A\u53CC\u51FB\u516C\u5F0F\u81EA\u5DF1\u6539\u3001\u81EA\u5DF1\u8C03,AsciiMath \u8BFB\u8D77\u6765\u5C31\u50CF\u5F0F\u5B50\u672C\u8EAB,LaTeX \u7684\u53CD\u659C\u6760\u547D\u4EE4\u5BF9\u4ED6\u4EEC\u662F\u8D1F\u62C5\u3002\u6240\u4EE5\u516C\u5F0F\u4E00\u5F8B\u5199 \`ascii\`;\u53EA\u6709 AsciiMath \u8868\u8FBE\u4E0D\u4E86\u7684\u7ED3\u6784(\u5C11\u89C1)\u624D\u6539\u7528 \`latex\` \u5B57\u6BB5,\u4E24\u4E2A\u90FD\u7ED9\u65F6\u7528 \`ascii\`\u3002
+- \u5E38\u7528:\`x^2\` \`x_i\` \`x_(t-1)\` \`a/b\` \`(a+b)/(c+d)\` \`sqrt(x)\` \`sum_(i=1)^n\` \`prod_i\` \`int_0^1 f(x) dx\` \`lim_(n->oo)\` \`(del L)/(del theta)\` \`grad f\` \`hat y\` \`bar alpha_t\` \`x in RR^d\` \`f: RR^n -> RR\` \`norm(x)\` \`abs(x)\` \`[[a,b],[c,d]]\`(\u77E9\u9635)\`cc N(mu, sigma^2)\`(\u82B1\u4F53)\`x larr y\`(\u8D4B\u503C)\u3002
+- \u5E0C\u814A\u5B57\u6BCD\u76F4\u63A5\u5199\u540D\u5B57:\`alpha beta eta theta lambda mu sigma epsilon\`\u3002\u4E58\u53F7 \`*\`(\u70B9\u4E58)\u6216 \`xx\`(\u53C9\u4E58)\u3002
+- \u666E\u901A\u5355\u8BCD\u3001\u51FD\u6570\u540D\u653E\u5F15\u53F7\u91CC:\`"softmax"(QK^T/sqrt(d))\`\u3001\`"loss" = ...\`\u3001\`D_("KL")(p \u2225 q)\`\u3002
+- \u6613\u9519:\u671F\u671B\u5199 \`bbb E[x]\`(\`EE\` \u662F\u300C\u5B58\u5728\u300D\u2203);argmin / argmax \u5199 \`"argmin"_c\`(\u4E0D\u52A0\u5F15\u53F7\u4F1A\u62C6\u6210 a r g);\u8303\u6570\u4E0D\u8981\u5199 \`||x||\`,\u5199 \`norm(x)\`;\u4E24\u4E2A\u5206\u5E03\u4E4B\u95F4\u7528 \`\u2225\`,\u522B\u7528 \`||\`\u3002
+- \u591A\u884C\u63A8\u5BFC:\u6BCF\u884C\u4E00\u4E2A\u5F0F\u5B50\u3001\u7528\u6362\u884C\u5206\u5F00,\u677F\u4E0A\u81EA\u52A8\u6309 = \u5BF9\u9F50\u3002
+- \u4F8B:\`hat theta = "argmax"_theta prod_i p(x_i ; theta)\` \xB7 \`x_t = sqrt(bar alpha_t) x_0 + sqrt(1 - bar alpha_t) epsilon\` \xB7 \`"argmin"_c bbb E[(a-c)^2] = bbb E[a]\`
 
 ## \u4E0A\u9650(\u670D\u52A1\u7AEF\u6267\u884C,\u8D85\u4E86\u622A\u65AD/\u4E22\u5F03\u5E76\u5199\u8FDB problems)
 acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 code \u22644000 \u5B57 \xB7 svg \u226460KB \xB7 chart \u603B\u70B9\u6570 \u22642000 \xB7 \u6574\u4EFD spec \u2264300KB \xB7 files \u22645 \u4E2A\u5404 \u226464KB \xB7 \u5E55\u6807\u9898 \u226440 \u5B57 \xB7 \u677F\u540D \u226460 \u5B57\u3002
@@ -84596,10 +84672,11 @@ acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 c
 ## \u5DE5\u4F5C\u65B9\u5F0F
 0. **\u5148\u5BF9\u9F50,\u518D\u4E0A\u677F\u3002** \u5EFA\u677F\u524D\u5F04\u6E05\u4E09\u4EF6\u4E8B:\u76EE\u6807(\u5B66\u4EC0\u4E48 / \u63A2\u7D22\u4EC0\u4E48 / \u505A\u4EC0\u4E48\u5B9E\u9A8C,\u505A\u5230\u4EC0\u4E48\u7A0B\u5EA6)\u3001\u80CC\u666F(\u5DF2\u7ECF\u4F1A\u4EC0\u4E48\u3001\u5361\u5728\u54EA)\u3001\u53C2\u8003(\u6CBF\u7740\u54EA\u672C\u4E66 / \u54EA\u95E8\u8BFE / \u54EA\u7BC7\u8BBA\u6587 / \u54EA\u4EFD\u4EE3\u7801\u8D70,\u6709\u6CA1\u6709\u81EA\u5DF1\u7684\u6750\u6599)\u3002\u5BF9\u8BDD\u91CC\u770B\u4E0D\u51FA\u6765 \u2192 \u7528\u4E00\u6761\u6D88\u606F\u95EE,\u6700\u591A 3 \u4E2A\u95EE\u9898\u3001\u6BCF\u4E2A\u7ED9 2\u20133 \u4E2A\u53EF\u9009\u9879;\u5DF2\u7ECF\u80FD\u5224\u65AD \u2192 \u4E0D\u95EE,\u5199\u51FA\u4E00\u53E5\u8BDD\u753B\u50CF + \u5EFA\u8BAE\u7684\u5B66\u4E60\u8DEF\u5F84(\u5E55\u7684\u6E05\u5355),\u8BF7\u5B66\u5458\u786E\u8BA4\u6216\u4FEE\u6539\u3002\u786E\u8BA4\u540E\u624D\u5EFA\u677F,\u5E76\u628A\u6838\u5BF9\u8FC7\u7684\u5185\u5BB9\u5199\u8FDB \`brief\`\u3002\u5B66\u5458\u8BF4\u300C\u76F4\u63A5\u4E0A\u677F\u300D\u2192 \u4E0D\u95EE,\u4F46\u4ECD\u4E00\u884C\u5199\u51FA\u8DEF\u5F84\u518D\u5F00\u59CB\u3002
 1. \u5148 \`tb_list_envs\` \u9009\u73AF\u5883(\u9700\u8981\u8DD1\u4EE3\u7801\u65F6)\u3002
-2. \u4E00\u5E55\u4E00\u6B21 \`tb_add_act\`(\u5148\u7528 \`tb_create_board\` \u5EFA\u7B2C\u4E00\u5E55\u6216\u524D\u51E0\u5E55);\u603B\u5171 \u22643 \u5E55\u65F6\u624D\u7528 \`tb_create_board\` \u4E00\u6B21\u5EFA\u5B8C\u3002
-3. \u6BCF\u6B21\u7ED3\u679C\u91CC\u7684 \`problems\` \u975E\u7A7A\u5C31\u8BFB\u4E00\u904D,\u5728\u4E0B\u4E00\u5E55\u91CC\u4FEE\u6B63(\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199)\u3002
-4. \u6BCF\u5E55\u7ED3\u679C\u9996\u884C\u662F\u7ED9\u7528\u6237\u770B\u7684\u8FDB\u5EA6\u884C,\u539F\u6837\u8F6C\u7ED9\u7528\u6237\u3002
-5. \u5168\u90E8\u5B8C\u6210\u540E:\u4E00\u53E5\u8BDD\u603B\u7ED3 + \u677F\u94FE\u63A5 + \u300C\u8BF4\u300E\u8DD1\u4E00\u4E0B E12\u300F\u6211\u5C31\u5728\u73AF\u5883\u91CC\u8DD1\u300D(E12 \u6362\u6210\u5B9E\u9645\u7684\u3001\u5E26 env \u7684\u4EE3\u7801\u5757\u7F16\u53F7;\u6CA1\u6709\u5E26 env \u7684\u4EE3\u7801\u5757\u5C31\u4E0D\u8BF4\u8FD9\u53E5)\u3002
+2. **\u7B2C\u4E00\u5E55\u6C38\u8FDC\u662F\u300C\u9884\u544A\u300D**(Marvin 1009):\`id:"outline"\`,\u6807\u9898\u5982\u300C\u4ECA\u5929\u7684\u8DEF\u7EBF\u300D,\`layout:"column"\`(\u4E00\u5C4F\u653E\u5F97\u4E0B);\u5F00\u5934\u4E00\u53E5 heading \u8BF4\u6E05\u5B66\u5B8C\u80FD\u505A\u5230\u4EC0\u4E48,\u518D\u7528\u4E09\u4E2A group:\u300C\u6211\u4EEC\u4F1A\u8BB2\u300D(\u540E\u9762\u6BCF\u4E00\u5E55\u4E00\u884C,\u7F16\u53F7\u548C\u6807\u9898\u4E0E\u771F\u6B63\u7684\u5E55\u4E00\u81F4)\u3001\u300C\u52A8\u624B\u5B9E\u9A8C\u300D(\u8981\u8DD1\u4EC0\u4E48\u3001\u5728\u54EA\u4E2A\u73AF\u5883\u3001\u770B\u4EC0\u4E48\u73B0\u8C61;\u6CA1\u6709\u5B9E\u9A8C\u5C31\u5199\u8981\u770B\u7684\u56FE\u6216\u8981\u63A8\u7684\u516C\u5F0F)\u3001\u300C\u5B66\u5B8C\u4F60\u4F1A\u300D(2\u20133 \u6761\u80FD\u68C0\u9A8C\u7684\u6536\u83B7)\u3002\u5185\u5BB9\u6765\u81EA\u7B2C 0 \u6B65\u548C\u5B66\u5458\u5BF9\u9F50\u8FC7\u7684\u8DEF\u5F84;\u7B2C 0 \u6B65\u6838\u5BF9\u8FC7\u7684 brief \u8DDF\u7740\u8FD9\u4E00\u5E55\u8D70(\u63D2\u4EF6:\`tb_create_board\` \u7684 \`spec.brief\`;\u677F\u4E0A AI \u52A9\u624B:\u7B2C\u4E00\u6B21 \`tb_add_act\` \u7684 \`brief\` \u53C2\u6570);\u4E4B\u540E\u8BA1\u5212\u53D8\u4E86,\u7528 \`tb_update\` \u6539\u9884\u544A\u91CC\u5BF9\u5E94\u7684\u90A3\u4E00\u884C\u3002\u8BB2\u8BFE\u65F6\u5B83\u5C31\u662F\u7B2C\u4E00\u5C4F\u3002
+3. \u4E00\u5E55\u4E00\u6B21 \`tb_add_act\`(\u5148\u7528 \`tb_create_board\` \u5EFA\u9884\u544A\u5E55\u6216\u524D\u51E0\u5E55);\u603B\u5171 \u22643 \u5E55(\u542B\u9884\u544A)\u65F6\u624D\u7528 \`tb_create_board\` \u4E00\u6B21\u5EFA\u5B8C\u3002
+4. \u6BCF\u6B21\u7ED3\u679C\u91CC\u7684 \`problems\` \u975E\u7A7A\u5C31\u8BFB\u4E00\u904D,\u5728\u4E0B\u4E00\u5E55\u91CC\u4FEE\u6B63(\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199)\u3002
+5. \u6BCF\u5E55\u7ED3\u679C\u9996\u884C\u662F\u7ED9\u7528\u6237\u770B\u7684\u8FDB\u5EA6\u884C,\u539F\u6837\u8F6C\u7ED9\u7528\u6237\u3002
+6. \u5168\u90E8\u5B8C\u6210\u540E:\u4E00\u53E5\u8BDD\u603B\u7ED3 + \u677F\u94FE\u63A5 + \u300C\u8BF4\u300E\u8DD1\u4E00\u4E0B E12\u300F\u6211\u5C31\u5728\u73AF\u5883\u91CC\u8DD1\u300D(E12 \u6362\u6210\u5B9E\u9645\u7684\u3001\u5E26 env \u7684\u4EE3\u7801\u5757\u7F16\u53F7;\u6CA1\u6709\u5E26 env \u7684\u4EE3\u7801\u5757\u5C31\u4E0D\u8BF4\u8FD9\u53E5)\u3002
 
 ${EXAMPLES}`;
 var SCHEMA_GUIDE_EN = `# teachboard element contract (BoardSpec)
@@ -84630,7 +84707,7 @@ type Act = {
 };
 type Item =
   | { kind:"text";   id; text; role?:"heading"|"body"|"note" }             // text \u2264600 chars
-  | { kind:"math";   id; latex; display?:boolean }                          // latex \u2264600 chars
+  | { kind:"math";   id; ascii; display?:boolean }                          // write formulas in AsciiMath (\u2264600 chars), see "Formulas" below; use latex instead of ascii only when AsciiMath cannot express it
   | { kind:"code";   id; language:"python"|"javascript"|"bash"|"c"|"cpp"|"cuda"; code; caption?;
                      env?: string;   // env id, must come from tb_list_envs; falls back to defaultEnv; none = default sandbox
                      recipe?: string;   // environment recipe id (from tb_env_customize); requires env, and the recipe's base env must equal the block's env
@@ -84651,6 +84728,15 @@ type Edge = { from: string; to: string; label?: string; style?: "arrow"|"line"|"
 glyph params go straight to the primitive renderer; top-level keys: number_line {min,max,step,intervals,points,title} \xB7 function_plot {xDomain,yDomain,curves,xScale,yScale,markers,xLabel,yLabel,title} \xB7 bar_compare {bars,max,unit,title} \xB7 array_cells {cells,pointers,title} \xB7 heatmap {data,min,max,scale,hue,annotate,rowLabels,colLabels,title} \xB7 frame_plot {xDomain,yDomain,frames,xScale,yScale,xLabel,slider,title}. When unsure of the shape, use chart / plot / figure instead.
 caption \u2264120 chars. \`image\` is not supported this phase (skipped); use figure.
 Reserved ids (renamed): title, e<digits>, and ids ending in -cap / -src / -box / -title / -lbl / -grp.
+
+## Formulas: AsciiMath (the \`ascii\` field)
+Learners double-click formulas to edit and debug them; AsciiMath reads like the formula itself, LaTeX backslash commands get in their way. So write every formula as \`ascii\`; switch to the \`latex\` field only for the rare structure AsciiMath cannot express. If both are given, \`ascii\` wins.
+- Common: \`x^2\` \`x_i\` \`x_(t-1)\` \`a/b\` \`(a+b)/(c+d)\` \`sqrt(x)\` \`sum_(i=1)^n\` \`prod_i\` \`int_0^1 f(x) dx\` \`lim_(n->oo)\` \`(del L)/(del theta)\` \`grad f\` \`hat y\` \`bar alpha_t\` \`x in RR^d\` \`f: RR^n -> RR\` \`norm(x)\` \`abs(x)\` \`[[a,b],[c,d]]\` (matrix) \`cc N(mu, sigma^2)\` (calligraphic) \`x larr y\` (assignment).
+- Greek letters by name: \`alpha beta eta theta lambda mu sigma epsilon\`. Multiplication \`*\` (dot) or \`xx\` (cross).
+- Plain words and function names go in quotes: \`"softmax"(QK^T/sqrt(d))\`, \`"loss" = ...\`, \`D_("KL")(p \u2225 q)\`.
+- Pitfalls: expectation is \`bbb E[x]\` (\`EE\` means "exists" \u2203); argmin / argmax is \`"argmin"_c\` (unquoted it splits into a r g); norms are \`norm(x)\`, not \`||x||\`; between two distributions use \`\u2225\`, not \`||\`.
+- Multi-line derivations: one equation per line, separated by newlines; the board aligns them on =.
+- Examples: \`hat theta = "argmax"_theta prod_i p(x_i ; theta)\` \xB7 \`x_t = sqrt(bar alpha_t) x_0 + sqrt(1 - bar alpha_t) epsilon\` \xB7 \`"argmin"_c bbb E[(a-c)^2] = bbb E[a]\`
 
 ## Limits (enforced by the server; overflow is cut/dropped and reported in problems)
 acts \u226412 \xB7 items per act \u226412 \xB7 text \u2264600 \xB7 code \u22644000 chars \xB7 svg \u226460KB \xB7 chart points \u22642000 total \xB7 whole spec \u2264300KB \xB7 files \u22645 each \u226464KB \xB7 act title \u226440 \xB7 board title \u226460.
@@ -84674,10 +84760,11 @@ Every element gets a board-local number E<n> (from 1), written \`tb:<8-char boar
 ## How to work
 0. **Align first, then build.** Before creating a board, know three things: the goal (learn / explore / try what, and how far), the background (what they already know, where they are stuck) and the references (which book / course / paper / code to follow, any material of their own). Not clear from the conversation \u2192 ask in ONE message, at most 3 questions, each with 2\u20133 options to pick from. Already clear \u2192 do not ask; state a one-line profile plus the proposed learning path (the act list) and have the learner confirm or edit it. Build only after confirmation, and put what was agreed into \`brief\`. If the learner says "just build it" \u2192 skip the questions but still state the path in one line before starting.
 1. \`tb_list_envs\` first when code will run.
-2. One \`tb_add_act\` per act (start with \`tb_create_board\` for the first act(s)); use a single \`tb_create_board\` only for \u22643 acts total.
-3. If a result has \`problems\`, read them and fix in the next act (rewrite dropped items).
-4. The first line of each result is a progress line for the user \u2014 relay it as is.
-5. When done: a one-sentence summary + the board link + "say 'run E12' and I'll run it in the env" (use the id of a real code block that has an env; skip this line if no block has one).
+2. **The first act is always the outline.** \`id:"outline"\`, a title like "Today's route", \`layout:"column"\` (fits one screen): one heading sentence saying what the learner can do afterwards, then three groups \u2014 "What we'll cover" (one line per later act, numbered, titles matching the real acts), "Experiment" (what runs, in which env, what to watch; if nothing runs, the figure to look at or the formula to derive) and "You'll walk away with" (2\u20133 checkable takeaways). Build it from the path agreed in step 0, and send the step-0 brief with this act (plugin: \`spec.brief\` on \`tb_create_board\`; board assistant: the \`brief\` argument of the first \`tb_add_act\`); if the plan changes later, fix the matching line with \`tb_update\`. In lecture mode it is the opening screen.
+3. One \`tb_add_act\` per act (start with \`tb_create_board\` for the outline or the first few acts); use a single \`tb_create_board\` only for \u22643 acts total, outline included.
+4. If a result has \`problems\`, read them and fix in the next act (rewrite dropped items).
+5. The first line of each result is a progress line for the user \u2014 relay it as is.
+6. When done: a one-sentence summary + the board link + "say 'run E12' and I'll run it in the env" (use the id of a real code block that has an env; skip this line if no block has one).
 
 ${EXAMPLES_EN}`;
 
@@ -84724,7 +84811,7 @@ var ENTITY_REF_RE = /^tb:([0-9a-f]{8})\/E(\d+)$/;
 var BOARD_ID_RE = /^[0-9a-f]{8}$/;
 var REF_HINT = "\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12;\u53F3\u952E\u5143\u7D20 \u2192 Entity ID \u590D\u5236,\u6216\u4ECE tb_get_board \u8BFB)";
 var TONES = ["neutral", "accent", "warn", "ok"];
-var UPDATE_FIELDS = ["text", "latex", "code", "label", "tone"];
+var UPDATE_FIELDS = ["text", "ascii", "latex", "code", "label", "tone"];
 var MAX_BATCH = 100;
 var problemList = (p2) => Array.isArray(p2) ? p2.map((x) => typeof x === "string" ? x : JSON.stringify(x)) : [];
 var problemsBlock = (p2) => {
@@ -84789,7 +84876,7 @@ ${probs.map((x) => `- ${x}`).join("\n")}` : "";
     "tb_describe",
     {
       title: "Describe teachboard entities",
-      description: "\u8BFB\u4E00\u4E2A(\u6216\u51E0\u4E2A)\u5143\u7D20\u7684\u5B8C\u6574\u5185\u5BB9:\u6587\u5B57 / \u516C\u5F0F latex / \u4EE3\u7801\u5168\u6587\u3001\u6240\u5728\u5E55\u3001\u8FDB\u51FA\u7684\u7BAD\u5934\u3001\u51E0\u4F55\u90BB\u5C45\u3001\u7528\u6237\u6700\u8FD1\u5BF9\u5B83\u7684\u6539\u52A8\u3002\u7528\u6237\u7C98\u4E86 tb:\u2026/E12 \u8FFD\u95EE\u3001\u6216\u6539\u4EE3\u7801\u524D,\u5148\u7528\u5B83\u770B\u6E05;tb_get_board \u53EA\u7ED9\u6458\u8981\u3002",
+      description: "\u8BFB\u4E00\u4E2A(\u6216\u51E0\u4E2A)\u5143\u7D20\u7684\u5B8C\u6574\u5185\u5BB9:\u6587\u5B57 / \u516C\u5F0F(ascii \u539F\u6587 + \u6E32\u67D3\u7528\u7684 latex)/ \u4EE3\u7801\u5168\u6587\u3001\u6240\u5728\u5E55\u3001\u8FDB\u51FA\u7684\u7BAD\u5934\u3001\u51E0\u4F55\u90BB\u5C45\u3001\u7528\u6237\u6700\u8FD1\u5BF9\u5B83\u7684\u6539\u52A8\u3002\u7528\u6237\u7C98\u4E86 tb:\u2026/E12 \u8FFD\u95EE\u3001\u6216\u6539\u4EE3\u7801\u524D,\u5148\u7528\u5B83\u770B\u6E05;tb_get_board \u53EA\u7ED9\u6458\u8981\u3002",
       inputSchema: {
         entities: external_exports.array(external_exports.string()).min(1).max(20).describe('\u5143\u7D20\u7F16\u53F7\u5217\u8868,\u5982 ["tb:1a2b3c4d/E12"]')
       }
@@ -84807,7 +84894,7 @@ ${probs.map((x) => `- ${x}`).join("\n")}` : "";
           if (typeof x.act === "string") head.push(`\u5E55 ${x.act}${typeof x.actTitle === "string" ? `\u300C${x.actTitle}\u300D` : ""}`);
           if (typeof x.env === "string" && x.env) head.push(`env ${x.env}`);
           const body = [];
-          for (const k6 of ["text", "latex", "code", "label"]) if (typeof x[k6] === "string" && x[k6]) body.push(`${k6}:
+          for (const k6 of ["text", "ascii", "latex", "code", "label"]) if (typeof x[k6] === "string" && x[k6]) body.push(`${k6}:
 ${String(x[k6])}`);
           const edges = isObj2(x.edges) ? x.edges : {};
           const ins = refs(edges.in, ""), outs = refs(edges.out, "");
@@ -84856,7 +84943,7 @@ ${String(x[k6])}`);
     "tb_update",
     {
       title: "Update teachboard entities",
-      description: "\u6539\u677F\u4E0A\u5DF2\u6709\u7684\u5143\u7D20,\u4E00\u6B21\u4E00\u6279:\u6BCF\u6761\u6539\u52A8\u53EA\u586B\u4E00\u4E2A\u5B57\u6BB5 \u2014\u2014 text(\u6587\u5B57)/ latex(\u516C\u5F0F)/ code(\u4EE3\u7801\u5757)/ label(\u5F62\u72B6\u6216\u7BAD\u5934\u7684\u6807\u7B7E)/ tone(\u5F62\u72B6\u914D\u8272 neutral|accent|warn|ok)\u3002\u6539\u4EE3\u7801\u540E\u53EF\u63A5 tb_run\u3002\u7528\u6237\u81EA\u5DF1\u6539\u8FC7\u7684\u5143\u7D20\u4F1A\u56DE conflicts,\u5148 tb_describe \u770B\u8FC7\u518D\u51B3\u5B9A\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      description: "\u6539\u677F\u4E0A\u5DF2\u6709\u7684\u5143\u7D20,\u4E00\u6B21\u4E00\u6279:\u6BCF\u6761\u6539\u52A8\u53EA\u586B\u4E00\u4E2A\u5B57\u6BB5 \u2014\u2014 text(\u6587\u5B57)/ ascii(\u516C\u5F0F,AsciiMath,\u4F18\u5148\u7528\u5B83)/ latex(\u516C\u5F0F,AsciiMath \u5199\u4E0D\u51FA\u6765\u65F6\u624D\u7528)/ code(\u4EE3\u7801\u5757)/ label(\u5F62\u72B6\u6216\u7BAD\u5934\u7684\u6807\u7B7E)/ tone(\u5F62\u72B6\u914D\u8272 neutral|accent|warn|ok)\u3002\u6539\u4EE3\u7801\u540E\u53EF\u63A5 tb_run\u3002\u7528\u6237\u81EA\u5DF1\u6539\u8FC7\u7684\u5143\u7D20\u4F1A\u56DE conflicts,\u5148 tb_describe \u770B\u8FC7\u518D\u51B3\u5B9A\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
       inputSchema: {
         boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex)"),
         changes: external_exports.array(external_exports.record(external_exports.string(), external_exports.unknown())).min(1).max(MAX_BATCH).describe('[{entity:"tb:\u2026/E12", code:"\u2026"}, {entity:"tb:\u2026/E3", tone:"warn"}]'),
@@ -85003,7 +85090,7 @@ function tbHost(clientName, override) {
 var POLL_MS = 2e3;
 var FOREGROUND_MS = 5e4;
 function renderHuman(text, host) {
-  return text.split("{{connect}}").join(host === "cx" ? ":teachboard connect" : "/teachboard connect");
+  return text.split("{{connect}}").join(host === "cx" ? `:${PLUGIN_NAME} connect` : `/${PLUGIN_NAME} connect`);
 }
 var MAX_FAILURES = 5;
 var BAD_URL_MSG = "\u8FDE\u63A5\u5730\u5740\u5F02\u5E38,\u5DF2\u505C\u6B62;\u8BF7\u7A0D\u540E\u91CD\u8BD5";
@@ -85284,6 +85371,7 @@ function registerBoardTools(server2, d6) {
           const parts = [`${String(b6.boardId)}\u300C${String(b6.title ?? "")}\u300D`, `${Number(b6.elementCount) || 0} \u4E2A\u5143\u7D20`];
           const pend = Number(b6.pendingOps) || 0;
           if (pend) parts.push(`${pend} \u6B65\u5F85\u843D\u5730`);
+          if (typeof b6.goal === "string" && b6.goal.trim()) parts.push(`\u76EE\u6807:${b6.goal.trim().slice(0, 60)}`);
           parts.push(ago(b6.updatedAt, d6.now()));
           if (typeof b6.project === "string" && b6.project) parts.push(`\u9879\u76EE\u300C${b6.project}\u300D`);
           return parts.join(" \xB7 ");
@@ -85431,7 +85519,8 @@ ${RUN_HINT}`;
         const items = Array.isArray(r6.items) ? r6.items : [];
         const pend = Number(r6.pendingOps) || 0;
         const out = [
-          `${boardId}\u300C${String(r6.title ?? "")}\u300D\xB7 ${acts.length} \u5E55 \xB7 ${items.length} \u4E2A\u6761\u76EE${pend ? ` \xB7 ${pend} \u6B65\u5F85\u5728\u6D4F\u89C8\u5668\u843D\u5730` : ""} \xB7 ${boardUrl(boardId)}`
+          `${boardId}\u300C${String(r6.title ?? "")}\u300D\xB7 ${acts.length} \u5E55 \xB7 ${items.length} \u4E2A\u6761\u76EE${pend ? ` \xB7 ${pend} \u6B65\u5F85\u5728\u6D4F\u89C8\u5668\u843D\u5730` : ""} \xB7 ${boardUrl(boardId)}`,
+          ...briefLines(r6.brief)
         ];
         const short = (ref) => {
           const m4 = /\/(E\d+)$/.exec(String(ref));
@@ -85471,6 +85560,14 @@ ${RUN_HINT}`;
       }
     }
   );
+}
+function briefLines(b6) {
+  if (!isObj3(b6) || typeof b6.goal !== "string" || !b6.goal.trim()) return [];
+  const out = [`\u7B80\u62A5(\u548C\u5B66\u5458\u6838\u5BF9\u8FC7):\u76EE\u6807 ${b6.goal.trim()}`];
+  if (typeof b6.background === "string" && b6.background.trim()) out.push(`  \u80CC\u666F:${b6.background.trim()}`);
+  if (Array.isArray(b6.references) && b6.references.length) out.push(`  \u53C2\u8003:${b6.references.map(String).join(" | ")}`);
+  if (Array.isArray(b6.path) && b6.path.length) out.push(`  \u8DEF\u5F84:${b6.path.map((p2, i6) => `${i6 + 1}.${String(p2)}`).join(" \u2192 ")}`);
+  return out;
 }
 var WARM_POLL_MS = 5e3;
 var WARM_MAX_MS = 5e4;
@@ -86277,7 +86374,7 @@ function composeStatusV2(p2) {
 }
 
 // src/index.ts
-var SERVER_NAME = "parallight-lab";
+var SERVER_NAME = PLUGIN_NAME;
 var SERVER_BANNER = [
   "  \u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
   "  \u2502   PARALLIGHT    \u2502",

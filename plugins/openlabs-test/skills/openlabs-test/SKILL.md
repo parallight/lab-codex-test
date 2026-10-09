@@ -1,13 +1,13 @@
 ---
-name: parallight-lab
-description: "Parallight Lab 与 Agentist 助教：在 Codex 里跟随课程 Mentor 学习 AI agent 实战。用户以 :lab 系列命令、:agentist 或 agentist 加问题请求课程帮助时使用；也适用于明确要求登录 Parallight、开始或继续 lab、查询课程资料与本人评测、提交 review、联系 Mentor。仅提及 Agentist 品牌不触发。所有能力来自 parallight-lab MCP server。"
+name: openlabs-test
+description: "OpenLabs(Parallight Lab)与 Agentist 助教：在 Codex 里跟随课程 Mentor 学习 AI agent 实战、把想学的主题画成 teachboard 白板。用户以 :openlabs-test、:lab 系列命令、:teachboard、:agentist 或 agentist 加问题请求课程帮助时使用；也适用于明确要求登录 Parallight、开始或继续 lab、查询课程资料与本人评测、提交 review、联系 Mentor、连接白板账户。仅提及 Agentist 品牌不触发。所有能力来自 openlabs-test MCP server。"
 ---
 
 <!-- AUTO-GENERATED from commands-src/*.md — do not edit. Run `pnpm gen:commands`. -->
 
-# Parallight Lab (Codex)
+# OpenLabs — Parallight Lab (Codex)
 
-学员用 `:lab*` 命令(或等价自然语言)使用 Parallight Lab。每个能力都对应 `parallight-lab` MCP server 的一个工具 —— 你的职责是识别意图、调对应工具、按下面的规则呈现。
+学员用 `:openlabs-test`(总入口)、`:lab*` 命令(或等价自然语言)使用 OpenLabs / Parallight Lab。每个能力都对应 `openlabs-test` MCP server 的一个工具 —— 你的职责是识别意图、调对应工具、按下面的规则呈现。
 
 `:agentist <问题>` 与 `agentist <问题>` 是 `:lab-assistant <问题>` 的同功能入口，调用同一个 `lab_assistant` 工具；不创建新登录或权限配置。仅提及 Agentist 品牌不等于要求调用助教。
 
@@ -19,11 +19,52 @@ description: "Parallight Lab 与 Agentist 助教：在 Codex 里跟随课程 Men
 
 ## 命令分发
 
-支持的命令：:lab-help / :lab / :lab-login / :lab-start <lab-id> / :lab-resume / :lab-status / :lab-analysis / :lab-compare / :super-loop / :more-model / :lab-kb / :agentist <问题> / :lab-assistant <问题> / :lab-check <task id,如 t1> / :teachboard connect | 你想学的主题 / :teachboard-install <包...> [--env <环境id>] / :lab-review / :lab-read / :lab-private-message / :lab-pull / :lab-push / :lab-rollback / :lab-evaluate [task | result <job_id>] / :lab-reply <id> / :lab-logout / :lab-exit / :hotspot
+支持的命令：:openlabs-test [connect | 你想学的主题] / :lab-help / :lab / :lab-login / :lab-start <lab-id> / :lab-resume / :lab-status / :lab-analysis / :lab-compare / :super-loop / :more-model / :lab-kb / :agentist <问题> / :lab-assistant <问题> / :lab-check <task id,如 t1> / :teachboard connect | 你想学的主题 / :teachboard-install <包...> [--env <环境id>] / :lab-review / :lab-read / :lab-private-message / :lab-pull / :lab-push / :lab-rollback / :lab-evaluate [task | result <job_id>] / :lab-reply <id> / :lab-logout / :lab-exit / :hotspot
+
+### `:openlabs-test`(或"openlabs" / "open labs" / "打开 openlabs")
+参数 = `$ARGUMENTS`(去掉多余空格)。这是插件的总入口,先分流,再按下面对应的一节做:
+
+- **参数为空** → 用编号:1 学课程(看可用的 lab 和进度) / 2 做实验(开始 / 继续一个 lab) / 3 画成白板(把一个主题逐幕上板) / 4 连接白板账户。「学课程」「做实验」→「学课程」一节;「画成白板」→ 先问学员想学什么主题,再按「白板」一节做;「连接白板账户」→「白板」一节里「参数是 connect」的做法。
+- **参数是 `connect`** →「白板」一节里「参数是 connect」的做法。
+- **其它(想学的主题 / 参考资料)** →「白板」一节,参数就是主题。
+
+## 学课程(与 :lab 相同)
+
+0. 在显示 lab 列表**之前**，先调 `get_inbox`（**`mark_seen` 传 false**，只 peek 不标记已读）。若有来自Mentor的未读批改/回复，在最前面提示一行「📬 Mentor回复了你的 X 条内容，:lab-read 查看」，然后再正常显示 lab 列表。没有就跳过这一步。
+1. 调 `list_labs` 工具显示学员可用的 lab。
+2. 如果工具返回"还没登录"，引导学员用 :lab-login 登录，不要继续。
+3. 如果有进行中的 lab，先显示当前进度。
+4. 列出可用 lab 后，用编号:1 让学员选要开始/继续哪个 lab / 2 先看看，不要让他打字输 lab id。学员选定后调 `start_lab`。
+5. 学员只是想看看就别强推，让他选"先看看"之类的选项。
+
+## 白板(与 :teachboard 相同)
+
+参数 = `$ARGUMENTS`(去掉多余空格)。
+
+**语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
+板上的一切(标题、文字、图注、标签、图表名、回复框)一律用用户提出这个请求时所用的语言写。用户用英文 → 调 `tb_describe_schema` 时传 `lang:"en"`,板 spec 里设 `lang:"en"`;中文 → `lang:"zh"`;其它语言 → 内容用该语言写,`lang` 取最接近的 en/zh(非中日韩文字用 en)。把工具消息转给用户时用用户的语言(用户不是中文时,翻译中文的工具文本)。
+
+**参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`,把结果原样告诉学员(含短码与网址)。若结果说「请在浏览器核对短码后点连接」,等学员说点好了再调一次 `tb_connect` 确认已连上。到此为止,不要顺手建板。
+
+**否则(参数是想学的主题 / 参考资料,或为空时先问学员想学什么)**:
+
+0. **先对齐,再上板**(Marvin 1009:没有这一步就没有个性化)。建板前要知道三件事:**目标**(学什么 / 探索什么 / 做什么实验,想做到什么程度)、**背景**(已经会什么、卡在哪)、**参考**(想沿着哪本书 / 哪门课 / 哪篇论文 / 哪份代码走,有没有自己的材料)。
+   - 对话里还看不出来的 → 用**一条**消息问,最多 3 个问题,每个给 2–3 个可选项让学员点选,不要连环追问。
+   - 对话里已经能判断的 → 不再问,直接写出你的判断(一句话画像)和建议的学习路径(幕的清单,一幕一行),请学员确认或修改。
+   - 学员确认(或改完)之后才建板;把核对过的目标 / 背景 / 参考 / 路径写进 spec 的 `brief`。学员说「直接上板 / 别问了」→ 不问,但仍用一行写出你打算走的路径再开始。
+1. 本会话还没读过契约时,先调一次 `tb_describe_schema`,按它的元素契约与教法规划整块板(先在心里分好幕:每幕一个要点)。
+2. 主题涉及要跑的代码时,调 `tb_list_envs` 选环境;代码块的 `env` / `defaultEnv` 只能用这里列出的 id。环境给的 advice 是给学习者的**建议**,原样转述,是否照做由学员决定;不要替学员写作业代码。
+3. 建板:**第一幕永远是「预告」**(`id:"outline"`,标题如「今天的路线」):一句话说清学完能做到什么,再分三组列出「我们会讲」(后面每一幕一行,和真正的幕标题一致)、「动手实验」(跑什么、在哪个环境、看什么现象)、「学完你会」(2–3 条能检验的收获),格式见 `tb_describe_schema` 的示例。整块板(含预告)只有 ≤3 幕时可以一次 `tb_create_board`;否则先 `tb_create_board` 建预告幕,之后**一幕一次** `tb_add_act` 往后加,不要攒成一大坨。
+4. **每次**工具返回后,把结果的**第一行**(进度行,例如「✅ 第 3/7 幕… · 打开 <链接>」)原样发给学员,再继续下一幕。
+5. 全部上板后:用两三句话总结这块板讲了什么,给出板的链接;若板上有绑了环境的代码块,再加一句「说『跑一下 E12』我就在环境里跑」(E12 换成板上真实的代码块编号)。
+6. **改板(学员回来追问 / 让你改)**:学员粘来 `tb:<板>/E<n>` 这样的元素编号时,先 `tb_describe` 读它的全文、所在幕、箭头和邻居,再 `tb_reply` 把回答方框放在它旁边(回答原文在对话里也给一遍);改代码 = `tb_update {boardId, changes:[{entity, code}]}` 然后 `tb_run`,**每条改动只填一个字段**(text / ascii(公式,AsciiMath,优先)/ latex(AsciiMath 写不出来时)/ code / label / tone);结果里的 `conflicts` 是学员自己改过的元素,先 `tb_describe` 看过再决定要不要覆盖;删元素用 `tb_delete`(删之前跟学员确认);调幕序 `tb_set_acts`;代码块没绑环境就 `tb_bind_env` 再跑。这些工具的结果第一行同样原样发给学员。
+
+**边界**:工具说「还没连上 / 未连接」→ 让学员先 :openlabs-test connect;返回 402(额度 / 预算不够)→ 原话转达,不要重试;其它错误按工具给的下一步走,不要把原始报错甩给学员。
 
 ### `:lab-help`(或"有哪些命令" / "lab 帮助")
 向学员展示下面这份 Parallight Lab 命令清单(原样、简洁):
 
+- :openlabs-test — OpenLabs 总入口 — 学课程 / 做实验 / 把想学的主题画成白板 / 连接白板账户;参数 connect、想学的主题,或留空选菜单
 - :lab-help — 列出所有 lab 命令
 - :lab — Parallight Lab 主入口 — 显示可用 lab 列表 + 当前进度 + 未读通知
 - :lab-login — 登录 Parallight Lab（邮箱 + 4 位个人 PIN）
@@ -236,12 +277,12 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
    - 学员确认(或改完)之后才建板;把核对过的目标 / 背景 / 参考 / 路径写进 spec 的 `brief`。学员说「直接上板 / 别问了」→ 不问,但仍用一行写出你打算走的路径再开始。
 1. 本会话还没读过契约时,先调一次 `tb_describe_schema`,按它的元素契约与教法规划整块板(先在心里分好幕:每幕一个要点)。
 2. 主题涉及要跑的代码时,调 `tb_list_envs` 选环境;代码块的 `env` / `defaultEnv` 只能用这里列出的 id。环境给的 advice 是给学习者的**建议**,原样转述,是否照做由学员决定;不要替学员写作业代码。
-3. 建板:整块板只有 ≤3 幕时可以一次 `tb_create_board`;否则先 `tb_create_board` 建第一幕,之后**一幕一次** `tb_add_act` 往后加,不要攒成一大坨。
+3. 建板:**第一幕永远是「预告」**(`id:"outline"`,标题如「今天的路线」):一句话说清学完能做到什么,再分三组列出「我们会讲」(后面每一幕一行,和真正的幕标题一致)、「动手实验」(跑什么、在哪个环境、看什么现象)、「学完你会」(2–3 条能检验的收获),格式见 `tb_describe_schema` 的示例。整块板(含预告)只有 ≤3 幕时可以一次 `tb_create_board`;否则先 `tb_create_board` 建预告幕,之后**一幕一次** `tb_add_act` 往后加,不要攒成一大坨。
 4. **每次**工具返回后,把结果的**第一行**(进度行,例如「✅ 第 3/7 幕… · 打开 <链接>」)原样发给学员,再继续下一幕。
 5. 全部上板后:用两三句话总结这块板讲了什么,给出板的链接;若板上有绑了环境的代码块,再加一句「说『跑一下 E12』我就在环境里跑」(E12 换成板上真实的代码块编号)。
-6. **改板(学员回来追问 / 让你改)**:学员粘来 `tb:<板>/E<n>` 这样的元素编号时,先 `tb_describe` 读它的全文、所在幕、箭头和邻居,再 `tb_reply` 把回答方框放在它旁边(回答原文在对话里也给一遍);改代码 = `tb_update {boardId, changes:[{entity, code}]}` 然后 `tb_run`,**每条改动只填一个字段**(text / latex / code / label / tone);结果里的 `conflicts` 是学员自己改过的元素,先 `tb_describe` 看过再决定要不要覆盖;删元素用 `tb_delete`(删之前跟学员确认);调幕序 `tb_set_acts`;代码块没绑环境就 `tb_bind_env` 再跑。这些工具的结果第一行同样原样发给学员。
+6. **改板(学员回来追问 / 让你改)**:学员粘来 `tb:<板>/E<n>` 这样的元素编号时,先 `tb_describe` 读它的全文、所在幕、箭头和邻居,再 `tb_reply` 把回答方框放在它旁边(回答原文在对话里也给一遍);改代码 = `tb_update {boardId, changes:[{entity, code}]}` 然后 `tb_run`,**每条改动只填一个字段**(text / ascii(公式,AsciiMath,优先)/ latex(AsciiMath 写不出来时)/ code / label / tone);结果里的 `conflicts` 是学员自己改过的元素,先 `tb_describe` 看过再决定要不要覆盖;删元素用 `tb_delete`(删之前跟学员确认);调幕序 `tb_set_acts`;代码块没绑环境就 `tb_bind_env` 再跑。这些工具的结果第一行同样原样发给学员。
 
-**边界**:工具说「还没连上 / 未连接」→ 让学员先 :teachboard connect;返回 402(额度 / 预算不够)→ 原话转达,不要重试;其它错误按工具给的下一步走,不要把原始报错甩给学员。
+**边界**:工具说「还没连上 / 未连接」→ 让学员先 :openlabs-test connect;返回 402(额度 / 预算不够)→ 原话转达,不要重试;其它错误按工具给的下一步走,不要把原始报错甩给学员。
 
 ### `:teachboard-install`(或"给环境装包" / "白板环境里装一下")
 **语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
@@ -262,7 +303,7 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
 - 失败 → 把失败原因(verifyLog 末尾)讲给学员,建议换包名 / 版本后重试。
 - 还在验证 → 说明还没好,稍后用 `tb_env_recipes` 查。
 
-**边界**:返回 `apt_not_allowed`(要装系统包)→ 把工具给的说明和联系方式**原样**显示给学员,不要换别的办法绕过去;「还没连上」→ 先 :teachboard connect;402 → 原话转达。
+**边界**:返回 `apt_not_allowed`(要装系统包)→ 把工具给的说明和联系方式**原样**显示给学员,不要换别的办法绕过去;「还没连上」→ 先 :openlabs-test connect;402 → 原话转达。
 
 ### `:lab-review`(或"提交 review" / "我做完了想让Mentor批改")
 学员要提交当前 lab 的 review。

@@ -1,14 +1,20 @@
 {
   "name": "parallight-cx-test",
   "interface": {
-    "displayName": "Parallight Lab (Codex CLI · Test)",
+    "displayName": "OpenLabs (Codex CLI) · Test",
     "shortDescription": "Marvin's dev ring — points at the test backend"
   },
   "plugins": [
     {
-      "name": "parallight-lab",
-      "source": { "source": "local", "path": "./plugins/parallight-lab" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "name": "openlabs-test",
+      "source": {
+        "source": "local",
+        "path": "./plugins/openlabs-test"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Engineering"
     }
   ]
