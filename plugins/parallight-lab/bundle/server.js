@@ -77272,8 +77272,8 @@ var getRefs = (options) => {
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/errorMessages.js
-function addErrorMessage(res, key, errorMessage, refs) {
-  if (!refs?.errorMessages)
+function addErrorMessage(res, key, errorMessage, refs2) {
+  if (!refs2?.errorMessages)
     return;
   if (errorMessage) {
     res.errorMessage = {
@@ -77282,9 +77282,9 @@ function addErrorMessage(res, key, errorMessage, refs) {
     };
   }
 }
-function setResponseValueAndErrors(res, key, value, errorMessage, refs) {
+function setResponseValueAndErrors(res, key, value, errorMessage, refs2) {
   res[key] = value;
-  addErrorMessage(res, key, errorMessage, refs);
+  addErrorMessage(res, key, errorMessage, refs2);
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/getRelativePath.js
@@ -77298,47 +77298,47 @@ var getRelativePath = (pathA, pathB) => {
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/any.js
-function parseAnyDef(refs) {
-  if (refs.target !== "openAi") {
+function parseAnyDef(refs2) {
+  if (refs2.target !== "openAi") {
     return {};
   }
   const anyDefinitionPath = [
-    ...refs.basePath,
-    refs.definitionPath,
-    refs.openAiAnyTypeName
+    ...refs2.basePath,
+    refs2.definitionPath,
+    refs2.openAiAnyTypeName
   ];
-  refs.flags.hasReferencedOpenAiAnyType = true;
+  refs2.flags.hasReferencedOpenAiAnyType = true;
   return {
-    $ref: refs.$refStrategy === "relative" ? getRelativePath(anyDefinitionPath, refs.currentPath) : anyDefinitionPath.join("/")
+    $ref: refs2.$refStrategy === "relative" ? getRelativePath(anyDefinitionPath, refs2.currentPath) : anyDefinitionPath.join("/")
   };
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/array.js
-function parseArrayDef(def, refs) {
+function parseArrayDef(def, refs2) {
   const res = {
     type: "array"
   };
   if (def.type?._def && def.type?._def?.typeName !== ZodFirstPartyTypeKind.ZodAny) {
     res.items = parseDef(def.type._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "items"]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "items"]
     });
   }
   if (def.minLength) {
-    setResponseValueAndErrors(res, "minItems", def.minLength.value, def.minLength.message, refs);
+    setResponseValueAndErrors(res, "minItems", def.minLength.value, def.minLength.message, refs2);
   }
   if (def.maxLength) {
-    setResponseValueAndErrors(res, "maxItems", def.maxLength.value, def.maxLength.message, refs);
+    setResponseValueAndErrors(res, "maxItems", def.maxLength.value, def.maxLength.message, refs2);
   }
   if (def.exactLength) {
-    setResponseValueAndErrors(res, "minItems", def.exactLength.value, def.exactLength.message, refs);
-    setResponseValueAndErrors(res, "maxItems", def.exactLength.value, def.exactLength.message, refs);
+    setResponseValueAndErrors(res, "minItems", def.exactLength.value, def.exactLength.message, refs2);
+    setResponseValueAndErrors(res, "maxItems", def.exactLength.value, def.exactLength.message, refs2);
   }
   return res;
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/bigint.js
-function parseBigintDef(def, refs) {
+function parseBigintDef(def, refs2) {
   const res = {
     type: "integer",
     format: "int64"
@@ -77348,35 +77348,35 @@ function parseBigintDef(def, refs) {
   for (const check2 of def.checks) {
     switch (check2.kind) {
       case "min":
-        if (refs.target === "jsonSchema7") {
+        if (refs2.target === "jsonSchema7") {
           if (check2.inclusive) {
-            setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs2);
           } else {
-            setResponseValueAndErrors(res, "exclusiveMinimum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "exclusiveMinimum", check2.value, check2.message, refs2);
           }
         } else {
           if (!check2.inclusive) {
             res.exclusiveMinimum = true;
           }
-          setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs2);
         }
         break;
       case "max":
-        if (refs.target === "jsonSchema7") {
+        if (refs2.target === "jsonSchema7") {
           if (check2.inclusive) {
-            setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs2);
           } else {
-            setResponseValueAndErrors(res, "exclusiveMaximum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "exclusiveMaximum", check2.value, check2.message, refs2);
           }
         } else {
           if (!check2.inclusive) {
             res.exclusiveMaximum = true;
           }
-          setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs2);
         }
         break;
       case "multipleOf":
-        setResponseValueAndErrors(res, "multipleOf", check2.value, check2.message, refs);
+        setResponseValueAndErrors(res, "multipleOf", check2.value, check2.message, refs2);
         break;
     }
   }
@@ -77391,21 +77391,21 @@ function parseBooleanDef() {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/branded.js
-function parseBrandedDef(_def, refs) {
-  return parseDef(_def.type._def, refs);
+function parseBrandedDef(_def, refs2) {
+  return parseDef(_def.type._def, refs2);
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/catch.js
-var parseCatchDef = (def, refs) => {
-  return parseDef(def.innerType._def, refs);
+var parseCatchDef = (def, refs2) => {
+  return parseDef(def.innerType._def, refs2);
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/date.js
-function parseDateDef(def, refs, overrideDateStrategy) {
-  const strategy = overrideDateStrategy ?? refs.dateStrategy;
+function parseDateDef(def, refs2, overrideDateStrategy) {
+  const strategy = overrideDateStrategy ?? refs2.dateStrategy;
   if (Array.isArray(strategy)) {
     return {
-      anyOf: strategy.map((item, i6) => parseDateDef(def, refs, item))
+      anyOf: strategy.map((item, i6) => parseDateDef(def, refs2, item))
     };
   }
   switch (strategy) {
@@ -77421,15 +77421,15 @@ function parseDateDef(def, refs, overrideDateStrategy) {
         format: "date"
       };
     case "integer":
-      return integerDateParser(def, refs);
+      return integerDateParser(def, refs2);
   }
 }
-var integerDateParser = (def, refs) => {
+var integerDateParser = (def, refs2) => {
   const res = {
     type: "integer",
     format: "unix-time"
   };
-  if (refs.target === "openApi3") {
+  if (refs2.target === "openApi3") {
     return res;
   }
   for (const check2 of def.checks) {
@@ -77441,7 +77441,7 @@ var integerDateParser = (def, refs) => {
           check2.value,
           // This is in milliseconds
           check2.message,
-          refs
+          refs2
         );
         break;
       case "max":
@@ -77451,7 +77451,7 @@ var integerDateParser = (def, refs) => {
           check2.value,
           // This is in milliseconds
           check2.message,
-          refs
+          refs2
         );
         break;
     }
@@ -77460,16 +77460,16 @@ var integerDateParser = (def, refs) => {
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/default.js
-function parseDefaultDef(_def, refs) {
+function parseDefaultDef(_def, refs2) {
   return {
-    ...parseDef(_def.innerType._def, refs),
+    ...parseDef(_def.innerType._def, refs2),
     default: _def.defaultValue()
   };
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/effects.js
-function parseEffectsDef(_def, refs) {
-  return refs.effectStrategy === "input" ? parseDef(_def.schema._def, refs) : parseAnyDef(refs);
+function parseEffectsDef(_def, refs2) {
+  return refs2.effectStrategy === "input" ? parseDef(_def.schema._def, refs2) : parseAnyDef(refs2);
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/enum.js
@@ -77486,18 +77486,18 @@ var isJsonSchema7AllOfType = (type) => {
     return false;
   return "allOf" in type;
 };
-function parseIntersectionDef(def, refs) {
+function parseIntersectionDef(def, refs2) {
   const allOf = [
     parseDef(def.left._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "allOf", "0"]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "allOf", "0"]
     }),
     parseDef(def.right._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "allOf", "1"]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "allOf", "1"]
     })
   ].filter((x) => !!x);
-  let unevaluatedProperties = refs.target === "jsonSchema2019-09" ? { unevaluatedProperties: false } : void 0;
+  let unevaluatedProperties = refs2.target === "jsonSchema2019-09" ? { unevaluatedProperties: false } : void 0;
   const mergedAllOf = [];
   allOf.forEach((schema) => {
     if (isJsonSchema7AllOfType(schema)) {
@@ -77523,14 +77523,14 @@ function parseIntersectionDef(def, refs) {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/literal.js
-function parseLiteralDef(def, refs) {
+function parseLiteralDef(def, refs2) {
   const parsedType2 = typeof def.value;
   if (parsedType2 !== "bigint" && parsedType2 !== "number" && parsedType2 !== "boolean" && parsedType2 !== "string") {
     return {
       type: Array.isArray(def.value) ? "array" : "object"
     };
   }
-  if (refs.target === "openApi3") {
+  if (refs2.target === "openApi3") {
     return {
       type: parsedType2 === "bigint" ? "integer" : parsedType2,
       enum: [def.value]
@@ -77591,7 +77591,7 @@ var zodPatterns = {
   nanoid: /^[a-zA-Z0-9_-]{21}$/,
   jwt: /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/
 };
-function parseStringDef(def, refs) {
+function parseStringDef(def, refs2) {
   const res = {
     type: "string"
   };
@@ -77599,115 +77599,115 @@ function parseStringDef(def, refs) {
     for (const check2 of def.checks) {
       switch (check2.kind) {
         case "min":
-          setResponseValueAndErrors(res, "minLength", typeof res.minLength === "number" ? Math.max(res.minLength, check2.value) : check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "minLength", typeof res.minLength === "number" ? Math.max(res.minLength, check2.value) : check2.value, check2.message, refs2);
           break;
         case "max":
-          setResponseValueAndErrors(res, "maxLength", typeof res.maxLength === "number" ? Math.min(res.maxLength, check2.value) : check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "maxLength", typeof res.maxLength === "number" ? Math.min(res.maxLength, check2.value) : check2.value, check2.message, refs2);
           break;
         case "email":
-          switch (refs.emailStrategy) {
+          switch (refs2.emailStrategy) {
             case "format:email":
-              addFormat(res, "email", check2.message, refs);
+              addFormat(res, "email", check2.message, refs2);
               break;
             case "format:idn-email":
-              addFormat(res, "idn-email", check2.message, refs);
+              addFormat(res, "idn-email", check2.message, refs2);
               break;
             case "pattern:zod":
-              addPattern(res, zodPatterns.email, check2.message, refs);
+              addPattern(res, zodPatterns.email, check2.message, refs2);
               break;
           }
           break;
         case "url":
-          addFormat(res, "uri", check2.message, refs);
+          addFormat(res, "uri", check2.message, refs2);
           break;
         case "uuid":
-          addFormat(res, "uuid", check2.message, refs);
+          addFormat(res, "uuid", check2.message, refs2);
           break;
         case "regex":
-          addPattern(res, check2.regex, check2.message, refs);
+          addPattern(res, check2.regex, check2.message, refs2);
           break;
         case "cuid":
-          addPattern(res, zodPatterns.cuid, check2.message, refs);
+          addPattern(res, zodPatterns.cuid, check2.message, refs2);
           break;
         case "cuid2":
-          addPattern(res, zodPatterns.cuid2, check2.message, refs);
+          addPattern(res, zodPatterns.cuid2, check2.message, refs2);
           break;
         case "startsWith":
-          addPattern(res, RegExp(`^${escapeLiteralCheckValue(check2.value, refs)}`), check2.message, refs);
+          addPattern(res, RegExp(`^${escapeLiteralCheckValue(check2.value, refs2)}`), check2.message, refs2);
           break;
         case "endsWith":
-          addPattern(res, RegExp(`${escapeLiteralCheckValue(check2.value, refs)}$`), check2.message, refs);
+          addPattern(res, RegExp(`${escapeLiteralCheckValue(check2.value, refs2)}$`), check2.message, refs2);
           break;
         case "datetime":
-          addFormat(res, "date-time", check2.message, refs);
+          addFormat(res, "date-time", check2.message, refs2);
           break;
         case "date":
-          addFormat(res, "date", check2.message, refs);
+          addFormat(res, "date", check2.message, refs2);
           break;
         case "time":
-          addFormat(res, "time", check2.message, refs);
+          addFormat(res, "time", check2.message, refs2);
           break;
         case "duration":
-          addFormat(res, "duration", check2.message, refs);
+          addFormat(res, "duration", check2.message, refs2);
           break;
         case "length":
-          setResponseValueAndErrors(res, "minLength", typeof res.minLength === "number" ? Math.max(res.minLength, check2.value) : check2.value, check2.message, refs);
-          setResponseValueAndErrors(res, "maxLength", typeof res.maxLength === "number" ? Math.min(res.maxLength, check2.value) : check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "minLength", typeof res.minLength === "number" ? Math.max(res.minLength, check2.value) : check2.value, check2.message, refs2);
+          setResponseValueAndErrors(res, "maxLength", typeof res.maxLength === "number" ? Math.min(res.maxLength, check2.value) : check2.value, check2.message, refs2);
           break;
         case "includes": {
-          addPattern(res, RegExp(escapeLiteralCheckValue(check2.value, refs)), check2.message, refs);
+          addPattern(res, RegExp(escapeLiteralCheckValue(check2.value, refs2)), check2.message, refs2);
           break;
         }
         case "ip": {
           if (check2.version !== "v6") {
-            addFormat(res, "ipv4", check2.message, refs);
+            addFormat(res, "ipv4", check2.message, refs2);
           }
           if (check2.version !== "v4") {
-            addFormat(res, "ipv6", check2.message, refs);
+            addFormat(res, "ipv6", check2.message, refs2);
           }
           break;
         }
         case "base64url":
-          addPattern(res, zodPatterns.base64url, check2.message, refs);
+          addPattern(res, zodPatterns.base64url, check2.message, refs2);
           break;
         case "jwt":
-          addPattern(res, zodPatterns.jwt, check2.message, refs);
+          addPattern(res, zodPatterns.jwt, check2.message, refs2);
           break;
         case "cidr": {
           if (check2.version !== "v6") {
-            addPattern(res, zodPatterns.ipv4Cidr, check2.message, refs);
+            addPattern(res, zodPatterns.ipv4Cidr, check2.message, refs2);
           }
           if (check2.version !== "v4") {
-            addPattern(res, zodPatterns.ipv6Cidr, check2.message, refs);
+            addPattern(res, zodPatterns.ipv6Cidr, check2.message, refs2);
           }
           break;
         }
         case "emoji":
-          addPattern(res, zodPatterns.emoji(), check2.message, refs);
+          addPattern(res, zodPatterns.emoji(), check2.message, refs2);
           break;
         case "ulid": {
-          addPattern(res, zodPatterns.ulid, check2.message, refs);
+          addPattern(res, zodPatterns.ulid, check2.message, refs2);
           break;
         }
         case "base64": {
-          switch (refs.base64Strategy) {
+          switch (refs2.base64Strategy) {
             case "format:binary": {
-              addFormat(res, "binary", check2.message, refs);
+              addFormat(res, "binary", check2.message, refs2);
               break;
             }
             case "contentEncoding:base64": {
-              setResponseValueAndErrors(res, "contentEncoding", "base64", check2.message, refs);
+              setResponseValueAndErrors(res, "contentEncoding", "base64", check2.message, refs2);
               break;
             }
             case "pattern:zod": {
-              addPattern(res, zodPatterns.base64, check2.message, refs);
+              addPattern(res, zodPatterns.base64, check2.message, refs2);
               break;
             }
           }
           break;
         }
         case "nanoid": {
-          addPattern(res, zodPatterns.nanoid, check2.message, refs);
+          addPattern(res, zodPatterns.nanoid, check2.message, refs2);
         }
         case "toLowerCase":
         case "toUpperCase":
@@ -77721,8 +77721,8 @@ function parseStringDef(def, refs) {
   }
   return res;
 }
-function escapeLiteralCheckValue(literal2, refs) {
-  return refs.patternStrategy === "escape" ? escapeNonAlphaNumeric(literal2) : literal2;
+function escapeLiteralCheckValue(literal2, refs2) {
+  return refs2.patternStrategy === "escape" ? escapeNonAlphaNumeric(literal2) : literal2;
 }
 var ALPHA_NUMERIC = new Set("ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz0123456789");
 function escapeNonAlphaNumeric(source) {
@@ -77735,7 +77735,7 @@ function escapeNonAlphaNumeric(source) {
   }
   return result;
 }
-function addFormat(schema, value, message2, refs) {
+function addFormat(schema, value, message2, refs2) {
   if (schema.format || schema.anyOf?.some((x) => x.format)) {
     if (!schema.anyOf) {
       schema.anyOf = [];
@@ -77743,7 +77743,7 @@ function addFormat(schema, value, message2, refs) {
     if (schema.format) {
       schema.anyOf.push({
         format: schema.format,
-        ...schema.errorMessage && refs.errorMessages && {
+        ...schema.errorMessage && refs2.errorMessages && {
           errorMessage: { format: schema.errorMessage.format }
         }
       });
@@ -77757,13 +77757,13 @@ function addFormat(schema, value, message2, refs) {
     }
     schema.anyOf.push({
       format: value,
-      ...message2 && refs.errorMessages && { errorMessage: { format: message2 } }
+      ...message2 && refs2.errorMessages && { errorMessage: { format: message2 } }
     });
   } else {
-    setResponseValueAndErrors(schema, "format", value, message2, refs);
+    setResponseValueAndErrors(schema, "format", value, message2, refs2);
   }
 }
-function addPattern(schema, regex, message2, refs) {
+function addPattern(schema, regex, message2, refs2) {
   if (schema.pattern || schema.allOf?.some((x) => x.pattern)) {
     if (!schema.allOf) {
       schema.allOf = [];
@@ -77771,7 +77771,7 @@ function addPattern(schema, regex, message2, refs) {
     if (schema.pattern) {
       schema.allOf.push({
         pattern: schema.pattern,
-        ...schema.errorMessage && refs.errorMessages && {
+        ...schema.errorMessage && refs2.errorMessages && {
           errorMessage: { pattern: schema.errorMessage.pattern }
         }
       });
@@ -77784,15 +77784,15 @@ function addPattern(schema, regex, message2, refs) {
       }
     }
     schema.allOf.push({
-      pattern: stringifyRegExpWithFlags(regex, refs),
-      ...message2 && refs.errorMessages && { errorMessage: { pattern: message2 } }
+      pattern: stringifyRegExpWithFlags(regex, refs2),
+      ...message2 && refs2.errorMessages && { errorMessage: { pattern: message2 } }
     });
   } else {
-    setResponseValueAndErrors(schema, "pattern", stringifyRegExpWithFlags(regex, refs), message2, refs);
+    setResponseValueAndErrors(schema, "pattern", stringifyRegExpWithFlags(regex, refs2), message2, refs2);
   }
 }
-function stringifyRegExpWithFlags(regex, refs) {
-  if (!refs.applyRegexFlags || !regex.flags) {
+function stringifyRegExpWithFlags(regex, refs2) {
+  if (!refs2.applyRegexFlags || !regex.flags) {
     return regex.source;
   }
   const flags = {
@@ -77861,43 +77861,43 @@ function stringifyRegExpWithFlags(regex, refs) {
   try {
     new RegExp(pattern);
   } catch {
-    console.warn(`Could not convert regex pattern at ${refs.currentPath.join("/")} to a flag-independent form! Falling back to the flag-ignorant source`);
+    console.warn(`Could not convert regex pattern at ${refs2.currentPath.join("/")} to a flag-independent form! Falling back to the flag-ignorant source`);
     return regex.source;
   }
   return pattern;
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/record.js
-function parseRecordDef(def, refs) {
-  if (refs.target === "openAi") {
+function parseRecordDef(def, refs2) {
+  if (refs2.target === "openAi") {
     console.warn("Warning: OpenAI may not support records in schemas! Try an array of key-value pairs instead.");
   }
-  if (refs.target === "openApi3" && def.keyType?._def.typeName === ZodFirstPartyTypeKind.ZodEnum) {
+  if (refs2.target === "openApi3" && def.keyType?._def.typeName === ZodFirstPartyTypeKind.ZodEnum) {
     return {
       type: "object",
       required: def.keyType._def.values,
       properties: def.keyType._def.values.reduce((acc, key) => ({
         ...acc,
         [key]: parseDef(def.valueType._def, {
-          ...refs,
-          currentPath: [...refs.currentPath, "properties", key]
-        }) ?? parseAnyDef(refs)
+          ...refs2,
+          currentPath: [...refs2.currentPath, "properties", key]
+        }) ?? parseAnyDef(refs2)
       }), {}),
-      additionalProperties: refs.rejectedAdditionalProperties
+      additionalProperties: refs2.rejectedAdditionalProperties
     };
   }
   const schema = {
     type: "object",
     additionalProperties: parseDef(def.valueType._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "additionalProperties"]
-    }) ?? refs.allowedAdditionalProperties
+      ...refs2,
+      currentPath: [...refs2.currentPath, "additionalProperties"]
+    }) ?? refs2.allowedAdditionalProperties
   };
-  if (refs.target === "openApi3") {
+  if (refs2.target === "openApi3") {
     return schema;
   }
   if (def.keyType?._def.typeName === ZodFirstPartyTypeKind.ZodString && def.keyType._def.checks?.length) {
-    const { type, ...keyType } = parseStringDef(def.keyType._def, refs);
+    const { type, ...keyType } = parseStringDef(def.keyType._def, refs2);
     return {
       ...schema,
       propertyNames: keyType
@@ -77910,7 +77910,7 @@ function parseRecordDef(def, refs) {
       }
     };
   } else if (def.keyType?._def.typeName === ZodFirstPartyTypeKind.ZodBranded && def.keyType._def.type._def.typeName === ZodFirstPartyTypeKind.ZodString && def.keyType._def.type._def.checks?.length) {
-    const { type, ...keyType } = parseBrandedDef(def.keyType._def, refs);
+    const { type, ...keyType } = parseBrandedDef(def.keyType._def, refs2);
     return {
       ...schema,
       propertyNames: keyType
@@ -77920,18 +77920,18 @@ function parseRecordDef(def, refs) {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/map.js
-function parseMapDef(def, refs) {
-  if (refs.mapStrategy === "record") {
-    return parseRecordDef(def, refs);
+function parseMapDef(def, refs2) {
+  if (refs2.mapStrategy === "record") {
+    return parseRecordDef(def, refs2);
   }
   const keys = parseDef(def.keyType._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "items", "items", "0"]
-  }) || parseAnyDef(refs);
+    ...refs2,
+    currentPath: [...refs2.currentPath, "items", "items", "0"]
+  }) || parseAnyDef(refs2);
   const values = parseDef(def.valueType._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "items", "items", "1"]
-  }) || parseAnyDef(refs);
+    ...refs2,
+    currentPath: [...refs2.currentPath, "items", "items", "1"]
+  }) || parseAnyDef(refs2);
   return {
     type: "array",
     maxItems: 125,
@@ -77959,18 +77959,18 @@ function parseNativeEnumDef(def) {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/never.js
-function parseNeverDef(refs) {
-  return refs.target === "openAi" ? void 0 : {
+function parseNeverDef(refs2) {
+  return refs2.target === "openAi" ? void 0 : {
     not: parseAnyDef({
-      ...refs,
-      currentPath: [...refs.currentPath, "not"]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "not"]
     })
   };
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/null.js
-function parseNullDef(refs) {
-  return refs.target === "openApi3" ? {
+function parseNullDef(refs2) {
+  return refs2.target === "openApi3" ? {
     enum: ["null"],
     nullable: true
   } : {
@@ -77986,9 +77986,9 @@ var primitiveMappings = {
   ZodBoolean: "boolean",
   ZodNull: "null"
 };
-function parseUnionDef(def, refs) {
-  if (refs.target === "openApi3")
-    return asAnyOf(def, refs);
+function parseUnionDef(def, refs2) {
+  if (refs2.target === "openApi3")
+    return asAnyOf(def, refs2);
   const options = def.options instanceof Map ? Array.from(def.options.values()) : def.options;
   if (options.every((x) => x._def.typeName in primitiveMappings && (!x._def.checks || !x._def.checks.length))) {
     const types = options.reduce((types2, x) => {
@@ -78036,20 +78036,20 @@ function parseUnionDef(def, refs) {
       ], [])
     };
   }
-  return asAnyOf(def, refs);
+  return asAnyOf(def, refs2);
 }
-var asAnyOf = (def, refs) => {
+var asAnyOf = (def, refs2) => {
   const anyOf = (def.options instanceof Map ? Array.from(def.options.values()) : def.options).map((x, i6) => parseDef(x._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "anyOf", `${i6}`]
-  })).filter((x) => !!x && (!refs.strictUnions || typeof x === "object" && Object.keys(x).length > 0));
+    ...refs2,
+    currentPath: [...refs2.currentPath, "anyOf", `${i6}`]
+  })).filter((x) => !!x && (!refs2.strictUnions || typeof x === "object" && Object.keys(x).length > 0));
   return anyOf.length ? { anyOf } : void 0;
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/nullable.js
-function parseNullableDef(def, refs) {
+function parseNullableDef(def, refs2) {
   if (["ZodString", "ZodNumber", "ZodBigInt", "ZodBoolean", "ZodNull"].includes(def.innerType._def.typeName) && (!def.innerType._def.checks || !def.innerType._def.checks.length)) {
-    if (refs.target === "openApi3") {
+    if (refs2.target === "openApi3") {
       return {
         type: primitiveMappings[def.innerType._def.typeName],
         nullable: true
@@ -78062,24 +78062,24 @@ function parseNullableDef(def, refs) {
       ]
     };
   }
-  if (refs.target === "openApi3") {
+  if (refs2.target === "openApi3") {
     const base2 = parseDef(def.innerType._def, {
-      ...refs,
-      currentPath: [...refs.currentPath]
+      ...refs2,
+      currentPath: [...refs2.currentPath]
     });
     if (base2 && "$ref" in base2)
       return { allOf: [base2], nullable: true };
     return base2 && { ...base2, nullable: true };
   }
   const base = parseDef(def.innerType._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "anyOf", "0"]
+    ...refs2,
+    currentPath: [...refs2.currentPath, "anyOf", "0"]
   });
   return base && { anyOf: [base, { type: "null" }] };
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/number.js
-function parseNumberDef(def, refs) {
+function parseNumberDef(def, refs2) {
   const res = {
     type: "number"
   };
@@ -78089,38 +78089,38 @@ function parseNumberDef(def, refs) {
     switch (check2.kind) {
       case "int":
         res.type = "integer";
-        addErrorMessage(res, "type", check2.message, refs);
+        addErrorMessage(res, "type", check2.message, refs2);
         break;
       case "min":
-        if (refs.target === "jsonSchema7") {
+        if (refs2.target === "jsonSchema7") {
           if (check2.inclusive) {
-            setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs2);
           } else {
-            setResponseValueAndErrors(res, "exclusiveMinimum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "exclusiveMinimum", check2.value, check2.message, refs2);
           }
         } else {
           if (!check2.inclusive) {
             res.exclusiveMinimum = true;
           }
-          setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "minimum", check2.value, check2.message, refs2);
         }
         break;
       case "max":
-        if (refs.target === "jsonSchema7") {
+        if (refs2.target === "jsonSchema7") {
           if (check2.inclusive) {
-            setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs2);
           } else {
-            setResponseValueAndErrors(res, "exclusiveMaximum", check2.value, check2.message, refs);
+            setResponseValueAndErrors(res, "exclusiveMaximum", check2.value, check2.message, refs2);
           }
         } else {
           if (!check2.inclusive) {
             res.exclusiveMaximum = true;
           }
-          setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs);
+          setResponseValueAndErrors(res, "maximum", check2.value, check2.message, refs2);
         }
         break;
       case "multipleOf":
-        setResponseValueAndErrors(res, "multipleOf", check2.value, check2.message, refs);
+        setResponseValueAndErrors(res, "multipleOf", check2.value, check2.message, refs2);
         break;
     }
   }
@@ -78128,8 +78128,8 @@ function parseNumberDef(def, refs) {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/object.js
-function parseObjectDef(def, refs) {
-  const forceOptionalIntoNullable = refs.target === "openAi";
+function parseObjectDef(def, refs2) {
+  const forceOptionalIntoNullable = refs2.target === "openAi";
   const result = {
     type: "object",
     properties: {}
@@ -78152,9 +78152,9 @@ function parseObjectDef(def, refs) {
       propOptional = false;
     }
     const parsedDef = parseDef(propDef._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "properties", propName],
-      propertyPath: [...refs.currentPath, "properties", propName]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "properties", propName],
+      propertyPath: [...refs2.currentPath, "properties", propName]
     });
     if (parsedDef === void 0) {
       continue;
@@ -78167,26 +78167,26 @@ function parseObjectDef(def, refs) {
   if (required2.length) {
     result.required = required2;
   }
-  const additionalProperties = decideAdditionalProperties(def, refs);
+  const additionalProperties = decideAdditionalProperties(def, refs2);
   if (additionalProperties !== void 0) {
     result.additionalProperties = additionalProperties;
   }
   return result;
 }
-function decideAdditionalProperties(def, refs) {
+function decideAdditionalProperties(def, refs2) {
   if (def.catchall._def.typeName !== "ZodNever") {
     return parseDef(def.catchall._def, {
-      ...refs,
-      currentPath: [...refs.currentPath, "additionalProperties"]
+      ...refs2,
+      currentPath: [...refs2.currentPath, "additionalProperties"]
     });
   }
   switch (def.unknownKeys) {
     case "passthrough":
-      return refs.allowedAdditionalProperties;
+      return refs2.allowedAdditionalProperties;
     case "strict":
-      return refs.rejectedAdditionalProperties;
+      return refs2.rejectedAdditionalProperties;
     case "strip":
-      return refs.removeAdditionalStrategy === "strict" ? refs.allowedAdditionalProperties : refs.rejectedAdditionalProperties;
+      return refs2.removeAdditionalStrategy === "strict" ? refs2.allowedAdditionalProperties : refs2.rejectedAdditionalProperties;
   }
 }
 function safeIsOptional(schema) {
@@ -78198,38 +78198,38 @@ function safeIsOptional(schema) {
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/optional.js
-var parseOptionalDef = (def, refs) => {
-  if (refs.currentPath.toString() === refs.propertyPath?.toString()) {
-    return parseDef(def.innerType._def, refs);
+var parseOptionalDef = (def, refs2) => {
+  if (refs2.currentPath.toString() === refs2.propertyPath?.toString()) {
+    return parseDef(def.innerType._def, refs2);
   }
   const innerSchema = parseDef(def.innerType._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "anyOf", "1"]
+    ...refs2,
+    currentPath: [...refs2.currentPath, "anyOf", "1"]
   });
   return innerSchema ? {
     anyOf: [
       {
-        not: parseAnyDef(refs)
+        not: parseAnyDef(refs2)
       },
       innerSchema
     ]
-  } : parseAnyDef(refs);
+  } : parseAnyDef(refs2);
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/pipeline.js
-var parsePipelineDef = (def, refs) => {
-  if (refs.pipeStrategy === "input") {
-    return parseDef(def.in._def, refs);
-  } else if (refs.pipeStrategy === "output") {
-    return parseDef(def.out._def, refs);
+var parsePipelineDef = (def, refs2) => {
+  if (refs2.pipeStrategy === "input") {
+    return parseDef(def.in._def, refs2);
+  } else if (refs2.pipeStrategy === "output") {
+    return parseDef(def.out._def, refs2);
   }
   const a6 = parseDef(def.in._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "allOf", "0"]
+    ...refs2,
+    currentPath: [...refs2.currentPath, "allOf", "0"]
   });
   const b6 = parseDef(def.out._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "allOf", a6 ? "1" : "0"]
+    ...refs2,
+    currentPath: [...refs2.currentPath, "allOf", a6 ? "1" : "0"]
   });
   return {
     allOf: [a6, b6].filter((x) => x !== void 0)
@@ -78237,15 +78237,15 @@ var parsePipelineDef = (def, refs) => {
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/promise.js
-function parsePromiseDef(def, refs) {
-  return parseDef(def.type._def, refs);
+function parsePromiseDef(def, refs2) {
+  return parseDef(def.type._def, refs2);
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/set.js
-function parseSetDef(def, refs) {
+function parseSetDef(def, refs2) {
   const items = parseDef(def.valueType._def, {
-    ...refs,
-    currentPath: [...refs.currentPath, "items"]
+    ...refs2,
+    currentPath: [...refs2.currentPath, "items"]
   });
   const schema = {
     type: "array",
@@ -78253,27 +78253,27 @@ function parseSetDef(def, refs) {
     items
   };
   if (def.minSize) {
-    setResponseValueAndErrors(schema, "minItems", def.minSize.value, def.minSize.message, refs);
+    setResponseValueAndErrors(schema, "minItems", def.minSize.value, def.minSize.message, refs2);
   }
   if (def.maxSize) {
-    setResponseValueAndErrors(schema, "maxItems", def.maxSize.value, def.maxSize.message, refs);
+    setResponseValueAndErrors(schema, "maxItems", def.maxSize.value, def.maxSize.message, refs2);
   }
   return schema;
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/tuple.js
-function parseTupleDef(def, refs) {
+function parseTupleDef(def, refs2) {
   if (def.rest) {
     return {
       type: "array",
       minItems: def.items.length,
       items: def.items.map((x, i6) => parseDef(x._def, {
-        ...refs,
-        currentPath: [...refs.currentPath, "items", `${i6}`]
+        ...refs2,
+        currentPath: [...refs2.currentPath, "items", `${i6}`]
       })).reduce((acc, x) => x === void 0 ? acc : [...acc, x], []),
       additionalItems: parseDef(def.rest._def, {
-        ...refs,
-        currentPath: [...refs.currentPath, "additionalItems"]
+        ...refs2,
+        currentPath: [...refs2.currentPath, "additionalItems"]
       })
     };
   } else {
@@ -78282,97 +78282,97 @@ function parseTupleDef(def, refs) {
       minItems: def.items.length,
       maxItems: def.items.length,
       items: def.items.map((x, i6) => parseDef(x._def, {
-        ...refs,
-        currentPath: [...refs.currentPath, "items", `${i6}`]
+        ...refs2,
+        currentPath: [...refs2.currentPath, "items", `${i6}`]
       })).reduce((acc, x) => x === void 0 ? acc : [...acc, x], [])
     };
   }
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/undefined.js
-function parseUndefinedDef(refs) {
+function parseUndefinedDef(refs2) {
   return {
-    not: parseAnyDef(refs)
+    not: parseAnyDef(refs2)
   };
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/unknown.js
-function parseUnknownDef(refs) {
-  return parseAnyDef(refs);
+function parseUnknownDef(refs2) {
+  return parseAnyDef(refs2);
 }
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parsers/readonly.js
-var parseReadonlyDef = (def, refs) => {
-  return parseDef(def.innerType._def, refs);
+var parseReadonlyDef = (def, refs2) => {
+  return parseDef(def.innerType._def, refs2);
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/selectParser.js
-var selectParser = (def, typeName, refs) => {
+var selectParser = (def, typeName, refs2) => {
   switch (typeName) {
     case ZodFirstPartyTypeKind.ZodString:
-      return parseStringDef(def, refs);
+      return parseStringDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodNumber:
-      return parseNumberDef(def, refs);
+      return parseNumberDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodObject:
-      return parseObjectDef(def, refs);
+      return parseObjectDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodBigInt:
-      return parseBigintDef(def, refs);
+      return parseBigintDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodBoolean:
       return parseBooleanDef();
     case ZodFirstPartyTypeKind.ZodDate:
-      return parseDateDef(def, refs);
+      return parseDateDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodUndefined:
-      return parseUndefinedDef(refs);
+      return parseUndefinedDef(refs2);
     case ZodFirstPartyTypeKind.ZodNull:
-      return parseNullDef(refs);
+      return parseNullDef(refs2);
     case ZodFirstPartyTypeKind.ZodArray:
-      return parseArrayDef(def, refs);
+      return parseArrayDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodUnion:
     case ZodFirstPartyTypeKind.ZodDiscriminatedUnion:
-      return parseUnionDef(def, refs);
+      return parseUnionDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodIntersection:
-      return parseIntersectionDef(def, refs);
+      return parseIntersectionDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodTuple:
-      return parseTupleDef(def, refs);
+      return parseTupleDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodRecord:
-      return parseRecordDef(def, refs);
+      return parseRecordDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodLiteral:
-      return parseLiteralDef(def, refs);
+      return parseLiteralDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodEnum:
       return parseEnumDef(def);
     case ZodFirstPartyTypeKind.ZodNativeEnum:
       return parseNativeEnumDef(def);
     case ZodFirstPartyTypeKind.ZodNullable:
-      return parseNullableDef(def, refs);
+      return parseNullableDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodOptional:
-      return parseOptionalDef(def, refs);
+      return parseOptionalDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodMap:
-      return parseMapDef(def, refs);
+      return parseMapDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodSet:
-      return parseSetDef(def, refs);
+      return parseSetDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodLazy:
       return () => def.getter()._def;
     case ZodFirstPartyTypeKind.ZodPromise:
-      return parsePromiseDef(def, refs);
+      return parsePromiseDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodNaN:
     case ZodFirstPartyTypeKind.ZodNever:
-      return parseNeverDef(refs);
+      return parseNeverDef(refs2);
     case ZodFirstPartyTypeKind.ZodEffects:
-      return parseEffectsDef(def, refs);
+      return parseEffectsDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodAny:
-      return parseAnyDef(refs);
+      return parseAnyDef(refs2);
     case ZodFirstPartyTypeKind.ZodUnknown:
-      return parseUnknownDef(refs);
+      return parseUnknownDef(refs2);
     case ZodFirstPartyTypeKind.ZodDefault:
-      return parseDefaultDef(def, refs);
+      return parseDefaultDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodBranded:
-      return parseBrandedDef(def, refs);
+      return parseBrandedDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodReadonly:
-      return parseReadonlyDef(def, refs);
+      return parseReadonlyDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodCatch:
-      return parseCatchDef(def, refs);
+      return parseCatchDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodPipeline:
-      return parsePipelineDef(def, refs);
+      return parsePipelineDef(def, refs2);
     case ZodFirstPartyTypeKind.ZodFunction:
     case ZodFirstPartyTypeKind.ZodVoid:
     case ZodFirstPartyTypeKind.ZodSymbol:
@@ -78383,55 +78383,55 @@ var selectParser = (def, typeName, refs) => {
 };
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/parseDef.js
-function parseDef(def, refs, forceResolution = false) {
-  const seenItem = refs.seen.get(def);
-  if (refs.override) {
-    const overrideResult = refs.override?.(def, refs, seenItem, forceResolution);
+function parseDef(def, refs2, forceResolution = false) {
+  const seenItem = refs2.seen.get(def);
+  if (refs2.override) {
+    const overrideResult = refs2.override?.(def, refs2, seenItem, forceResolution);
     if (overrideResult !== ignoreOverride) {
       return overrideResult;
     }
   }
   if (seenItem && !forceResolution) {
-    const seenSchema = get$ref(seenItem, refs);
+    const seenSchema = get$ref(seenItem, refs2);
     if (seenSchema !== void 0) {
       return seenSchema;
     }
   }
-  const newItem = { def, path: refs.currentPath, jsonSchema: void 0 };
-  refs.seen.set(def, newItem);
-  const jsonSchemaOrGetter = selectParser(def, def.typeName, refs);
-  const jsonSchema = typeof jsonSchemaOrGetter === "function" ? parseDef(jsonSchemaOrGetter(), refs) : jsonSchemaOrGetter;
+  const newItem = { def, path: refs2.currentPath, jsonSchema: void 0 };
+  refs2.seen.set(def, newItem);
+  const jsonSchemaOrGetter = selectParser(def, def.typeName, refs2);
+  const jsonSchema = typeof jsonSchemaOrGetter === "function" ? parseDef(jsonSchemaOrGetter(), refs2) : jsonSchemaOrGetter;
   if (jsonSchema) {
-    addMeta(def, refs, jsonSchema);
+    addMeta(def, refs2, jsonSchema);
   }
-  if (refs.postProcess) {
-    const postProcessResult = refs.postProcess(jsonSchema, def, refs);
+  if (refs2.postProcess) {
+    const postProcessResult = refs2.postProcess(jsonSchema, def, refs2);
     newItem.jsonSchema = jsonSchema;
     return postProcessResult;
   }
   newItem.jsonSchema = jsonSchema;
   return jsonSchema;
 }
-var get$ref = (item, refs) => {
-  switch (refs.$refStrategy) {
+var get$ref = (item, refs2) => {
+  switch (refs2.$refStrategy) {
     case "root":
       return { $ref: item.path.join("/") };
     case "relative":
-      return { $ref: getRelativePath(refs.currentPath, item.path) };
+      return { $ref: getRelativePath(refs2.currentPath, item.path) };
     case "none":
     case "seen": {
-      if (item.path.length < refs.currentPath.length && item.path.every((value, index) => refs.currentPath[index] === value)) {
-        console.warn(`Recursive reference detected at ${refs.currentPath.join("/")}! Defaulting to any`);
-        return parseAnyDef(refs);
+      if (item.path.length < refs2.currentPath.length && item.path.every((value, index) => refs2.currentPath[index] === value)) {
+        console.warn(`Recursive reference detected at ${refs2.currentPath.join("/")}! Defaulting to any`);
+        return parseAnyDef(refs2);
       }
-      return refs.$refStrategy === "seen" ? parseAnyDef(refs) : void 0;
+      return refs2.$refStrategy === "seen" ? parseAnyDef(refs2) : void 0;
     }
   }
 };
-var addMeta = (def, refs, jsonSchema) => {
+var addMeta = (def, refs2, jsonSchema) => {
   if (def.description) {
     jsonSchema.description = def.description;
-    if (refs.markdownDescription) {
+    if (refs2.markdownDescription) {
       jsonSchema.markdownDescription = def.description;
     }
   }
@@ -78440,36 +78440,36 @@ var addMeta = (def, refs, jsonSchema) => {
 
 // ../../node_modules/.pnpm/zod-to-json-schema@3.25.2_zod@4.4.3/node_modules/zod-to-json-schema/dist/esm/zodToJsonSchema.js
 var zodToJsonSchema = (schema, options) => {
-  const refs = getRefs(options);
+  const refs2 = getRefs(options);
   let definitions = typeof options === "object" && options.definitions ? Object.entries(options.definitions).reduce((acc, [name2, schema2]) => ({
     ...acc,
     [name2]: parseDef(schema2._def, {
-      ...refs,
-      currentPath: [...refs.basePath, refs.definitionPath, name2]
-    }, true) ?? parseAnyDef(refs)
+      ...refs2,
+      currentPath: [...refs2.basePath, refs2.definitionPath, name2]
+    }, true) ?? parseAnyDef(refs2)
   }), {}) : void 0;
   const name = typeof options === "string" ? options : options?.nameStrategy === "title" ? void 0 : options?.name;
-  const main2 = parseDef(schema._def, name === void 0 ? refs : {
-    ...refs,
-    currentPath: [...refs.basePath, refs.definitionPath, name]
-  }, false) ?? parseAnyDef(refs);
+  const main2 = parseDef(schema._def, name === void 0 ? refs2 : {
+    ...refs2,
+    currentPath: [...refs2.basePath, refs2.definitionPath, name]
+  }, false) ?? parseAnyDef(refs2);
   const title = typeof options === "object" && options.name !== void 0 && options.nameStrategy === "title" ? options.name : void 0;
   if (title !== void 0) {
     main2.title = title;
   }
-  if (refs.flags.hasReferencedOpenAiAnyType) {
+  if (refs2.flags.hasReferencedOpenAiAnyType) {
     if (!definitions) {
       definitions = {};
     }
-    if (!definitions[refs.openAiAnyTypeName]) {
-      definitions[refs.openAiAnyTypeName] = {
+    if (!definitions[refs2.openAiAnyTypeName]) {
+      definitions[refs2.openAiAnyTypeName] = {
         // Skipping "object" as no properties can be defined and additionalProperties must be "false"
         type: ["string", "number", "integer", "boolean", "array", "null"],
         items: {
-          $ref: refs.$refStrategy === "relative" ? "1" : [
-            ...refs.basePath,
-            refs.definitionPath,
-            refs.openAiAnyTypeName
+          $ref: refs2.$refStrategy === "relative" ? "1" : [
+            ...refs2.basePath,
+            refs2.definitionPath,
+            refs2.openAiAnyTypeName
           ].join("/")
         }
       };
@@ -78477,24 +78477,24 @@ var zodToJsonSchema = (schema, options) => {
   }
   const combined = name === void 0 ? definitions ? {
     ...main2,
-    [refs.definitionPath]: definitions
+    [refs2.definitionPath]: definitions
   } : main2 : {
     $ref: [
-      ...refs.$refStrategy === "relative" ? [] : refs.basePath,
-      refs.definitionPath,
+      ...refs2.$refStrategy === "relative" ? [] : refs2.basePath,
+      refs2.definitionPath,
       name
     ].join("/"),
-    [refs.definitionPath]: {
+    [refs2.definitionPath]: {
       ...definitions,
       [name]: main2
     }
   };
-  if (refs.target === "jsonSchema7") {
+  if (refs2.target === "jsonSchema7") {
     combined.$schema = "http://json-schema.org/draft-07/schema#";
-  } else if (refs.target === "jsonSchema2019-09" || refs.target === "openAi") {
+  } else if (refs2.target === "jsonSchema2019-09" || refs2.target === "openAi") {
     combined.$schema = "https://json-schema.org/draft/2019-09/schema#";
   }
-  if (refs.target === "openAi" && ("anyOf" in combined || "oneOf" in combined || "allOf" in combined || "type" in combined && Array.isArray(combined.type))) {
+  if (refs2.target === "openAi" && ("anyOf" in combined || "oneOf" in combined || "allOf" in combined || "type" in combined && Array.isArray(combined.type))) {
     console.warn("Warning: OpenAI may not support schemas with unions as roots! Try wrapping it in an object property.");
   }
   return combined;
@@ -84535,6 +84535,12 @@ type BoardSpec = {
   title: string;                 // \u677F\u540D(\u226460 \u5B57)
   lang?: "zh" | "en";
   defaultEnv?: string;           // \u677F\u7EA7\u9ED8\u8BA4\u73AF\u5883 id(\u5FC5\u987B\u6765\u81EA tb_list_envs);\u5EFA\u677F\u65F6\u5199\u4E0B\u540E\u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act(\u7F3A\u7701 env \u7684\u53D6\u503C\u987A\u5E8F:\u5757\u4E0A env \u2192 \u573A\u666F\u9ED8\u8BA4 \u2192 \u5EFA\u677F\u65F6\u7684 defaultEnv;\u5DF2\u4E0B\u7EBF\u7684\u73AF\u5883\u4E0D\u4F1A\u5957\u7528)
+  brief?: {                      // \u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u7684\u5B66\u4E60\u8DEF\u5F84(\u5EFA\u677F\u524D\u5148\u5BF9\u9F50,\u89C1\u300C\u5DE5\u4F5C\u65B9\u5F0F\u300D\u7B2C 0 \u6B65);\u677F\u548C\u4E4B\u540E\u7684\u52A9\u624B\u90FD\u5E26\u7740\u5B83
+    goal: string;                //   \u76EE\u6807:\u5B66\u4EC0\u4E48 / \u63A2\u7D22\u4EC0\u4E48 / \u505A\u4EC0\u4E48\u5B9E\u9A8C,\u505A\u5230\u4EC0\u4E48\u7A0B\u5EA6(\u2264300 \u5B57)
+    background?: string;         //   \u80CC\u666F:\u5DF2\u7ECF\u4F1A\u4EC0\u4E48\u3001\u5361\u5728\u54EA(\u2264300 \u5B57)
+    references?: string[];       //   \u53C2\u8003:\u4E66 / \u8BFE / \u8BBA\u6587 / \u4EE3\u7801 / \u5B66\u5458\u81EA\u5DF1\u7684\u6750\u6599(\u22648 \u6761\u3001\u5404 \u2264200 \u5B57)
+    path?: string[];             //   \u5B66\u4E60\u8DEF\u5F84:\u5E55\u7684\u6E05\u5355,\u4E00\u5E55\u4E00\u6761(\u226412 \u6761\u3001\u5404 \u226480 \u5B57)
+  };
   acts: Act[];                   // 1\u201312 \u5E55;\u4E00\u5E55 = \u4E00\u4E2A\u5BFC\u822A\u9875
 };
 type Act = {
@@ -84585,8 +84591,10 @@ acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 c
 - \u6BCF\u5E55\u53EA\u56DE\u7B54\u4E00\u4E2A\u95EE\u9898,\u5E55\u6807\u9898\u5C31\u662F\u8FD9\u4E2A\u95EE\u9898\u7684\u7B54\u6848\u65B9\u5411\u3002
 - \u4EE3\u7801\u5148\u4E8E\u5B9A\u4E49:\u5148\u8BA9\u4EBA\u770B\u5230\u80FD\u8DD1\u7684\u4E1C\u897F,\u518D\u7ED9\u540D\u5B57\u3002
 - \u516C\u5F0F\u7D27\u8DDF\u76F4\u89C9:\u5148\u4E00\u53E5\u8BDD/\u4E00\u5F20\u56FE,\u518D\u4E0A math\u3002
+- **\u4F8B\u5B50\u8981\u56FD\u9645\u5316\u3001\u73B0\u4EE3\u3001\u4E2D\u6027**(Marvin 1009)\u3002\u4E3E\u4F8B\u7528\u4ECA\u5929\u5168\u7403\u901A\u7528\u7684\u573A\u666F:\u79D1\u6280\u4EA7\u54C1\u3001\u5F00\u6E90\u9879\u76EE\u3001\u79D1\u5B66\u53D1\u73B0\u3001\u4F53\u80B2\u3001\u97F3\u4E50\u3001\u65C5\u884C\u3001\u771F\u5B9E\u516C\u53F8\u7684\u6848\u4F8B;\u4EBA\u540D\u5730\u540D\u591A\u5143\u3002\u4E0D\u7528\u53E3\u53F7\u5F0F\u3001\u5E26\u653F\u6CBB\u6216\u610F\u8BC6\u5F62\u6001\u8272\u5F69\u7684\u53E5\u5B50(\u9886\u5BFC\u4EBA\u3001\u6807\u8BED\u3001\u5730\u540D\u53E3\u53F7),\u4E0D\u7528\u8BFE\u672C\u8154\u7684\u8001\u4F8B\u53E5\u3002\u4E2D\u6587\u677F\u4E5F\u4E00\u6837:\u8BFB\u8005\u662F\u5728\u5168\u7403\u8BED\u5883\u91CC\u5DE5\u4F5C\u7684\u4E2D\u6587\u7528\u6237\u3002\u4F8B:\u8BB2\u8BED\u8A00\u6A21\u578B\u9010\u5B57\u751F\u6210,\u7528\u300CThe capital of France is \u2192 Paris\u300D\u300CTransformer \u7684\u6838\u5FC3\u662F \u2192 attention\u300D,\u800C\u4E0D\u662F\u53E3\u53F7\u5F0F\u53E5\u5B50\u3002
 
 ## \u5DE5\u4F5C\u65B9\u5F0F
+0. **\u5148\u5BF9\u9F50,\u518D\u4E0A\u677F\u3002** \u5EFA\u677F\u524D\u5F04\u6E05\u4E09\u4EF6\u4E8B:\u76EE\u6807(\u5B66\u4EC0\u4E48 / \u63A2\u7D22\u4EC0\u4E48 / \u505A\u4EC0\u4E48\u5B9E\u9A8C,\u505A\u5230\u4EC0\u4E48\u7A0B\u5EA6)\u3001\u80CC\u666F(\u5DF2\u7ECF\u4F1A\u4EC0\u4E48\u3001\u5361\u5728\u54EA)\u3001\u53C2\u8003(\u6CBF\u7740\u54EA\u672C\u4E66 / \u54EA\u95E8\u8BFE / \u54EA\u7BC7\u8BBA\u6587 / \u54EA\u4EFD\u4EE3\u7801\u8D70,\u6709\u6CA1\u6709\u81EA\u5DF1\u7684\u6750\u6599)\u3002\u5BF9\u8BDD\u91CC\u770B\u4E0D\u51FA\u6765 \u2192 \u7528\u4E00\u6761\u6D88\u606F\u95EE,\u6700\u591A 3 \u4E2A\u95EE\u9898\u3001\u6BCF\u4E2A\u7ED9 2\u20133 \u4E2A\u53EF\u9009\u9879;\u5DF2\u7ECF\u80FD\u5224\u65AD \u2192 \u4E0D\u95EE,\u5199\u51FA\u4E00\u53E5\u8BDD\u753B\u50CF + \u5EFA\u8BAE\u7684\u5B66\u4E60\u8DEF\u5F84(\u5E55\u7684\u6E05\u5355),\u8BF7\u5B66\u5458\u786E\u8BA4\u6216\u4FEE\u6539\u3002\u786E\u8BA4\u540E\u624D\u5EFA\u677F,\u5E76\u628A\u6838\u5BF9\u8FC7\u7684\u5185\u5BB9\u5199\u8FDB \`brief\`\u3002\u5B66\u5458\u8BF4\u300C\u76F4\u63A5\u4E0A\u677F\u300D\u2192 \u4E0D\u95EE,\u4F46\u4ECD\u4E00\u884C\u5199\u51FA\u8DEF\u5F84\u518D\u5F00\u59CB\u3002
 1. \u5148 \`tb_list_envs\` \u9009\u73AF\u5883(\u9700\u8981\u8DD1\u4EE3\u7801\u65F6)\u3002
 2. \u4E00\u5E55\u4E00\u6B21 \`tb_add_act\`(\u5148\u7528 \`tb_create_board\` \u5EFA\u7B2C\u4E00\u5E55\u6216\u524D\u51E0\u5E55);\u603B\u5171 \u22643 \u5E55\u65F6\u624D\u7528 \`tb_create_board\` \u4E00\u6B21\u5EFA\u5B8C\u3002
 3. \u6BCF\u6B21\u7ED3\u679C\u91CC\u7684 \`problems\` \u975E\u7A7A\u5C31\u8BFB\u4E00\u904D,\u5728\u4E0B\u4E00\u5E55\u91CC\u4FEE\u6B63(\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199)\u3002
@@ -84605,6 +84613,12 @@ type BoardSpec = {
   title: string;                 // board name (\u226460 chars)
   lang?: "zh" | "en";
   defaultEnv?: string;           // board default env id (must come from tb_list_envs); set at create time it carries to later tb_add_act calls (fallback: item env \u2192 scene default \u2192 create-time defaultEnv; retired envs are not applied)
+  brief?: {                      // the learning path agreed with the learner (align before building \u2014 step 0 in "How to work"); travels with the board
+    goal: string;                //   what they want to learn / explore / try, and how far (\u2264300 chars)
+    background?: string;         //   what they already know, where they are stuck (\u2264300 chars)
+    references?: string[];       //   books / courses / papers / code / their own material to follow (\u22648, \u2264200 chars each)
+    path?: string[];             //   the act list, one line per act (\u226412, \u226480 chars each)
+  };
   acts: Act[];                   // 1\u201312 acts; one act = one navigation stop
 };
 type Act = {
@@ -84655,8 +84669,10 @@ Every element gets a board-local number E<n> (from 1), written \`tb:<8-char boar
 - One question per act; the act title points at its answer.
 - Code before definitions: show something that runs, then name it.
 - Formula right after the intuition: one sentence / picture first, then math.
+- **Examples are international, modern and neutral.** Use scenes that read as current worldwide: tech products, open-source projects, scientific discoveries, sports, music, travel, real company cases; diverse names and places. No slogans or politically or ideologically charged sentences (leaders, campaign slogans, patriotic place phrases) and no dated textbook sentences. Example: to show token-by-token generation use "The capital of France is -> Paris" or "The core of a Transformer is -> attention".
 
 ## How to work
+0. **Align first, then build.** Before creating a board, know three things: the goal (learn / explore / try what, and how far), the background (what they already know, where they are stuck) and the references (which book / course / paper / code to follow, any material of their own). Not clear from the conversation \u2192 ask in ONE message, at most 3 questions, each with 2\u20133 options to pick from. Already clear \u2192 do not ask; state a one-line profile plus the proposed learning path (the act list) and have the learner confirm or edit it. Build only after confirmation, and put what was agreed into \`brief\`. If the learner says "just build it" \u2192 skip the questions but still state the path in one line before starting.
 1. \`tb_list_envs\` first when code will run.
 2. One \`tb_add_act\` per act (start with \`tb_create_board\` for the first act(s)); use a single \`tb_create_board\` only for \u22643 acts total.
 3. If a result has \`problems\`, read them and fix in the next act (rewrite dropped items).
@@ -84698,6 +84714,285 @@ function clip(text, max) {
     used += b6;
   }
   return out + CUT_MARK;
+}
+
+// src/tools/teachboardEntity.ts
+var RESULT_MAX = 48 * 1024;
+var textOut = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX) }] });
+var isObj2 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+var ENTITY_REF_RE = /^tb:([0-9a-f]{8})\/E(\d+)$/;
+var BOARD_ID_RE = /^[0-9a-f]{8}$/;
+var REF_HINT = "\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12;\u53F3\u952E\u5143\u7D20 \u2192 Entity ID \u590D\u5236,\u6216\u4ECE tb_get_board \u8BFB)";
+var TONES = ["neutral", "accent", "warn", "ok"];
+var UPDATE_FIELDS = ["text", "latex", "code", "label", "tone"];
+var MAX_BATCH = 100;
+var problemList = (p2) => Array.isArray(p2) ? p2.map((x) => typeof x === "string" ? x : JSON.stringify(x)) : [];
+var problemsBlock = (p2) => {
+  const list2 = problemList(p2);
+  return list2.length ? `
+\u26A0 problems:
+${list2.map((x) => `- ${x}`).join("\n")}` : "";
+};
+var refs = (ids, boardId) => (Array.isArray(ids) ? ids : []).map((x) => typeof x === "number" ? `tb:${boardId}/E${x}` : String(x));
+function boardOfRefs(entities) {
+  let board = null;
+  for (const e6 of entities) {
+    const m4 = ENTITY_REF_RE.exec(e6);
+    if (!m4) return null;
+    if (board && board !== m4[1]) return null;
+    board = m4[1];
+  }
+  return board;
+}
+function changeField(c6) {
+  const ks = UPDATE_FIELDS.filter((k6) => c6[k6] !== void 0);
+  return ks.length === 1 ? ks[0] : null;
+}
+function registerEntityTools(server2, d6) {
+  const boardUrl = (id) => `${d6.base}/lab/teachboard?board=${id}`;
+  const call = (method, path6, body) => d6.client.call(method, path6, body, { agent: true });
+  const pendingMsg = (e6) => {
+    if (!(e6 instanceof TbError)) return null;
+    const data2 = e6.data ?? {};
+    const code = typeof data2.error === "string" ? data2.error : e6.code;
+    const nums = Array.isArray(data2.entities) ? data2.entities.map(String).join(", ") : "";
+    if (e6.status === 409 && code === "pending") return `\u8FD9\u5757\u677F\u8FD8\u6709\u6B65\u9AA4\u6CA1\u5728\u6D4F\u89C8\u5668\u91CC\u843D\u5730${nums ? `(\u6D89\u53CA E${nums.split(", ").join(" E")})` : ""},\u8BF7\u7528\u6237\u6253\u5F00\u8FD9\u5757\u677F\u540E\u518D\u8BD5`;
+    if (e6.status === 404) return `\u627E\u4E0D\u5230\u8FD9\u4E2A\u5143\u7D20${nums ? `(E${nums.split(", ").join(" E")})` : ""}(\u53EF\u80FD\u5DF2\u88AB\u5220\u3001\u4E0D\u5728\u8FD9\u5757\u677F\u4E0A,\u6216\u677F\u4E0D\u662F\u8FD9\u4E2A\u7528\u6237\u7684);\u7528 tb_get_board \u91CD\u65B0\u770B\u4E00\u773C`;
+    if (e6.status === 503 && code === "envs_unavailable") return "\u73AF\u5883\u76EE\u5F55\u6682\u65F6\u8BFB\u4E0D\u5230,\u7A0D\u540E\u518D\u8BD5 tb_bind_env";
+    if (e6.status === 400) {
+      const probs = problemList(data2.problems);
+      const list2 = probs.length ? `
+${probs.map((x) => `- ${x}`).join("\n")}` : "";
+      switch (code) {
+        case "bad_change":
+          return `\u6CA1\u6709\u6539:\u6709\u6539\u52A8\u548C\u5143\u7D20\u7C7B\u578B\u5BF9\u4E0D\u4E0A(\u6574\u6279\u4E0D\u5165\u961F,\u9010\u6761\u4FEE\u6B63\u540E\u518D\u8BD5):${list2}`;
+        case "bad_items":
+          return `\u56DE\u7B54\u6846\u4EC0\u4E48\u90FD\u753B\u4E0D\u51FA\u6765(items \u4E0D\u5408\u6CD5),\u6309 tb_describe_schema \u7684\u6761\u76EE\u5951\u7EA6\u6539:${list2}`;
+        case "bad_entity":
+          return "\u7F16\u53F7\u6307\u5411\u7684\u4E0D\u662F\u8FD9\u5757\u677F\u4E0A\u7684\u5143\u7D20;\u7528 tb_get_board \u6838\u5BF9\u677F id \u548C\u7F16\u53F7";
+        case "not_a_code_block":
+          return "\u53EA\u6709\u4EE3\u7801\u5757\u80FD\u7ED1\u73AF\u5883;\u8FD9\u4E2A\u7F16\u53F7\u4E0D\u662F\u4EE3\u7801\u5757";
+        case "unknown_env":
+          return "env \u4E0D\u5728\u73AF\u5883\u76EE\u5F55\u91CC(\u6216\u672A\u542F\u7528);\u7528 tb_list_envs \u9009\u4E00\u4E2A";
+        case "unknown_act":
+          return `order \u91CC\u6709\u677F\u4E0A\u6CA1\u6709\u7684\u5E55:${Array.isArray(data2.acts) ? data2.acts.map(String).join(", ") : ""};\u7528 tb_get_board \u770B\u5E55 id`;
+        case "no_marks":
+          return "\u8FD9\u5757\u677F\u8FD8\u6CA1\u6709\u5E55(\u6CA1\u6709\u7FFB\u9875\u70B9),\u6CA1\u6709\u53EF\u91CD\u6392\u7684";
+        default:
+          return null;
+      }
+    }
+    return null;
+  };
+  const fail = (e6) => textOut(pendingMsg(e6) ?? d6.human(e6));
+  server2.registerTool(
+    "tb_describe",
+    {
+      title: "Describe teachboard entities",
+      description: "\u8BFB\u4E00\u4E2A(\u6216\u51E0\u4E2A)\u5143\u7D20\u7684\u5B8C\u6574\u5185\u5BB9:\u6587\u5B57 / \u516C\u5F0F latex / \u4EE3\u7801\u5168\u6587\u3001\u6240\u5728\u5E55\u3001\u8FDB\u51FA\u7684\u7BAD\u5934\u3001\u51E0\u4F55\u90BB\u5C45\u3001\u7528\u6237\u6700\u8FD1\u5BF9\u5B83\u7684\u6539\u52A8\u3002\u7528\u6237\u7C98\u4E86 tb:\u2026/E12 \u8FFD\u95EE\u3001\u6216\u6539\u4EE3\u7801\u524D,\u5148\u7528\u5B83\u770B\u6E05;tb_get_board \u53EA\u7ED9\u6458\u8981\u3002",
+      inputSchema: {
+        entities: external_exports.array(external_exports.string()).min(1).max(20).describe('\u5143\u7D20\u7F16\u53F7\u5217\u8868,\u5982 ["tb:1a2b3c4d/E12"]')
+      }
+    },
+    async ({ entities }) => {
+      if (!entities.every((e6) => ENTITY_REF_RE.test(e6))) return textOut(REF_HINT);
+      try {
+        const r6 = await call("POST", "agent/entities/describe", { entities });
+        const list2 = Array.isArray(r6?.entities) ? r6.entities : [];
+        if (!list2.length) return textOut("\u6CA1\u6709\u627E\u5230\u8FD9\u4E9B\u5143\u7D20");
+        const blocks = list2.map((x) => {
+          const ref = String(x.ref ?? x.entity ?? "");
+          if (x.missing) return `${ref}:\u4E0D\u5B58\u5728(\u53EF\u80FD\u5DF2\u5220)`;
+          const head = [`${ref} \xB7 ${String(x.kind ?? x.type ?? "")}`];
+          if (typeof x.act === "string") head.push(`\u5E55 ${x.act}${typeof x.actTitle === "string" ? `\u300C${x.actTitle}\u300D` : ""}`);
+          if (typeof x.env === "string" && x.env) head.push(`env ${x.env}`);
+          const body = [];
+          for (const k6 of ["text", "latex", "code", "label"]) if (typeof x[k6] === "string" && x[k6]) body.push(`${k6}:
+${String(x[k6])}`);
+          const edges = isObj2(x.edges) ? x.edges : {};
+          const ins = refs(edges.in, ""), outs = refs(edges.out, "");
+          if (ins.length || outs.length) body.push(`\u7BAD\u5934:\u8FDB ${ins.join(" ") || "\u65E0"};\u51FA ${outs.join(" ") || "\u65E0"}`);
+          const nb = Array.isArray(x.neighbors) ? x.neighbors.filter(isObj2) : [];
+          if (nb.length) body.push(`\u90BB\u5C45:${nb.map((n2) => `${String(n2.ref ?? "")}(${String(n2.kind ?? "")} ${String(n2.excerpt ?? "").slice(0, 40)})`).join(";")}`);
+          const ev = Array.isArray(x.events) ? x.events.filter(isObj2) : [];
+          if (ev.length) body.push(`\u7528\u6237\u6539\u52A8:${ev.map((e6) => `${String(e6.at ?? "")} ${String(e6.summary ?? "")}`).join(";")}`);
+          return [head.join(" \xB7 "), ...body].join("\n");
+        });
+        return textOut(blocks.join("\n\n"));
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_reply",
+    {
+      title: "Reply next to a teachboard entity",
+      description: "\u5728\u67D0\u4E2A\u5143\u7D20\u65C1\u653E\u4E00\u4E2A\u56DE\u7B54\u65B9\u6846\u5E76\u753B\u7BAD\u5934\u6307\u5411\u5B83(items \u540C BoardSpec \u7684\u6761\u76EE:text / math / code / shape\u2026,\u89C1 tb_describe_schema)\u3002\u7528\u6237\u7C98\u5143\u7D20\u7F16\u53F7\u8FFD\u95EE\u65F6\u7528;\u56DE\u7B54\u539F\u6587\u4E5F\u8981\u5728\u5BF9\u8BDD\u91CC\u7ED9\u4E00\u904D(\u4E24\u5904\u90FD\u7ED9)\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      inputSchema: {
+        entity: external_exports.string().describe("\u88AB\u56DE\u7B54\u7684\u5143\u7D20\u7F16\u53F7 tb:<board>/E<n>"),
+        title: external_exports.string().max(40).optional().describe("\u65B9\u6846\u5C0F\u6807\u9898(\u7F3A\u7701\u300C\u{1F4AC} \u56DE\u7B54\u300D)"),
+        items: external_exports.array(external_exports.record(external_exports.string(), external_exports.unknown())).min(1).max(20).describe("\u65B9\u6846\u91CC\u7684\u6761\u76EE(BoardSpec items)"),
+        lang: external_exports.enum(["zh", "en"]).optional().describe("\u8FDB\u5EA6\u884C\u8BED\u8A00;\u7F3A\u7701\u4E2D\u6587")
+      }
+    },
+    async ({ entity, title, items, lang }) => {
+      const m4 = ENTITY_REF_RE.exec(entity);
+      if (!m4) return textOut(REF_HINT);
+      const boardId = m4[1];
+      try {
+        const r6 = await call("POST", `agent/boards/${boardId}/reply`, { entity, ...title ? { title } : {}, items });
+        const ids = refs(r6?.elementIds, boardId);
+        const line = lang === "en" ? `\u2705 Reply placed next to ${entity} \xB7 ${ids.length} elements \xB7 open ${boardUrl(boardId)}` : `\u2705 \u56DE\u7B54\u5DF2\u653E\u5728 ${entity} \u65C1 \xB7 ${ids.length} \u4E2A\u5143\u7D20 \xB7 \u6253\u5F00 ${boardUrl(boardId)}`;
+        return textOut(`${line}
+
+\u56DE\u7B54\u6846\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}(seq ${String(r6?.seq ?? "?")})${problemsBlock(r6?.problems)}`);
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_update",
+    {
+      title: "Update teachboard entities",
+      description: "\u6539\u677F\u4E0A\u5DF2\u6709\u7684\u5143\u7D20,\u4E00\u6B21\u4E00\u6279:\u6BCF\u6761\u6539\u52A8\u53EA\u586B\u4E00\u4E2A\u5B57\u6BB5 \u2014\u2014 text(\u6587\u5B57)/ latex(\u516C\u5F0F)/ code(\u4EE3\u7801\u5757)/ label(\u5F62\u72B6\u6216\u7BAD\u5934\u7684\u6807\u7B7E)/ tone(\u5F62\u72B6\u914D\u8272 neutral|accent|warn|ok)\u3002\u6539\u4EE3\u7801\u540E\u53EF\u63A5 tb_run\u3002\u7528\u6237\u81EA\u5DF1\u6539\u8FC7\u7684\u5143\u7D20\u4F1A\u56DE conflicts,\u5148 tb_describe \u770B\u8FC7\u518D\u51B3\u5B9A\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      inputSchema: {
+        boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex)"),
+        changes: external_exports.array(external_exports.record(external_exports.string(), external_exports.unknown())).min(1).max(MAX_BATCH).describe('[{entity:"tb:\u2026/E12", code:"\u2026"}, {entity:"tb:\u2026/E3", tone:"warn"}]'),
+        lang: external_exports.enum(["zh", "en"]).optional()
+      }
+    },
+    async ({ boardId, changes, lang }) => {
+      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      const bad = [];
+      for (const [i6, c6] of changes.entries()) {
+        const entity = typeof c6.entity === "string" ? c6.entity : "";
+        const m4 = ENTITY_REF_RE.exec(entity);
+        if (!m4) {
+          bad.push(`\u7B2C ${i6 + 1} \u6761:${REF_HINT}`);
+          continue;
+        }
+        if (m4[1] !== boardId) {
+          bad.push(`\u7B2C ${i6 + 1} \u6761:${entity} \u4E0D\u5728\u677F ${boardId} \u4E0A`);
+          continue;
+        }
+        const k6 = changeField(c6);
+        if (!k6) {
+          bad.push(`\u7B2C ${i6 + 1} \u6761:\u6BCF\u6761\u6539\u52A8\u6070\u597D\u586B\u4E00\u4E2A\u5B57\u6BB5(${UPDATE_FIELDS.join(" / ")})`);
+          continue;
+        }
+        if (typeof c6[k6] !== "string") {
+          bad.push(`\u7B2C ${i6 + 1} \u6761:${k6} \u5FC5\u987B\u662F\u5B57\u7B26\u4E32`);
+          continue;
+        }
+        if (k6 === "tone" && !TONES.includes(c6[k6])) bad.push(`\u7B2C ${i6 + 1} \u6761:tone \u53EA\u80FD\u662F ${TONES.join(" / ")}`);
+      }
+      if (bad.length) return textOut(`\u6CA1\u6709\u63D0\u4EA4:
+${bad.map((b6) => `- ${b6}`).join("\n")}`);
+      try {
+        const r6 = await call("POST", `agent/boards/${boardId}/update`, { changes });
+        const applied = refs(r6?.applied, boardId);
+        const conflicts = Array.isArray(r6?.conflicts) ? r6.conflicts.filter(isObj2) : [];
+        const line = lang === "en" ? `\u2705 ${applied.length} change${applied.length === 1 ? "" : "s"} queued on board ${boardId}; they land when the user has the board open \xB7 ${boardUrl(boardId)}` : `\u2705 \u5DF2\u6392\u961F ${applied.length} \u5904\u6539\u52A8,\u7528\u6237\u6253\u5F00\u677F\u540E\u751F\u6548 \xB7 \u6253\u5F00 ${boardUrl(boardId)}`;
+        const conf = conflicts.length ? `
+\u26A0 conflicts(\u7528\u6237\u6539\u8FC7,\u8FD9\u6B21\u6CA1\u52A8;\u5148 tb_describe \u518D\u51B3\u5B9A):
+${conflicts.map((c6) => `- ${String(c6.entity ?? "")}:${String(c6.reason ?? "")}`).join("\n")}` : "";
+        return textOut(`${line}
+
+\u6539\u4E86:${applied.join(" ") || "\u65E0"}(seq ${String(r6?.seq ?? "?")})${conf}${problemsBlock(r6?.problems)}`);
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_delete",
+    {
+      title: "Delete teachboard entities",
+      description: "\u5220\u677F\u4E0A\u7684\u5143\u7D20(\u8FDE\u540C\u5B83\u7684\u6807\u7B7E\u548C\u6302\u5728\u5B83\u8EAB\u4E0A\u7684\u7BAD\u5934)\u3002reconnect:true \u65F6\u628A\u88AB\u5220\u8282\u70B9\u8FDB\u51FA\u7684\u7BAD\u5934\u63A5\u6210\u4E00\u6761\u3002\u5220\u4E4B\u524D\u786E\u8BA4\u7528\u6237\u771F\u7684\u8981\u5220\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      inputSchema: {
+        boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex)"),
+        entities: external_exports.array(external_exports.string()).min(1).max(MAX_BATCH).describe("\u8981\u5220\u7684\u5143\u7D20\u7F16\u53F7"),
+        reconnect: external_exports.boolean().optional().describe("\u88AB\u5220\u8282\u70B9\u7684\u4E0A\u6E38\u7BAD\u5934\u63A5\u5230\u4E0B\u6E38"),
+        lang: external_exports.enum(["zh", "en"]).optional()
+      }
+    },
+    async ({ boardId, entities, reconnect, lang }) => {
+      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (boardOfRefs(entities) !== boardId) return textOut(`${REF_HINT};\u4E14\u90FD\u8981\u5728\u677F ${boardId} \u4E0A`);
+      try {
+        const r6 = await call("POST", `agent/boards/${boardId}/delete`, { entities, ...reconnect ? { reconnect: true } : {} });
+        const gone = refs(r6?.deleted, boardId);
+        const n2 = gone.length || entities.length;
+        const line = lang === "en" ? `\u2705 ${n2} element${n2 === 1 ? "" : "s"} removed from board ${boardId}${reconnect ? " (arrows reconnected)" : ""}` : `\u2705 \u5DF2\u5220 ${n2} \u4E2A\u5143\u7D20${reconnect ? "(\u7BAD\u5934\u5DF2\u63A5\u4E0A)" : ""}`;
+        return textOut(`${line}
+
+${gone.join(" ") || entities.join(" ")}(seq ${String(r6?.seq ?? "?")})`);
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_set_acts",
+    {
+      title: "Reorder teachboard acts",
+      description: "\u91CD\u6392\u5E55\u5E8F(order \u7ED9\u5168\u90E8\u5E55 id \u7684\u65B0\u987A\u5E8F;\u6F0F\u6389\u7684\u5E55\u6392\u5728\u6700\u540E)\u3002\u57FA\u4E8E\u5DF2\u5B58\u76D8\u7684\u5E55\u5E8F:\u7528\u6237\u5728\u6D4F\u89C8\u5668\u91CC\u8FD8\u6CA1\u4FDD\u5B58\u7684\u7FFB\u9875\u70B9\u6539\u52A8\u4F1A\u88AB\u8986\u76D6\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      inputSchema: {
+        boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex)"),
+        order: external_exports.array(external_exports.string()).min(1).max(200).describe("\u5E55 id \u6309\u65B0\u987A\u5E8F"),
+        lang: external_exports.enum(["zh", "en"]).optional()
+      }
+    },
+    async ({ boardId, order, lang }) => {
+      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (new Set(order).size !== order.length) return textOut("order \u91CC\u6709\u91CD\u590D\u7684\u5E55 id");
+      try {
+        const r6 = await call("POST", `agent/boards/${boardId}/set-acts`, { order });
+        const acts = Array.isArray(r6?.acts) ? r6.acts.filter(isObj2) : [];
+        const line = lang === "en" ? `\u2705 Acts reordered (${acts.length || order.length})` : `\u2705 \u5E55\u5E8F\u5DF2\u6539(${acts.length || order.length} \u5E55)`;
+        const list2 = acts.length ? acts.map((a6, i6) => `${i6 + 1}. ${String(a6.actId ?? "")}${typeof a6.title === "string" ? `\u300C${a6.title}\u300D` : ""}`).join("\n") : order.join(" \u2192 ");
+        return textOut(`${line}
+
+${list2}`);
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_bind_env",
+    {
+      title: "Bind an environment to a code block or board",
+      description: "\u7ED9\u4EE3\u7801\u5757\u7ED1\u73AF\u5883(entity),\u6216\u8BBE\u6574\u5757\u677F\u7684\u9ED8\u8BA4\u73AF\u5883(boardId \u4E0D\u5E26 entity);env \u5FC5\u987B\u6765\u81EA tb_list_envs,null \u6E05\u9664\u3002\u53EA\u6709\u7ED1\u4E86\u73AF\u5883\u7684\u5757\u624D\u80FD tb_run\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002",
+      inputSchema: {
+        entity: external_exports.string().optional().describe("\u4EE3\u7801\u5757\u7F16\u53F7 tb:<board>/E<n>;\u4E0D\u4F20 = \u8BBE\u677F\u9ED8\u8BA4"),
+        boardId: external_exports.string().optional().describe("\u8BBE\u677F\u9ED8\u8BA4\u65F6\u7ED9\u677F id"),
+        env: external_exports.string().nullable().describe("\u73AF\u5883 id,null \u6E05\u9664"),
+        lang: external_exports.enum(["zh", "en"]).optional()
+      }
+    },
+    async ({ entity, boardId, env: env3, lang }) => {
+      let board = boardId ?? "";
+      if (entity !== void 0) {
+        const m4 = ENTITY_REF_RE.exec(entity);
+        if (!m4) return textOut(REF_HINT);
+        if (boardId && boardId !== m4[1]) return textOut(`${entity} \u4E0D\u5728\u677F ${boardId} \u4E0A`);
+        board = m4[1];
+      }
+      if (!BOARD_ID_RE.test(board)) return textOut("\u8981\u4E48\u7ED9\u4EE3\u7801\u5757\u7F16\u53F7 entity,\u8981\u4E48\u7ED9\u677F id(8 \u4F4D hex)\u8BBE\u677F\u9ED8\u8BA4");
+      if (env3 !== null && !/^[a-z0-9][a-z0-9._-]{0,63}$/.test(env3)) return textOut("env \u5E94\u662F tb_list_envs \u91CC\u7684\u73AF\u5883 id");
+      try {
+        const r6 = await call("POST", `agent/boards/${board}/bind-env`, entity !== void 0 ? { entity, env: env3 } : { board: true, env: env3 });
+        const what = entity !== void 0 ? entity : lang === "en" ? `board ${board} default` : `\u677F ${board} \u7684\u9ED8\u8BA4\u73AF\u5883`;
+        const line = env3 ? lang === "en" ? `\u2705 ${what} \u2192 ${env3}; applies when the user opens the board` : `\u2705 ${what} \u5DF2\u7ED1 ${env3},\u7528\u6237\u6253\u5F00\u677F\u540E\u751F\u6548` : lang === "en" ? `\u2705 env cleared on ${what}` : `\u2705 \u5DF2\u6E05\u9664 ${what} \u7684\u73AF\u5883`;
+        return textOut(`${line}(seq ${String(r6?.seq ?? "?")})`);
+      } catch (e6) {
+        return fail(e6);
+      }
+    }
+  );
 }
 
 // src/tools/teachboard.ts
@@ -84898,14 +85193,15 @@ function registerTeachboardTools(rawServer, deps = {}) {
   registerEnvTools(hinted, { client, sleep: sleep3, human });
   registerRecipeTools(hinted, { client, sleep: sleep3, human });
   registerRunTools(hinted, { client, human, host, sleep: sleep3 });
+  registerEntityTools(hinted, { client, base, human });
 }
-var RESULT_MAX = 48e3;
-var BOARD_ID_RE = /^[0-9a-f]{8}$/;
+var RESULT_MAX2 = 48e3;
+var BOARD_ID_RE2 = /^[0-9a-f]{8}$/;
 var BOARD_LANG_RULE = "Board content language must match the user's language; set spec.lang accordingly; do not default to Chinese. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u4E0E\u7528\u6237\u8BED\u8A00\u4E00\u81F4,\u76F8\u5E94\u8BBE\u7F6E spec.lang,\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587\u3002";
 var LANG_PICK_NOTE = `Note / \u63D0\u793A: the board content language must follow the user's language (do not default to Chinese); this is the English guide \u2014 call again with lang:"zh" for the Chinese guide. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u8DDF\u968F\u7528\u6237\u8BED\u8A00(\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587);\u8FD9\u662F\u82F1\u6587\u8BF4\u660E,\u8981\u4E2D\u6587\u8BF4\u660E\u8BF7\u4F20 lang:"zh" \u518D\u8C03\u4E00\u6B21\u3002`;
 var CODE_MAX = 4e3;
-var isObj2 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
-var textOut = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX) }] });
+var isObj3 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+var textOut2 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX2) }] });
 function entityRef(boardId, id) {
   if (typeof id === "number") return `tb:${boardId}/E${id}`;
   const s = String(id);
@@ -84914,10 +85210,10 @@ function entityRef(boardId, id) {
 }
 var slugId = (v) => (typeof v === "string" ? v.trim().slice(0, 40) : "").replace(/[^A-Za-z0-9_-]/g, "-").replace(/^-+|-+$/g, "");
 var actSlug = slugId;
-var problemList = (problems) => Array.isArray(problems) ? problems.map((p2) => typeof p2 === "string" ? p2 : JSON.stringify(p2)) : [];
+var problemList2 = (problems) => Array.isArray(problems) ? problems.map((p2) => typeof p2 === "string" ? p2 : JSON.stringify(p2)) : [];
 function codeEnvsOf(act, problems = [], defaultEnv) {
   const out = [];
-  if (!isObj2(act)) return out;
+  if (!isObj3(act)) return out;
   const actId = slugId(act.id);
   const dropped = (itemId) => {
     const id = slugId(itemId);
@@ -84928,7 +85224,7 @@ function codeEnvsOf(act, problems = [], defaultEnv) {
   const walk3 = (items) => {
     if (!Array.isArray(items)) return;
     for (const it of items) {
-      if (!isObj2(it)) continue;
+      if (!isObj3(it)) continue;
       if (it.kind === "group") walk3(it.items);
       else if (it.kind === "code" && typeof it.code === "string" && it.code.trim() && it.code.length <= CODE_MAX && !dropped(it.id)) {
         out.push(typeof it.env === "string" && it.env ? it.env : defaultEnv ?? "");
@@ -84938,8 +85234,8 @@ function codeEnvsOf(act, problems = [], defaultEnv) {
   walk3(act.items);
   return out;
 }
-function problemsBlock(problems) {
-  const list2 = problemList(problems);
+function problemsBlock2(problems) {
+  const list2 = problemList2(problems);
   if (!list2.length) return "";
   return `
 \u26A0 problems(\u8BF7\u8BFB\u4E00\u904D,\u4E0B\u4E00\u5E55\u4FEE\u6B63;\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199):
@@ -84968,7 +85264,7 @@ function registerBoardTools(server2, d6) {
       description: "\u8FD4\u56DE teachboard \u677F\u7684\u5143\u7D20\u5951\u7EA6(BoardSpec:item \u79CD\u7C7B\u4E0E\u5B57\u6BB5\u3001edges\u3001layout\u3001group\u3001defaultEnv\u3001code \u7684 env / run:{path,region,cmd}\u3001\u4E0A\u9650)+ \u4E2D\u82F1\u793A\u4F8B + \u6559\u6CD5\u4E0E\u5DE5\u4F5C\u65B9\u5F0F\u3002\u5EFA\u677F\u524D\u5148\u8BFB\u4E00\u6B21\u3002 " + BOARD_LANG_RULE,
       inputSchema: { lang: external_exports.enum(["zh", "en"]).optional().describe("Guide language / \u8BF4\u660E\u6587\u5B57\u7684\u8BED\u8A00;pass the user's language / \u4F20\u7528\u6237\u7684\u8BED\u8A00;omitted \u2192 English guide + note") }
     },
-    async ({ lang }) => textOut(
+    async ({ lang }) => textOut2(
       lang === "zh" ? SCHEMA_GUIDE_ZH : lang === "en" ? SCHEMA_GUIDE_EN : LANG_PICK_NOTE + "\n\n" + SCHEMA_GUIDE_EN
     )
   );
@@ -84983,7 +85279,7 @@ function registerBoardTools(server2, d6) {
       try {
         const r6 = await call("GET", "agent/boards");
         const boards = Array.isArray(r6?.boards) ? r6.boards : [];
-        if (!boards.length) return textOut("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u5757\u3002");
+        if (!boards.length) return textOut2("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u5757\u3002");
         const lines = boards.map((b6) => {
           const parts = [`${String(b6.boardId)}\u300C${String(b6.title ?? "")}\u300D`, `${Number(b6.elementCount) || 0} \u4E2A\u5143\u7D20`];
           const pend = Number(b6.pendingOps) || 0;
@@ -84992,10 +85288,10 @@ function registerBoardTools(server2, d6) {
           if (typeof b6.project === "string" && b6.project) parts.push(`\u9879\u76EE\u300C${b6.project}\u300D`);
           return parts.join(" \xB7 ");
         });
-        return textOut(`${boards.length} \u5757\u677F:
+        return textOut2(`${boards.length} \u5757\u677F:
 ${lines.join("\n")}`);
       } catch (e6) {
-        return textOut(d6.human(e6));
+        return textOut2(d6.human(e6));
       }
     }
   );
@@ -85003,9 +85299,9 @@ ${lines.join("\n")}`);
     "tb_create_board",
     {
       title: "Create a teachboard board",
-      description: '\u6309 BoardSpec \u5EFA\u4E00\u5757\u65B0\u677F(\u5951\u7EA6\u89C1 tb_describe_schema)\u3002\u603B\u5171 \u22643 \u5E55\u624D\u4E00\u6B21\u5EFA\u5B8C;\u66F4\u591A\u5E55\u65F6\u53EA\u653E\u7B2C\u4E00\u5E55,\u4E4B\u540E\u4E00\u5E55\u4E00\u6B21 tb_add_act\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env / defaultEnv \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u8BBE\u7684 defaultEnv \u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1\u3002\u4EE3\u7801\u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u6BCF\u5E55\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u5E55\u4FEE\u6B63\u3002 ' + BOARD_LANG_RULE,
+      description: '\u6309 BoardSpec \u5EFA\u4E00\u5757\u65B0\u677F(\u5951\u7EA6\u89C1 tb_describe_schema)\u3002**\u53EA\u5728\u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u5B66\u4E60\u8DEF\u5F84\u4E4B\u540E\u624D\u8C03**(\u76EE\u6807 / \u80CC\u666F / \u53C2\u8003\u5148\u5BF9\u9F50,\u5B66\u5458\u786E\u8BA4\u540E\u518D\u5EFA;\u6838\u5BF9\u8FC7\u7684\u5185\u5BB9\u653E spec.brief)\u3002\u603B\u5171 \u22643 \u5E55\u624D\u4E00\u6B21\u5EFA\u5B8C;\u66F4\u591A\u5E55\u65F6\u53EA\u653E\u7B2C\u4E00\u5E55,\u4E4B\u540E\u4E00\u5E55\u4E00\u6B21 tb_add_act\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env / defaultEnv \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u8BBE\u7684 defaultEnv \u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1\u3002\u4EE3\u7801\u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u6BCF\u5E55\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u5E55\u4FEE\u6B63\u3002 ' + BOARD_LANG_RULE,
       inputSchema: {
-        spec: external_exports.record(external_exports.string(), external_exports.unknown()).describe("BoardSpec:{title, lang?, defaultEnv?, acts:[{id,title,items,edges?,layout?}]}"),
+        spec: external_exports.record(external_exports.string(), external_exports.unknown()).describe("BoardSpec:{title, lang?, defaultEnv?, brief?:{goal,background?,references?,path?}, acts:[{id,title,items,edges?,layout?}]}"),
         project: external_exports.string().optional().describe("\u653E\u8FDB\u54EA\u4E2A\u9879\u76EE(\u7F3A\u7701\u9ED8\u8BA4\u9879\u76EE)")
       }
     },
@@ -85019,19 +85315,19 @@ ${lines.join("\n")}`);
         const specActs = Array.isArray(spec.acts) ? spec.acts : [];
         const bySlug = /* @__PURE__ */ new Map();
         specActs.forEach((a6, i6) => {
-          if (isObj2(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
+          if (isObj3(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
         });
         const acts = Array.isArray(r6.acts) ? r6.acts : [];
         const defaultEnv = typeof spec.defaultEnv === "string" ? spec.defaultEnv : void 0;
         const lang = spec.lang === "en" ? "en" : "zh";
         boardLang.set(boardId, lang);
         boardActs.set(boardId, Array.isArray(r6.acts) ? r6.acts.length : 0);
-        const probs = problemList(r6.problems);
+        const probs = problemList2(r6.problems);
         const lines = [];
         const refLines = [];
         acts.forEach((a6, i6) => {
           const actId = String(a6.actId ?? "");
-          const src = bySlug.get(actId) ?? (isObj2(specActs[i6]) ? specActs[i6] : void 0);
+          const src = bySlug.get(actId) ?? (isObj3(specActs[i6]) ? specActs[i6] : void 0);
           const ids = (Array.isArray(a6.entityIds) ? a6.entityIds : []).map((x) => entityRef(boardId, x));
           lines.push(
             actProgressLine({
@@ -85050,12 +85346,12 @@ ${lines.join("\n")}`);
 
 \u677F id:${boardId} \xB7 ${url2}
 \u5143\u7D20\u7F16\u53F7:
-${refLines.join("\n")}` + problemsBlock(r6.problems) + `
+${refLines.join("\n")}` + problemsBlock2(r6.problems) + `
 
 ${RUN_HINT}`;
-        return textOut(text);
+        return textOut2(text);
       } catch (e6) {
-        return textOut(d6.human(e6));
+        return textOut2(d6.human(e6));
       }
     }
   );
@@ -85074,7 +85370,7 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, act, after, index, total, lang }) => {
-      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const body = { act };
         if (after !== void 0) body.after = after;
@@ -85104,16 +85400,16 @@ ${RUN_HINT}`;
           total,
           title,
           entityIds: ids,
-          codeEnvs: codeEnvsOf(act, problemList(r6.problems)),
+          codeEnvs: codeEnvsOf(act, problemList2(r6.problems)),
           url: boardUrl(boardId),
           lang: lang ?? boardLang.get(boardId) ?? "zh"
         });
         const text = `${line}
 
-\u5E55 ${String(r6.actId ?? "")}(seq ${String(r6.seq ?? "?")})\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}` + problemsBlock(r6.problems);
-        return textOut(text);
+\u5E55 ${String(r6.actId ?? "")}(seq ${String(r6.seq ?? "?")})\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}` + problemsBlock2(r6.problems);
+        return textOut2(text);
       } catch (e6) {
-        return textOut(d6.human(e6));
+        return textOut2(d6.human(e6));
       }
     }
   );
@@ -85128,7 +85424,7 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, full }) => {
-      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const r6 = await call("GET", `agent/boards/${boardId}${full ? "?full=1" : ""}`);
         const acts = Array.isArray(r6.acts) ? r6.acts : [];
@@ -85169,9 +85465,9 @@ ${RUN_HINT}`;
           for (const it of loose) out.push(fmt(it));
         }
         if (r6.truncated) out.push("(\u540E\u7AEF\u6458\u8981\u5DF2\u622A\u65AD:\u677F\u592A\u5927,\u4E0A\u9762\u53EA\u5217\u51FA\u4E86\u4E00\u90E8\u5206\u5E55 / \u6761\u76EE)");
-        return textOut(out.join("\n"));
+        return textOut2(out.join("\n"));
       } catch (e6) {
-        return textOut(d6.human(e6));
+        return textOut2(d6.human(e6));
       }
     }
   );
@@ -85203,32 +85499,32 @@ function registerEnvTools(server2, d6) {
       try {
         const r6 = await call("GET", "envs");
         const envs = Array.isArray(r6.envs) ? r6.envs : [];
-        if (!envs.length) return textOut("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
+        if (!envs.length) return textOut2("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
         const out = [];
         for (const e6 of envs) {
-          const rt = isObj2(e6.runtime) ? e6.runtime : {};
-          const gpu = isObj2(rt.gpu) ? rt.gpu : null;
+          const rt = isObj3(e6.runtime) ? e6.runtime : {};
+          const gpu = isObj3(rt.gpu) ? rt.gpu : null;
           const head = [
             String(e6.id ?? ""),
             gpu ? `GPU ${String(gpu.type ?? "?")}${Number(gpu.count) > 1 ? `\xD7${gpu.count}` : ""}` : "\u65E0 GPU",
             e6.access === "paid" ? "\u9700\u4ED8\u8D39" : "\u514D\u8D39",
             `\u72B6\u6001 ${String(e6.status ?? "?")}`
           ];
-          if (isObj2(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
+          if (isObj3(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
           out.push(head.join(" \xB7 "));
           if (e6.name || e6.summary) out.push(`  ${[e6.name, e6.summary].filter(Boolean).join(":")}`);
           if (Array.isArray(rt.libs) && rt.libs.length) out.push(`  \u9884\u88C5:${rt.libs.join("\u3001")}`);
           if (typeof e6.advice === "string" && e6.advice) out.push(`  \u5EFA\u8BAE(\u7ED9\u5B66\u4E60\u8005\u7684\u5EFA\u8BAE,\u662F\u5426\u7167\u505A\u7531\u7528\u6237\u51B3\u5B9A):${e6.advice}`);
-          const tasks = isObj2(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
+          const tasks = isObj3(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
           if (tasks.length) {
             out.push("  \u8BC4\u5206\u4EFB\u52A1:");
             for (const t of tasks) {
-              const tg = isObj2(t.target) ? t.target : null;
+              const tg = isObj3(t.target) ? t.target : null;
               let line = `    ${String(t.id ?? "")} \xB7 ${String(t.title ?? "")} \xB7 ${String(t.maxScore ?? "?")}`;
               if (tg) line += ` \xB7 \u76EE\u6807 ${String(tg.path)}${tg.region ? `#${String(tg.region)}` : ""}`;
               if (tg && Array.isArray(tg.extraRegions)) {
                 for (const x of tg.extraRegions) {
-                  if (isObj2(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
+                  if (isObj3(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
                 }
               }
               out.push(line);
@@ -85236,9 +85532,9 @@ function registerEnvTools(server2, d6) {
           }
         }
         out.push("", "\u5199\u4EE3\u7801\u524D\u5148\u9009 env;GPU \u73AF\u5883\u5148 warm,\u7528\u5B8C stop,\u6309\u65F6\u957F\u8BA1\u8D39\u3002");
-        return textOut(out.join("\n"));
+        return textOut2(out.join("\n"));
       } catch (e6) {
-        return textOut(envHuman(e6));
+        return textOut2(envHuman(e6));
       }
     }
   );
@@ -85253,7 +85549,7 @@ function registerEnvTools(server2, d6) {
       }
     },
     async ({ env: env3, action }, extra) => {
-      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       const path6 = `envs/${encodeURIComponent(env3)}/session`;
       const money = (s) => `\u5DF2\u82B1 ${usd(s.spentUsd)} \xB7 \u5269\u4F59 ${usd(s.remainingUsd)}`;
       const token = extra?._meta?.progressToken;
@@ -85271,29 +85567,29 @@ function registerEnvTools(server2, d6) {
       try {
         if (action === "stop") {
           const s2 = await call("DELETE", path6);
-          return textOut(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
+          return textOut2(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
         }
         if (action === "status") {
           const s2 = await call("GET", path6);
           await progress(`${env3}: ${String(s2.state)}`);
-          return textOut(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
+          return textOut2(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
         }
         let s = await call("POST", path6);
-        if (s.state === "ready") return textOut(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+        if (s.state === "ready") return textOut2(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
         for (let waited = 0; waited < WARM_MAX_MS; waited += WARM_POLL_MS) {
           await d6.sleep(WARM_POLL_MS);
           s = await call("GET", path6);
           await progress(`${env3}: ${String(s.state)}${s.etaSec != null ? `,\u7EA6 ${s.etaSec} \u79D2` : ""}`);
-          if (s.state === "ready") return textOut(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+          if (s.state === "ready") return textOut2(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
           if (s.state === "cold" || s.state === "stopping") {
-            return textOut(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
+            return textOut2(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
           }
         }
-        return textOut(
+        return textOut2(
           `${env3} \u8FD8\u5728\u51C6\u5907(\u7EA6 ${s.etaSec ?? "?"} \u79D2),\u7A0D\u540E status \u6216\u76F4\u63A5 tb_run \u4F1A\u544A\u8BC9\u4F60 \xB7 ${money(s)}`
         );
       } catch (e6) {
-        return textOut(envHuman(e6));
+        return textOut2(envHuman(e6));
       }
     }
   );
@@ -85302,7 +85598,7 @@ var RECIPE_POLL_MS = 5e3;
 var RECIPE_MAX_MS = 24e4;
 var ENV_ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/;
 var RECIPE_ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
-var ENTITY_REF_RE = /^tb:([0-9a-f]{8})\/(E\d+)$/;
+var ENTITY_REF_RE2 = /^tb:([0-9a-f]{8})\/(E\d+)$/;
 var BIND_PENDING_RETRIES = 3;
 var CUSTOMIZE_DESC = "\u7ED9\u4E00\u4E2A\u73AF\u5883\u52A0 Python \u5305(\u73AF\u5883\u914D\u65B9)\u3002\u2460 \u4EE3\u7801\u8DD1\u5728 teachboard \u4E91\u7AEF\u73AF\u5883\u91CC,\u4E0D\u5728\u7528\u6237\u7684\u7535\u8111\u4E0A:\u7F3A Python \u5305\u5FC5\u987B\u7528\u672C\u5DE5\u5177\u52A0,\u7EDD\u4E0D\u8981\u5728\u672C\u673A pip / uv / conda install\u3002\u2461 \u4F55\u65F6\u7528:\u7528\u6237\u8BF4\u300C\u5728 X \u73AF\u5883\u91CC\u88C5 / \u52A0 Y\u300D,\u6216 tb_run \u7684\u7ED3\u679C\u91CC\u6709 missingModule / ModuleNotFoundError\u2014\u2014\u540E\u8005\u76F4\u63A5\u88C5,\u4E0D\u7528\u5148\u95EE\u7528\u6237\u3002\u2462 \u53C2\u6570:env = \u4EE3\u7801\u5757\u7ED1\u5B9A\u7684\u73AF\u5883 id;add = PyPI \u5305\u540D(\u53EF\u5E26\u7248\u672C\u7EA6\u675F);import \u540D\u548C\u5305\u540D\u4E0D\u4E00\u6837\u65F6\u7528\u5305\u540D(cv2\u2192opencv-python\u3001sklearn\u2192scikit-learn\u3001PIL\u2192Pillow),\u4F18\u5148\u7528 missingModule.package;\u4F20 entity(tb:<\u677F id>/E<n>)\u4F1A\u5728\u88C5\u597D\u540E\u628A\u914D\u65B9\u81EA\u52A8\u7ED1\u5230\u90A3\u4E2A\u4EE3\u7801\u5757\u3002\u2463 \u7ED3\u679C:\u9A8C\u8BC1\u8981 10 \u79D2\u5230\u51E0\u5206\u949F(\u672C\u5DE5\u5177\u6700\u591A\u7B49 4 \u5206\u949F);ready \u540E\u7528\u8BE5 recipe \u91CD\u65B0 tb_run;failed \u5C31\u770B verifyLog \u6539\u914D\u65B9\u518D\u63D0\u4EA4;\u8FD8\u5728\u9A8C\u8BC1\u4E0D\u7B97\u5931\u8D25,\u7A0D\u540E\u7528 tb_env_recipes \u67E5;apt_not_allowed \u539F\u6837\u8F6C\u544A\u7528\u6237\u3002\u2464 \u4E0D\u80FD:\u88C5 apt \u7CFB\u7EDF\u5305,\u4E5F\u4E0D\u80FD\u6539\u57FA\u7840\u73AF\u5883\u91CC\u5DF2\u6709\u5305\u7684\u7248\u672C(\u53EA\u52A0\u4E0D\u6539)\u3002";
 function registerRecipeTools(server2, d6) {
@@ -85358,7 +85654,7 @@ function registerRecipeTools(server2, d6) {
     }
   };
   const bindMsg = async (entity, recipe) => {
-    const m4 = ENTITY_REF_RE.exec(entity);
+    const m4 = ENTITY_REF_RE2.exec(entity);
     if (!m4) return "\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)";
     try {
       await bind(m4[1], entity, recipe);
@@ -85385,9 +85681,9 @@ function registerRecipeTools(server2, d6) {
       }
     },
     async ({ env: env3, add, commands: commands6, name, entity }, extra) => {
-      if (!ENV_ID_RE.test(env3)) return textOut("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
-      if (entity !== void 0 && !ENTITY_REF_RE.test(entity)) {
-        return textOut("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (!ENV_ID_RE.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (entity !== void 0 && !ENTITY_REF_RE2.test(entity)) {
+        return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
       }
       const token = extra?._meta?.progressToken;
       let n2 = 0;
@@ -85408,7 +85704,7 @@ function registerRecipeTools(server2, d6) {
         const created = await call("POST", `envs/${encodeURIComponent(env3)}/recipes`, body);
         let r6 = created.recipe ?? {};
         const id = typeof r6.id === "string" ? r6.id : "";
-        if (!RECIPE_ID_RE.test(id)) return textOut("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
+        if (!RECIPE_ID_RE.test(id)) return textOut2("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
         await progress(`\u914D\u65B9 ${id}: ${String(r6.status)}`);
         let failures = 0;
         for (let waited = 0; r6.status === "verifying" && waited < RECIPE_MAX_MS; waited += RECIPE_POLL_MS) {
@@ -85420,7 +85716,7 @@ function registerRecipeTools(server2, d6) {
           } catch (e6) {
             const st = e6 instanceof TbError ? e6.status : 0;
             if (st === 401 || st === 404 || ++failures >= 3) {
-              return textOut(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+              return textOut2(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
             }
             continue;
@@ -85430,21 +85726,21 @@ function registerRecipeTools(server2, d6) {
         if (r6.status === "ready") {
           const out = [`\u914D\u65B9\u5C31\u7EEA recipeId=${id}(\u73AF\u5883 ${env3}),\u7528 recipe:"${id}" \u91CD\u65B0 tb_run \u5373\u53EF`, ...lockSummary(r6.lock)];
           if (entity) out.push(await bindMsg(entity, id));
-          return textOut(out.join("\n"));
+          return textOut2(out.join("\n"));
         }
         if (r6.status === "failed") {
           const tail = logTail(r6.verifyLog);
-          return textOut(
+          return textOut2(
             `\u914D\u65B9\u9A8C\u8BC1\u5931\u8D25 recipeId=${id}
 ${tail ? `verifyLog \u672B\u5C3E:
 ${tail}
 ` : ""}\u6539\u914D\u65B9\u518D\u63D0\u4EA4(\u6362\u5305\u540D / \u7248\u672C,\u6216\u53BB\u6389\u51B2\u7A81\u7684\u5305)\u3002`
           );
         }
-        return textOut(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+        return textOut2(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
       } catch (e6) {
-        return textOut(humanErr(e6));
+        return textOut2(humanErr(e6));
       }
     }
   );
@@ -85456,11 +85752,11 @@ ${tail}
       inputSchema: { env: external_exports.string().describe("\u73AF\u5883 id(\u89C1 tb_list_envs)") }
     },
     async ({ env: env3 }) => {
-      if (!ENV_ID_RE.test(env3)) return textOut("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!ENV_ID_RE.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       try {
         const r6 = await call("GET", `envs/${encodeURIComponent(env3)}/recipes`);
         const list2 = Array.isArray(r6.recipes) ? r6.recipes : [];
-        if (!list2.length) return textOut(`${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9`);
+        if (!list2.length) return textOut2(`${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9`);
         const out = [`${env3} \u7684\u914D\u65B9(${list2.length} \u4E2A):`];
         for (const x of list2) {
           const req = Array.isArray(x.requested) ? x.requested.map(String).join(", ") : "";
@@ -85469,9 +85765,9 @@ ${tail}
             `${String(x.id)}${x.name ? `\u300C${x.name}\u300D` : ""} \xB7 ${String(x.status)} \xB7 \u8BF7\u6C42 ${req || "-"} \xB7 lock ${locks} \xB7 \u66F4\u65B0 ${String(x.updatedAt ?? "?")}`
           );
         }
-        return textOut(out.join("\n"));
+        return textOut2(out.join("\n"));
       } catch (e6) {
-        return textOut(humanErr(e6));
+        return textOut2(humanErr(e6));
       }
     }
   );
@@ -85486,8 +85782,8 @@ ${tail}
       }
     },
     async ({ entity, recipe }) => {
-      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
-      return textOut(await bindMsg(entity, recipe));
+      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut2("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      return textOut2(await bindMsg(entity, recipe));
     }
   );
 }
@@ -85646,7 +85942,7 @@ function registerRunTools(server2, d6) {
     return d6.human(e6);
   };
   const wbMsg = (wb) => {
-    if (!isObj2(wb)) return "";
+    if (!isObj3(wb)) return "";
     if (typeof wb.seq === "number") return "\u8F93\u51FA\u5DF2\u5199\u56DE\u677F\u4E0A";
     const code = typeof wb.error === "string" ? wb.error : "";
     const why = code === "board_not_found" ? "\u627E\u4E0D\u5230\u8FD9\u5757\u677F" : code === "ops_backlog" ? "\u8FD9\u5757\u677F\u8FD8\u6709\u5F88\u591A\u6B65\u6CA1\u5728\u6D4F\u89C8\u5668\u91CC\u843D\u5730,\u8BF7\u7528\u6237\u6253\u5F00\u8FD9\u5757\u677F" : code === "write_back_failed" || code ? "\u5199\u56DE\u5931\u8D25" : "\u5199\u56DE\u5931\u8D25";
@@ -85680,30 +85976,30 @@ function registerRunTools(server2, d6) {
       }
     },
     async ({ entity, recipe }, extra) => {
-      const m4 = ENTITY_REF_RE.exec(entity);
-      if (!m4) return textOut("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      const m4 = ENTITY_REF_RE2.exec(entity);
+      if (!m4) return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut2("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
       const boardId = m4[1];
       const eid = m4[2];
       const blk = await readBlock(boardId, eid);
-      if (typeof blk === "string") return textOut(blk);
-      if (blk.kind !== "code") return textOut("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
-      if (!blk.env) return textOut("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
-      if (Array.isArray(blk.files) && blk.files.length) return textOut("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
-      if (blk.truncated) return textOut("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
-      const run = isObj2(blk.run) ? blk.run : {};
+      if (typeof blk === "string") return textOut2(blk);
+      if (blk.kind !== "code") return textOut2("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
+      if (!blk.env) return textOut2("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
+      if (Array.isArray(blk.files) && blk.files.length) return textOut2("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
+      if (blk.truncated) return textOut2("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
+      const run = isObj3(blk.run) ? blk.run : {};
       const body = {
         code: String(blk.code ?? ""),
         language: String(blk.language ?? ""),
         env: blk.env,
         writeBack: { boardId, target: { entityId: Number(eid.slice(1)) } }
       };
-      if (typeof run.region === "string" && typeof run.path !== "string") return textOut("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
+      if (typeof run.region === "string" && typeof run.path !== "string") return textOut2("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
       const notes2 = [];
       if (typeof blk.recipeIgnored === "string" && blk.recipeIgnored) notes2.push(blk.recipeIgnored);
       let useRecipe = recipe ?? (typeof blk.recipe === "string" && RECIPE_ID_RE.test(blk.recipe) ? blk.recipe : void 0);
       if (!recipe && useRecipe && blk.recipeStatus === "failed") {
-        return textOut(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
+        return textOut2(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
       }
       if (!recipe && useRecipe && blk.recipeStatus === "verifying") {
         let st = "verifying";
@@ -85716,8 +86012,8 @@ function registerRunTools(server2, d6) {
             break;
           }
         }
-        if (st === "failed") return textOut(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
-        if (st !== "ready") return textOut(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
+        if (st === "failed") return textOut2(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
+        if (st !== "ready") return textOut2(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
       }
       if (typeof run.path === "string") {
         body.file = { path: run.path, ...typeof run.region === "string" ? { region: run.region } : {} };
@@ -85728,10 +86024,10 @@ function registerRunTools(server2, d6) {
       try {
         r6 = await withProgress(extra, "\u8FD0\u884C\u4E2D", () => call("POST", "run", body, RUN_TIMEOUT_MS));
       } catch (e6) {
-        return textOut(humanErr(e6));
+        return textOut2(humanErr(e6));
       }
       const out = [];
-      const mm = isObj2(r6.missingModule) ? r6.missingModule : null;
+      const mm = isObj3(r6.missingModule) ? r6.missingModule : null;
       if (mm && typeof mm.hint === "string" && mm.hint) out.push(mm.hint);
       out.push(...notes2);
       const reason = String(r6.exitReason ?? "");
@@ -85745,7 +86041,7 @@ function registerRunTools(server2, d6) {
 ${tailBytes(r6.stdout, STDOUT_TAIL)}`);
       if (typeof r6.stderr === "string" && r6.stderr) out.push(`stderr:
 ${tailBytes(r6.stderr, STDERR_TAIL)}`);
-      return textOut(out.join("\n"));
+      return textOut2(out.join("\n"));
     }
   );
   const renderReview = (rv) => {
@@ -85798,8 +86094,8 @@ ${piece}
       }
     },
     async ({ entity, task }, extra) => {
-      if (!ENTITY_REF_RE.test(entity)) return textOut("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (task !== void 0 && !TASK_RE3.test(task)) return textOut("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
+      if (!ENTITY_REF_RE2.test(entity)) return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (task !== void 0 && !TASK_RE3.test(task)) return textOut2("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
       let r6;
       try {
         r6 = await withProgress(
@@ -85808,24 +86104,24 @@ ${piece}
           () => call("POST", "grade", { entity, ...task ? { task } : {} }, GRADE_TIMEOUT_MS)
         );
       } catch (e6) {
-        return textOut(humanErr(e6));
+        return textOut2(humanErr(e6));
       }
       if (r6.ok === false) {
-        return textOut(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r6.error ?? "unknown")}${typeof r6.setupLog === "string" && r6.setupLog ? `
+        return textOut2(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r6.error ?? "unknown")}${typeof r6.setupLog === "string" && r6.setupLog ? `
 setupLog:
 ${tailBytes(r6.setupLog, STDERR_TAIL)}` : ""}`);
       }
-      const out = renderGrade(isObj2(r6.grade) ? r6.grade : {});
+      const out = renderGrade(isObj3(r6.grade) ? r6.grade : {});
       if (r6.card === null) out.push("\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F");
-      else if (isObj2(r6.card) && typeof r6.card.seq === "number") out.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
+      else if (isObj3(r6.card) && typeof r6.card.seq === "number") out.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
       out.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-      if (typeof r6.setupLog === "string" && r6.setupLog && !isObj2(r6.review)) out.push(`setupLog:
+      if (typeof r6.setupLog === "string" && r6.setupLog && !isObj3(r6.review)) out.push(`setupLog:
 ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
-      if (isObj2(r6.review)) {
+      if (isObj3(r6.review)) {
         out.push(`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${String(r6.review.gradeId ?? r6.gradeId ?? "")}:`);
         out.push(...renderReview(r6.review));
       }
-      return textOut(out.join("\n"));
+      return textOut2(out.join("\n"));
     }
   );
   server2.registerTool(
@@ -85845,7 +86141,7 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
       }
     },
     async ({ gradeId, items }) => {
-      if (!GRADE_ID_RE.test(gradeId)) return textOut("gradeId \u4E0D\u5408\u6CD5");
+      if (!GRADE_ID_RE.test(gradeId)) return textOut2("gradeId \u4E0D\u5408\u6CD5");
       const fetchReview = async () => {
         const r6 = await call("GET", "grade/reviews");
         return (Array.isArray(r6.reviews) ? r6.reviews : []).find((x) => String(x.gradeId) === gradeId) ?? null;
@@ -85853,25 +86149,25 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
       if (!items) {
         try {
           const rv = await fetchReview();
-          if (!rv) return textOut("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
-          return textOut([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
+          if (!rv) return textOut2("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
+          return textOut2([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
         } catch (e6) {
-          return textOut(humanErr(e6));
+          return textOut2(humanErr(e6));
         }
       }
       try {
         const r6 = await call("POST", `grade/reviews/${gradeId}`, { items });
-        const out = renderGrade(isObj2(r6.grade) ? r6.grade : {});
+        const out = renderGrade(isObj3(r6.grade) ? r6.grade : {});
         out.push(r6.card === null ? "\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F" : "\u8BC4\u5206\u5361\u5DF2\u66F4\u65B0");
         out.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-        return textOut(out.join("\n"));
+        return textOut2(out.join("\n"));
       } catch (e6) {
         const code = codeOf(e6);
-        if (e6 instanceof TbError && e6.status === 409 && code === "already_reviewed") return textOut("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
-        if (e6 instanceof TbError && e6.status === 404) return textOut("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
+        if (e6 instanceof TbError && e6.status === 409 && code === "already_reviewed") return textOut2("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
+        if (e6 instanceof TbError && e6.status === 404) return textOut2("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
         if (e6 instanceof TbError && e6.status === 400) {
-          if (code === "bad_review_score") return textOut("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
-          if (code === "bad_review_evidence") return textOut("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
+          if (code === "bad_review_score") return textOut2("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
+          if (code === "bad_review_evidence") return textOut2("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
           if (code === "review_items_mismatch") {
             const sent = items.map((x) => x.index);
             let hintTxt = "";
@@ -85886,10 +86182,10 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
               }
             } catch {
             }
-            return textOut(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
+            return textOut2(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
           }
         }
-        return textOut(humanErr(e6));
+        return textOut2(humanErr(e6));
       }
     }
   );
