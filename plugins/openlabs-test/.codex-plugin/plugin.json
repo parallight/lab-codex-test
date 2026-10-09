@@ -1,6 +1,6 @@
 {
   "name": "openlabs-test",
-  "version": "0.1.29-phase1",
+  "version": "0.1.30-phase1",
   "description": "[TEST ring → https://test.lab-agent.parallight.ai] OpenLabs (Parallight Lab) — agent-oriented learning plugin for Codex CLI. Learn to build AI agents by directing them, guided by a resident mentor for the lab you are in; draw what you want to learn as a teachboard board. Zero API keys (LLM runs through Parallight's backend).\n\nTrigger when the user's message starts with :openlabs, :lab (:lab, :lab-login, :lab-start <lab-id>, :lab-status, :lab-kb, :lab-logout, :lab-exit) or :teachboard, or asks in natural language to log into Parallight, browse/start/continue a lab, check lab progress, exit a lab, draw a topic on the board, or connect the board account.",
   "author": {
     "name": "Marvin Gao",

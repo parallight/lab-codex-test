@@ -81164,7 +81164,7 @@ var StdioServerTransport = class {
 };
 
 // ../shared/src/index.ts
-var PARALLIGHT_VERSION = "0.1.26-phase1";
+var PARALLIGHT_VERSION = "0.1.30-phase1";
 
 // src/config.ts
 import { homedir } from "node:os";
@@ -84667,6 +84667,7 @@ acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 c
 - \u6BCF\u5E55\u53EA\u56DE\u7B54\u4E00\u4E2A\u95EE\u9898,\u5E55\u6807\u9898\u5C31\u662F\u8FD9\u4E2A\u95EE\u9898\u7684\u7B54\u6848\u65B9\u5411\u3002
 - \u4EE3\u7801\u5148\u4E8E\u5B9A\u4E49:\u5148\u8BA9\u4EBA\u770B\u5230\u80FD\u8DD1\u7684\u4E1C\u897F,\u518D\u7ED9\u540D\u5B57\u3002
 - \u516C\u5F0F\u7D27\u8DDF\u76F4\u89C9:\u5148\u4E00\u53E5\u8BDD/\u4E00\u5F20\u56FE,\u518D\u4E0A math\u3002
+- **\u7B54\u5728\u5B83\u65C1\u8FB9,\u4E0D\u63A5\u5728\u540E\u9762**(Marvin 1009:\u8FD9\u624D\u662F\u753B\u5E03)\u3002\u5B66\u5458\u7684\u8FFD\u95EE\u3001\u5728\u677F\u4E0A\u5199\u7684\u95EE\u9898\u3001\u505A\u7684\u9AD8\u4EAE / \u6807\u8BB0\u3001\u5BF9\u67D0\u4E00\u5757\u7684\u8865\u5145\u89E3\u91CA,\u4E00\u5F8B\u7528 \`tb_reply\` \u628A\u7B54\u6848\u653E\u5728**\u6700\u76F8\u5173\u7684\u90A3\u4E2A\u5143\u7D20\u65C1\u8FB9**\u5E76\u753B\u7BAD\u5934\u6307\u5411\u5B83 \u2014\u2014 \u5B66\u5458\u5199\u7684\u90A3\u53E5\u95EE\u9898\u3001\u88AB\u9AD8\u4EAE\u7684\u90A3\u6BB5\u3001\u6216\u95EE\u9898\u6240\u6307\u7684\u90A3\u5757\u5185\u5BB9(\u5148 \`tb_get_board\` \u770B\u300C\u5B66\u5458\u5728\u677F\u4E0A\u5199\u7684 / \u6807\u8BB0\u7684\u300D\u4E00\u8282,\u5FC5\u8981\u65F6 \`tb_describe\`)\u3002\u4E0D\u8981\u4E3A\u4E86\u56DE\u7B54\u65B0\u5F00\u4E00\u5E55\u63A5\u5728\u677F\u5C3E;\u53EA\u6709\u771F\u6B63\u7684\u65B0\u8BDD\u9898(\u5B66\u5458\u8981\u5F80\u4E0B\u5B66\u4E0B\u4E00\u90E8\u5206)\u624D \`tb_add_act\`\u3002\u4E00\u4E2A\u95EE\u9898\u4E00\u4E2A\u56DE\u7B54\u6846;\u540C\u65F6\u95EE\u4E86\u51E0\u4E2A\u95EE\u9898,\u5C31\u5206\u522B\u8D34\u5728\u5404\u81EA\u7684\u4F4D\u7F6E\u3002
 - **\u4F8B\u5B50\u8981\u56FD\u9645\u5316\u3001\u73B0\u4EE3\u3001\u4E2D\u6027**(Marvin 1009)\u3002\u4E3E\u4F8B\u7528\u4ECA\u5929\u5168\u7403\u901A\u7528\u7684\u573A\u666F:\u79D1\u6280\u4EA7\u54C1\u3001\u5F00\u6E90\u9879\u76EE\u3001\u79D1\u5B66\u53D1\u73B0\u3001\u4F53\u80B2\u3001\u97F3\u4E50\u3001\u65C5\u884C\u3001\u771F\u5B9E\u516C\u53F8\u7684\u6848\u4F8B;\u4EBA\u540D\u5730\u540D\u591A\u5143\u3002\u4E0D\u7528\u53E3\u53F7\u5F0F\u3001\u5E26\u653F\u6CBB\u6216\u610F\u8BC6\u5F62\u6001\u8272\u5F69\u7684\u53E5\u5B50(\u9886\u5BFC\u4EBA\u3001\u6807\u8BED\u3001\u5730\u540D\u53E3\u53F7),\u4E0D\u7528\u8BFE\u672C\u8154\u7684\u8001\u4F8B\u53E5\u3002\u4E2D\u6587\u677F\u4E5F\u4E00\u6837:\u8BFB\u8005\u662F\u5728\u5168\u7403\u8BED\u5883\u91CC\u5DE5\u4F5C\u7684\u4E2D\u6587\u7528\u6237\u3002\u4F8B:\u8BB2\u8BED\u8A00\u6A21\u578B\u9010\u5B57\u751F\u6210,\u7528\u300CThe capital of France is \u2192 Paris\u300D\u300CTransformer \u7684\u6838\u5FC3\u662F \u2192 attention\u300D,\u800C\u4E0D\u662F\u53E3\u53F7\u5F0F\u53E5\u5B50\u3002
 
 ## \u5DE5\u4F5C\u65B9\u5F0F
@@ -84755,6 +84756,7 @@ Every element gets a board-local number E<n> (from 1), written \`tb:<8-char boar
 - One question per act; the act title points at its answer.
 - Code before definitions: show something that runs, then name it.
 - Formula right after the intuition: one sentence / picture first, then math.
+- **Answer next to it, never at the end** (that is what makes it a canvas). Follow-up questions, questions the learner wrote on the board, their highlights / marks, and extra explanation of one part all go through \`tb_reply\`: the answer box sits **next to the most relevant element** with an arrow pointing at it \u2014 the learner's written question, the highlighted passage, or the content the question is about (read the "written / marked by the learner" section of \`tb_get_board\` first, \`tb_describe\` when needed). Do not open a new act at the end of the board to answer; only a genuinely new topic (the learner moves on to the next part) gets \`tb_add_act\`. One answer box per question; several questions at once get one box each, at their own places.
 - **Examples are international, modern and neutral.** Use scenes that read as current worldwide: tech products, open-source projects, scientific discoveries, sports, music, travel, real company cases; diverse names and places. No slogans or politically or ideologically charged sentences (leaders, campaign slogans, patriotic place phrases) and no dated textbook sentences. Example: to show token-by-token generation use "The capital of France is -> Paris" or "The core of a Transformer is -> attention".
 
 ## How to work
@@ -85526,11 +85528,31 @@ ${RUN_HINT}`;
           const m4 = /\/(E\d+)$/.exec(String(ref));
           return m4 ? m4[1] : String(ref);
         };
-        const fmt = (it) => {
-          const ex = Array.from(String(it.excerpt ?? "").replace(/\s+/g, " ").trim());
-          const excerpt = ex.length > 80 ? `${ex.slice(0, 79).join("")}\u2026` : ex.join("");
-          return `  [${short(it.ref)} ${String(it.kind ?? "")}${excerpt ? ` "${excerpt}"` : ""}]`;
+        const clipChars = (t, n2) => {
+          const a6 = Array.from(String(t ?? "").replace(/\s+/g, " ").trim());
+          return a6.length > n2 ? `${a6.slice(0, n2 - 1).join("")}\u2026` : a6.join("");
         };
+        const userBits = (it) => {
+          const bits = [];
+          if (it.by === "user") bits.push("\u5B66\u5458\u5199\u7684");
+          const b6 = isObj3(it.box) ? it.box : null;
+          if (b6 && [b6.x, b6.y, b6.w, b6.h].every((v) => typeof v === "number")) bits.push(`@(${b6.x},${b6.y}) ${b6.w}\xD7${b6.h}`);
+          const marks = Array.isArray(it.marks) ? it.marks.filter((m4) => typeof m4 === "string" && !!m4.trim()) : [];
+          if (marks.length) bits.push(`\u5B66\u5458\u9AD8\u4EAE:${marks.slice(0, 5).map((m4) => `\u300C${clipChars(m4, 40)}\u300D`).join("")}`);
+          const covers = Array.isArray(it.covers) ? it.covers.map(short) : [];
+          if (covers.length) bits.push(`\u6807\u5728 ${covers.join(" ")} \u4E0A`);
+          return bits.length ? ` \xB7 ${bits.join(" \xB7 ")}` : "";
+        };
+        const fmt = (it) => {
+          const excerpt = clipChars(it.excerpt, 80);
+          return `  [${short(it.ref)} ${String(it.kind ?? "")}${excerpt ? ` "${excerpt}"` : ""}${userBits(it)}]`;
+        };
+        const userItems = items.filter((it) => it.by === "user" || Array.isArray(it.marks) && it.marks.length || it.kind === "highlight");
+        if (userItems.length) {
+          out.push(`\u5B66\u5458\u5728\u677F\u4E0A\u5199\u7684 / \u6807\u8BB0\u7684(${userItems.length} \u5904;\u56DE\u7B54\u3001\u89E3\u91CA\u5B83\u4EEC\u65F6\u7528 tb_reply \u628A\u7B54\u6848\u8D34\u5728\u5B83\u65C1\u8FB9\u5E76\u753B\u7BAD\u5934,\u4E0D\u8981\u65B0\u5F00\u4E00\u5E55):`);
+          for (const it of userItems.slice(0, 30)) out.push(fmt(it));
+          if (userItems.length > 30) out.push(`  \u2026\u53E6\u6709 ${userItems.length - 30} \u5904`);
+        }
         const byAct = /* @__PURE__ */ new Map();
         const loose = [];
         for (const it of items) {
