@@ -11771,10 +11771,10 @@ async function setupSkills(ctx) {
     try {
       const versionId = await resolveSkillVersion(client, skill.skill_id, skill.version);
       const version2 = await client.beta.skills.versions.retrieve(versionId, { skill_id: skill.skill_id });
-      let dirname6 = path3.basename(version2.name.trim());
-      if (dirname6 === "" || dirname6 === "." || dirname6 === "..")
-        dirname6 = skill.skill_id;
-      const dest = path3.resolve(skillsRoot, dirname6);
+      let dirname8 = path3.basename(version2.name.trim());
+      if (dirname8 === "" || dirname8 === "." || dirname8 === "..")
+        dirname8 = skill.skill_id;
+      const dest = path3.resolve(skillsRoot, dirname8);
       if (dest !== skillsRoot && !dest.startsWith(skillsRoot + path3.sep)) {
         log.warn("skill name escapes the skills dir; skipping", {
           component: "agent-tool-context",
@@ -20903,13 +20903,13 @@ var getCircularReplacer;
 var init_circularReplacer = __esm({
   "../../node_modules/.pnpm/@smithy+core@3.24.3/node_modules/@smithy/core/dist-es/submodules/client/util-waiter/circularReplacer.js"() {
     getCircularReplacer = () => {
-      const seen = /* @__PURE__ */ new WeakSet();
+      const seen2 = /* @__PURE__ */ new WeakSet();
       return (key, value) => {
         if (typeof value === "object" && value !== null) {
-          if (seen.has(value)) {
+          if (seen2.has(value)) {
             return "[Circular]";
           }
-          seen.add(value);
+          seen2.add(value);
         }
         return value;
       };
@@ -32668,12 +32668,12 @@ import { normalize, sep as sep5 } from "node:path";
 var getNodeModulesParentDirs;
 var init_getNodeModulesParentDirs = __esm({
   "../../node_modules/.pnpm/@aws-sdk+core@3.974.12/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js"() {
-    getNodeModulesParentDirs = (dirname6) => {
+    getNodeModulesParentDirs = (dirname8) => {
       const cwd = process.cwd();
-      if (!dirname6) {
+      if (!dirname8) {
         return [cwd];
       }
-      const normalizedPath = normalize(dirname6);
+      const normalizedPath = normalize(dirname8);
       const parts = normalizedPath.split(sep5);
       const nodeModulesIndex = parts.indexOf("node_modules");
       const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(sep5) : normalizedPath;
@@ -32748,8 +32748,8 @@ var init_getTypeScriptUserAgentPair = __esm({
         tscVersion = null;
         return void 0;
       }
-      const dirname6 = typeof __dirname !== "undefined" ? __dirname : void 0;
-      const nodeModulesParentDirs = getNodeModulesParentDirs(dirname6);
+      const dirname8 = typeof __dirname !== "undefined" ? __dirname : void 0;
+      const nodeModulesParentDirs = getNodeModulesParentDirs(dirname8);
       let versionFromApp;
       for (const nodeModulesParentDir of nodeModulesParentDirs) {
         try {
@@ -45624,12 +45624,12 @@ import { normalize as normalize2, sep as sep6 } from "node:path";
 var getNodeModulesParentDirs2;
 var init_getNodeModulesParentDirs2 = __esm({
   "../../node_modules/.pnpm/@aws-sdk+core@3.974.13/node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-node/getNodeModulesParentDirs.js"() {
-    getNodeModulesParentDirs2 = (dirname6) => {
+    getNodeModulesParentDirs2 = (dirname8) => {
       const cwd = process.cwd();
-      if (!dirname6) {
+      if (!dirname8) {
         return [cwd];
       }
-      const normalizedPath = normalize2(dirname6);
+      const normalizedPath = normalize2(dirname8);
       const parts = normalizedPath.split(sep6);
       const nodeModulesIndex = parts.indexOf("node_modules");
       const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(sep6) : normalizedPath;
@@ -45704,8 +45704,8 @@ var init_getTypeScriptUserAgentPair2 = __esm({
         tscVersion2 = null;
         return void 0;
       }
-      const dirname6 = typeof __dirname !== "undefined" ? __dirname : void 0;
-      const nodeModulesParentDirs = getNodeModulesParentDirs2(dirname6);
+      const dirname8 = typeof __dirname !== "undefined" ? __dirname : void 0;
+      const nodeModulesParentDirs = getNodeModulesParentDirs2(dirname8);
       let versionFromApp;
       for (const nodeModulesParentDir of nodeModulesParentDirs) {
         try {
@@ -51812,7 +51812,7 @@ var require_dist_cjs43 = __commonJS({
       strictParseInt32: () => strictParseInt322,
       strictParseLong: () => strictParseLong2,
       strictParseShort: () => strictParseShort2,
-      take: () => take3,
+      take: () => take4,
       throwDefaultError: () => throwDefaultError2,
       withBaseException: () => withBaseException2
     });
@@ -52737,7 +52737,7 @@ var require_dist_cjs43 = __commonJS({
       }
       return output;
     }, "convertMap");
-    var take3 = /* @__PURE__ */ __name((source, instructions) => {
+    var take4 = /* @__PURE__ */ __name((source, instructions) => {
       const out = {};
       for (const key in instructions) {
         applyInstruction2(out, source, instructions, key);
@@ -57096,9 +57096,9 @@ var require_dist_cjs48 = __commonJS({
 });
 
 // src/index.ts
-import { mkdirSync as mkdirSync7, writeFileSync as writeFileSync7, readFileSync as readFileSync12, existsSync as existsSync11, chmodSync as chmodSync3 } from "node:fs";
-import { homedir as homedir6 } from "node:os";
-import { join as join20, dirname as dirname5 } from "node:path";
+import { mkdirSync as mkdirSync8, writeFileSync as writeFileSync8, readFileSync as readFileSync13, existsSync as existsSync11, chmodSync as chmodSync3 } from "node:fs";
+import { homedir as homedir7 } from "node:os";
+import { join as join22, dirname as dirname7 } from "node:path";
 
 // ../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v3/helpers/util.js
 var util;
@@ -72167,14 +72167,14 @@ function initializeContext(params) {
 function process2(schema, ctx, _params = { path: [], schemaPath: [] }) {
   var _a5;
   const def = schema._zod.def;
-  const seen = ctx.seen.get(schema);
-  if (seen) {
-    seen.count++;
+  const seen2 = ctx.seen.get(schema);
+  if (seen2) {
+    seen2.count++;
     const isCycle = _params.schemaPath.includes(schema);
     if (isCycle) {
-      seen.cycle = _params.path;
+      seen2.cycle = _params.path;
     }
-    return seen.schema;
+    return seen2.schema;
   }
   const result = { schema: {}, count: 1, cycle: void 0, path: _params.path };
   ctx.seen.set(schema, result);
@@ -72257,12 +72257,12 @@ function extractDefs(ctx, schema) {
     if (entry[1].schema.$ref) {
       return;
     }
-    const seen = entry[1];
+    const seen2 = entry[1];
     const { ref, defId } = makeURI(entry);
-    seen.def = { ...seen.schema };
+    seen2.def = { ...seen2.schema };
     if (defId)
-      seen.defId = defId;
-    const schema2 = seen.schema;
+      seen2.defId = defId;
+    const schema2 = seen2.schema;
     for (const key in schema2) {
       delete schema2[key];
     }
@@ -72270,16 +72270,16 @@ function extractDefs(ctx, schema) {
   };
   if (ctx.cycles === "throw") {
     for (const entry of ctx.seen.entries()) {
-      const seen = entry[1];
-      if (seen.cycle) {
-        throw new Error(`Cycle detected: #/${seen.cycle?.join("/")}/<root>
+      const seen2 = entry[1];
+      if (seen2.cycle) {
+        throw new Error(`Cycle detected: #/${seen2.cycle?.join("/")}/<root>
 
 Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.`);
       }
     }
   }
   for (const entry of ctx.seen.entries()) {
-    const seen = entry[1];
+    const seen2 = entry[1];
     if (schema === entry[0]) {
       extractToDef(entry);
       continue;
@@ -72296,11 +72296,11 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
       extractToDef(entry);
       continue;
     }
-    if (seen.cycle) {
+    if (seen2.cycle) {
       extractToDef(entry);
       continue;
     }
-    if (seen.count > 1) {
+    if (seen2.count > 1) {
       if (ctx.reused === "ref") {
         extractToDef(entry);
         continue;
@@ -72313,13 +72313,13 @@ function finalize(ctx, schema) {
   if (!root6)
     throw new Error("Unprocessed schema. This is a bug in Zod.");
   const flattenRef = (zodSchema) => {
-    const seen = ctx.seen.get(zodSchema);
-    if (seen.ref === null)
+    const seen2 = ctx.seen.get(zodSchema);
+    if (seen2.ref === null)
       return;
-    const schema2 = seen.def ?? seen.schema;
+    const schema2 = seen2.def ?? seen2.schema;
     const _cached = { ...schema2 };
-    const ref = seen.ref;
-    seen.ref = null;
+    const ref = seen2.ref;
+    seen2.ref = null;
     if (ref) {
       flattenRef(ref);
       const refSeen = ctx.seen.get(ref);
@@ -72371,7 +72371,7 @@ function finalize(ctx, schema) {
     ctx.override({
       zodSchema,
       jsonSchema: schema2,
-      path: seen.path ?? []
+      path: seen2.path ?? []
     });
   };
   for (const entry of [...ctx.seen.entries()].reverse()) {
@@ -72399,11 +72399,11 @@ function finalize(ctx, schema) {
     delete result.id;
   const defs = ctx.external?.defs ?? {};
   for (const entry of ctx.seen.entries()) {
-    const seen = entry[1];
-    if (seen.def && seen.defId) {
-      if (seen.def.id === seen.defId)
-        delete seen.def.id;
-      defs[seen.defId] = seen.def;
+    const seen2 = entry[1];
+    if (seen2.def && seen2.defId) {
+      if (seen2.def.id === seen2.defId)
+        delete seen2.def.id;
+      defs[seen2.defId] = seen2.def;
     }
   }
   if (ctx.external) {
@@ -72894,9 +72894,9 @@ var recordProcessor = (schema, ctx, _json2, params) => {
 var nullableProcessor = (schema, ctx, json2, params) => {
   const def = schema._zod.def;
   const inner = process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
+  const seen2 = ctx.seen.get(schema);
   if (ctx.target === "openapi-3.0") {
-    seen.ref = def.innerType;
+    seen2.ref = def.innerType;
     json2.nullable = true;
   } else {
     json2.anyOf = [inner, { type: "null" }];
@@ -72905,29 +72905,29 @@ var nullableProcessor = (schema, ctx, json2, params) => {
 var nonoptionalProcessor = (schema, ctx, _json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
 };
 var defaultProcessor = (schema, ctx, json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
   json2.default = JSON.parse(JSON.stringify(def.defaultValue));
 };
 var prefaultProcessor = (schema, ctx, json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
   if (ctx.io === "input")
     json2._prefault = JSON.parse(JSON.stringify(def.defaultValue));
 };
 var catchProcessor = (schema, ctx, json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
   let catchValue;
   try {
     catchValue = def.catchValue(void 0);
@@ -72941,33 +72941,33 @@ var pipeProcessor = (schema, ctx, _json2, params) => {
   const inIsTransform = def.in._zod.traits.has("$ZodTransform");
   const innerType = ctx.io === "input" ? inIsTransform ? def.out : def.in : def.out;
   process2(innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = innerType;
 };
 var readonlyProcessor = (schema, ctx, json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
   json2.readOnly = true;
 };
 var promiseProcessor = (schema, ctx, _json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
 };
 var optionalProcessor = (schema, ctx, _json2, params) => {
   const def = schema._zod.def;
   process2(def.innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = def.innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = def.innerType;
 };
 var lazyProcessor = (schema, ctx, _json2, params) => {
   const innerType = schema._zod.innerType;
   process2(innerType, ctx, params);
-  const seen = ctx.seen.get(schema);
-  seen.ref = innerType;
+  const seen2 = ctx.seen.get(schema);
+  seen2.ref = innerType;
 };
 var allProcessors = {
   string: stringProcessor,
@@ -84805,10 +84805,224 @@ function clip(text, max) {
   return out + CUT_MARK;
 }
 
+// src/tools/teachboardEvents.ts
+import { dirname as dirname6, join as join21 } from "node:path";
+
+// src/teachboard/events.ts
+import { readFileSync as readFileSync12, writeFileSync as writeFileSync7, mkdirSync as mkdirSync7, renameSync as renameSync2 } from "node:fs";
+import { homedir as homedir6 } from "node:os";
+import { dirname as dirname5, join as join20 } from "node:path";
+var MAX_HEADER = 2e3;
+var isObj2 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+var clip2 = (s, n2) => {
+  const t = typeof s === "string" ? s.replace(/\s+/g, " ").trim() : "";
+  return t.length > n2 ? `${t.slice(0, n2)}\u2026` : t;
+};
+function parseEventsPage(raw) {
+  if (!isObj2(raw)) return { events: [], cursor: null };
+  const events = [];
+  for (const e6 of Array.isArray(raw.events) ? raw.events : []) {
+    if (!isObj2(e6) || !Number.isInteger(e6.seq) || typeof e6.boardId !== "string" || !/^[0-9a-f]{8}$/.test(e6.boardId)) continue;
+    const items = (Array.isArray(e6.items) ? e6.items : []).filter(isObj2).map((it) => ({
+      ref: typeof it.ref === "string" ? it.ref : void 0,
+      id: typeof it.id === "string" ? it.id : void 0,
+      kind: typeof it.kind === "string" ? it.kind : void 0,
+      change: typeof it.change === "string" ? it.change : void 0,
+      excerpt: typeof it.excerpt === "string" ? it.excerpt : void 0,
+      marks: Array.isArray(it.marks) ? it.marks.filter((m4) => typeof m4 === "string") : void 0
+    }));
+    events.push({ seq: e6.seq, boardId: e6.boardId, at: typeof e6.at === "string" ? e6.at : void 0, n: Number.isInteger(e6.n) ? e6.n : void 0, items });
+  }
+  const cursor2 = Number.isInteger(raw.cursor) ? raw.cursor : events.length ? Math.max(...events.map((e6) => e6.seq)) : null;
+  return { events, cursor: cursor2 };
+}
+var KIND_ZH = { text: "\u6587\u5B57", code: "\u4EE3\u7801\u5757", math: "\u516C\u5F0F", shape: "\u5F62\u72B6", arrow: "\u7BAD\u5934", line: "\u8FDE\u7EBF", image: "\u56FE\u7247", freedraw: "\u624B\u5199", frame: "\u6846", figure: "\u56FE" };
+var CHANGE_ZH = { added: "\u65B0\u589E", edited: "\u6539\u4E86", deleted: "\u5220\u4E86" };
+function itemLine(it, lang) {
+  const who = it.ref ? it.ref.replace(/^tb:[0-9a-f]{8}\//, "") : "";
+  const ex = it.excerpt ? lang === "en" ? ` \u201C${clip2(it.excerpt, 60)}\u201D` : `\u300C${clip2(it.excerpt, 60)}\u300D` : "";
+  const hl = it.marks?.includes("highlight") ? lang === "en" ? " (highlighted)" : "(\u9AD8\u4EAE)" : "";
+  if (lang === "en") return `${it.change ?? "changed"} ${it.kind ?? "element"} ${who}${ex}${hl}`.replace(/\s+/g, " ").trim();
+  return `${CHANGE_ZH[it.change ?? ""] ?? "\u52A8\u4E86"}${KIND_ZH[it.kind ?? ""] ?? "\u5143\u7D20"} ${who}${ex}${hl}`.replace(/\s+/g, " ").trim();
+}
+function formatEvents(events, lang = "zh") {
+  if (!events.length) return "";
+  const byBoard = /* @__PURE__ */ new Map();
+  const total = /* @__PURE__ */ new Map();
+  for (const e6 of events) {
+    byBoard.set(e6.boardId, [...byBoard.get(e6.boardId) ?? [], ...e6.items]);
+    total.set(e6.boardId, (total.get(e6.boardId) ?? 0) + Math.max(e6.n ?? e6.items.length, e6.items.length));
+  }
+  const head = lang === "en" ? "\u{1F4CC} New on the board since you last looked (written by the learner):" : "\u{1F4CC} \u5B66\u5458\u5728\u677F\u4E0A\u7684\u65B0\u52A8\u9759(\u81EA\u4E0A\u6B21\u4EE5\u6765):";
+  const lines = [head];
+  for (const [board, items] of byBoard) {
+    const moved = items.filter((i6) => i6.change === "moved").length;
+    const real = items.filter((i6) => i6.change !== "moved");
+    const parts = real.map((i6) => itemLine(i6, lang));
+    const extra = (total.get(board) ?? 0) - items.length;
+    if (moved) parts.push(lang === "en" ? `moved ${moved} element${moved === 1 ? "" : "s"}` : `\u632A\u4E86 ${moved} \u4E2A\u5143\u7D20`);
+    if (extra > 0) parts.push(lang === "en" ? `+${extra} more` : `\u53E6\u6709 ${extra} \u5904`);
+    lines.push(`- ${lang === "en" ? "board" : "\u677F"} ${board}:${parts.join(lang === "en" ? "; " : ";")}`);
+  }
+  lines.push(lang === "en" ? "Read it with tb_get_board / tb_describe before acting; answer a learner's question next to it with tb_reply." : "\u52A8\u624B\u524D\u5148 tb_get_board / tb_describe \u770B\u6E05\u695A;\u5B66\u5458\u5199\u7684\u95EE\u9898\u7528 tb_reply \u7B54\u5728\u5B83\u65C1\u8FB9\u3002");
+  let out = lines.join("\n");
+  if (out.length > MAX_HEADER) {
+    const n2 = [...total.values()].reduce((a6, b6) => a6 + b6, 0);
+    out = lang === "en" ? `${head}
+- ${n2} changes on ${byBoard.size} board(s) (${[...byBoard.keys()].join(", ")}); read them with tb_get_board.` : `${head}
+- ${byBoard.size} \u5757\u677F\u4E0A\u5171 ${n2} \u5904\u53D8\u5316(${[...byBoard.keys()].join("\u3001")});\u7528 tb_get_board \u770B\u3002`;
+  }
+  return out;
+}
+var EVENTS_STATE_FILE = join20(homedir6(), ".parallight", "teachboard-events.json");
+function readCursor(base, file2 = EVENTS_STATE_FILE) {
+  try {
+    const j6 = JSON.parse(readFileSync12(file2, "utf8"));
+    const v = j6[base];
+    return Number.isInteger(v) ? v : null;
+  } catch {
+    return null;
+  }
+}
+function writeCursor(base, cursor2, file2 = EVENTS_STATE_FILE) {
+  let j6 = {};
+  try {
+    j6 = JSON.parse(readFileSync12(file2, "utf8"));
+  } catch {
+  }
+  const cur = Number.isInteger(j6[base]) ? j6[base] : -1;
+  if (cursor2 <= cur) return;
+  j6[base] = cursor2;
+  try {
+    mkdirSync7(dirname5(file2), { recursive: true, mode: 448 });
+    const tmp = `${file2}.${process.pid}.tmp`;
+    writeFileSync7(tmp, JSON.stringify(j6), { mode: 384 });
+    renameSync2(tmp, file2);
+  } catch {
+  }
+}
+
+// src/tools/teachboardEvents.ts
+var seen = /* @__PURE__ */ new Map();
+var seenStore = {
+  remember(boardId, cursor2) {
+    if (!Number.isInteger(cursor2)) return;
+    const prev = seen.get(boardId);
+    if (prev === void 0 || cursor2 > prev) seen.set(boardId, cursor2);
+  },
+  get(boardId) {
+    return seen.get(boardId);
+  },
+  clear() {
+    seen.clear();
+  }
+};
+async function take3(d6, wait, timeoutMs) {
+  if (!d6.connected()) return [];
+  const after = readCursor(d6.base, d6.stateFile);
+  const q2 = after === null ? "" : `?after=${after}${wait > 0 ? `&wait=${Math.min(50, Math.floor(wait))}` : ""}`;
+  try {
+    const page = parseEventsPage(await d6.get(`agent/events${q2}`, timeoutMs ?? (wait + 10) * 1e3));
+    if (page.cursor !== null) writeCursor(d6.base, page.cursor, d6.stateFile);
+    return after === null ? [] : page.events;
+  } catch {
+    return [];
+  }
+}
+var NO_EVENTS_HEADER = /* @__PURE__ */ new Set(["tb_connect", "tb_wait_changes", "tb_watch", "tb_describe_schema", "tb_grade_review"]);
+function withEventsHeader(server2, d6) {
+  const capped = () => new Promise((resolve5) => {
+    const timer = setTimeout(() => resolve5([]), d6.capMs);
+    take3(d6, 0, d6.capMs).then(
+      (v) => {
+        clearTimeout(timer);
+        resolve5(v);
+      },
+      () => {
+        clearTimeout(timer);
+        resolve5([]);
+      }
+    );
+  });
+  return new Proxy(server2, {
+    get(target, prop) {
+      if (prop !== "registerTool") return Reflect.get(target, prop, target);
+      return (name, config2, cb) => {
+        if (!name.startsWith("tb_") || NO_EVENTS_HEADER.has(name)) return target.registerTool(name, config2, cb);
+        const wrapped = async (...a6) => {
+          const res = await cb(...a6);
+          const lang = a6[0]?.lang === "en" ? "en" : "zh";
+          const text = formatEvents(await capped(), lang);
+          if (!text || !res || !Array.isArray(res.content)) return res;
+          const content = [...res.content];
+          const i6 = content.map((c6) => c6?.type).lastIndexOf("text");
+          if (i6 >= 0) content[i6] = { ...content[i6], text: `${content[i6].text}
+
+${text}` };
+          else content.push({ type: "text", text });
+          return { ...res, content };
+        };
+        return target.registerTool(name, config2, wrapped);
+      };
+    }
+  });
+}
+var textOut = (text) => ({ content: [{ type: "text", text }] });
+function watchScriptPath(serverFile) {
+  return join21(dirname6(dirname6(serverFile)), "hooks", "teachboard-watch.mjs");
+}
+function registerEventTools(server2, d6) {
+  server2.registerTool(
+    "tb_wait_changes",
+    {
+      title: "Wait for the learner to change a teachboard",
+      description: "\u7B49\u5B66\u5458\u5728\u677F\u4E0A\u52A8(\u5199\u5B57\u3001\u6539\u4EE3\u7801\u3001\u753B\u4E1C\u897F\u3001\u5220\u4E1C\u897F)\u3002\u957F\u8F6E\u8BE2:\u6709\u65B0\u52A8\u9759\u7ACB\u523B\u8FD4\u56DE,\u6700\u591A\u7B49 timeoutSec \u79D2(\u226450),\u6CA1\u6709\u5C31\u56DE\u300C\u6CA1\u6709\u65B0\u52A8\u9759\u300D\u3002\u9002\u5408\u5728 agent \u81EA\u5DF1\u7684\u56DE\u5408\u91CC\u77ED\u6682\u76EF\u4E00\u4E0B;\u8981\u957F\u65F6\u95F4\u76EF\u677F\u7528 tb_watch(\u540E\u53F0,\u4E0D\u82B1 token)\u3002",
+      inputSchema: {
+        timeoutSec: external_exports.number().int().min(1).max(50).optional().describe("\u6700\u591A\u7B49\u51E0\u79D2,\u9ED8\u8BA4 30"),
+        lang: external_exports.enum(["zh", "en"]).optional()
+      }
+    },
+    async ({ timeoutSec, lang }) => {
+      if (!d6.connected()) return textOut("\u8FD8\u6CA1\u8FDE\u4E0A teachboard;\u5148 /openlabs connect");
+      const wait = timeoutSec ?? 30;
+      const events = await take3(d6, wait);
+      const text = formatEvents(events, lang ?? "zh");
+      return textOut(text || (lang === "en" ? `No changes on the board in the last ${wait}s.` : `${wait} \u79D2\u5185\u5B66\u5458\u6CA1\u5728\u677F\u4E0A\u52A8\u3002`));
+    }
+  );
+  server2.registerTool(
+    "tb_watch",
+    {
+      title: "Watch the learner's teachboard in the background",
+      description: "\u5F00\u59CB\u300C\u76EF\u677F\u300D:\u8FD4\u56DE\u4E00\u6761\u8981\u7528**\u540E\u53F0\u65B9\u5F0F**\u8FD0\u884C\u7684\u547D\u4EE4\u3002\u5B83\u5728\u540E\u53F0\u7B49\u5B66\u5458\u5728\u677F\u4E0A\u52A8,\u4E00\u6709\u65B0\u52A8\u9759\u5C31\u6253\u5370\u5E76\u7ED3\u675F \u2014\u2014 \u7ED3\u675F\u65F6\u4F60\u4F1A\u88AB\u81EA\u52A8\u5524\u9192,\u8BFB\u5B83\u7684\u8F93\u51FA\u3001\u7167\u5E38\u56DE\u5E94(\u5148 tb_get_board / tb_describe,\u5B66\u5458\u7684\u95EE\u9898\u7528 tb_reply \u7B54\u5728\u65C1\u8FB9),\u7136\u540E\u518D\u7528\u540E\u53F0\u65B9\u5F0F\u542F\u52A8\u540C\u4E00\u6761\u547D\u4EE4\u7EE7\u7EED\u76EF\u3002\u7B49\u5F85\u671F\u95F4\u4E0D\u82B1 token\u3002\u5B66\u5458\u8BF4\u300C\u522B\u76EF\u4E86\u300D\u5C31\u4E0D\u518D\u91CD\u542F\u3002\u4EC5 Claude Code(\u9700\u8981\u540E\u53F0\u4EFB\u52A1\u7ED3\u675F\u81EA\u52A8\u5524\u9192)\u3002",
+      inputSchema: {
+        maxMinutes: external_exports.number().int().min(1).max(240).optional().describe("\u6700\u591A\u76EF\u591A\u5C11\u5206\u949F,\u9ED8\u8BA4 30;\u5230\u65F6\u6CA1\u52A8\u9759\u547D\u4EE4\u81EA\u5DF1\u7ED3\u675F")
+      }
+    },
+    async ({ maxMinutes }) => {
+      if (!d6.connected()) return textOut("\u8FD8\u6CA1\u8FDE\u4E0A teachboard;\u5148 /openlabs connect");
+      const script = watchScriptPath(d6.serverFile);
+      const cmd = `node ${JSON.stringify(script)} --max-min ${maxMinutes ?? 30}`;
+      return textOut(
+        [
+          "\u7528 Bash \u5DE5\u5177\u4EE5\u540E\u53F0\u65B9\u5F0F(run_in_background: true)\u8FD0\u884C\u4E0B\u9762\u8FD9\u6761\u547D\u4EE4,\u7136\u540E\u544A\u8BC9\u5B66\u5458\u300C\u6211\u5728\u76EF\u7740\u677F,\u4F60\u5199\u5B8C\u6211\u5C31\u770B\u300D:",
+          "",
+          cmd,
+          "",
+          "\u547D\u4EE4\u7ED3\u675F\u65F6\u4F60\u4F1A\u88AB\u5524\u9192:\u9000\u51FA\u7801 0 = \u5B66\u5458\u52A8\u4E86(stdout \u662F\u65B0\u52A8\u9759),\u7167\u5E38\u56DE\u5E94\u540E\u518D\u540E\u53F0\u542F\u52A8\u540C\u4E00\u6761\u547D\u4EE4;2 = \u5230\u65F6\u6CA1\u52A8\u9759,\u4E0D\u7528\u91CD\u542F,\u5B66\u5458\u56DE\u6765\u81EA\u7136\u4F1A\u8BF4;3 = \u6CA1\u8FDE\u4E0A teachboard\u3002\u4E0D\u8981\u7528\u524D\u53F0\u65B9\u5F0F\u8DD1\u5B83(\u4F1A\u5361\u4F4F\u5BF9\u8BDD)\u3002"
+        ].join("\n")
+      );
+    }
+  );
+}
+function noteSeen(boardId, r6) {
+  if (r6 && typeof r6 === "object") seenStore.remember(boardId, r6.eventsCursor);
+}
+
 // src/tools/teachboardEntity.ts
 var RESULT_MAX = 48 * 1024;
-var textOut = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX) }] });
-var isObj2 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+var textOut2 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX) }] });
+var isObj3 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
 var ENTITY_REF_RE = /^tb:([0-9a-f]{8})\/E(\d+)$/;
 var BOARD_ID_RE = /^[0-9a-f]{8}$/;
 var REF_HINT = "\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12;\u53F3\u952E\u5143\u7D20 \u2192 Entity ID \u590D\u5236,\u6216\u4ECE tb_get_board \u8BFB)";
@@ -84873,7 +85087,7 @@ ${probs.map((x) => `- ${x}`).join("\n")}` : "";
     }
     return null;
   };
-  const fail = (e6) => textOut(pendingMsg(e6) ?? d6.human(e6));
+  const fail = (e6) => textOut2(pendingMsg(e6) ?? d6.human(e6));
   server2.registerTool(
     "tb_describe",
     {
@@ -84884,11 +85098,13 @@ ${probs.map((x) => `- ${x}`).join("\n")}` : "";
       }
     },
     async ({ entities }) => {
-      if (!entities.every((e6) => ENTITY_REF_RE.test(e6))) return textOut(REF_HINT);
+      if (!entities.every((e6) => ENTITY_REF_RE.test(e6))) return textOut2(REF_HINT);
       try {
         const r6 = await call("POST", "agent/entities/describe", { entities });
+        const b0 = boardOfRefs(entities);
+        if (b0) noteSeen(b0, r6);
         const list2 = Array.isArray(r6?.entities) ? r6.entities : [];
-        if (!list2.length) return textOut("\u6CA1\u6709\u627E\u5230\u8FD9\u4E9B\u5143\u7D20");
+        if (!list2.length) return textOut2("\u6CA1\u6709\u627E\u5230\u8FD9\u4E9B\u5143\u7D20");
         const blocks = list2.map((x) => {
           const ref = String(x.ref ?? x.entity ?? "");
           if (x.missing) return `${ref}:\u4E0D\u5B58\u5728(\u53EF\u80FD\u5DF2\u5220)`;
@@ -84898,16 +85114,16 @@ ${probs.map((x) => `- ${x}`).join("\n")}` : "";
           const body = [];
           for (const k6 of ["text", "ascii", "latex", "code", "label"]) if (typeof x[k6] === "string" && x[k6]) body.push(`${k6}:
 ${String(x[k6])}`);
-          const edges = isObj2(x.edges) ? x.edges : {};
+          const edges = isObj3(x.edges) ? x.edges : {};
           const ins = refs(edges.in, ""), outs = refs(edges.out, "");
           if (ins.length || outs.length) body.push(`\u7BAD\u5934:\u8FDB ${ins.join(" ") || "\u65E0"};\u51FA ${outs.join(" ") || "\u65E0"}`);
-          const nb = Array.isArray(x.neighbors) ? x.neighbors.filter(isObj2) : [];
+          const nb = Array.isArray(x.neighbors) ? x.neighbors.filter(isObj3) : [];
           if (nb.length) body.push(`\u90BB\u5C45:${nb.map((n2) => `${String(n2.ref ?? "")}(${String(n2.kind ?? "")} ${String(n2.excerpt ?? "").slice(0, 40)})`).join(";")}`);
-          const ev = Array.isArray(x.events) ? x.events.filter(isObj2) : [];
+          const ev = Array.isArray(x.events) ? x.events.filter(isObj3) : [];
           if (ev.length) body.push(`\u7528\u6237\u6539\u52A8:${ev.map((e6) => `${String(e6.at ?? "")} ${String(e6.summary ?? "")}`).join(";")}`);
           return [head.join(" \xB7 "), ...body].join("\n");
         });
-        return textOut(blocks.join("\n\n"));
+        return textOut2(blocks.join("\n\n"));
       } catch (e6) {
         return fail(e6);
       }
@@ -84927,13 +85143,13 @@ ${String(x[k6])}`);
     },
     async ({ entity, title, items, lang }) => {
       const m4 = ENTITY_REF_RE.exec(entity);
-      if (!m4) return textOut(REF_HINT);
+      if (!m4) return textOut2(REF_HINT);
       const boardId = m4[1];
       try {
         const r6 = await call("POST", `agent/boards/${boardId}/reply`, { entity, ...title ? { title } : {}, items });
         const ids = refs(r6?.elementIds, boardId);
         const line = lang === "en" ? `\u2705 Reply placed next to ${entity} \xB7 ${ids.length} elements \xB7 open ${boardUrl(boardId)}` : `\u2705 \u56DE\u7B54\u5DF2\u653E\u5728 ${entity} \u65C1 \xB7 ${ids.length} \u4E2A\u5143\u7D20 \xB7 \u6253\u5F00 ${boardUrl(boardId)}`;
-        return textOut(`${line}
+        return textOut2(`${line}
 
 \u56DE\u7B54\u6846\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}(seq ${String(r6?.seq ?? "?")})${problemsBlock(r6?.problems)}`);
       } catch (e6) {
@@ -84949,11 +85165,12 @@ ${String(x[k6])}`);
       inputSchema: {
         boardId: external_exports.string().describe("\u677F id(8 \u4F4D hex)"),
         changes: external_exports.array(external_exports.record(external_exports.string(), external_exports.unknown())).min(1).max(MAX_BATCH).describe('[{entity:"tb:\u2026/E12", code:"\u2026"}, {entity:"tb:\u2026/E3", tone:"warn"}]'),
+        force: external_exports.boolean().optional().describe("\u5B66\u5458\u6539\u8FC7\u7684\u5143\u7D20\u4E5F\u8986\u76D6(\u5148 tb_describe \u770B\u8FC7\u3001\u5B66\u5458\u540C\u610F\u540E\u624D\u7528)"),
         lang: external_exports.enum(["zh", "en"]).optional()
       }
     },
-    async ({ boardId, changes, lang }) => {
-      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+    async ({ boardId, changes, force, lang }) => {
+      if (!BOARD_ID_RE.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       const bad = [];
       for (const [i6, c6] of changes.entries()) {
         const entity = typeof c6.entity === "string" ? c6.entity : "";
@@ -84977,17 +85194,23 @@ ${String(x[k6])}`);
         }
         if (k6 === "tone" && !TONES.includes(c6[k6])) bad.push(`\u7B2C ${i6 + 1} \u6761:tone \u53EA\u80FD\u662F ${TONES.join(" / ")}`);
       }
-      if (bad.length) return textOut(`\u6CA1\u6709\u63D0\u4EA4:
+      if (bad.length) return textOut2(`\u6CA1\u6709\u63D0\u4EA4:
 ${bad.map((b6) => `- ${b6}`).join("\n")}`);
       try {
-        const r6 = await call("POST", `agent/boards/${boardId}/update`, { changes });
+        const r6 = await call("POST", `agent/boards/${boardId}/update`, {
+          changes,
+          // spec §9:seen = agent 上次读这块板时的事件游标;之后学员又改过的元素进 conflicts
+          ...seenStore.get(boardId) !== void 0 ? { seen: seenStore.get(boardId) } : {},
+          ...force ? { force: true } : {}
+        });
         const applied = refs(r6?.applied, boardId);
-        const conflicts = Array.isArray(r6?.conflicts) ? r6.conflicts.filter(isObj2) : [];
-        const line = lang === "en" ? `\u2705 ${applied.length} change${applied.length === 1 ? "" : "s"} queued on board ${boardId}; they land when the user has the board open \xB7 ${boardUrl(boardId)}` : `\u2705 \u5DF2\u6392\u961F ${applied.length} \u5904\u6539\u52A8,\u7528\u6237\u6253\u5F00\u677F\u540E\u751F\u6548 \xB7 \u6253\u5F00 ${boardUrl(boardId)}`;
+        const conflicts = Array.isArray(r6?.conflicts) ? r6.conflicts.filter(isObj3) : [];
+        const line = !applied.length && conflicts.length ? lang === "en" ? `\u26A0 Nothing changed on board ${boardId}: the learner edited every one of these since you last read the board \xB7 ${boardUrl(boardId)}` : `\u26A0 \u4E00\u5904\u90FD\u6CA1\u6539:\u8FD9\u4E9B\u5143\u7D20\u5728\u4F60\u4E0A\u6B21\u8BFB\u677F\u4E4B\u540E\u5B66\u5458\u90FD\u52A8\u8FC7 \xB7 \u6253\u5F00 ${boardUrl(boardId)}` : lang === "en" ? `\u2705 ${applied.length} change${applied.length === 1 ? "" : "s"} queued on board ${boardId}; they land when the user has the board open \xB7 ${boardUrl(boardId)}` : `\u2705 \u5DF2\u6392\u961F ${applied.length} \u5904\u6539\u52A8,\u7528\u6237\u6253\u5F00\u677F\u540E\u751F\u6548 \xB7 \u6253\u5F00 ${boardUrl(boardId)}`;
+        const why = (r7) => r7 === "user_deleted" ? "\u5B66\u5458\u5220\u4E86\u5B83" : r7 === "user_edited" ? "\u5B66\u5458\u6539\u8FC7\u5B83" : String(r7 ?? "");
         const conf = conflicts.length ? `
-\u26A0 conflicts(\u7528\u6237\u6539\u8FC7,\u8FD9\u6B21\u6CA1\u52A8;\u5148 tb_describe \u518D\u51B3\u5B9A):
-${conflicts.map((c6) => `- ${String(c6.entity ?? "")}:${String(c6.reason ?? "")}`).join("\n")}` : "";
-        return textOut(`${line}
+\u26A0 \u8FD9\u4E9B\u6CA1\u6539 \u2014\u2014 \u4F60\u4E0A\u6B21\u8BFB\u677F\u4E4B\u540E\u5B66\u5458\u52A8\u8FC7\u5B83\u4EEC(\u5148 tb_describe \u770B\u5B66\u5458\u6539\u6210\u4E86\u4EC0\u4E48;\u8981\u8986\u76D6\u5148\u95EE\u5B66\u5458,\u540C\u610F\u540E\u5E26 force:true \u91CD\u53D1):
+${conflicts.map((c6) => `- ${String(c6.entity ?? "")}:${why(c6.reason)}${typeof c6.excerpt === "string" && c6.excerpt ? `,\u73B0\u5728\u662F\u300C${c6.excerpt.slice(0, 80)}\u300D` : ""}`).join("\n")}` : "";
+        return textOut2(`${line}
 
 \u6539\u4E86:${applied.join(" ") || "\u65E0"}(seq ${String(r6?.seq ?? "?")})${conf}${problemsBlock(r6?.problems)}`);
       } catch (e6) {
@@ -85008,14 +85231,14 @@ ${conflicts.map((c6) => `- ${String(c6.entity ?? "")}:${String(c6.reason ?? "")}
       }
     },
     async ({ boardId, entities, reconnect, lang }) => {
-      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
-      if (boardOfRefs(entities) !== boardId) return textOut(`${REF_HINT};\u4E14\u90FD\u8981\u5728\u677F ${boardId} \u4E0A`);
+      if (!BOARD_ID_RE.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (boardOfRefs(entities) !== boardId) return textOut2(`${REF_HINT};\u4E14\u90FD\u8981\u5728\u677F ${boardId} \u4E0A`);
       try {
         const r6 = await call("POST", `agent/boards/${boardId}/delete`, { entities, ...reconnect ? { reconnect: true } : {} });
         const gone = refs(r6?.deleted, boardId);
         const n2 = gone.length || entities.length;
         const line = lang === "en" ? `\u2705 ${n2} element${n2 === 1 ? "" : "s"} removed from board ${boardId}${reconnect ? " (arrows reconnected)" : ""}` : `\u2705 \u5DF2\u5220 ${n2} \u4E2A\u5143\u7D20${reconnect ? "(\u7BAD\u5934\u5DF2\u63A5\u4E0A)" : ""}`;
-        return textOut(`${line}
+        return textOut2(`${line}
 
 ${gone.join(" ") || entities.join(" ")}(seq ${String(r6?.seq ?? "?")})`);
       } catch (e6) {
@@ -85035,14 +85258,14 @@ ${gone.join(" ") || entities.join(" ")}(seq ${String(r6?.seq ?? "?")})`);
       }
     },
     async ({ boardId, order, lang }) => {
-      if (!BOARD_ID_RE.test(boardId)) return textOut("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
-      if (new Set(order).size !== order.length) return textOut("order \u91CC\u6709\u91CD\u590D\u7684\u5E55 id");
+      if (!BOARD_ID_RE.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (new Set(order).size !== order.length) return textOut2("order \u91CC\u6709\u91CD\u590D\u7684\u5E55 id");
       try {
         const r6 = await call("POST", `agent/boards/${boardId}/set-acts`, { order });
-        const acts = Array.isArray(r6?.acts) ? r6.acts.filter(isObj2) : [];
+        const acts = Array.isArray(r6?.acts) ? r6.acts.filter(isObj3) : [];
         const line = lang === "en" ? `\u2705 Acts reordered (${acts.length || order.length})` : `\u2705 \u5E55\u5E8F\u5DF2\u6539(${acts.length || order.length} \u5E55)`;
         const list2 = acts.length ? acts.map((a6, i6) => `${i6 + 1}. ${String(a6.actId ?? "")}${typeof a6.title === "string" ? `\u300C${a6.title}\u300D` : ""}`).join("\n") : order.join(" \u2192 ");
-        return textOut(`${line}
+        return textOut2(`${line}
 
 ${list2}`);
       } catch (e6) {
@@ -85066,17 +85289,17 @@ ${list2}`);
       let board = boardId ?? "";
       if (entity !== void 0) {
         const m4 = ENTITY_REF_RE.exec(entity);
-        if (!m4) return textOut(REF_HINT);
-        if (boardId && boardId !== m4[1]) return textOut(`${entity} \u4E0D\u5728\u677F ${boardId} \u4E0A`);
+        if (!m4) return textOut2(REF_HINT);
+        if (boardId && boardId !== m4[1]) return textOut2(`${entity} \u4E0D\u5728\u677F ${boardId} \u4E0A`);
         board = m4[1];
       }
-      if (!BOARD_ID_RE.test(board)) return textOut("\u8981\u4E48\u7ED9\u4EE3\u7801\u5757\u7F16\u53F7 entity,\u8981\u4E48\u7ED9\u677F id(8 \u4F4D hex)\u8BBE\u677F\u9ED8\u8BA4");
-      if (env3 !== null && !/^[a-z0-9][a-z0-9._-]{0,63}$/.test(env3)) return textOut("env \u5E94\u662F tb_list_envs \u91CC\u7684\u73AF\u5883 id");
+      if (!BOARD_ID_RE.test(board)) return textOut2("\u8981\u4E48\u7ED9\u4EE3\u7801\u5757\u7F16\u53F7 entity,\u8981\u4E48\u7ED9\u677F id(8 \u4F4D hex)\u8BBE\u677F\u9ED8\u8BA4");
+      if (env3 !== null && !/^[a-z0-9][a-z0-9._-]{0,63}$/.test(env3)) return textOut2("env \u5E94\u662F tb_list_envs \u91CC\u7684\u73AF\u5883 id");
       try {
         const r6 = await call("POST", `agent/boards/${board}/bind-env`, entity !== void 0 ? { entity, env: env3 } : { board: true, env: env3 });
         const what = entity !== void 0 ? entity : lang === "en" ? `board ${board} default` : `\u677F ${board} \u7684\u9ED8\u8BA4\u73AF\u5883`;
         const line = env3 ? lang === "en" ? `\u2705 ${what} \u2192 ${env3}; applies when the user opens the board` : `\u2705 ${what} \u5DF2\u7ED1 ${env3},\u7528\u6237\u6253\u5F00\u677F\u540E\u751F\u6548` : lang === "en" ? `\u2705 env cleared on ${what}` : `\u2705 \u5DF2\u6E05\u9664 ${what} \u7684\u73AF\u5883`;
-        return textOut(`${line}(seq ${String(r6?.seq ?? "?")})`);
+        return textOut2(`${line}(seq ${String(r6?.seq ?? "?")})`);
       } catch (e6) {
         return fail(e6);
       }
@@ -85085,6 +85308,7 @@ ${list2}`);
 }
 
 // src/tools/teachboard.ts
+import { fileURLToPath } from "node:url";
 function tbHost(clientName, override) {
   if (override === "cc" || override === "cx") return override;
   return /codex/i.test(clientName ?? "") ? "cx" : "cc";
@@ -85277,20 +85501,30 @@ function registerTeachboardTools(rawServer, deps = {}) {
       return { content: [{ type: "text", text: await inflight }] };
     }
   );
-  const hinted = deps.reviewHint === false ? server2 : withReviewHint(server2, { client, creds, now, hintCapMs: deps.hintCapMs ?? 2e3 });
+  const sessionReviews = /* @__PURE__ */ new Set();
+  const reviewed = deps.reviewHint === false ? server2 : withReviewHint(server2, { client, creds, now, hintCapMs: deps.hintCapMs ?? 2e3, mine: sessionReviews });
+  const eventsDeps = {
+    base,
+    connected: () => !!creds.get(),
+    get: (path6, timeoutMs) => client.call("GET", path6, void 0, { agent: true, timeoutMs }),
+    stateFile: deps.eventsStateFile
+  };
+  const eventsOn = deps.eventsHeader ?? deps.reviewHint !== false;
+  const hinted = eventsOn ? withEventsHeader(reviewed, { ...eventsDeps, capMs: deps.hintCapMs ?? 1500 }) : reviewed;
   registerBoardTools(hinted, { client, base, now, human });
   registerEnvTools(hinted, { client, sleep: sleep3, human });
   registerRecipeTools(hinted, { client, sleep: sleep3, human });
-  registerRunTools(hinted, { client, human, host, sleep: sleep3 });
+  registerRunTools(hinted, { client, human, host, sleep: sleep3, mine: sessionReviews });
   registerEntityTools(hinted, { client, base, human });
+  registerEventTools(hinted, { ...eventsDeps, serverFile: deps.serverFile ?? fileURLToPath(import.meta.url) });
 }
 var RESULT_MAX2 = 48e3;
 var BOARD_ID_RE2 = /^[0-9a-f]{8}$/;
 var BOARD_LANG_RULE = "Board content language must match the user's language; set spec.lang accordingly; do not default to Chinese. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u4E0E\u7528\u6237\u8BED\u8A00\u4E00\u81F4,\u76F8\u5E94\u8BBE\u7F6E spec.lang,\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587\u3002";
 var LANG_PICK_NOTE = `Note / \u63D0\u793A: the board content language must follow the user's language (do not default to Chinese); this is the English guide \u2014 call again with lang:"zh" for the Chinese guide. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u8DDF\u968F\u7528\u6237\u8BED\u8A00(\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587);\u8FD9\u662F\u82F1\u6587\u8BF4\u660E,\u8981\u4E2D\u6587\u8BF4\u660E\u8BF7\u4F20 lang:"zh" \u518D\u8C03\u4E00\u6B21\u3002`;
 var CODE_MAX = 4e3;
-var isObj3 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
-var textOut2 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX2) }] });
+var isObj4 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+var textOut3 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX2) }] });
 function entityRef(boardId, id) {
   if (typeof id === "number") return `tb:${boardId}/E${id}`;
   const s = String(id);
@@ -85302,7 +85536,7 @@ var actSlug = slugId;
 var problemList2 = (problems) => Array.isArray(problems) ? problems.map((p2) => typeof p2 === "string" ? p2 : JSON.stringify(p2)) : [];
 function codeEnvsOf(act, problems = [], defaultEnv) {
   const out = [];
-  if (!isObj3(act)) return out;
+  if (!isObj4(act)) return out;
   const actId = slugId(act.id);
   const dropped = (itemId) => {
     const id = slugId(itemId);
@@ -85313,7 +85547,7 @@ function codeEnvsOf(act, problems = [], defaultEnv) {
   const walk3 = (items) => {
     if (!Array.isArray(items)) return;
     for (const it of items) {
-      if (!isObj3(it)) continue;
+      if (!isObj4(it)) continue;
       if (it.kind === "group") walk3(it.items);
       else if (it.kind === "code" && typeof it.code === "string" && it.code.trim() && it.code.length <= CODE_MAX && !dropped(it.id)) {
         out.push(typeof it.env === "string" && it.env ? it.env : defaultEnv ?? "");
@@ -85353,7 +85587,7 @@ function registerBoardTools(server2, d6) {
       description: "\u8FD4\u56DE teachboard \u677F\u7684\u5143\u7D20\u5951\u7EA6(BoardSpec:item \u79CD\u7C7B\u4E0E\u5B57\u6BB5\u3001edges\u3001layout\u3001group\u3001defaultEnv\u3001code \u7684 env / run:{path,region,cmd}\u3001\u4E0A\u9650)+ \u4E2D\u82F1\u793A\u4F8B + \u6559\u6CD5\u4E0E\u5DE5\u4F5C\u65B9\u5F0F\u3002\u5EFA\u677F\u524D\u5148\u8BFB\u4E00\u6B21\u3002 " + BOARD_LANG_RULE,
       inputSchema: { lang: external_exports.enum(["zh", "en"]).optional().describe("Guide language / \u8BF4\u660E\u6587\u5B57\u7684\u8BED\u8A00;pass the user's language / \u4F20\u7528\u6237\u7684\u8BED\u8A00;omitted \u2192 English guide + note") }
     },
-    async ({ lang }) => textOut2(
+    async ({ lang }) => textOut3(
       lang === "zh" ? SCHEMA_GUIDE_ZH : lang === "en" ? SCHEMA_GUIDE_EN : LANG_PICK_NOTE + "\n\n" + SCHEMA_GUIDE_EN
     )
   );
@@ -85368,7 +85602,7 @@ function registerBoardTools(server2, d6) {
       try {
         const r6 = await call("GET", "agent/boards");
         const boards = Array.isArray(r6?.boards) ? r6.boards : [];
-        if (!boards.length) return textOut2("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u5757\u3002");
+        if (!boards.length) return textOut3("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u5757\u3002");
         const lines = boards.map((b6) => {
           const parts = [`${String(b6.boardId)}\u300C${String(b6.title ?? "")}\u300D`, `${Number(b6.elementCount) || 0} \u4E2A\u5143\u7D20`];
           const pend = Number(b6.pendingOps) || 0;
@@ -85378,10 +85612,10 @@ function registerBoardTools(server2, d6) {
           if (typeof b6.project === "string" && b6.project) parts.push(`\u9879\u76EE\u300C${b6.project}\u300D`);
           return parts.join(" \xB7 ");
         });
-        return textOut2(`${boards.length} \u5757\u677F:
+        return textOut3(`${boards.length} \u5757\u677F:
 ${lines.join("\n")}`);
       } catch (e6) {
-        return textOut2(d6.human(e6));
+        return textOut3(d6.human(e6));
       }
     }
   );
@@ -85405,7 +85639,7 @@ ${lines.join("\n")}`);
         const specActs = Array.isArray(spec.acts) ? spec.acts : [];
         const bySlug = /* @__PURE__ */ new Map();
         specActs.forEach((a6, i6) => {
-          if (isObj3(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
+          if (isObj4(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
         });
         const acts = Array.isArray(r6.acts) ? r6.acts : [];
         const defaultEnv = typeof spec.defaultEnv === "string" ? spec.defaultEnv : void 0;
@@ -85417,7 +85651,7 @@ ${lines.join("\n")}`);
         const refLines = [];
         acts.forEach((a6, i6) => {
           const actId = String(a6.actId ?? "");
-          const src = bySlug.get(actId) ?? (isObj3(specActs[i6]) ? specActs[i6] : void 0);
+          const src = bySlug.get(actId) ?? (isObj4(specActs[i6]) ? specActs[i6] : void 0);
           const ids = (Array.isArray(a6.entityIds) ? a6.entityIds : []).map((x) => entityRef(boardId, x));
           lines.push(
             actProgressLine({
@@ -85439,9 +85673,9 @@ ${lines.join("\n")}`);
 ${refLines.join("\n")}` + problemsBlock2(r6.problems) + `
 
 ${RUN_HINT}`;
-        return textOut2(text);
+        return textOut3(text);
       } catch (e6) {
-        return textOut2(d6.human(e6));
+        return textOut3(d6.human(e6));
       }
     }
   );
@@ -85460,7 +85694,7 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, act, after, index, total, lang }) => {
-      if (!BOARD_ID_RE2.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut3("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const body = { act };
         if (after !== void 0) body.after = after;
@@ -85497,9 +85731,9 @@ ${RUN_HINT}`;
         const text = `${line}
 
 \u5E55 ${String(r6.actId ?? "")}(seq ${String(r6.seq ?? "?")})\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}` + problemsBlock2(r6.problems);
-        return textOut2(text);
+        return textOut3(text);
       } catch (e6) {
-        return textOut2(d6.human(e6));
+        return textOut3(d6.human(e6));
       }
     }
   );
@@ -85514,9 +85748,10 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, full }) => {
-      if (!BOARD_ID_RE2.test(boardId)) return textOut2("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut3("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const r6 = await call("GET", `agent/boards/${boardId}${full ? "?full=1" : ""}`);
+        noteSeen(boardId, r6);
         const acts = Array.isArray(r6.acts) ? r6.acts : [];
         const items = Array.isArray(r6.items) ? r6.items : [];
         const pend = Number(r6.pendingOps) || 0;
@@ -85535,7 +85770,7 @@ ${RUN_HINT}`;
         const userBits = (it) => {
           const bits = [];
           if (it.by === "user") bits.push("\u5B66\u5458\u5199\u7684");
-          const b6 = isObj3(it.box) ? it.box : null;
+          const b6 = isObj4(it.box) ? it.box : null;
           if (b6 && [b6.x, b6.y, b6.w, b6.h].every((v) => typeof v === "number")) bits.push(`@(${b6.x},${b6.y}) ${b6.w}\xD7${b6.h}`);
           const marks = Array.isArray(it.marks) ? it.marks.filter((m4) => typeof m4 === "string" && !!m4.trim()) : [];
           if (marks.length) bits.push(`\u5B66\u5458\u9AD8\u4EAE:${marks.slice(0, 5).map((m4) => `\u300C${clipChars(m4, 40)}\u300D`).join("")}`);
@@ -85576,15 +85811,15 @@ ${RUN_HINT}`;
           for (const it of loose) out.push(fmt(it));
         }
         if (r6.truncated) out.push("(\u540E\u7AEF\u6458\u8981\u5DF2\u622A\u65AD:\u677F\u592A\u5927,\u4E0A\u9762\u53EA\u5217\u51FA\u4E86\u4E00\u90E8\u5206\u5E55 / \u6761\u76EE)");
-        return textOut2(out.join("\n"));
+        return textOut3(out.join("\n"));
       } catch (e6) {
-        return textOut2(d6.human(e6));
+        return textOut3(d6.human(e6));
       }
     }
   );
 }
 function briefLines(b6) {
-  if (!isObj3(b6) || typeof b6.goal !== "string" || !b6.goal.trim()) return [];
+  if (!isObj4(b6) || typeof b6.goal !== "string" || !b6.goal.trim()) return [];
   const out = [`\u7B80\u62A5(\u548C\u5B66\u5458\u6838\u5BF9\u8FC7):\u76EE\u6807 ${b6.goal.trim()}`];
   if (typeof b6.background === "string" && b6.background.trim()) out.push(`  \u80CC\u666F:${b6.background.trim()}`);
   if (Array.isArray(b6.references) && b6.references.length) out.push(`  \u53C2\u8003:${b6.references.map(String).join(" | ")}`);
@@ -85618,32 +85853,32 @@ function registerEnvTools(server2, d6) {
       try {
         const r6 = await call("GET", "envs");
         const envs = Array.isArray(r6.envs) ? r6.envs : [];
-        if (!envs.length) return textOut2("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
+        if (!envs.length) return textOut3("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
         const out = [];
         for (const e6 of envs) {
-          const rt = isObj3(e6.runtime) ? e6.runtime : {};
-          const gpu = isObj3(rt.gpu) ? rt.gpu : null;
+          const rt = isObj4(e6.runtime) ? e6.runtime : {};
+          const gpu = isObj4(rt.gpu) ? rt.gpu : null;
           const head = [
             String(e6.id ?? ""),
             gpu ? `GPU ${String(gpu.type ?? "?")}${Number(gpu.count) > 1 ? `\xD7${gpu.count}` : ""}` : "\u65E0 GPU",
             e6.access === "paid" ? "\u9700\u4ED8\u8D39" : "\u514D\u8D39",
             `\u72B6\u6001 ${String(e6.status ?? "?")}`
           ];
-          if (isObj3(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
+          if (isObj4(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
           out.push(head.join(" \xB7 "));
           if (e6.name || e6.summary) out.push(`  ${[e6.name, e6.summary].filter(Boolean).join(":")}`);
           if (Array.isArray(rt.libs) && rt.libs.length) out.push(`  \u9884\u88C5:${rt.libs.join("\u3001")}`);
           if (typeof e6.advice === "string" && e6.advice) out.push(`  \u5EFA\u8BAE(\u7ED9\u5B66\u4E60\u8005\u7684\u5EFA\u8BAE,\u662F\u5426\u7167\u505A\u7531\u7528\u6237\u51B3\u5B9A):${e6.advice}`);
-          const tasks = isObj3(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
+          const tasks = isObj4(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
           if (tasks.length) {
             out.push("  \u8BC4\u5206\u4EFB\u52A1:");
             for (const t of tasks) {
-              const tg = isObj3(t.target) ? t.target : null;
+              const tg = isObj4(t.target) ? t.target : null;
               let line = `    ${String(t.id ?? "")} \xB7 ${String(t.title ?? "")} \xB7 ${String(t.maxScore ?? "?")}`;
               if (tg) line += ` \xB7 \u76EE\u6807 ${String(tg.path)}${tg.region ? `#${String(tg.region)}` : ""}`;
               if (tg && Array.isArray(tg.extraRegions)) {
                 for (const x of tg.extraRegions) {
-                  if (isObj3(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
+                  if (isObj4(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
                 }
               }
               out.push(line);
@@ -85651,9 +85886,9 @@ function registerEnvTools(server2, d6) {
           }
         }
         out.push("", "\u5199\u4EE3\u7801\u524D\u5148\u9009 env;GPU \u73AF\u5883\u5148 warm,\u7528\u5B8C stop,\u6309\u65F6\u957F\u8BA1\u8D39\u3002");
-        return textOut2(out.join("\n"));
+        return textOut3(out.join("\n"));
       } catch (e6) {
-        return textOut2(envHuman(e6));
+        return textOut3(envHuman(e6));
       }
     }
   );
@@ -85668,7 +85903,7 @@ function registerEnvTools(server2, d6) {
       }
     },
     async ({ env: env3, action }, extra) => {
-      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       const path6 = `envs/${encodeURIComponent(env3)}/session`;
       const money = (s) => `\u5DF2\u82B1 ${usd(s.spentUsd)} \xB7 \u5269\u4F59 ${usd(s.remainingUsd)}`;
       const token = extra?._meta?.progressToken;
@@ -85686,29 +85921,29 @@ function registerEnvTools(server2, d6) {
       try {
         if (action === "stop") {
           const s2 = await call("DELETE", path6);
-          return textOut2(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
+          return textOut3(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
         }
         if (action === "status") {
           const s2 = await call("GET", path6);
           await progress(`${env3}: ${String(s2.state)}`);
-          return textOut2(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
+          return textOut3(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
         }
         let s = await call("POST", path6);
-        if (s.state === "ready") return textOut2(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+        if (s.state === "ready") return textOut3(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
         for (let waited = 0; waited < WARM_MAX_MS; waited += WARM_POLL_MS) {
           await d6.sleep(WARM_POLL_MS);
           s = await call("GET", path6);
           await progress(`${env3}: ${String(s.state)}${s.etaSec != null ? `,\u7EA6 ${s.etaSec} \u79D2` : ""}`);
-          if (s.state === "ready") return textOut2(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+          if (s.state === "ready") return textOut3(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
           if (s.state === "cold" || s.state === "stopping") {
-            return textOut2(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
+            return textOut3(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
           }
         }
-        return textOut2(
+        return textOut3(
           `${env3} \u8FD8\u5728\u51C6\u5907(\u7EA6 ${s.etaSec ?? "?"} \u79D2),\u7A0D\u540E status \u6216\u76F4\u63A5 tb_run \u4F1A\u544A\u8BC9\u4F60 \xB7 ${money(s)}`
         );
       } catch (e6) {
-        return textOut2(envHuman(e6));
+        return textOut3(envHuman(e6));
       }
     }
   );
@@ -85800,9 +86035,9 @@ function registerRecipeTools(server2, d6) {
       }
     },
     async ({ env: env3, add, commands: commands6, name, entity }, extra) => {
-      if (!ENV_ID_RE.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!ENV_ID_RE.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       if (entity !== void 0 && !ENTITY_REF_RE2.test(entity)) {
-        return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+        return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
       }
       const token = extra?._meta?.progressToken;
       let n2 = 0;
@@ -85823,7 +86058,7 @@ function registerRecipeTools(server2, d6) {
         const created = await call("POST", `envs/${encodeURIComponent(env3)}/recipes`, body);
         let r6 = created.recipe ?? {};
         const id = typeof r6.id === "string" ? r6.id : "";
-        if (!RECIPE_ID_RE.test(id)) return textOut2("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
+        if (!RECIPE_ID_RE.test(id)) return textOut3("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
         await progress(`\u914D\u65B9 ${id}: ${String(r6.status)}`);
         let failures = 0;
         for (let waited = 0; r6.status === "verifying" && waited < RECIPE_MAX_MS; waited += RECIPE_POLL_MS) {
@@ -85835,7 +86070,7 @@ function registerRecipeTools(server2, d6) {
           } catch (e6) {
             const st = e6 instanceof TbError ? e6.status : 0;
             if (st === 401 || st === 404 || ++failures >= 3) {
-              return textOut2(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+              return textOut3(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
             }
             continue;
@@ -85845,21 +86080,21 @@ function registerRecipeTools(server2, d6) {
         if (r6.status === "ready") {
           const out = [`\u914D\u65B9\u5C31\u7EEA recipeId=${id}(\u73AF\u5883 ${env3}),\u7528 recipe:"${id}" \u91CD\u65B0 tb_run \u5373\u53EF`, ...lockSummary(r6.lock)];
           if (entity) out.push(await bindMsg(entity, id));
-          return textOut2(out.join("\n"));
+          return textOut3(out.join("\n"));
         }
         if (r6.status === "failed") {
           const tail = logTail(r6.verifyLog);
-          return textOut2(
+          return textOut3(
             `\u914D\u65B9\u9A8C\u8BC1\u5931\u8D25 recipeId=${id}
 ${tail ? `verifyLog \u672B\u5C3E:
 ${tail}
 ` : ""}\u6539\u914D\u65B9\u518D\u63D0\u4EA4(\u6362\u5305\u540D / \u7248\u672C,\u6216\u53BB\u6389\u51B2\u7A81\u7684\u5305)\u3002`
           );
         }
-        return textOut2(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+        return textOut3(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
       } catch (e6) {
-        return textOut2(humanErr(e6));
+        return textOut3(humanErr(e6));
       }
     }
   );
@@ -85871,11 +86106,11 @@ ${tail}
       inputSchema: { env: external_exports.string().describe("\u73AF\u5883 id(\u89C1 tb_list_envs)") }
     },
     async ({ env: env3 }) => {
-      if (!ENV_ID_RE.test(env3)) return textOut2("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!ENV_ID_RE.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       try {
         const r6 = await call("GET", `envs/${encodeURIComponent(env3)}/recipes`);
         const list2 = Array.isArray(r6.recipes) ? r6.recipes : [];
-        if (!list2.length) return textOut2(`${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9`);
+        if (!list2.length) return textOut3(`${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9`);
         const out = [`${env3} \u7684\u914D\u65B9(${list2.length} \u4E2A):`];
         for (const x of list2) {
           const req = Array.isArray(x.requested) ? x.requested.map(String).join(", ") : "";
@@ -85884,9 +86119,9 @@ ${tail}
             `${String(x.id)}${x.name ? `\u300C${x.name}\u300D` : ""} \xB7 ${String(x.status)} \xB7 \u8BF7\u6C42 ${req || "-"} \xB7 lock ${locks} \xB7 \u66F4\u65B0 ${String(x.updatedAt ?? "?")}`
           );
         }
-        return textOut2(out.join("\n"));
+        return textOut3(out.join("\n"));
       } catch (e6) {
-        return textOut2(humanErr(e6));
+        return textOut3(humanErr(e6));
       }
     }
   );
@@ -85901,8 +86136,8 @@ ${tail}
       }
     },
     async ({ entity, recipe }) => {
-      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut2("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
-      return textOut2(await bindMsg(entity, recipe));
+      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut3("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      return textOut3(await bindMsg(entity, recipe));
     }
   );
 }
@@ -85913,16 +86148,18 @@ var NO_HINT_TOOLS = /* @__PURE__ */ new Set(["tb_connect", "tb_grade_review"]);
 function withReviewHint(server2, d6) {
   let last = -Infinity;
   const hint = async () => {
-    if (!d6.creds.get()) return "";
+    if (!d6.creds.get() || d6.mine.size === 0) return "";
     const t = d6.now();
     if (t - last < HINT_EVERY_MS) return "";
     last = t;
     try {
       const r6 = await d6.client.call("GET", "grade/reviews", void 0, { agent: true });
       const list2 = Array.isArray(r6?.reviews) ? r6.reviews : [];
-      if (!list2.length) return "";
-      const ids = list2.map((x) => String(x.gradeId)).join("\u3001");
-      return `\u{1F4DD} \u6709 ${list2.length} \u4E2A\u5F85\u5B8C\u6210\u7684\u4EE3\u7801\u8BC4\u5BA1(gradeId ${ids}),\u8C03\u7528 tb_grade_review \u5B8C\u6210`;
+      const pending = new Set(list2.map((x) => String(x.gradeId)));
+      for (const id of [...d6.mine]) if (!pending.has(id)) d6.mine.delete(id);
+      if (!d6.mine.size) return "";
+      const ids = [...d6.mine].join("\u3001");
+      return `\u{1F4DD} \u6709 ${d6.mine.size} \u4E2A\u5F85\u5B8C\u6210\u7684\u4EE3\u7801\u8BC4\u5BA1(gradeId ${ids}),\u8C03\u7528 tb_grade_review \u5B8C\u6210`;
     } catch {
       return "";
     }
@@ -85949,12 +86186,13 @@ function withReviewHint(server2, d6) {
           }
           const wrapped = async (...a6) => {
             const res = await cb(...a6);
-            const h6 = await capped();
-            if (!h6 || !res || !Array.isArray(res.content)) return res;
+            if (!res || !Array.isArray(res.content)) return res;
             const content = [...res.content];
             const i6 = content.findIndex((c6) => c6?.type === "text");
-            const atEnd = name === "tb_run" || name === "tb_grade";
             if (name === "tb_grade" && i6 >= 0 && String(content[i6].text).includes(REVIEW_MARK)) return res;
+            const h6 = await capped();
+            if (!h6) return res;
+            const atEnd = name === "tb_run" || name === "tb_grade";
             if (i6 >= 0) content[i6] = { ...content[i6], text: atEnd ? `${content[i6].text}
 ${h6}` : `${h6}
 ${content[i6].text}` };
@@ -85998,6 +86236,7 @@ var RUN_DESC = "\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8FD0\u884C\u677F\u4E0A\u76
 var GRADE_DESC = "\u7ED9\u677F\u4E0A\u7684\u4E00\u4E2A\u4F5C\u4E1A\u4EE3\u7801\u5757\u8BC4\u5206(\u7528\u8BE5\u5757\u73AF\u5883\u7684\u9690\u85CF\u6D4B\u8BD5 + \u4EE3\u7801\u8BC4\u5BA1),\u8BC4\u5206\u5361\u4F1A\u653E\u5230\u677F\u4E0A\u8BE5\u5757\u65C1\u8FB9\u3002\u5148 tb_env_session warm;\u7528\u6237\u770B\u7740\u677F\u65F6\u4E5F\u53EF\u4EE5\u8BA9\u7528\u6237\u70B9\u8BC4\u5206\u3002\u4EE3\u7801\u8BC4\u5BA1\u9879\u7531\u4F60(agent)\u6765\u6253\u5206:\u8FD4\u56DE\u91CC\u5982\u6709\u8BC4\u5BA1\u4EFB\u52A1,\u9010\u9879\u8BFB\u4EE3\u7801\u540E\u7528 tb_grade_review \u56DE\u586B\u3002\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9\u3002";
 function registerRunTools(server2, d6) {
   const sleep3 = d6.sleep;
+  const mine = d6.mine ?? /* @__PURE__ */ new Set();
   const call = (method, path6, body, timeoutMs) => d6.client.call(method, path6, body, { agent: true, ...timeoutMs ? { timeoutMs } : {} });
   const withProgress = async (extra, label, fn) => {
     const token = extra?._meta?.progressToken;
@@ -86061,7 +86300,7 @@ function registerRunTools(server2, d6) {
     return d6.human(e6);
   };
   const wbMsg = (wb) => {
-    if (!isObj3(wb)) return "";
+    if (!isObj4(wb)) return "";
     if (typeof wb.seq === "number") return "\u8F93\u51FA\u5DF2\u5199\u56DE\u677F\u4E0A";
     const code = typeof wb.error === "string" ? wb.error : "";
     const why = code === "board_not_found" ? "\u627E\u4E0D\u5230\u8FD9\u5757\u677F" : code === "ops_backlog" ? "\u8FD9\u5757\u677F\u8FD8\u6709\u5F88\u591A\u6B65\u6CA1\u5728\u6D4F\u89C8\u5668\u91CC\u843D\u5730,\u8BF7\u7528\u6237\u6253\u5F00\u8FD9\u5757\u677F" : code === "write_back_failed" || code ? "\u5199\u56DE\u5931\u8D25" : "\u5199\u56DE\u5931\u8D25";
@@ -86096,29 +86335,29 @@ function registerRunTools(server2, d6) {
     },
     async ({ entity, recipe }, extra) => {
       const m4 = ENTITY_REF_RE2.exec(entity);
-      if (!m4) return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut2("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      if (!m4) return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut3("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
       const boardId = m4[1];
       const eid = m4[2];
       const blk = await readBlock(boardId, eid);
-      if (typeof blk === "string") return textOut2(blk);
-      if (blk.kind !== "code") return textOut2("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
-      if (!blk.env) return textOut2("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
-      if (Array.isArray(blk.files) && blk.files.length) return textOut2("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
-      if (blk.truncated) return textOut2("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
-      const run = isObj3(blk.run) ? blk.run : {};
+      if (typeof blk === "string") return textOut3(blk);
+      if (blk.kind !== "code") return textOut3("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
+      if (!blk.env) return textOut3("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
+      if (Array.isArray(blk.files) && blk.files.length) return textOut3("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
+      if (blk.truncated) return textOut3("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
+      const run = isObj4(blk.run) ? blk.run : {};
       const body = {
         code: String(blk.code ?? ""),
         language: String(blk.language ?? ""),
         env: blk.env,
         writeBack: { boardId, target: { entityId: Number(eid.slice(1)) } }
       };
-      if (typeof run.region === "string" && typeof run.path !== "string") return textOut2("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
+      if (typeof run.region === "string" && typeof run.path !== "string") return textOut3("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
       const notes2 = [];
       if (typeof blk.recipeIgnored === "string" && blk.recipeIgnored) notes2.push(blk.recipeIgnored);
       let useRecipe = recipe ?? (typeof blk.recipe === "string" && RECIPE_ID_RE.test(blk.recipe) ? blk.recipe : void 0);
       if (!recipe && useRecipe && blk.recipeStatus === "failed") {
-        return textOut2(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
+        return textOut3(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
       }
       if (!recipe && useRecipe && blk.recipeStatus === "verifying") {
         let st = "verifying";
@@ -86131,8 +86370,8 @@ function registerRunTools(server2, d6) {
             break;
           }
         }
-        if (st === "failed") return textOut2(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
-        if (st !== "ready") return textOut2(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
+        if (st === "failed") return textOut3(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
+        if (st !== "ready") return textOut3(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
       }
       if (typeof run.path === "string") {
         body.file = { path: run.path, ...typeof run.region === "string" ? { region: run.region } : {} };
@@ -86143,10 +86382,10 @@ function registerRunTools(server2, d6) {
       try {
         r6 = await withProgress(extra, "\u8FD0\u884C\u4E2D", () => call("POST", "run", body, RUN_TIMEOUT_MS));
       } catch (e6) {
-        return textOut2(humanErr(e6));
+        return textOut3(humanErr(e6));
       }
       const out = [];
-      const mm = isObj3(r6.missingModule) ? r6.missingModule : null;
+      const mm = isObj4(r6.missingModule) ? r6.missingModule : null;
       if (mm && typeof mm.hint === "string" && mm.hint) out.push(mm.hint);
       out.push(...notes2);
       const reason = String(r6.exitReason ?? "");
@@ -86160,7 +86399,7 @@ function registerRunTools(server2, d6) {
 ${tailBytes(r6.stdout, STDOUT_TAIL)}`);
       if (typeof r6.stderr === "string" && r6.stderr) out.push(`stderr:
 ${tailBytes(r6.stderr, STDERR_TAIL)}`);
-      return textOut2(out.join("\n"));
+      return textOut3(out.join("\n"));
     }
   );
   const renderReview = (rv) => {
@@ -86213,8 +86452,8 @@ ${piece}
       }
     },
     async ({ entity, task }, extra) => {
-      if (!ENTITY_REF_RE2.test(entity)) return textOut2("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (task !== void 0 && !TASK_RE3.test(task)) return textOut2("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
+      if (!ENTITY_REF_RE2.test(entity)) return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (task !== void 0 && !TASK_RE3.test(task)) return textOut3("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
       let r6;
       try {
         r6 = await withProgress(
@@ -86223,24 +86462,26 @@ ${piece}
           () => call("POST", "grade", { entity, ...task ? { task } : {} }, GRADE_TIMEOUT_MS)
         );
       } catch (e6) {
-        return textOut2(humanErr(e6));
+        return textOut3(humanErr(e6));
       }
       if (r6.ok === false) {
-        return textOut2(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r6.error ?? "unknown")}${typeof r6.setupLog === "string" && r6.setupLog ? `
+        return textOut3(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r6.error ?? "unknown")}${typeof r6.setupLog === "string" && r6.setupLog ? `
 setupLog:
 ${tailBytes(r6.setupLog, STDERR_TAIL)}` : ""}`);
       }
-      const out = renderGrade(isObj3(r6.grade) ? r6.grade : {});
+      const out = renderGrade(isObj4(r6.grade) ? r6.grade : {});
       if (r6.card === null) out.push("\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F");
-      else if (isObj3(r6.card) && typeof r6.card.seq === "number") out.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
+      else if (isObj4(r6.card) && typeof r6.card.seq === "number") out.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
       out.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-      if (typeof r6.setupLog === "string" && r6.setupLog && !isObj3(r6.review)) out.push(`setupLog:
+      if (typeof r6.setupLog === "string" && r6.setupLog && !isObj4(r6.review)) out.push(`setupLog:
 ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
-      if (isObj3(r6.review)) {
-        out.push(`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${String(r6.review.gradeId ?? r6.gradeId ?? "")}:`);
+      if (isObj4(r6.review)) {
+        const gid = String(r6.review.gradeId ?? r6.gradeId ?? "");
+        if (GRADE_ID_RE.test(gid)) mine.add(gid);
+        out.push(`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gid}:`);
         out.push(...renderReview(r6.review));
       }
-      return textOut2(out.join("\n"));
+      return textOut3(out.join("\n"));
     }
   );
   server2.registerTool(
@@ -86260,7 +86501,7 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
       }
     },
     async ({ gradeId, items }) => {
-      if (!GRADE_ID_RE.test(gradeId)) return textOut2("gradeId \u4E0D\u5408\u6CD5");
+      if (!GRADE_ID_RE.test(gradeId)) return textOut3("gradeId \u4E0D\u5408\u6CD5");
       const fetchReview = async () => {
         const r6 = await call("GET", "grade/reviews");
         return (Array.isArray(r6.reviews) ? r6.reviews : []).find((x) => String(x.gradeId) === gradeId) ?? null;
@@ -86268,25 +86509,32 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
       if (!items) {
         try {
           const rv = await fetchReview();
-          if (!rv) return textOut2("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
-          return textOut2([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
+          if (!rv) return textOut3("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
+          return textOut3([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
         } catch (e6) {
-          return textOut2(humanErr(e6));
+          return textOut3(humanErr(e6));
         }
       }
       try {
         const r6 = await call("POST", `grade/reviews/${gradeId}`, { items });
-        const out = renderGrade(isObj3(r6.grade) ? r6.grade : {});
+        mine.delete(gradeId);
+        const out = renderGrade(isObj4(r6.grade) ? r6.grade : {});
         out.push(r6.card === null ? "\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F" : "\u8BC4\u5206\u5361\u5DF2\u66F4\u65B0");
         out.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-        return textOut2(out.join("\n"));
+        return textOut3(out.join("\n"));
       } catch (e6) {
         const code = codeOf(e6);
-        if (e6 instanceof TbError && e6.status === 409 && code === "already_reviewed") return textOut2("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
-        if (e6 instanceof TbError && e6.status === 404) return textOut2("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
+        if (e6 instanceof TbError && e6.status === 409 && code === "already_reviewed") {
+          mine.delete(gradeId);
+          return textOut3("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
+        }
+        if (e6 instanceof TbError && e6.status === 404) {
+          mine.delete(gradeId);
+          return textOut3("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
+        }
         if (e6 instanceof TbError && e6.status === 400) {
-          if (code === "bad_review_score") return textOut2("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
-          if (code === "bad_review_evidence") return textOut2("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
+          if (code === "bad_review_score") return textOut3("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
+          if (code === "bad_review_evidence") return textOut3("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
           if (code === "review_items_mismatch") {
             const sent = items.map((x) => x.index);
             let hintTxt = "";
@@ -86301,10 +86549,10 @@ ${tailBytes(r6.setupLog, STDERR_TAIL)}`);
               }
             } catch {
             }
-            return textOut2(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
+            return textOut3(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
           }
         }
-        return textOut2(humanErr(e6));
+        return textOut3(humanErr(e6));
       }
     }
   );
@@ -86629,7 +86877,7 @@ server.registerTool(
       return err3("\u8FD8\u6CA1\u767B\u5F55\u3002\u5148\u7528 /lab-login \u767B\u5F55\u3002");
     }
     try {
-      const existingDir = join20(process.cwd(), lab_id);
+      const existingDir = join22(process.cwd(), lab_id);
       if (existsSync11(existingDir) && !force) {
         return err3(
           `\u68C0\u6D4B\u5230 ./${lab_id}/ \u5DF2\u5B58\u5728\u2014\u2014\u4F60\u4E4B\u524D\u5F00\u8FC7\u8FD9\u4E2A lab\u3002
@@ -86638,18 +86886,18 @@ server.registerTool(
         );
       }
       const starter = await getStarter(lab_id);
-      const labDir = join20(process.cwd(), lab_id);
+      const labDir = join22(process.cwd(), lab_id);
       for (const f6 of starter.files) {
-        const dest = join20(labDir, f6.path);
-        mkdirSync7(dirname5(dest), { recursive: true });
-        writeFileSync7(dest, f6.content);
+        const dest = join22(labDir, f6.path);
+        mkdirSync8(dirname7(dest), { recursive: true });
+        writeFileSync8(dest, f6.content);
       }
       for (const a6 of starter.assets ?? []) {
-        const dest = join20(labDir, a6.path);
-        mkdirSync7(dirname5(dest), { recursive: true });
+        const dest = join22(labDir, a6.path);
+        mkdirSync8(dirname7(dest), { recursive: true });
         const res = await fetch(a6.url);
         if (!res.ok) return err3(`\u4E0B\u8F7D\u8D44\u4EA7\u5931\u8D25 ${a6.path}\uFF1AHTTP ${res.status}`);
-        writeFileSync7(dest, Buffer.from(await res.arrayBuffer()));
+        writeFileSync8(dest, Buffer.from(await res.arrayBuffer()));
       }
       const example = starter.files.find((f6) => f6.path === ".env.example")?.content ?? "";
       let envContent = example.replace(/^PARALLIGHT_API_KEY=.*$/m, `PARALLIGHT_API_KEY=${token}`);
@@ -86682,7 +86930,7 @@ PARALLIGHT_TOKEN=${token}
 PARALLIGHT_SANDBOX_URL=${SANDBOX_PROXY_URL}
 `;
       }
-      writeFileSync7(join20(labDir, ".env"), envContent);
+      writeFileSync8(join22(labDir, ".env"), envContent);
       const writtenTree = fileTree([
         ...starter.files.map((f6) => f6.path),
         ...(starter.assets ?? []).map((a6) => a6.path),
@@ -87173,11 +87421,11 @@ server.registerTool(
         "\u8981\u770B\u4F1A\u8BDD\u5206\u6790,\u9700\u8981\u5148\u540C\u610F\u8BB0\u5F55\u4F60\u7684 lab \u4F1A\u8BDD\u6570\u636E(\u7528\u4E8E\u751F\u6210\u62A5\u544A + Mentor \u6559\u5B66\u652F\u6301;\u539F\u6587\u6700\u591A\u7559 30 \u5929)\u3002\u540C\u610F\u5C31\u7528 /lab-analysis \u65F6\u56DE\u7B54\u300C\u53EF\u4EE5\u300D,\u6216\u76F4\u63A5\u8BF4\u300C\u6211\u540C\u610F\u5206\u6790\u300D\u3002"
       );
     }
-    const dir = join20(homedir6(), ".parallight", "analysis");
-    const file2 = join20(dir, `${labId.replace(/[^a-zA-Z0-9_-]/g, "_")}.html`);
+    const dir = join22(homedir7(), ".parallight", "analysis");
+    const file2 = join22(dir, `${labId.replace(/[^a-zA-Z0-9_-]/g, "_")}.html`);
     try {
-      mkdirSync7(dir, { recursive: true });
-      writeFileSync7(file2, report.html ?? "");
+      mkdirSync8(dir, { recursive: true });
+      writeFileSync8(file2, report.html ?? "");
     } catch (e6) {
       return err3(`\u5199\u62A5\u544A\u6587\u4EF6\u5931\u8D25\uFF1A${String(e6)}`);
     }
@@ -87429,9 +87677,9 @@ function readClaudeEnvConfig() {
   let baseUrl = process.env.ANTHROPIC_BASE_URL ?? "";
   let authToken = process.env.ANTHROPIC_AUTH_TOKEN ?? "";
   try {
-    const p2 = join20(homedir6(), ".claude", "settings.json");
+    const p2 = join22(homedir7(), ".claude", "settings.json");
     if (existsSync11(p2)) {
-      const s = JSON.parse(readFileSync12(p2, "utf8"));
+      const s = JSON.parse(readFileSync13(p2, "utf8"));
       const e6 = s?.env ?? {};
       if (!baseUrl && typeof e6.ANTHROPIC_BASE_URL === "string") baseUrl = e6.ANTHROPIC_BASE_URL;
       if (!authToken && typeof e6.ANTHROPIC_AUTH_TOKEN === "string") authToken = e6.ANTHROPIC_AUTH_TOKEN;
@@ -87484,9 +87732,9 @@ server.registerTool(
     }
     let current2;
     try {
-      const p2 = join20(homedir6(), ".claude", "settings.json");
+      const p2 = join22(homedir7(), ".claude", "settings.json");
       if (existsSync11(p2)) {
-        const s = JSON.parse(readFileSync12(p2, "utf8"));
+        const s = JSON.parse(readFileSync13(p2, "utf8"));
         if (typeof s?.env?.ANTHROPIC_MODEL === "string") current2 = s.env.ANTHROPIC_MODEL;
       }
     } catch {
@@ -87511,16 +87759,16 @@ server.registerTool(
       );
     }
     const raw = dir && dir.trim() || "~/parallight-gw";
-    const target = raw.startsWith("~") ? join20(homedir6(), raw.slice(1).replace(/^[/\\]/, "")) : raw;
+    const target = raw.startsWith("~") ? join22(homedir7(), raw.slice(1).replace(/^[/\\]/, "")) : raw;
     const chosen = model && model.trim() || "claude-sonnet-5";
     try {
-      const claudeDir = join20(target, ".claude");
-      mkdirSync7(claudeDir, { recursive: true, mode: 448 });
-      const settingsPath = join20(claudeDir, "settings.json");
+      const claudeDir = join22(target, ".claude");
+      mkdirSync8(claudeDir, { recursive: true, mode: 448 });
+      const settingsPath = join22(claudeDir, "settings.json");
       let settings2 = {};
       try {
         if (existsSync11(settingsPath))
-          settings2 = JSON.parse(readFileSync12(settingsPath, "utf8"));
+          settings2 = JSON.parse(readFileSync13(settingsPath, "utf8"));
       } catch {
         settings2 = {};
       }
@@ -87529,10 +87777,10 @@ server.registerTool(
       env3.ANTHROPIC_AUTH_TOKEN = token;
       env3.ANTHROPIC_MODEL = chosen;
       settings2.env = env3;
-      writeFileSync7(settingsPath, JSON.stringify(settings2, null, 2) + "\n", { mode: 384 });
+      writeFileSync8(settingsPath, JSON.stringify(settings2, null, 2) + "\n", { mode: 384 });
       chmodSync3(settingsPath, 384);
       try {
-        writeFileSync7(join20(target, ".gitignore"), ".claude/\n");
+        writeFileSync8(join22(target, ".gitignore"), ".claude/\n");
       } catch {
       }
       return ok3(
@@ -87588,9 +87836,9 @@ server.registerTool(
       const cards = await fetchHotspots();
       const card = cards.find((c6) => c6.slug === slug);
       if (!card) return err3(`\u6CA1\u627E\u5230\u70ED\u70B9\u5361 ${slug}(\u53EF\u80FD\u5DF2\u4E0B\u7EBF),\u7528 list_hotspots \u91CD\u65B0\u770B\u5217\u8868\u3002`);
-      mkdirSync7(join20(process.cwd(), "fresh"), { recursive: true });
-      const file2 = join20(process.cwd(), "fresh", `${slug}.md`);
-      writeFileSync7(file2, hotspotMarkdown(card), "utf8");
+      mkdirSync8(join22(process.cwd(), "fresh"), { recursive: true });
+      const file2 = join22(process.cwd(), "fresh", `${slug}.md`);
+      writeFileSync8(file2, hotspotMarkdown(card), "utf8");
       let synced = false;
       try {
         const token = requireToken();
