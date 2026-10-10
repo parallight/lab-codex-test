@@ -85051,14 +85051,16 @@ var EXAMPLE_ZH = {
       title: "\u4ECA\u5929\u7684\u8DEF\u7EBF",
       layout: "column",
       items: [
-        { kind: "text", id: "goal", role: "heading", text: "\u5B66\u5B8C\u8FD9\u5757\u677F,\u4F60\u80FD\u5728 GPU \u4E0A\u5199\u51FA\u5E76\u8DD1\u901A\u81EA\u5DF1\u7684\u7B2C\u4E00\u4E2A map kernel" },
+        { kind: "text", id: "goal", role: "heading", text: "\u5B66\u5B8C\u80FD\u5728 GPU \u4E0A\u8DD1\u901A\u81EA\u5DF1\u7684\u7B2C\u4E00\u4E2A map kernel" },
         {
           kind: "group",
           id: "route",
           title: "\u6211\u4EEC\u4F1A\u8BB2",
           items: [
-            { kind: "text", id: "r1", text: "1. \u4E3A\u4EC0\u4E48\u4E00\u4E2A\u7EBF\u7A0B\u7B97\u4E00\u4E2A\u5143\u7D20" },
-            { kind: "text", id: "r2", text: "2. \u52A8\u624B:\u5199 map kernel" }
+            { kind: "text", id: "c1", text: "\u7B2C 1 \u7AE0 \xB7 \u5E76\u884C map(\u672C\u5757)" },
+            { kind: "text", id: "r1", text: "\u30001. \u4E3A\u4EC0\u4E48\u4E00\u4E2A\u7EBF\u7A0B\u7B97\u4E00\u4E2A\u5143\u7D20" },
+            { kind: "text", id: "r2", text: "\u30002. \u52A8\u624B:\u5199 map kernel" },
+            { kind: "text", id: "c2", text: "\u7B2C 2 \u7AE0 \xB7 \u5F52\u7EA6\u4E0E\u5171\u4EAB\u5185\u5B58" }
           ]
         },
         {
@@ -85096,6 +85098,7 @@ var EXAMPLE_ZH = {
       layout: "column",
       items: [
         { kind: "text", id: "task", role: "body", text: "\u8865\u5168 HW1_1 \u533A\u6BB5:\u6BCF\u4E2A\u7EBF\u7A0B\u5904\u7406\u4E00\u4E2A\u4E0B\u6807,\u8D8A\u754C\u76F4\u63A5\u8FD4\u56DE\u3002" },
+        { kind: "text", id: "next", role: "body", text: "\u4E0B\u4E00\u5757:\u5F52\u7EA6\u4E0E\u5171\u4EAB\u5185\u5B58 \u2014\u2014 \u628A\u4E00\u767E\u4E07\u4E2A\u6570\u52A0\u8D77\u6765" },
         {
           kind: "code",
           id: "map",
@@ -85124,8 +85127,11 @@ var EXAMPLE_EN = {
           id: "route",
           title: "What we'll cover",
           items: [
-            { kind: "text", id: "r1", text: "1. Walk downhill" },
-            { kind: "text", id: "r2", text: "2. Run it" }
+            { kind: "text", id: "c1", text: "Chapter 1 \xB7 One picture (this board)" },
+            { kind: "text", id: "r1", text: "    1. Walk downhill" },
+            { kind: "text", id: "r2", text: "    2. Run it" },
+            { kind: "text", id: "c2", text: "Chapter 2 \xB7 Momentum: rolling instead of stepping" },
+            { kind: "text", id: "c3", text: "Chapter 3 \xB7 Adam on a real loss curve" }
           ]
         },
         {
@@ -85174,7 +85180,8 @@ var EXAMPLE_EN = {
           series: [{ name: "x", x: [0, 1, 2, 3], y: [3, 2.4, 1.92, 1.536] }],
           xlabel: "step",
           ylabel: "x"
-        }
+        },
+        { kind: "text", id: "next", role: "body", text: "Next board: Momentum \u2014 rolling instead of stepping" }
       ]
     }
   ]
@@ -85266,12 +85273,13 @@ acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 c
 
 ## \u5DE5\u4F5C\u65B9\u5F0F
 0. **\u5148\u5BF9\u9F50,\u518D\u4E0A\u677F\u3002** \u5EFA\u677F\u524D\u5F04\u6E05\u4E09\u4EF6\u4E8B:\u76EE\u6807(\u5B66\u4EC0\u4E48 / \u63A2\u7D22\u4EC0\u4E48 / \u505A\u4EC0\u4E48\u5B9E\u9A8C,\u505A\u5230\u4EC0\u4E48\u7A0B\u5EA6)\u3001\u80CC\u666F(\u5DF2\u7ECF\u4F1A\u4EC0\u4E48\u3001\u5361\u5728\u54EA)\u3001\u53C2\u8003(\u6CBF\u7740\u54EA\u672C\u4E66 / \u54EA\u95E8\u8BFE / \u54EA\u7BC7\u8BBA\u6587 / \u54EA\u4EFD\u4EE3\u7801\u8D70,\u6709\u6CA1\u6709\u81EA\u5DF1\u7684\u6750\u6599)\u3002\u5BF9\u8BDD\u91CC\u770B\u4E0D\u51FA\u6765 \u2192 \u7528\u4E00\u6761\u6D88\u606F\u95EE,\u6700\u591A 3 \u4E2A\u95EE\u9898\u3001\u6BCF\u4E2A\u7ED9 2\u20133 \u4E2A\u53EF\u9009\u9879;\u5DF2\u7ECF\u80FD\u5224\u65AD \u2192 \u4E0D\u95EE,\u5199\u51FA\u4E00\u53E5\u8BDD\u753B\u50CF + \u5EFA\u8BAE\u7684\u5B66\u4E60\u8DEF\u5F84(\u5E55\u7684\u6E05\u5355),\u8BF7\u5B66\u5458\u786E\u8BA4\u6216\u4FEE\u6539\u3002\u786E\u8BA4\u540E\u624D\u5EFA\u677F,\u5E76\u628A\u6838\u5BF9\u8FC7\u7684\u5185\u5BB9\u5199\u8FDB \`brief\`\u3002\u5B66\u5458\u8BF4\u300C\u76F4\u63A5\u4E0A\u677F\u300D\u2192 \u4E0D\u95EE,\u4F46\u4ECD\u4E00\u884C\u5199\u51FA\u8DEF\u5F84\u518D\u5F00\u59CB\u3002
-1. \u5148 \`tb_list_envs\` \u9009\u73AF\u5883(\u9700\u8981\u8DD1\u4EE3\u7801\u65F6)\u3002
-2. **\u7B2C\u4E00\u5E55\u6C38\u8FDC\u662F\u300C\u9884\u544A\u300D**(Marvin 1009):\`id:"outline"\`,\u6807\u9898\u5982\u300C\u4ECA\u5929\u7684\u8DEF\u7EBF\u300D,\`layout:"column"\`(\u4E00\u5C4F\u653E\u5F97\u4E0B);\u5F00\u5934\u4E00\u53E5 heading \u8BF4\u6E05\u5B66\u5B8C\u80FD\u505A\u5230\u4EC0\u4E48,\u518D\u7528\u4E09\u4E2A group:\u300C\u6211\u4EEC\u4F1A\u8BB2\u300D(\u540E\u9762\u6BCF\u4E00\u5E55\u4E00\u884C,\u7F16\u53F7\u548C\u6807\u9898\u4E0E\u771F\u6B63\u7684\u5E55\u4E00\u81F4)\u3001\u300C\u52A8\u624B\u5B9E\u9A8C\u300D(\u8981\u8DD1\u4EC0\u4E48\u3001\u5728\u54EA\u4E2A\u73AF\u5883\u3001\u770B\u4EC0\u4E48\u73B0\u8C61;\u6CA1\u6709\u5B9E\u9A8C\u5C31\u5199\u8981\u770B\u7684\u56FE\u6216\u8981\u63A8\u7684\u516C\u5F0F)\u3001\u300C\u5B66\u5B8C\u4F60\u4F1A\u300D(2\u20133 \u6761\u80FD\u68C0\u9A8C\u7684\u6536\u83B7)\u3002\u5185\u5BB9\u6765\u81EA\u7B2C 0 \u6B65\u548C\u5B66\u5458\u5BF9\u9F50\u8FC7\u7684\u8DEF\u5F84;\u7B2C 0 \u6B65\u6838\u5BF9\u8FC7\u7684 brief \u8DDF\u7740\u8FD9\u4E00\u5E55\u8D70(\u63D2\u4EF6:\`tb_create_board\` \u7684 \`spec.brief\`;\u677F\u4E0A AI \u52A9\u624B:\u7B2C\u4E00\u6B21 \`tb_add_act\` \u7684 \`brief\` \u53C2\u6570);\u4E4B\u540E\u8BA1\u5212\u53D8\u4E86,\u7528 \`tb_update\` \u6539\u9884\u544A\u91CC\u5BF9\u5E94\u7684\u90A3\u4E00\u884C\u3002\u8BB2\u8BFE\u65F6\u5B83\u5C31\u662F\u7B2C\u4E00\u5C4F\u3002
-3. \u4E00\u5E55\u4E00\u6B21 \`tb_add_act\`(\u5148\u7528 \`tb_create_board\` \u5EFA\u9884\u544A\u5E55\u6216\u524D\u51E0\u5E55);\u603B\u5171 \u22643 \u5E55(\u542B\u9884\u544A)\u65F6\u624D\u7528 \`tb_create_board\` \u4E00\u6B21\u5EFA\u5B8C\u3002
-4. \u6BCF\u6B21\u7ED3\u679C\u91CC\u7684 \`problems\` \u975E\u7A7A\u5C31\u8BFB\u4E00\u904D,\u5728\u4E0B\u4E00\u5E55\u91CC\u4FEE\u6B63(\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199)\u3002
-5. \u6BCF\u5E55\u7ED3\u679C\u9996\u884C\u662F\u7ED9\u7528\u6237\u770B\u7684\u8FDB\u5EA6\u884C,\u539F\u6837\u8F6C\u7ED9\u7528\u6237\u3002
-6. \u5168\u90E8\u5B8C\u6210\u540E:\u4E00\u53E5\u8BDD\u603B\u7ED3 + \u677F\u94FE\u63A5 + \u300C\u8BF4\u300E\u8DD1\u4E00\u4E0B E12\u300F\u6211\u5C31\u5728\u73AF\u5883\u91CC\u8DD1\u300D(E12 \u6362\u6210\u5B9E\u9645\u7684\u3001\u5E26 env \u7684\u4EE3\u7801\u5757\u7F16\u53F7;\u6CA1\u6709\u5E26 env \u7684\u4EE3\u7801\u5757\u5C31\u4E0D\u8BF4\u8FD9\u53E5)\u3002
+1. **\u4E00\u4E2A\u4E3B\u9898\u4E00\u4E2A\u9879\u76EE**(Marvin 1009)\u3002\u65B0\u4E3B\u9898\u90FD\u7528 \`tb_create_project\` \u5F00\u9879\u76EE(\u4E0D\u518D\u5EFA\u8FDB\u300CAgent boards\u300D),\u7B80\u5355\u4E3B\u9898\u5C31\u662F\u53EA\u6709\u4E00\u7AE0\u7684\u9879\u76EE\u3002**\u62C6\u7AE0:** \u4E00\u5757\u677F \u2248 \u4E00\u6B21\u80FD\u5B66\u5B8C\u7684\u91CF(4\u20137 \u5E55,\u7EA6 15\u201325 \u5206\u949F);\u4E3B\u9898\u8D85\u8FC7\u4E00\u5757\u677F,\u6216\u5929\u7136\u5206\u6210\u76F4\u89C9 / \u63A8\u5BFC / \u5B9E\u9A8C / \u603B\u7ED3\u8FD9\u6837\u7684\u9636\u6BB5,\u5C31\u62C6\u6210\u591A\u7AE0,\u4E00\u7AE0\u4E00\u4E2A\u9636\u6BB5,\u6700\u591A 12 \u7AE0(\u518D\u591A\u5C31\u5206\u6210\u4E24\u4E2A\u9879\u76EE)\u3002\u677F\u5355(\u6BCF\u7AE0 title + \u4E00\u53E5\u8BDD goal)\u5C31\u662F\u7B2C 0 \u6B65\u548C\u5B66\u5458\u786E\u8BA4\u8FC7\u7684\u5B66\u4E60\u8DEF\u5F84\u3002**\u53EA\u5EFA\u7B2C 1 \u7AE0,\u7136\u540E\u505C\u4E0B**:\u7528 \`tb_watch\` \u5728\u540E\u53F0\u76EF\u677F;\u677F\u4E0A\u52A8\u9759\u91CC\u51FA\u73B0\u300C\u8BF7\u6C42\u4E0B\u4E00\u5757\u300D,\u6216\u5B66\u5458\u5728\u5BF9\u8BDD\u91CC\u8BF4\u300C\u7EE7\u7EED / \u4E0B\u4E00\u5757\u300D,\u5148 \`tb_get_project\` \u770B\u677F\u5355\u548C\u5B66\u5458\u5728\u54EA,\u518D \`tb_get_board\` \u770B\u4E0A\u4E00\u7AE0\u5B66\u5458\u5199\u4E86\u4EC0\u4E48\u3001\u6807\u4E86\u4EC0\u4E48,\u636E\u6B64\u8C03\u6574\u8FD9\u4E00\u7AE0\u7684\u4F8B\u5B50\u548C\u6DF1\u5EA6,\u7136\u540E \`tb_create_board({projectId, slot, spec})\`\u3002\u5757\u5185\u8FFD\u95EE\u7167\u65E7 \`tb_reply\` \u7B54\u5728\u65C1\u8FB9;\u53EA\u6709\u5168\u65B0\u7684\u8BDD\u9898\u624D\u7528 \`tb_plan_project\` \u5728\u677F\u5355\u672B\u5C3E\u8FFD\u52A0\u4E00\u7AE0\u3002\u677F\u4E0A AI \u52A9\u624B:\u4E0D\u5EFA\u9879\u76EE\u3001\u4E0D\u5EFA\u677F,\u53EA\u5728\u5F53\u524D\u8FD9\u5757\u677F\u4E0A\u5DE5\u4F5C\u3002
+2. \u5148 \`tb_list_envs\` \u9009\u73AF\u5883(\u9700\u8981\u8DD1\u4EE3\u7801\u65F6)\u3002
+3. **\u7B2C\u4E00\u5E55\u6C38\u8FDC\u662F\u300C\u9884\u544A\u300D**(Marvin 1009):\`id:"outline"\`,\u6807\u9898\u5982\u300C\u4ECA\u5929\u7684\u8DEF\u7EBF\u300D,\`layout:"column"\`(\u4E00\u5C4F\u653E\u5F97\u4E0B);\u5F00\u5934\u4E00\u53E5 heading \u8BF4\u6E05\u5B66\u5B8C\u80FD\u505A\u5230\u4EC0\u4E48,\u518D\u7528\u4E09\u4E2A group:\u300C\u6211\u4EEC\u4F1A\u8BB2\u300D(\u540E\u9762\u6BCF\u4E00\u5E55\u4E00\u884C,\u7F16\u53F7\u548C\u6807\u9898\u4E0E\u771F\u6B63\u7684\u5E55\u4E00\u81F4)\u3001\u300C\u52A8\u624B\u5B9E\u9A8C\u300D(\u8981\u8DD1\u4EC0\u4E48\u3001\u5728\u54EA\u4E2A\u73AF\u5883\u3001\u770B\u4EC0\u4E48\u73B0\u8C61;\u6CA1\u6709\u5B9E\u9A8C\u5C31\u5199\u8981\u770B\u7684\u56FE\u6216\u8981\u63A8\u7684\u516C\u5F0F)\u3001\u300C\u5B66\u5B8C\u4F60\u4F1A\u300D(2\u20133 \u6761\u80FD\u68C0\u9A8C\u7684\u6536\u83B7)\u3002\u5185\u5BB9\u6765\u81EA\u7B2C 0 \u6B65\u548C\u5B66\u5458\u5BF9\u9F50\u8FC7\u7684\u8DEF\u5F84;\u7B2C 0 \u6B65\u6838\u5BF9\u8FC7\u7684 brief \u8DDF\u7740\u8FD9\u4E00\u5E55\u8D70(\u63D2\u4EF6:\`tb_create_project\` \u7684 \`brief\` \u6216 \`tb_create_board\` \u7684 \`spec.brief\`;\u677F\u4E0A AI \u52A9\u624B:\u7B2C\u4E00\u6B21 \`tb_add_act\` \u7684 \`brief\` \u53C2\u6570);\u4E4B\u540E\u8BA1\u5212\u53D8\u4E86,\u7528 \`tb_update\` \u6539\u9884\u544A\u91CC\u5BF9\u5E94\u7684\u90A3\u4E00\u884C\u3002\u8BB2\u8BFE\u65F6\u5B83\u5C31\u662F\u7B2C\u4E00\u5C4F\u3002\u5C5E\u4E8E\u9879\u76EE\u7684\u677F:\u7B2C 1 \u7AE0\u7684\u9884\u544A\u5E55\u662F\u6574\u4E2A\u9879\u76EE\u7684\u5730\u56FE \u2014\u2014\u300C\u6211\u4EEC\u4F1A\u8BB2\u300D\u5217\u5168\u90E8\u7AE0\u8282(\u7B2C 1 \u7AE0\u4E0B\u9762\u518D\u7F29\u8FDB\u5217\u672C\u5757\u7684\u5E55);\u5176\u4F59\u7AE0\u8282\u7684\u9884\u544A\u5E55\u5F00\u5934\u4E00\u884C\u5199\u300C\u7B2C n \u7AE0,\u5171 N \u7AE0\u300D\u3002\u6BCF\u5757\u677F\u6700\u540E\u4E00\u5E55\u7684\u7ED3\u5C3E\u5199\u4E00\u884C\u300C\u4E0B\u4E00\u5757:<\u4E0B\u4E00\u7AE0\u6807\u9898>\u300D(\u6700\u540E\u4E00\u7AE0\u5199\u300C\u5168\u90E8\u7AE0\u8282\u5B8C\u6210\u300D)\u3002
+4. \u4E00\u5E55\u4E00\u6B21 \`tb_add_act\`(\u5148\u7528 \`tb_create_project\` / \`tb_create_board\` \u5EFA\u9884\u544A\u5E55\u6216\u524D\u51E0\u5E55);\u603B\u5171 \u22643 \u5E55(\u542B\u9884\u544A)\u65F6\u624D\u7528 \`tb_create_board\` \u4E00\u6B21\u5EFA\u5B8C\u3002
+5. \u6BCF\u6B21\u7ED3\u679C\u91CC\u7684 \`problems\` \u975E\u7A7A\u5C31\u8BFB\u4E00\u904D,\u5728\u4E0B\u4E00\u5E55\u91CC\u4FEE\u6B63(\u88AB\u4E22\u5F03\u7684\u6761\u76EE\u8981\u91CD\u5199)\u3002
+6. \u6BCF\u5E55\u7ED3\u679C\u9996\u884C\u662F\u7ED9\u7528\u6237\u770B\u7684\u8FDB\u5EA6\u884C,\u539F\u6837\u8F6C\u7ED9\u7528\u6237\u3002
+7. \u5168\u90E8\u5B8C\u6210\u540E:\u4E00\u53E5\u8BDD\u603B\u7ED3 + \u677F\u94FE\u63A5 + \u300C\u8BF4\u300E\u8DD1\u4E00\u4E0B E12\u300F\u6211\u5C31\u5728\u73AF\u5883\u91CC\u8DD1\u300D(E12 \u6362\u6210\u5B9E\u9645\u7684\u3001\u5E26 env \u7684\u4EE3\u7801\u5757\u7F16\u53F7;\u6CA1\u6709\u5E26 env \u7684\u4EE3\u7801\u5757\u5C31\u4E0D\u8BF4\u8FD9\u53E5)\u3002\u5C5E\u4E8E\u9879\u76EE\u7684\u7AE0\u8282\u8BB2\u5B8C:\u518D\u52A0\u4E00\u53E5\u300C\u5B66\u5B8C\u8BF4\u300E\u7EE7\u7EED\u300F,\u6216\u5728\u677F\u4E0A\u70B9\u4E0B\u4E00\u7AE0,\u6211\u5C31\u5EFA\u7B2C n+1 \u7AE0\u300D\u3002
 
 ${EXAMPLES}`;
 var SCHEMA_GUIDE_EN = `# teachboard element contract (BoardSpec)
@@ -85358,12 +85366,13 @@ Every element gets a board-local number E<n> (from 1), written \`tb:<8-char boar
 
 ## How to work
 0. **Align first, then build.** Before creating a board, know three things: the goal (learn / explore / try what, and how far), the background (what they already know, where they are stuck) and the references (which book / course / paper / code to follow, any material of their own). Not clear from the conversation \u2192 ask in ONE message, at most 3 questions, each with 2\u20133 options to pick from. Already clear \u2192 do not ask; state a one-line profile plus the proposed learning path (the act list) and have the learner confirm or edit it. Build only after confirmation, and put what was agreed into \`brief\`. If the learner says "just build it" \u2192 skip the questions but still state the path in one line before starting.
-1. \`tb_list_envs\` first when code will run.
-2. **The first act is always the outline.** \`id:"outline"\`, a title like "Today's route", \`layout:"column"\` (fits one screen): one heading sentence saying what the learner can do afterwards, then three groups \u2014 "What we'll cover" (one line per later act, numbered, titles matching the real acts), "Experiment" (what runs, in which env, what to watch; if nothing runs, the figure to look at or the formula to derive) and "You'll walk away with" (2\u20133 checkable takeaways). Build it from the path agreed in step 0, and send the step-0 brief with this act (plugin: \`spec.brief\` on \`tb_create_board\`; board assistant: the \`brief\` argument of the first \`tb_add_act\`); if the plan changes later, fix the matching line with \`tb_update\`. In lecture mode it is the opening screen.
-3. One \`tb_add_act\` per act (start with \`tb_create_board\` for the outline or the first few acts); use a single \`tb_create_board\` only for \u22643 acts total, outline included.
-4. If a result has \`problems\`, read them and fix in the next act (rewrite dropped items).
-5. The first line of each result is a progress line for the user \u2014 relay it as is.
-6. When done: a one-sentence summary + the board link + "say 'run E12' and I'll run it in the env" (use the id of a real code block that has an env; skip this line if no block has one).
+1. **One project per topic** (Marvin 1009). Every new topic starts with \`tb_create_project\` (never into "Agent boards"); a small topic is a one-chapter project. **Chapters:** one board is what a learner finishes in one sitting (4\u20137 acts, about 15\u201325 minutes); when a topic is bigger than that, or naturally splits into intuition / derivation / experiment / wrap-up, make one chapter per stage, at most 12 chapters (more than that \u2192 two projects). The plan (title + one-line goal per chapter) is the learning path agreed in step 0. **Build chapter 1 only, then stop**: watch the board in the background with \`tb_watch\`; when the board-change notes say the learner asked for the next board, or the learner says "continue" / "next board", read the plan and the learner's position with \`tb_get_project\`, read what they wrote and marked in the previous chapter with \`tb_get_board\`, adapt this chapter's examples and depth to it, then \`tb_create_board({projectId, slot, spec})\`. Follow-up questions inside a board are still answered next to them with \`tb_reply\`; only a genuinely new topic adds a chapter at the end with \`tb_plan_project\`. Board assistant: never creates projects or boards; it works on the current board only.
+2. \`tb_list_envs\` first when code will run.
+3. **The first act is always the outline.** \`id:"outline"\`, a title like "Today's route", \`layout:"column"\` (fits one screen): one heading sentence saying what the learner can do afterwards, then three groups \u2014 "What we'll cover" (one line per later act, numbered, titles matching the real acts), "Experiment" (what runs, in which env, what to watch; if nothing runs, the figure to look at or the formula to derive) and "You'll walk away with" (2\u20133 checkable takeaways). Build it from the path agreed in step 0, and send the step-0 brief with this act (plugin: \`brief\` on \`tb_create_project\` or \`spec.brief\` on \`tb_create_board\`; board assistant: the \`brief\` argument of the first \`tb_add_act\`); if the plan changes later, fix the matching line with \`tb_update\`. In lecture mode it is the opening screen. Boards in a project: chapter 1's outline is the map of the whole project \u2014 "What we'll cover" lists every chapter (with this board's acts indented under chapter 1); every other chapter's outline starts with a line "Chapter n of N". The last act of every board ends with a line "Next board: <next chapter title>" (the last chapter says "All chapters done").
+4. One \`tb_add_act\` per act (start with \`tb_create_project\` / \`tb_create_board\` for the outline or the first few acts); use a single \`tb_create_board\` only for \u22643 acts total, outline included.
+5. If a result has \`problems\`, read them and fix in the next act (rewrite dropped items).
+6. The first line of each result is a progress line for the user \u2014 relay it as is.
+7. When done: a one-sentence summary + the board link + "say 'run E12' and I'll run it in the env" (use the id of a real code block that has an env; skip this line if no block has one). For a chapter of a project, add: "say 'continue', or click the next chapter on the board, and I'll build chapter n+1".
 
 ${EXAMPLES_EN}`;
 
@@ -85435,7 +85444,16 @@ function parseEventsPage(raw) {
 }
 var KIND_ZH = { text: "\u6587\u5B57", code: "\u4EE3\u7801\u5757", math: "\u516C\u5F0F", shape: "\u5F62\u72B6", arrow: "\u7BAD\u5934", line: "\u8FDE\u7EBF", image: "\u56FE\u7247", freedraw: "\u624B\u5199", frame: "\u6846", figure: "\u56FE" };
 var CHANGE_ZH = { added: "\u65B0\u589E", edited: "\u6539\u4E86", deleted: "\u5220\u4E86" };
+var CHAPTER_REQ_RE = /^chapter:([0-9a-f]{8}):([1-9]\d*)$/;
 function itemLine(it, lang) {
+  if (it.kind === "board_request") {
+    const m5 = CHAPTER_REQ_RE.exec(it.id ?? "");
+    const title = clip2(it.excerpt, 60);
+    if (m5) {
+      return lang === "en" ? `asked for the next board \u201C${title}\u201D (project ${m5[1]}, slot ${m5[2]}): check which chapter it is with tb_get_project, then build it with tb_create_board({projectId:"${m5[1]}", slot:${m5[2]}, spec})` : `\u8BF7\u6C42\u4E0B\u4E00\u5757\u300C${title}\u300D(\u9879\u76EE ${m5[1]},slot ${m5[2]}):\u5148 tb_get_project \u770B\u5B83\u662F\u7B2C\u51E0\u7AE0,\u518D\u7528 tb_create_board({projectId:"${m5[1]}", slot:${m5[2]}, spec}) \u5EFA`;
+    }
+    return lang === "en" ? `asked for the next board \u201C${title}\u201D` : `\u8BF7\u6C42\u4E0B\u4E00\u5757\u300C${title}\u300D`;
+  }
   const who = it.ref ? it.ref.replace(/^tb:[0-9a-f]{8}\//, "") : "";
   const ex = it.excerpt ? lang === "en" ? ` \u201C${clip2(it.excerpt, 60)}\u201D` : `\u300C${clip2(it.excerpt, 60)}\u300D` : "";
   const hl = it.marks?.includes("highlight") ? lang === "en" ? " (highlighted)" : "(\u9AD8\u4EAE)" : "";
@@ -85468,6 +85486,9 @@ function formatEvents(events, lang = "zh") {
     out2 = lang === "en" ? `${head}
 - ${n2} changes on ${byBoard.size} board(s) (${[...byBoard.keys()].join(", ")}); read them with tb_get_board.` : `${head}
 - ${byBoard.size} \u5757\u677F\u4E0A\u5171 ${n2} \u5904\u53D8\u5316(${[...byBoard.keys()].join("\u3001")});\u7528 tb_get_board \u770B\u3002`;
+    const reqs = events.flatMap((e6) => e6.items.filter((i6) => i6.kind === "board_request").map((i6) => `- ${itemLine(i6, lang)}`));
+    if (reqs.length) out2 += `
+${reqs.join("\n")}`;
   }
   return out2;
 }
@@ -85910,6 +85931,116 @@ ${list2}`);
   );
 }
 
+// src/tools/teachboardProjects.ts
+var isObj4 = (v2) => !!v2 && typeof v2 === "object" && !Array.isArray(v2);
+var PROJECT_ID_RE = /^[0-9a-f]{8}$/;
+var BAD_PROJECT_ID = "projectId \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards / tb_get_project \u67E5)";
+var codeOf = (e6) => {
+  const data2 = e6.data ?? {};
+  return typeof data2.error === "string" ? data2.error : e6.code;
+};
+function projectErr(e6, o2 = {}) {
+  if (!(e6 instanceof TbError)) return null;
+  const code = codeOf(e6);
+  if (code === "project_not_found") return `\u9879\u76EE ${o2.projectId ?? ""} \u4E0D\u5B58\u5728\u4E86(\u53EF\u80FD\u88AB\u5B66\u5458\u5220\u4E86);\u9700\u8981\u7684\u8BDD\u7528 tb_create_project \u91CD\u65B0\u5EFA\u4E00\u4E2A`.replace("\u9879\u76EE  ", "\u9879\u76EE ");
+  if (code === "bad_slot") return `slot ${o2.slot ?? "?"} \u4E0D\u5728\u8FD9\u4E2A\u9879\u76EE\u7684\u677F\u5355\u91CC;\u7528 tb_get_project \u770B\u677F\u5355,\u65B0\u7AE0\u8282\u5148\u7528 tb_plan_project \u8FFD\u52A0`;
+  if (code === "slot_required") return "\u5EFA\u8FDB\u9879\u76EE\u65F6\u8981\u540C\u65F6\u7ED9 slot(\u7B2C\u51E0\u7AE0);\u65B0\u7AE0\u8282\u5148\u7528 tb_plan_project \u8FFD\u52A0,\u62FF\u5230 slot \u518D\u5EFA";
+  if (code === "chapter_built") return "\u5DF2\u7ECF\u5EFA\u597D\u7684\u7AE0\u8282\u4E0D\u80FD\u4ECE\u677F\u5355\u91CC\u5220;\u8981\u5220\u90A3\u5757\u677F\u7528 tb_delete(\u5148\u548C\u5B66\u5458\u786E\u8BA4)";
+  if (code === "plan_too_long") return "\u4E00\u4E2A\u9879\u76EE\u6700\u591A 12 \u7AE0;\u653E\u4E0D\u4E0B\u5C31\u62C6\u6210\u4E24\u4E2A\u9879\u76EE";
+  if (code === "bad_plan") {
+    const detail = isObj4(e6.data) && typeof e6.data.detail === "string" ? e6.data.detail : "\u6BCF\u7AE0\u8981\u6709 title(\u226460 \u5B57)\u548C goal(\u2264140 \u5B57)";
+    return `\u677F\u5355\u4E0D\u5408\u6CD5:${detail}`;
+  }
+  return null;
+}
+var isBuilt = (c6) => typeof c6.built === "boolean" ? c6.built : typeof c6.boardId === "string" && c6.boardId !== "";
+function renderPlan(r7) {
+  const plan = Array.isArray(r7.plan) ? r7.plan.filter(isObj4) : [];
+  const pos = isObj4(r7.position) ? Number(r7.position.slot) : NaN;
+  return plan.map((c6, i6) => {
+    const built = isBuilt(c6);
+    const bits = [`${i6 + 1}. ${built ? "\u2705" : "\u2B1C"} ${String(c6.title ?? "")}`, `slot ${String(c6.slot)}`];
+    if (built && typeof c6.boardId === "string") bits.push(`\u677F ${c6.boardId}`);
+    if (!built) bits.push("\u672A\u5EFA");
+    if (Number(c6.learnerItems) > 0) bits.push(`\u5B66\u5458\u5199\u4E86 / \u6807\u4E86 ${Number(c6.learnerItems)} \u5904`);
+    if (!built && typeof c6.goal === "string" && c6.goal) bits.push(`\u76EE\u6807:${c6.goal}`);
+    const line = bits.join(" \xB7 ");
+    return Number(c6.slot) === pos ? `${line} \u2190 \u5B66\u5458\u5728\u8FD9\u4E00\u7AE0` : line;
+  }).join("\n");
+}
+function nextToBuild(r7) {
+  const plan = Array.isArray(r7.plan) ? r7.plan.filter(isObj4) : [];
+  const pos = isObj4(r7.position) ? Number(r7.position.slot) : NaN;
+  const at = plan.findIndex((c6) => Number(c6.slot) === pos);
+  const pick2 = (from) => plan.findIndex((c6, i7) => i7 >= from && !isBuilt(c6));
+  let i6 = at >= 0 ? pick2(at + 1) : -1;
+  if (i6 < 0) i6 = pick2(0);
+  return i6 < 0 ? null : { index: i6 + 1, slot: Number(plan[i6].slot), title: String(plan[i6].title ?? "") };
+}
+var textOut3 = (t) => ({ content: [{ type: "text", text: clip(t, 48 * 1024) }] });
+var CHAPTER = external_exports.object({ title: external_exports.string().min(1).max(60), goal: external_exports.string().min(1).max(140) });
+function registerProjectTools(server2, d7) {
+  const call = (method, path6, body) => d7.client.call(method, path6, body, { agent: true });
+  server2.registerTool(
+    "tb_get_project",
+    {
+      title: "Read a teachboard project (its chapters)",
+      description: "\u8BFB\u4E00\u4E2A\u9879\u76EE:\u677F\u5355\u9010\u7AE0\u72B6\u6001(\u5DF2\u5EFA / \u672A\u5EFA\u3001\u677F id\u3001\u5B66\u5458\u5199\u4E86\u591A\u5C11)\u3001\u5B66\u5458\u73B0\u5728\u5728\u7B2C\u51E0\u7AE0\u3001\u4E0B\u4E00\u7AE0\u8BE5\u5EFA\u54EA\u4E00\u7AE0\u3002\u5EFA\u4E0B\u4E00\u7AE0\u4E4B\u524D\u5148\u8C03\u5B83\u3002",
+      inputSchema: { projectId: external_exports.string().describe("\u9879\u76EE id(8 \u4F4D\u5341\u516D\u8FDB\u5236,tb_create_project / tb_list_boards \u7ED9\u7684)") }
+    },
+    async ({ projectId }) => {
+      if (!PROJECT_ID_RE.test(projectId)) return textOut3(BAD_PROJECT_ID);
+      try {
+        const r7 = await call("GET", `agent/projects/${projectId}`);
+        const plan = Array.isArray(r7.plan) ? r7.plan.filter(isObj4) : [];
+        const built = plan.filter(isBuilt).length;
+        const head = `${r7.by === "agent" ? "\u2605 " : ""}\u9879\u76EE ${projectId}\u300C${String(r7.title ?? "")}\u300D\xB7 \u5171 ${plan.length} \u7AE0,\u5DF2\u5EFA ${built} \u7AE0${typeof r7.url === "string" && r7.url ? ` \xB7 ${r7.url}` : ""}`;
+        const goal = isObj4(r7.brief) && typeof r7.brief.goal === "string" && r7.brief.goal ? `
+\u76EE\u6807:${r7.brief.goal}` : "";
+        const nxt = nextToBuild(r7);
+        const tail = nxt ? `
+
+\u4E0B\u4E00\u7AE0:\u7B2C ${nxt.index} \u7AE0\u300C${nxt.title}\u300D\u2192 tb_create_board({projectId:"${projectId}", slot:${nxt.slot}, spec})` : "\n\n\u5168\u90E8\u7AE0\u8282\u90FD\u5EFA\u597D\u4E86\u3002";
+        return textOut3(`${head}${goal}
+${renderPlan(r7)}${tail}`);
+      } catch (e6) {
+        return textOut3(projectErr(e6, { projectId }) ?? d7.human(e6));
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_plan_project",
+    {
+      title: "Change a teachboard project's chapter plan",
+      description: "\u6539\u9879\u76EE\u7684\u677F\u5355:append \u5728\u672B\u5C3E\u52A0\u65B0\u7AE0\u8282(\u5B66\u5458\u8FFD\u95EE\u51FA\u5168\u65B0\u8BDD\u9898\u65F6)\u3001order \u7ED9\u5168\u90E8 slot \u7684\u65B0\u987A\u5E8F\u3001retitle \u6539\u672A\u5EFA\u7AE0\u8282\u7684\u6807\u9898 / \u76EE\u6807\u3001remove \u5220\u672A\u5EFA\u7684\u7AE0\u8282(\u5DF2\u5EFA\u7684\u4E0D\u80FD\u5220)\u3002\u5757\u5185\u8FFD\u95EE\u4E0D\u8981\u52A0\u7AE0\u8282,\u7528 tb_reply \u7B54\u5728\u65C1\u8FB9\u3002",
+      inputSchema: {
+        projectId: external_exports.string().describe("\u9879\u76EE id"),
+        append: external_exports.array(CHAPTER).max(12).optional().describe("\u8FFD\u52A0\u5230\u677F\u5355\u672B\u5C3E\u7684\u65B0\u7AE0\u8282"),
+        order: external_exports.array(external_exports.number().int().positive()).max(32).optional().describe("\u5168\u90E8\u7AE0\u8282 slot \u7684\u65B0\u987A\u5E8F"),
+        retitle: external_exports.array(external_exports.object({ slot: external_exports.number().int().positive(), title: external_exports.string().min(1).max(60).optional(), goal: external_exports.string().min(1).max(140).optional() })).max(32).optional().describe("\u6539\u67D0\u51E0\u7AE0\u7684\u6807\u9898 / \u76EE\u6807"),
+        remove: external_exports.array(external_exports.number().int().positive()).max(32).optional().describe("\u5220\u6389\u672A\u5EFA\u7684\u7AE0\u8282(slot)")
+      }
+    },
+    async ({ projectId, append, order, retitle, remove }) => {
+      if (!PROJECT_ID_RE.test(projectId)) return textOut3(BAD_PROJECT_ID);
+      const body = {};
+      if (append?.length) body.append = append;
+      if (order?.length) body.order = order;
+      if (retitle?.length) body.retitle = retitle;
+      if (remove?.length) body.remove = remove;
+      if (!Object.keys(body).length) return textOut3("\u81F3\u5C11\u7ED9 append / order / retitle / remove \u4E4B\u4E00");
+      try {
+        const r7 = await call("POST", `agent/projects/${projectId}/plan`, body);
+        const plan = Array.isArray(r7.plan) ? r7.plan : [];
+        return textOut3(`\u677F\u5355\u5DF2\u66F4\u65B0(\u5171 ${plan.length} \u7AE0):
+${renderPlan(r7)}`);
+      } catch (e6) {
+        return textOut3(projectErr(e6, { projectId }) ?? d7.human(e6));
+      }
+    }
+  );
+}
+
 // src/tools/teachboard.ts
 import { fileURLToPath } from "node:url";
 function tbHost(clientName, override) {
@@ -86119,6 +86250,7 @@ function registerTeachboardTools(rawServer, deps = {}) {
   registerRecipeTools(hinted, { client, sleep: sleep3, human });
   registerRunTools(hinted, { client, human, host, sleep: sleep3, mine: sessionReviews });
   registerEntityTools(hinted, { client, base, human });
+  registerProjectTools(hinted, { client, human });
   registerEventTools(hinted, { ...eventsDeps, serverFile: deps.serverFile ?? fileURLToPath(import.meta.url) });
 }
 var RESULT_MAX2 = 48e3;
@@ -86126,8 +86258,8 @@ var BOARD_ID_RE2 = /^[0-9a-f]{8}$/;
 var BOARD_LANG_RULE = "Board content language must match the user's language; set spec.lang accordingly; do not default to Chinese. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u4E0E\u7528\u6237\u8BED\u8A00\u4E00\u81F4,\u76F8\u5E94\u8BBE\u7F6E spec.lang,\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587\u3002";
 var LANG_PICK_NOTE = `Note / \u63D0\u793A: the board content language must follow the user's language (do not default to Chinese); this is the English guide \u2014 call again with lang:"zh" for the Chinese guide. \u677F\u4E0A\u5185\u5BB9\u8BED\u8A00\u987B\u8DDF\u968F\u7528\u6237\u8BED\u8A00(\u4E0D\u8981\u9ED8\u8BA4\u5199\u4E2D\u6587);\u8FD9\u662F\u82F1\u6587\u8BF4\u660E,\u8981\u4E2D\u6587\u8BF4\u660E\u8BF7\u4F20 lang:"zh" \u518D\u8C03\u4E00\u6B21\u3002`;
 var CODE_MAX = 4e3;
-var isObj4 = (v2) => !!v2 && typeof v2 === "object" && !Array.isArray(v2);
-var textOut3 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX2) }] });
+var isObj5 = (v2) => !!v2 && typeof v2 === "object" && !Array.isArray(v2);
+var textOut4 = (t) => ({ content: [{ type: "text", text: clip(t, RESULT_MAX2) }] });
 function entityRef(boardId, id) {
   if (typeof id === "number") return `tb:${boardId}/E${id}`;
   const s = String(id);
@@ -86139,7 +86271,7 @@ var actSlug = slugId;
 var problemList2 = (problems) => Array.isArray(problems) ? problems.map((p3) => typeof p3 === "string" ? p3 : JSON.stringify(p3)) : [];
 function codeEnvsOf(act, problems = [], defaultEnv) {
   const out2 = [];
-  if (!isObj4(act)) return out2;
+  if (!isObj5(act)) return out2;
   const actId = slugId(act.id);
   const dropped = (itemId) => {
     const id = slugId(itemId);
@@ -86150,7 +86282,7 @@ function codeEnvsOf(act, problems = [], defaultEnv) {
   const walk3 = (items) => {
     if (!Array.isArray(items)) return;
     for (const it of items) {
-      if (!isObj4(it)) continue;
+      if (!isObj5(it)) continue;
       if (it.kind === "group") walk3(it.items);
       else if (it.kind === "code" && typeof it.code === "string" && it.code.trim() && it.code.length <= CODE_MAX && !dropped(it.id)) {
         out2.push(typeof it.env === "string" && it.env ? it.env : defaultEnv ?? "");
@@ -86183,6 +86315,45 @@ function registerBoardTools(server2, d7) {
   const call = (method, path6, body) => d7.client.call(method, path6, body, { agent: true });
   const boardLang = /* @__PURE__ */ new Map();
   const boardActs = /* @__PURE__ */ new Map();
+  const renderCreated = (spec, r7) => {
+    const boardId = String(r7.boardId);
+    const url2 = typeof r7.url === "string" && r7.url ? r7.url : boardUrl(boardId);
+    const specActs = Array.isArray(spec.acts) ? spec.acts : [];
+    const bySlug = /* @__PURE__ */ new Map();
+    specActs.forEach((a6, i6) => {
+      if (isObj5(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
+    });
+    const acts = Array.isArray(r7.acts) ? r7.acts : [];
+    const defaultEnv = typeof spec.defaultEnv === "string" ? spec.defaultEnv : void 0;
+    const lang = spec.lang === "en" ? "en" : "zh";
+    boardLang.set(boardId, lang);
+    boardActs.set(boardId, Array.isArray(r7.acts) ? r7.acts.length : 0);
+    const probs = problemList2(r7.problems);
+    const lines = [];
+    const refLines = [];
+    acts.forEach((a6, i6) => {
+      const actId = String(a6.actId ?? "");
+      const src = bySlug.get(actId) ?? (isObj5(specActs[i6]) ? specActs[i6] : void 0);
+      const ids = (Array.isArray(a6.entityIds) ? a6.entityIds : []).map((x) => entityRef(boardId, x));
+      lines.push(
+        actProgressLine({
+          index: i6 + 1,
+          total: acts.length,
+          title: typeof src?.title === "string" && src.title.trim() ? src.title.trim().slice(0, 40) : actId,
+          entityIds: ids,
+          codeEnvs: codeEnvsOf(src, probs, defaultEnv),
+          url: i6 === 0 ? url2 : void 0,
+          lang
+        })
+      );
+      refLines.push(`- \u5E55 ${actId}(seq ${String(a6.seq ?? "?")}):${ids.join(" ") || "\u65E0"}`);
+    });
+    return `${lines.join("\n")}
+
+\u677F id:${boardId} \xB7 ${url2}
+\u5143\u7D20\u7F16\u53F7:
+${refLines.join("\n")}` + problemsBlock2(r7.problems);
+  };
   server2.registerTool(
     "tb_describe_schema",
     {
@@ -86190,7 +86361,7 @@ function registerBoardTools(server2, d7) {
       description: "\u8FD4\u56DE teachboard \u677F\u7684\u5143\u7D20\u5951\u7EA6(BoardSpec:item \u79CD\u7C7B\u4E0E\u5B57\u6BB5\u3001edges\u3001layout\u3001group\u3001defaultEnv\u3001code \u7684 env / run:{path,region,cmd}\u3001\u4E0A\u9650)+ \u4E2D\u82F1\u793A\u4F8B + \u6559\u6CD5\u4E0E\u5DE5\u4F5C\u65B9\u5F0F\u3002\u5EFA\u677F\u524D\u5148\u8BFB\u4E00\u6B21\u3002 " + BOARD_LANG_RULE,
       inputSchema: { lang: external_exports.enum(["zh", "en"]).optional().describe("Guide language / \u8BF4\u660E\u6587\u5B57\u7684\u8BED\u8A00;pass the user's language / \u4F20\u7528\u6237\u7684\u8BED\u8A00;omitted \u2192 English guide + note") }
     },
-    async ({ lang }) => textOut3(
+    async ({ lang }) => textOut4(
       lang === "zh" ? SCHEMA_GUIDE_ZH : lang === "en" ? SCHEMA_GUIDE_EN : LANG_PICK_NOTE + "\n\n" + SCHEMA_GUIDE_EN
     )
   );
@@ -86205,20 +86376,33 @@ function registerBoardTools(server2, d7) {
       try {
         const r7 = await call("GET", "agent/boards");
         const boards = Array.isArray(r7?.boards) ? r7.boards : [];
-        if (!boards.length) return textOut3("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u5757\u3002");
-        const lines = boards.map((b6) => {
-          const parts = [`${String(b6.boardId)}\u300C${String(b6.title ?? "")}\u300D`, `${Number(b6.elementCount) || 0} \u4E2A\u5143\u7D20`];
-          const pend = Number(b6.pendingOps) || 0;
-          if (pend) parts.push(`${pend} \u6B65\u5F85\u843D\u5730`);
-          if (typeof b6.goal === "string" && b6.goal.trim()) parts.push(`\u76EE\u6807:${b6.goal.trim().slice(0, 60)}`);
-          parts.push(ago(b6.updatedAt, d7.now()));
-          if (typeof b6.project === "string" && b6.project) parts.push(`\u9879\u76EE\u300C${b6.project}\u300D`);
-          return parts.join(" \xB7 ");
-        });
-        return textOut3(`${boards.length} \u5757\u677F:
-${lines.join("\n")}`);
+        if (!boards.length) return textOut4("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u4E2A\u9879\u76EE\u3002");
+        const groups = /* @__PURE__ */ new Map();
+        for (const b6 of boards) {
+          const pid = typeof b6.projectId === "string" && b6.projectId ? b6.projectId : void 0;
+          const name = typeof b6.project === "string" ? b6.project : "";
+          const key = pid ?? `name:${name}`;
+          const g6 = groups.get(key) ?? { pid, name, agent: false, rows: [] };
+          if (b6.by === "agent") g6.agent = true;
+          g6.rows.push(b6);
+          groups.set(key, g6);
+        }
+        const out2 = [`${boards.length} \u5757\u677F,\u5206\u5728 ${groups.size} \u4E2A\u9879\u76EE\u91CC:`];
+        for (const g6 of groups.values()) {
+          out2.push(`${g6.agent ? "\u2605 " : ""}\u9879\u76EE${g6.pid ? ` ${g6.pid}` : ""}\u300C${g6.name}\u300D`);
+          const rows = [...g6.rows].sort((a6, b6) => (Number(a6.slot) || 1e9) - (Number(b6.slot) || 1e9));
+          for (const b6 of rows) {
+            const parts = [`${Number.isInteger(b6.slot) ? `slot ${String(b6.slot)} \xB7 ` : ""}${String(b6.boardId)}\u300C${String(b6.title ?? "")}\u300D`, `${Number(b6.elementCount) || 0} \u4E2A\u5143\u7D20`];
+            const pend = Number(b6.pendingOps) || 0;
+            if (pend) parts.push(`${pend} \u6B65\u5F85\u843D\u5730`);
+            if (typeof b6.goal === "string" && b6.goal.trim()) parts.push(`\u76EE\u6807:${b6.goal.trim().slice(0, 60)}`);
+            parts.push(ago(b6.updatedAt, d7.now()));
+            out2.push(`  - ${parts.join(" \xB7 ")}`);
+          }
+        }
+        return textOut4(out2.join("\n"));
       } catch (e6) {
-        return textOut3(d7.human(e6));
+        return textOut4(d7.human(e6));
       }
     }
   );
@@ -86229,56 +86413,70 @@ ${lines.join("\n")}`);
       description: '\u6309 BoardSpec \u5EFA\u4E00\u5757\u65B0\u677F(\u5951\u7EA6\u89C1 tb_describe_schema)\u3002**\u53EA\u5728\u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u5B66\u4E60\u8DEF\u5F84\u4E4B\u540E\u624D\u8C03**(\u76EE\u6807 / \u80CC\u666F / \u53C2\u8003\u5148\u5BF9\u9F50,\u5B66\u5458\u786E\u8BA4\u540E\u518D\u5EFA;\u6838\u5BF9\u8FC7\u7684\u5185\u5BB9\u653E spec.brief)\u3002\u603B\u5171 \u22643 \u5E55\u624D\u4E00\u6B21\u5EFA\u5B8C;\u66F4\u591A\u5E55\u65F6\u53EA\u653E\u7B2C\u4E00\u5E55,\u4E4B\u540E\u4E00\u5E55\u4E00\u6B21 tb_add_act\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env / defaultEnv \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u8BBE\u7684 defaultEnv \u4F1A\u5E26\u5230\u4E4B\u540E\u7684 tb_add_act;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1\u3002\u4EE3\u7801\u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u6BCF\u5E55\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u5E55\u4FEE\u6B63\u3002 ' + BOARD_LANG_RULE,
       inputSchema: {
         spec: external_exports.record(external_exports.string(), external_exports.unknown()).describe("BoardSpec:{title, lang?, defaultEnv?, brief?:{goal,background?,references?,path?}, acts:[{id,title,items,edges?,layout?}]}"),
-        project: external_exports.string().optional().describe("\u653E\u8FDB\u54EA\u4E2A\u9879\u76EE(\u7F3A\u7701\u9ED8\u8BA4\u9879\u76EE)")
+        project: external_exports.string().optional().describe("\u653E\u8FDB\u54EA\u4E2A\u9879\u76EE(\u7F3A\u7701\u9ED8\u8BA4\u9879\u76EE)"),
+        projectId: external_exports.string().optional().describe("\u5EFA\u8FDB\u54EA\u4E2A\u9879\u76EE(tb_create_project \u7ED9\u7684 8 \u4F4D id);\u8981\u540C\u65F6\u7ED9 slot"),
+        slot: external_exports.number().int().positive().optional().describe("\u8FD9\u5757\u677F\u662F\u9879\u76EE\u677F\u5355\u91CC\u7684\u7B2C\u51E0\u7AE0(slot,\u89C1 tb_get_project)")
       }
     },
-    async ({ spec, project }) => {
+    async ({ spec, project, projectId, slot }) => {
+      if (projectId !== void 0 && !PROJECT_ID_RE.test(projectId)) return textOut4(BAD_PROJECT_ID);
+      if (projectId !== void 0 && slot === void 0) return textOut4("\u7ED9\u4E86 projectId \u8FD8\u8981\u7ED9 slot(\u7B2C\u51E0\u7AE0);\u65B0\u7AE0\u8282\u5148\u7528 tb_plan_project \u8FFD\u52A0,\u62FF\u5230 slot \u518D\u5EFA");
+      if (slot !== void 0 && projectId === void 0) return textOut4("slot \u8981\u548C projectId \u4E00\u8D77\u7ED9");
       try {
         const body = { spec };
         if (project !== void 0) body.project = project;
+        if (projectId !== void 0) {
+          body.projectId = projectId;
+          body.slot = slot;
+        }
         const r7 = await call("POST", "agent/boards", body);
-        const boardId = String(r7.boardId);
-        const url2 = typeof r7.url === "string" && r7.url ? r7.url : boardUrl(boardId);
-        const specActs = Array.isArray(spec.acts) ? spec.acts : [];
-        const bySlug = /* @__PURE__ */ new Map();
-        specActs.forEach((a6, i6) => {
-          if (isObj4(a6)) bySlug.set(actSlug(a6.id) || `act${i6 + 1}`, a6);
-        });
-        const acts = Array.isArray(r7.acts) ? r7.acts : [];
-        const defaultEnv = typeof spec.defaultEnv === "string" ? spec.defaultEnv : void 0;
-        const lang = spec.lang === "en" ? "en" : "zh";
-        boardLang.set(boardId, lang);
-        boardActs.set(boardId, Array.isArray(r7.acts) ? r7.acts.length : 0);
-        const probs = problemList2(r7.problems);
-        const lines = [];
-        const refLines = [];
-        acts.forEach((a6, i6) => {
-          const actId = String(a6.actId ?? "");
-          const src = bySlug.get(actId) ?? (isObj4(specActs[i6]) ? specActs[i6] : void 0);
-          const ids = (Array.isArray(a6.entityIds) ? a6.entityIds : []).map((x) => entityRef(boardId, x));
-          lines.push(
-            actProgressLine({
-              index: i6 + 1,
-              total: acts.length,
-              title: typeof src?.title === "string" && src.title.trim() ? src.title.trim().slice(0, 40) : actId,
-              entityIds: ids,
-              codeEnvs: codeEnvsOf(src, probs, defaultEnv),
-              url: i6 === 0 ? url2 : void 0,
-              lang
-            })
-          );
-          refLines.push(`- \u5E55 ${actId}(seq ${String(a6.seq ?? "?")}):${ids.join(" ") || "\u65E0"}`);
-        });
-        const text = `${lines.join("\n")}
+        if (r7.existing === true) {
+          const url2 = typeof r7.url === "string" && r7.url ? r7.url : boardUrl(String(r7.boardId));
+          return textOut4(`slot ${slot} \u8FD9\u4E00\u7AE0\u5DF2\u7ECF\u5EFA\u8FC7\u4E86:\u677F ${String(r7.boardId)} \xB7 ${url2}
+\u6CA1\u6709\u91CD\u590D\u5EFA\u3002\u7528 tb_get_board \u770B\u5B83\u73B0\u5728\u7684\u5185\u5BB9,tb_add_act \u5F80\u540E\u52A0\u3002`);
+        }
+        return textOut4(`${renderCreated(spec, r7)}
 
-\u677F id:${boardId} \xB7 ${url2}
-\u5143\u7D20\u7F16\u53F7:
-${refLines.join("\n")}` + problemsBlock2(r7.problems) + `
-
-${RUN_HINT}`;
-        return textOut3(text);
+${RUN_HINT}`);
       } catch (e6) {
-        return textOut3(d7.human(e6));
+        return textOut4(projectErr(e6, { projectId, slot }) ?? d7.human(e6));
+      }
+    }
+  );
+  server2.registerTool(
+    "tb_create_project",
+    {
+      title: "Create a teachboard project (ordered boards) with its first board",
+      description: "\u65B0\u4E3B\u9898\u90FD\u4ECE\u8FD9\u91CC\u5F00\u59CB:\u5EFA\u4E00\u4E2A\u9879\u76EE(\u4E00\u4E2A\u4E3B\u9898\u4E00\u4E2A\u9879\u76EE),\u7ED9\u51FA\u677F\u5355(\u6309\u5B66\u4E60\u987A\u5E8F,1\u201312 \u7AE0,\u6BCF\u7AE0 title + \u4E00\u53E5\u8BDD goal),\u540C\u65F6\u5EFA\u597D\u7B2C 1 \u7AE0\u7684\u677F(spec \u540C tb_create_board \u7684 BoardSpec,\u7B2C\u4E00\u5E55\u662F\u6574\u4E2A\u9879\u76EE\u7684\u5730\u56FE)\u3002\u53EA\u5728\u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u5B66\u4E60\u8DEF\u5F84\u4E4B\u540E\u624D\u8C03\u3002\u53EA\u5EFA\u7B2C 1 \u7AE0,\u4E4B\u540E\u505C\u4E0B:\u5B66\u5458\u8BF7\u6C42\u4E0B\u4E00\u7AE0(\u677F\u4E0A\u52A8\u9759\u91CC\u7684\u300C\u8BF7\u6C42\u5EFA\u7B2C n \u7AE0\u300D)\u6216\u8BF4\u300C\u7EE7\u7EED\u300D\u65F6,\u518D tb_create_board({projectId, slot, spec})\u3002\u7ED3\u679C\u9996\u884C\u8D77\u662F\u7B2C 1 \u7AE0\u6BCF\u5E55\u7684\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237)\u3002 " + BOARD_LANG_RULE,
+      inputSchema: {
+        title: external_exports.string().min(1).max(60).describe("\u9879\u76EE\u6807\u9898(\u8FD9\u4E2A\u4E3B\u9898)"),
+        brief: external_exports.record(external_exports.string(), external_exports.unknown()).optional().describe("\u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u7684\u76EE\u6807:{goal, background?, references?}"),
+        plan: external_exports.array(external_exports.object({ title: external_exports.string().min(1).max(60), goal: external_exports.string().min(1).max(140) })).min(1).max(12).describe("\u677F\u5355:\u6309\u5B66\u4E60\u987A\u5E8F\u7684\u7AE0\u8282;\u7B2C 1 \u7AE0\u5C31\u662F spec \u8FD9\u5757\u677F"),
+        spec: external_exports.record(external_exports.string(), external_exports.unknown()).describe("\u7B2C 1 \u7AE0\u7684 BoardSpec")
+      }
+    },
+    async ({ title, brief, plan, spec }) => {
+      try {
+        const r7 = await call(
+          "POST",
+          "agent/projects",
+          { title, ...brief ? { brief } : {}, plan, spec }
+        );
+        const pid = String(r7.projectId);
+        const chapters = Array.isArray(r7.plan) && r7.plan.length ? r7.plan : plan.map((c6, i6) => ({ slot: i6 + 1, ...c6 }));
+        const lines = chapters.map((c6, i6) => `${i6 + 1}. ${i6 === 0 ? "\u2705" : "\u2B1C"} ${String(c6.title ?? "")}(slot ${String(c6.slot ?? i6 + 1)})`);
+        return textOut4(
+          `${renderCreated(spec, r7)}
+
+\u2605 \u9879\u76EE ${pid}\u300C${title}\u300D\xB7 \u5171 ${chapters.length} \u7AE0:
+${lines.join("\n")}
+
+\u7B2C 1 \u7AE0\u8BB2\u5B8C\u5C31\u505C\u4E0B:\u7528 tb_watch \u5728\u540E\u53F0\u76EF\u677F;\u5B66\u5458\u8BF7\u6C42\u4E0B\u4E00\u7AE0\u6216\u8BF4\u300C\u7EE7\u7EED\u300D\u65F6,\u5148 tb_get_board \u770B\u4E0A\u4E00\u7AE0\u5B66\u5458\u5199\u4E86\u4EC0\u4E48\u3001\u6807\u4E86\u4EC0\u4E48,\u518D tb_create_board({projectId:"${pid}", slot:<\u4E0B\u4E00\u7AE0\u7684 slot>, spec})\u3002
+
+${RUN_HINT}`
+        );
+      } catch (e6) {
+        return textOut4(projectErr(e6) ?? d7.human(e6));
       }
     }
   );
@@ -86297,7 +86495,7 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, act, after, index, total, lang }) => {
-      if (!BOARD_ID_RE2.test(boardId)) return textOut3("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut4("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const body = { act };
         if (after !== void 0) body.after = after;
@@ -86334,9 +86532,9 @@ ${RUN_HINT}`;
         const text = `${line}
 
 \u5E55 ${String(r7.actId ?? "")}(seq ${String(r7.seq ?? "?")})\u5143\u7D20\u7F16\u53F7:${ids.join(" ") || "\u65E0"}` + problemsBlock2(r7.problems);
-        return textOut3(text);
+        return textOut4(text);
       } catch (e6) {
-        return textOut3(d7.human(e6));
+        return textOut4(d7.human(e6));
       }
     }
   );
@@ -86351,7 +86549,7 @@ ${RUN_HINT}`;
       }
     },
     async ({ boardId, full }) => {
-      if (!BOARD_ID_RE2.test(boardId)) return textOut3("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
+      if (!BOARD_ID_RE2.test(boardId)) return textOut4("\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)");
       try {
         const r7 = await call("GET", `agent/boards/${boardId}${full ? "?full=1" : ""}`);
         noteSeen(boardId, r7);
@@ -86373,7 +86571,7 @@ ${RUN_HINT}`;
         const userBits = (it) => {
           const bits = [];
           if (it.by === "user") bits.push("\u5B66\u5458\u5199\u7684");
-          const b6 = isObj4(it.box) ? it.box : null;
+          const b6 = isObj5(it.box) ? it.box : null;
           if (b6 && [b6.x, b6.y, b6.w, b6.h].every((v2) => typeof v2 === "number")) bits.push(`@(${b6.x},${b6.y}) ${b6.w}\xD7${b6.h}`);
           const marks = Array.isArray(it.marks) ? it.marks.filter((m5) => typeof m5 === "string" && !!m5.trim()) : [];
           if (marks.length) bits.push(`\u5B66\u5458\u9AD8\u4EAE:${marks.slice(0, 5).map((m5) => `\u300C${clipChars(m5, 40)}\u300D`).join("")}`);
@@ -86391,7 +86589,7 @@ ${RUN_HINT}`;
           for (const it of userItems.slice(0, 30)) out2.push(fmt(it));
           if (userItems.length > 30) out2.push(`  \u2026\u53E6\u6709 ${userItems.length - 30} \u5904`);
         }
-        const steps = Array.isArray(r7.steps) ? r7.steps.filter(isObj4) : [];
+        const steps = Array.isArray(r7.steps) ? r7.steps.filter(isObj5) : [];
         if (steps.length) {
           out2.push(`\u677F\u4E0A\u7684\u5BFC\u89C8\u6B65\u9AA4(${steps.length} \u6B65,\u5B66\u5458\u624B\u5DE5\u6392\u7684\u548C\u4F60\u7684\u5E55\u90FD\u5728;\u63A5\u7740\u5B66\u5458\u7684\u5185\u5BB9\u8BB2\u65F6,\u65B0\u5E55\u7684 edges \u7528 E<n> \u8FDE\u5230\u5B66\u5458\u7684\u5143\u7D20\u4E0A(from:"E5"),\u6309\u6B65\u9AA4\u6807\u7B7E\u7406\u89E3\u5B66\u5458\u7684\u601D\u8DEF):`);
           for (const st of steps.slice(0, 60)) {
@@ -86426,15 +86624,15 @@ ${RUN_HINT}`;
           for (const it of loose) out2.push(fmt(it));
         }
         if (r7.truncated) out2.push("(\u540E\u7AEF\u6458\u8981\u5DF2\u622A\u65AD:\u677F\u592A\u5927,\u4E0A\u9762\u53EA\u5217\u51FA\u4E86\u4E00\u90E8\u5206\u5E55 / \u6761\u76EE)");
-        return textOut3(out2.join("\n"));
+        return textOut4(out2.join("\n"));
       } catch (e6) {
-        return textOut3(d7.human(e6));
+        return textOut4(d7.human(e6));
       }
     }
   );
 }
 function briefLines(b6) {
-  if (!isObj4(b6) || typeof b6.goal !== "string" || !b6.goal.trim()) return [];
+  if (!isObj5(b6) || typeof b6.goal !== "string" || !b6.goal.trim()) return [];
   const out2 = [`\u7B80\u62A5(\u548C\u5B66\u5458\u6838\u5BF9\u8FC7):\u76EE\u6807 ${b6.goal.trim()}`];
   if (typeof b6.background === "string" && b6.background.trim()) out2.push(`  \u80CC\u666F:${b6.background.trim()}`);
   if (Array.isArray(b6.references) && b6.references.length) out2.push(`  \u53C2\u8003:${b6.references.map(String).join(" | ")}`);
@@ -86461,39 +86659,50 @@ function registerEnvTools(server2, d7) {
     "tb_list_envs",
     {
       title: "List teachboard environments",
-      description: "\u5217\u51FA\u53EF\u7528\u7684\u4E91\u7AEF\u8FD0\u884C\u73AF\u5883(id\u3001GPU\u3001\u514D\u8D39/\u4ED8\u8D39\u3001\u72B6\u6001\u3001\u7ED9\u5B66\u4E60\u8005\u7684\u5EFA\u8BAE\u3001\u8BC4\u5206\u4EFB\u52A1\u4E0E\u8981\u5EFA\u7684\u533A\u6BB5\u5757)\u3002\u5199\u4EE3\u7801\u524D\u5148\u9009 env\u3002",
+      description: "\u5217\u51FA\u53EF\u7528\u7684\u4E91\u7AEF\u8FD0\u884C\u73AF\u5883(id\u3001GPU\u3001\u514D\u8D39/\u4ED8\u8D39\u3001\u72B6\u6001\u3001\u7ED9\u5B66\u4E60\u8005\u7684\u5EFA\u8BAE\u3001\u8BC4\u5206\u4EFB\u52A1\u4E0E\u8981\u5EFA\u7684\u533A\u6BB5\u5757),\u4EE5\u53CA\u4F60\u81EA\u5DF1\u5EFA\u7684\u300C\u6211\u7684\u73AF\u5883\u300D\u3002\u5199\u4EE3\u7801\u524D\u5148\u9009 env;\u73B0\u6210\u7684\u4E0D\u591F\u7528\u518D\u7528 tb_env_customize \u5EFA\u3002",
       inputSchema: {}
     },
     async () => {
       try {
         const r7 = await call("GET", "envs");
         const envs = Array.isArray(r7.envs) ? r7.envs : [];
-        if (!envs.length) return textOut3("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
+        if (!envs.length) return textOut4("\u6682\u65F6\u6CA1\u6709\u53EF\u7528\u7684\u73AF\u5883");
         const out2 = [];
+        const mine = Array.isArray(r7.mine) ? r7.mine.filter(isObj5) : [];
+        if (mine.length) {
+          out2.push(`\u6211\u7684\u73AF\u5883(source customized,${mine.length} \u4E2A;\u7528\u6CD5:tb_run \u4F20 recipe=<id>,\u6216 tb_bind_recipe \u7ED1\u5230\u4EE3\u7801\u5757):`);
+          for (const m5 of mine) {
+            const apt = Array.isArray(m5.apt) && m5.apt.length ? ` \xB7 \u7CFB\u7EDF\u5305 ${m5.apt.map(String).join(", ")}` : "";
+            const pip = Array.isArray(m5.requested) && m5.requested.length ? ` \xB7 Python \u5305 ${m5.requested.map(String).join(", ")}` : "";
+            const secs = typeof m5.installSec === "number" ? ` \xB7 \u5B89\u88C5\u7EA6 ${Math.round(m5.installSec)} \u79D2` : "";
+            out2.push(`  ${String(m5.id ?? "")}${m5.name ? `\u300C${String(m5.name)}\u300D` : ""} \xB7 \u5E95\u5EA7 ${String(m5.baseEnvId ?? "?")} \xB7 ${String(m5.status ?? "?")}${apt}${pip}${secs}`);
+          }
+          out2.push("");
+        }
         for (const e6 of envs) {
-          const rt = isObj4(e6.runtime) ? e6.runtime : {};
-          const gpu = isObj4(rt.gpu) ? rt.gpu : null;
+          const rt = isObj5(e6.runtime) ? e6.runtime : {};
+          const gpu = isObj5(rt.gpu) ? rt.gpu : null;
           const head = [
             String(e6.id ?? ""),
             gpu ? `GPU ${String(gpu.type ?? "?")}${Number(gpu.count) > 1 ? `\xD7${gpu.count}` : ""}` : "\u65E0 GPU",
             e6.access === "paid" ? "\u9700\u4ED8\u8D39" : "\u514D\u8D39",
             `\u72B6\u6001 ${String(e6.status ?? "?")}`
           ];
-          if (isObj4(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
+          if (isObj5(e6.pricing) && typeof e6.pricing.usdPerHour === "number") head.push(`$${e6.pricing.usdPerHour}/\u5C0F\u65F6`);
           out2.push(head.join(" \xB7 "));
           if (e6.name || e6.summary) out2.push(`  ${[e6.name, e6.summary].filter(Boolean).join(":")}`);
           if (Array.isArray(rt.libs) && rt.libs.length) out2.push(`  \u9884\u88C5:${rt.libs.join("\u3001")}`);
           if (typeof e6.advice === "string" && e6.advice) out2.push(`  \u5EFA\u8BAE(\u7ED9\u5B66\u4E60\u8005\u7684\u5EFA\u8BAE,\u662F\u5426\u7167\u505A\u7531\u7528\u6237\u51B3\u5B9A):${e6.advice}`);
-          const tasks = isObj4(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
+          const tasks = isObj5(e6.grading) && Array.isArray(e6.grading.tasks) ? e6.grading.tasks : [];
           if (tasks.length) {
             out2.push("  \u8BC4\u5206\u4EFB\u52A1:");
             for (const t of tasks) {
-              const tg = isObj4(t.target) ? t.target : null;
+              const tg = isObj5(t.target) ? t.target : null;
               let line = `    ${String(t.id ?? "")} \xB7 ${String(t.title ?? "")} \xB7 ${String(t.maxScore ?? "?")}`;
               if (tg) line += ` \xB7 \u76EE\u6807 ${String(tg.path)}${tg.region ? `#${String(tg.region)}` : ""}`;
               if (tg && Array.isArray(tg.extraRegions)) {
                 for (const x of tg.extraRegions) {
-                  if (isObj4(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
+                  if (isObj5(x) && !x.optional) line += ` \u9700\u8981 ${String(x.path)}${x.region ? `#${String(x.region)}` : ""}`;
                 }
               }
               out2.push(line);
@@ -86501,9 +86710,9 @@ function registerEnvTools(server2, d7) {
           }
         }
         out2.push("", "\u5199\u4EE3\u7801\u524D\u5148\u9009 env;GPU \u73AF\u5883\u5148 warm,\u7528\u5B8C stop,\u6309\u65F6\u957F\u8BA1\u8D39\u3002");
-        return textOut3(out2.join("\n"));
+        return textOut4(out2.join("\n"));
       } catch (e6) {
-        return textOut3(envHuman(e6));
+        return textOut4(envHuman(e6));
       }
     }
   );
@@ -86518,7 +86727,7 @@ function registerEnvTools(server2, d7) {
       }
     },
     async ({ env: env3, action }, extra) => {
-      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(env3)) return textOut4("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       const path6 = `envs/${encodeURIComponent(env3)}/session`;
       const money = (s) => `\u5DF2\u82B1 ${usd(s.spentUsd)} \xB7 \u5269\u4F59 ${usd(s.remainingUsd)}`;
       const token = extra?._meta?.progressToken;
@@ -86536,29 +86745,29 @@ function registerEnvTools(server2, d7) {
       try {
         if (action === "stop") {
           const s2 = await call("DELETE", path6);
-          return textOut3(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
+          return textOut4(`${env3} \u5DF2\u505C\u6B62(${String(s2.state ?? "stopping")})\xB7 ${money(s2)}`);
         }
         if (action === "status") {
           const s2 = await call("GET", path6);
           await progress(`${env3}: ${String(s2.state)}`);
-          return textOut3(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
+          return textOut4(`${env3} \u72B6\u6001 ${String(s2.state)}${s2.secondsLive ? ` \xB7 \u5DF2\u8FD0\u884C ${s2.secondsLive} \u79D2` : ""} \xB7 ${money(s2)}`);
         }
         let s = await call("POST", path6);
-        if (s.state === "ready") return textOut3(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+        if (s.state === "ready") return textOut4(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
         for (let waited = 0; waited < WARM_MAX_MS; waited += WARM_POLL_MS) {
           await d7.sleep(WARM_POLL_MS);
           s = await call("GET", path6);
           await progress(`${env3}: ${String(s.state)}${s.etaSec != null ? `,\u7EA6 ${s.etaSec} \u79D2` : ""}`);
-          if (s.state === "ready") return textOut3(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
+          if (s.state === "ready") return textOut4(`${env3} \u5DF2\u5C31\u7EEA \xB7 ${money(s)}`);
           if (s.state === "cold" || s.state === "stopping") {
-            return textOut3(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
+            return textOut4(`\u73AF\u5883\u88AB\u505C\u6389\u4E86(state=${s.state}),\u9700\u8981\u7684\u8BDD\u518D warm \u4E00\u6B21 \xB7 ${money(s)}`);
           }
         }
-        return textOut3(
+        return textOut4(
           `${env3} \u8FD8\u5728\u51C6\u5907(\u7EA6 ${s.etaSec ?? "?"} \u79D2),\u7A0D\u540E status \u6216\u76F4\u63A5 tb_run \u4F1A\u544A\u8BC9\u4F60 \xB7 ${money(s)}`
         );
       } catch (e6) {
-        return textOut3(envHuman(e6));
+        return textOut4(envHuman(e6));
       }
     }
   );
@@ -86569,7 +86778,8 @@ var ENV_ID_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/;
 var RECIPE_ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
 var ENTITY_REF_RE2 = /^tb:([0-9a-f]{8})\/(E\d+)$/;
 var BIND_PENDING_RETRIES = 3;
-var CUSTOMIZE_DESC = "\u7ED9\u4E00\u4E2A\u73AF\u5883\u52A0 Python \u5305(\u73AF\u5883\u914D\u65B9)\u3002\u2460 \u4EE3\u7801\u8DD1\u5728 teachboard \u4E91\u7AEF\u73AF\u5883\u91CC,\u4E0D\u5728\u7528\u6237\u7684\u7535\u8111\u4E0A:\u7F3A Python \u5305\u5FC5\u987B\u7528\u672C\u5DE5\u5177\u52A0,\u7EDD\u4E0D\u8981\u5728\u672C\u673A pip / uv / conda install\u3002\u2461 \u4F55\u65F6\u7528:\u7528\u6237\u8BF4\u300C\u5728 X \u73AF\u5883\u91CC\u88C5 / \u52A0 Y\u300D,\u6216 tb_run \u7684\u7ED3\u679C\u91CC\u6709 missingModule / ModuleNotFoundError\u2014\u2014\u540E\u8005\u76F4\u63A5\u88C5,\u4E0D\u7528\u5148\u95EE\u7528\u6237\u3002\u2462 \u53C2\u6570:env = \u4EE3\u7801\u5757\u7ED1\u5B9A\u7684\u73AF\u5883 id;add = PyPI \u5305\u540D(\u53EF\u5E26\u7248\u672C\u7EA6\u675F);import \u540D\u548C\u5305\u540D\u4E0D\u4E00\u6837\u65F6\u7528\u5305\u540D(cv2\u2192opencv-python\u3001sklearn\u2192scikit-learn\u3001PIL\u2192Pillow),\u4F18\u5148\u7528 missingModule.package;\u4F20 entity(tb:<\u677F id>/E<n>)\u4F1A\u5728\u88C5\u597D\u540E\u628A\u914D\u65B9\u81EA\u52A8\u7ED1\u5230\u90A3\u4E2A\u4EE3\u7801\u5757\u3002\u2463 \u7ED3\u679C:\u9A8C\u8BC1\u8981 10 \u79D2\u5230\u51E0\u5206\u949F(\u672C\u5DE5\u5177\u6700\u591A\u7B49 4 \u5206\u949F);ready \u540E\u7528\u8BE5 recipe \u91CD\u65B0 tb_run;failed \u5C31\u770B verifyLog \u6539\u914D\u65B9\u518D\u63D0\u4EA4;\u8FD8\u5728\u9A8C\u8BC1\u4E0D\u7B97\u5931\u8D25,\u7A0D\u540E\u7528 tb_env_recipes \u67E5;apt_not_allowed \u539F\u6837\u8F6C\u544A\u7528\u6237\u3002\u2464 \u4E0D\u80FD:\u88C5 apt \u7CFB\u7EDF\u5305,\u4E5F\u4E0D\u80FD\u6539\u57FA\u7840\u73AF\u5883\u91CC\u5DF2\u6709\u5305\u7684\u7248\u672C(\u53EA\u52A0\u4E0D\u6539)\u3002";
+var APT_RE = /^[a-z0-9][a-z0-9+.-]{0,99}$/;
+var CUSTOMIZE_DESC = "\u5728\u4E00\u4E2A\u5E95\u5EA7\u73AF\u5883\u4E0A\u5EFA\u300C\u6211\u7684\u73AF\u5883\u300D(\u73AF\u5883\u914D\u65B9):\u52A0 Debian \u7CFB\u7EDF\u5305(apt)\u548C / \u6216 Python \u5305(add),\u53EF\u9644\u547D\u4EE4\u3002\u24EA \u89C4\u77E9(\u8BBE\u8BA1 \xA72):\u7528\u6237\u8BF4\u300C\u6211\u60F3\u5EFA\u4E2A X \u73AF\u5883\u300D\u300C\u6211\u60F3\u505A Y \u5B9E\u9A8C\u300D\u4E5F\u8D70\u8FD9\u91CC \u2014\u2014 \u5148\u4ECE\u76EE\u6807\u63A8\u65AD\u8981\u8DD1\u4EC0\u4E48\u3001\u8981\u54EA\u4E9B\u5E93 / \u7CFB\u7EDF\u5DE5\u5177 / \u663E\u5361;\u5148\u7528 tb_list_envs \u627E\u73B0\u6210\u7684(runtime.libs\u3001GPU\u3001tags \u80FD\u6EE1\u8DB3\u5C31\u63A8\u8350\u5B83,\u4E0D\u5EFA);\u5DEE\u4E00\u70B9\u624D\u5217\u65B9\u6848:\u5E95\u5EA7\u3001apt \u5305\u3001pip \u5305\u3001\u547D\u4EE4\u3001\u9A8C\u8BC1\u9884\u8BA1\u65F6\u957F(\u7CFB\u7EDF\u5305\u901A\u5E38\u5341\u51E0\u79D2\u5230\u51E0\u5206\u949F)\u548C\u8D39\u7528(\u6309\u5E95\u5EA7\u6BCF\u5C0F\u65F6\u4EF7),**\u7528\u6237\u660E\u786E\u540C\u610F\u540E**\u624D\u8C03\u672C\u5DE5\u5177;\u9A8C\u8BC1\u5931\u8D25\u8BFB verifyLog \u6539\u6E05\u5355\u518D\u8BD5,\u6700\u591A 3 \u8F6E,\u8FD8\u4E0D\u884C\u5C31\u505C\u4E0B\u8BF4\u660E\u5361\u70B9\u3002tb_run \u62A5 missingModule \u65F6\u76F4\u63A5\u52A0 Python \u5305,\u4E0D\u7528\u5148\u95EE\u3002\u2460 \u4EE3\u7801\u8DD1\u5728 teachboard \u4E91\u7AEF\u73AF\u5883\u91CC,\u4E0D\u5728\u7528\u6237\u7684\u7535\u8111\u4E0A:\u7F3A Python \u5305\u5FC5\u987B\u7528\u672C\u5DE5\u5177\u52A0,\u7EDD\u4E0D\u8981\u5728\u672C\u673A pip / uv / conda install\u3002\u2461 \u4F55\u65F6\u7528:\u7528\u6237\u8BF4\u300C\u5728 X \u73AF\u5883\u91CC\u88C5 / \u52A0 Y\u300D,\u6216 tb_run \u7684\u7ED3\u679C\u91CC\u6709 missingModule / ModuleNotFoundError\u2014\u2014\u540E\u8005\u76F4\u63A5\u88C5,\u4E0D\u7528\u5148\u95EE\u7528\u6237\u3002\u2462 \u53C2\u6570:env = \u5E95\u5EA7\u73AF\u5883 id(\u4EE3\u7801\u5757\u7ED1\u5B9A\u7684\u90A3\u4E2A);apt = Debian \u5305\u540D(\u4E0D\u5E26\u7248\u672C\u548C\u6E90,\u226430,\u5982 cmake\u3001libopenmpi-dev);add = PyPI \u5305\u540D(\u53EF\u5E26\u7248\u672C\u7EA6\u675F,\u226430);apt \u548C add \u81F3\u5C11\u7ED9\u4E00\u4E2A\u3002import \u540D\u548C\u5305\u540D\u4E0D\u4E00\u6837\u65F6\u7528\u5305\u540D(cv2\u2192opencv-python\u3001sklearn\u2192scikit-learn\u3001PIL\u2192Pillow),\u4F18\u5148\u7528 missingModule.package;\u4F20 entity(tb:<\u677F id>/E<n>)\u4F1A\u5728\u88C5\u597D\u540E\u628A\u914D\u65B9\u81EA\u52A8\u7ED1\u5230\u90A3\u4E2A\u4EE3\u7801\u5757\u3002\u2463 \u7ED3\u679C:\u9A8C\u8BC1\u8981 10 \u79D2\u5230\u51E0\u5206\u949F(\u672C\u5DE5\u5177\u6700\u591A\u7B49 4 \u5206\u949F);ready \u540E\u7528\u8BE5 recipe \u91CD\u65B0 tb_run;failed \u5C31\u770B verifyLog \u6539\u914D\u65B9\u518D\u63D0\u4EA4;\u8FD8\u5728\u9A8C\u8BC1\u4E0D\u7B97\u5931\u8D25,\u7A0D\u540E\u7528 tb_env_recipes \u67E5;\u88AB\u62D2\u7684\u7CFB\u7EDF\u5305\u539F\u6837\u8F6C\u544A\u7528\u6237\u3002\u2464 \u4E0D\u80FD:\u5185\u6838 / \u663E\u5361\u9A71\u52A8 / CUDA / systemd / docker \u8FD9\u7C7B\u7CFB\u7EDF\u7EC4\u4EF6(\u8981\u7684\u8BDD\u8BF7\u7528\u6237\u53D1\u90AE\u4EF6\u8054\u7CFB\u6211\u4EEC);\u4E5F\u4E0D\u80FD\u6539\u5E95\u5EA7\u91CC\u5DF2\u6709 Python \u5305\u7684\u7248\u672C(\u53EA\u52A0\u4E0D\u6539)\u3002";
 function registerRecipeTools(server2, d7) {
   const call = (method, path6, body) => d7.client.call(method, path6, body, { agent: true });
   const humanErr = (e6) => {
@@ -86590,8 +86800,17 @@ function registerRecipeTools(server2, d7) {
       if (code === "no_env") return "\u8FD9\u4E2A\u4EE3\u7801\u5757\u6CA1\u7ED1\u73AF\u5883,\u5148\u7ED9\u5B83\u7ED1 env \u624D\u80FD\u7ED1\u914D\u65B9";
       if (code === "bad_entity") return "\u5143\u7D20\u7F16\u53F7\u4E0D\u5BF9,\u5E94\u5199\u6210 tb:<\u677F id>/E<n>";
       if (code === "bad_recipe" && e6.status === 400) return `\u914D\u65B9\u4E0D\u5408\u6CD5${typeof data2.message === "string" ? `:${data2.message}` : ""}`;
+      if (code === "apt_not_allowed") return `${typeof data2.message === "string" ? data2.message : "\u8FD9\u4E2A\u7CFB\u7EDF\u5305\u4E0D\u80FD\u81EA\u5DF1\u88C5"}${typeof data2.contactEmail === "string" && !String(data2.message ?? "").includes(data2.contactEmail) ? `(\u8054\u7CFB:${data2.contactEmail})` : ""}
+\u628A\u8FD9\u6BB5\u539F\u6837\u544A\u8BC9\u7528\u6237,\u4E0D\u8981\u6362\u522B\u7684\u529E\u6CD5\u7ED5\u8FC7\u53BB\u3002`;
     }
     return d7.human(e6);
+  };
+  const recipeLine = (x) => {
+    const req = Array.isArray(x.requested) ? x.requested.map(String).join(", ") : "";
+    const apt = Array.isArray(x.apt) && x.apt.length ? ` \xB7 \u7CFB\u7EDF\u5305 ${x.apt.map(String).join(", ")}` : "";
+    const locks = Array.isArray(x.lock) ? `${x.lock.length} \u4E2A\u5305` : "\u672A\u9501\u5B9A";
+    const secs = typeof x.installSec === "number" ? ` \xB7 \u5B89\u88C5\u7EA6 ${Math.round(x.installSec)} \u79D2` : "";
+    return `${String(x.id)}${x.name ? `\u300C${x.name}\u300D` : ""} \xB7 \u5E95\u5EA7 ${String(x.baseEnvId ?? "?")} \xB7 ${String(x.status)}${apt} \xB7 Python \u5305 ${req || "-"} \xB7 lock ${locks}${secs} \xB7 \u66F4\u65B0 ${String(x.updatedAt ?? "?")}`;
   };
   const logTail = (log, max = 2048) => {
     const t = typeof log === "string" ? log : "";
@@ -86643,16 +86862,20 @@ function registerRecipeTools(server2, d7) {
       description: CUSTOMIZE_DESC,
       inputSchema: {
         env: external_exports.string().describe("\u4EE3\u7801\u5757\u7ED1\u5B9A\u7684\u73AF\u5883 id(\u89C1 tb_list_envs)"),
-        add: external_exports.array(external_exports.string().min(1).max(200)).min(1).max(30).describe("PyPI \u5305\u540D(\u53EF\u5E26\u7248\u672C\u7EA6\u675F),\u226430 \u4E2A"),
+        apt: external_exports.array(external_exports.string().min(1).max(100)).max(30).optional().describe("Debian \u7CFB\u7EDF\u5305\u540D(\u4E0D\u5E26\u7248\u672C\u548C\u6E90),\u226430 \u4E2A"),
+        add: external_exports.array(external_exports.string().min(1).max(200)).max(30).optional().describe("PyPI \u5305\u540D(\u53EF\u5E26\u7248\u672C\u7EA6\u675F),\u226430 \u4E2A;apt \u548C add \u81F3\u5C11\u4E00\u4E2A"),
         commands: external_exports.array(external_exports.string().min(1).max(400)).max(10).optional().describe("\u88C5\u5305\u540E\u8981\u8DD1\u7684\u547D\u4EE4(\u53EF\u9009),\u226410 \u6761\u3001\u5404 \u2264400 \u5B57"),
         name: external_exports.string().max(80).optional().describe("\u914D\u65B9\u540D(\u53EF\u9009)"),
         entity: external_exports.string().optional().describe("\u89E6\u53D1\u5B89\u88C5\u7684\u4EE3\u7801\u5757 tb:<\u677F id>/E<n>;ready \u540E\u81EA\u52A8\u7ED1\u5B9A")
       }
     },
-    async ({ env: env3, add, commands: commands6, name, entity }, extra) => {
-      if (!ENV_ID_RE.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+    async ({ env: env3, apt, add, commands: commands6, name, entity }, extra) => {
+      if (!ENV_ID_RE.test(env3)) return textOut4("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (!apt?.length && !add?.length) return textOut4("apt(\u7CFB\u7EDF\u5305)\u548C add(Python \u5305)\u81F3\u5C11\u7ED9\u4E00\u4E2A");
+      const badApt = (apt ?? []).filter((p3) => !APT_RE.test(p3));
+      if (badApt.length) return textOut4(`\u8FD9\u4E9B\u4E0D\u662F\u5408\u6CD5\u7684 Debian \u5305\u540D(\u53EA\u5199\u5305\u540D,\u4E0D\u5E26\u7248\u672C / \u6E90 / \u7A7A\u683C):${badApt.join(", ")}`);
       if (entity !== void 0 && !ENTITY_REF_RE2.test(entity)) {
-        return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+        return textOut4("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
       }
       const token = extra?._meta?.progressToken;
       let n2 = 0;
@@ -86667,13 +86890,15 @@ function registerRecipeTools(server2, d7) {
         }
       };
       try {
-        const body = { add };
+        const body = {};
+        if (add?.length) body.add = add;
+        if (apt?.length) body.apt = apt;
         if (commands6?.length) body.commands = commands6;
         if (name) body.name = name;
         const created = await call("POST", `envs/${encodeURIComponent(env3)}/recipes`, body);
         let r7 = created.recipe ?? {};
         const id = typeof r7.id === "string" ? r7.id : "";
-        if (!RECIPE_ID_RE.test(id)) return textOut3("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
+        if (!RECIPE_ID_RE.test(id)) return textOut4("\u670D\u52A1\u8FD4\u56DE\u7684\u914D\u65B9 id \u4E0D\u5408\u6CD5,\u7A0D\u540E\u7528 tb_env_recipes \u67E5");
         await progress(`\u914D\u65B9 ${id}: ${String(r7.status)}`);
         let failures = 0;
         for (let waited = 0; r7.status === "verifying" && waited < RECIPE_MAX_MS; waited += RECIPE_POLL_MS) {
@@ -86685,7 +86910,7 @@ function registerRecipeTools(server2, d7) {
           } catch (e6) {
             const st = e6 instanceof TbError ? e6.status : 0;
             if (st === 401 || st === 404 || ++failures >= 3) {
-              return textOut3(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+              return textOut4(`\u67E5\u8BE2\u914D\u65B9\u72B6\u6001\u5931\u8D25,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
             }
             continue;
@@ -86693,23 +86918,25 @@ function registerRecipeTools(server2, d7) {
           await progress(`\u914D\u65B9 ${id}: ${String(r7.status)}(\u5DF2\u7B49 ${waited + RECIPE_POLL_MS} \u79D2)`);
         }
         if (r7.status === "ready") {
-          const out2 = [`\u914D\u65B9\u5C31\u7EEA recipeId=${id}(\u73AF\u5883 ${env3}),\u7528 recipe:"${id}" \u91CD\u65B0 tb_run \u5373\u53EF`, ...lockSummary(r7.lock)];
+          const secs = typeof r7.installSec === "number" ? `,\u5B89\u88C5\u7EA6 ${Math.round(r7.installSec)} \u79D2` : "";
+          const aptLine = Array.isArray(r7.apt) && r7.apt.length ? [`\u7CFB\u7EDF\u5305:${r7.apt.map(String).join(", ")}`] : [];
+          const out2 = [`\u914D\u65B9\u5C31\u7EEA recipeId=${id}(\u5E95\u5EA7 ${env3}${secs}),\u7528 recipe:"${id}" \u91CD\u65B0 tb_run \u5373\u53EF`, ...aptLine, ...lockSummary(r7.lock)];
           if (entity) out2.push(await bindMsg(entity, id));
-          return textOut3(out2.join("\n"));
+          return textOut4(out2.join("\n"));
         }
         if (r7.status === "failed") {
           const tail = logTail(r7.verifyLog);
-          return textOut3(
+          return textOut4(
             `\u914D\u65B9\u9A8C\u8BC1\u5931\u8D25 recipeId=${id}
 ${tail ? `verifyLog \u672B\u5C3E:
 ${tail}
 ` : ""}\u6539\u914D\u65B9\u518D\u63D0\u4EA4(\u6362\u5305\u540D / \u7248\u672C,\u6216\u53BB\u6389\u51B2\u7A81\u7684\u5305)\u3002`
           );
         }
-        return textOut3(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
+        return textOut4(`\u8FD8\u5728\u9A8C\u8BC1,\u914D\u65B9 id=${id},\u7A0D\u540E\u7528 tb_env_recipes \u67E5(env=${env3})${entity ? `
 \u9A8C\u8BC1\u5B8C\u6210\u540E\u7528 tb_bind_recipe \u7ED1\u5230 ${entity}` : ""}`);
       } catch (e6) {
-        return textOut3(humanErr(e6));
+        return textOut4(humanErr(e6));
       }
     }
   );
@@ -86717,26 +86944,20 @@ ${tail}
     "tb_env_recipes",
     {
       title: "List environment recipes",
-      description: "\u5217\u51FA\u67D0\u4E2A\u73AF\u5883\u4E0B\u4F60\u7684\u914D\u65B9(id\u3001\u72B6\u6001\u3001\u8BF7\u6C42\u7684\u5305\u3001lock \u6570\u3001\u66F4\u65B0\u65F6\u95F4)\u3002tb_env_customize \u8D85\u65F6\u6CA1\u7B49\u5230\u7ED3\u679C\u65F6\u7528\u5B83\u67E5\u3002",
-      inputSchema: { env: external_exports.string().describe("\u73AF\u5883 id(\u89C1 tb_list_envs)") }
+      description: "\u5217\u51FA\u4F60\u7684\u73AF\u5883\u914D\u65B9(\u300C\u6211\u7684\u73AF\u5883\u300D:id\u3001\u5E95\u5EA7\u3001\u72B6\u6001\u3001\u7CFB\u7EDF\u5305\u3001Python \u5305\u3001lock \u6570\u3001\u5B89\u88C5\u8017\u65F6)\u3002\u4E0D\u5E26 env = \u6240\u6709\u5E95\u5EA7;tb_env_customize \u8D85\u65F6\u6CA1\u7B49\u5230\u7ED3\u679C\u65F6\u7528\u5B83\u67E5\u3002",
+      inputSchema: { env: external_exports.string().optional().describe("\u5E95\u5EA7\u73AF\u5883 id(\u89C1 tb_list_envs);\u4E0D\u586B = \u5168\u90E8") }
     },
     async ({ env: env3 }) => {
-      if (!ENV_ID_RE.test(env3)) return textOut3("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
+      if (env3 !== void 0 && !ENV_ID_RE.test(env3)) return textOut4("\u73AF\u5883 id \u4E0D\u5408\u6CD5(\u7528 tb_list_envs \u67E5)");
       try {
-        const r7 = await call("GET", `envs/${encodeURIComponent(env3)}/recipes`);
+        const r7 = await call("GET", env3 ? `envs/${encodeURIComponent(env3)}/recipes` : "recipes");
         const list2 = Array.isArray(r7.recipes) ? r7.recipes : [];
-        if (!list2.length) return textOut3(`${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9`);
-        const out2 = [`${env3} \u7684\u914D\u65B9(${list2.length} \u4E2A):`];
-        for (const x of list2) {
-          const req = Array.isArray(x.requested) ? x.requested.map(String).join(", ") : "";
-          const locks = Array.isArray(x.lock) ? `${x.lock.length} \u4E2A\u5305` : "\u672A\u9501\u5B9A";
-          out2.push(
-            `${String(x.id)}${x.name ? `\u300C${x.name}\u300D` : ""} \xB7 ${String(x.status)} \xB7 \u8BF7\u6C42 ${req || "-"} \xB7 lock ${locks} \xB7 \u66F4\u65B0 ${String(x.updatedAt ?? "?")}`
-          );
-        }
-        return textOut3(out2.join("\n"));
+        if (!list2.length) return textOut4(env3 ? `${env3} \u4E0B\u8FD8\u6CA1\u6709\u914D\u65B9` : "\u4F60\u8FD8\u6CA1\u6709\u81EA\u5DF1\u7684\u73AF\u5883(\u914D\u65B9)");
+        const out2 = [`${env3 ? `${env3} \u7684` : "\u4F60\u7684\u5168\u90E8"}\u914D\u65B9(${list2.length} \u4E2A):`];
+        for (const x of list2) out2.push(recipeLine(x));
+        return textOut4(out2.join("\n"));
       } catch (e6) {
-        return textOut3(humanErr(e6));
+        return textOut4(humanErr(e6));
       }
     }
   );
@@ -86751,8 +86972,8 @@ ${tail}
       }
     },
     async ({ entity, recipe }) => {
-      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut3("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
-      return textOut3(await bindMsg(entity, recipe));
+      if (recipe !== null && !RECIPE_ID_RE.test(recipe)) return textOut4("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      return textOut4(await bindMsg(entity, recipe));
     }
   );
 }
@@ -86875,14 +87096,14 @@ function registerRunTools(server2, d7) {
       if (timer) clearInterval(timer);
     }
   };
-  const codeOf = (e6) => {
+  const codeOf2 = (e6) => {
     if (!(e6 instanceof TbError)) return "";
     const data2 = e6.data ?? {};
     return typeof data2.error === "string" ? data2.error : e6.code;
   };
   const humanErr = (e6) => {
     if (e6 instanceof TbError) {
-      const code = codeOf(e6);
+      const code = codeOf2(e6);
       if (e6.status === 404) {
         if (code === "entity_not_found") return "\u677F\u4E0A\u627E\u4E0D\u5230\u8FD9\u4E2A\u5143\u7D20\u7F16\u53F7(\u7528 tb_get_board \u67E5)";
         if (code === "board_not_found") return "\u627E\u4E0D\u5230\u8FD9\u5757\u677F(\u53EA\u80FD\u64CD\u4F5C\u4F60\u81EA\u5DF1\u7684\u677F)";
@@ -86915,7 +87136,7 @@ function registerRunTools(server2, d7) {
     return d7.human(e6);
   };
   const wbMsg = (wb) => {
-    if (!isObj4(wb)) return "";
+    if (!isObj5(wb)) return "";
     if (typeof wb.seq === "number") return "\u8F93\u51FA\u5DF2\u5199\u56DE\u677F\u4E0A";
     const code = typeof wb.error === "string" ? wb.error : "";
     const why = code === "board_not_found" ? "\u627E\u4E0D\u5230\u8FD9\u5757\u677F" : code === "ops_backlog" ? "\u8FD9\u5757\u677F\u8FD8\u6709\u5F88\u591A\u6B65\u6CA1\u5728\u6D4F\u89C8\u5668\u91CC\u843D\u5730,\u8BF7\u7528\u6237\u6253\u5F00\u8FD9\u5757\u677F" : code === "write_back_failed" || code ? "\u5199\u56DE\u5931\u8D25" : "\u5199\u56DE\u5931\u8D25";
@@ -86926,7 +87147,7 @@ function registerRunTools(server2, d7) {
       try {
         return await call("GET", `agent/boards/${boardId}?entity=${eid}`);
       } catch (e6) {
-        if (e6 instanceof TbError && e6.status === 409 && codeOf(e6) === "pending") {
+        if (e6 instanceof TbError && e6.status === 409 && codeOf2(e6) === "pending") {
           if (attempt < RUN_PENDING_RETRIES) {
             const sec = Number((e6.data ?? {}).retryAfterSec);
             await sleep3((Number.isFinite(sec) && sec > 0 ? Math.min(sec, 30) : 2) * 1e3);
@@ -86950,29 +87171,29 @@ function registerRunTools(server2, d7) {
     },
     async ({ entity, recipe }, extra) => {
       const m5 = ENTITY_REF_RE2.exec(entity);
-      if (!m5) return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut3("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
+      if (!m5) return textOut4("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (recipe !== void 0 && !RECIPE_ID_RE.test(recipe)) return textOut4("\u914D\u65B9 id \u4E0D\u5408\u6CD5(\u7528 tb_env_recipes \u67E5)");
       const boardId = m5[1];
       const eid = m5[2];
       const blk = await readBlock(boardId, eid);
-      if (typeof blk === "string") return textOut3(blk);
-      if (blk.kind !== "code") return textOut3("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
-      if (!blk.env) return textOut3("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
-      if (Array.isArray(blk.files) && blk.files.length) return textOut3("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
-      if (blk.truncated) return textOut3("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
-      const run = isObj4(blk.run) ? blk.run : {};
+      if (typeof blk === "string") return textOut4(blk);
+      if (blk.kind !== "code") return textOut4("\u8FD9\u4E2A\u5143\u7D20\u4E0D\u662F\u4EE3\u7801\u5757");
+      if (!blk.env) return textOut4("agent \u53EA\u80FD\u5728\u4E91\u7AEF\u73AF\u5883\u91CC\u8DD1:\u5148\u7ED9\u4EE3\u7801\u5757\u7ED1\u4E00\u4E2A\u73AF\u5883(tb_list_envs \u770B\u6709\u54EA\u4E9B)");
+      if (Array.isArray(blk.files) && blk.files.length) return textOut4("\u8FD9\u4E2A\u5757\u5E26\u6570\u636E\u6587\u4EF6,\u73AF\u5883\u8FD0\u884C\u8FD8\u4E0D\u652F\u6301;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u5904\u7406");
+      if (blk.truncated) return textOut4("\u8FD9\u4E2A\u4EE3\u7801\u5757\u592A\u957F(\u8D85\u8FC7 60 KB,\u8BFB\u5230\u7684\u662F\u622A\u65AD\u7248),\u4E0D\u80FD\u5B89\u5168\u5730\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u70B9 \u25B6");
+      const run = isObj5(blk.run) ? blk.run : {};
       const body = {
         code: String(blk.code ?? ""),
         language: String(blk.language ?? ""),
         env: blk.env,
         writeBack: { boardId, target: { entityId: Number(eid.slice(1)) } }
       };
-      if (typeof run.region === "string" && typeof run.path !== "string") return textOut3("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
+      if (typeof run.region === "string" && typeof run.path !== "string") return textOut4("\u5757\u4E0A\u6709 region \u4F46\u6CA1\u6709 path,\u4E0D\u80FD\u8FD0\u884C;\u8BF7\u7528\u6237\u5728\u7F51\u9875\u4E0A\u68C0\u67E5\u8FD9\u4E2A\u5757");
       const notes2 = [];
       if (typeof blk.recipeIgnored === "string" && blk.recipeIgnored) notes2.push(blk.recipeIgnored);
       let useRecipe = recipe ?? (typeof blk.recipe === "string" && RECIPE_ID_RE.test(blk.recipe) ? blk.recipe : void 0);
       if (!recipe && useRecipe && blk.recipeStatus === "failed") {
-        return textOut3(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
+        return textOut4(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9(tb_env_customize / tb_bind_recipe)`);
       }
       if (!recipe && useRecipe && blk.recipeStatus === "verifying") {
         let st = "verifying";
@@ -86985,8 +87206,8 @@ function registerRunTools(server2, d7) {
             break;
           }
         }
-        if (st === "failed") return textOut3(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
-        if (st !== "ready") return textOut3(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
+        if (st === "failed") return textOut4(`\u5757\u4E0A\u7ED1\u7684\u914D\u65B9 ${useRecipe} \u9A8C\u8BC1\u5931\u8D25,\u6CA1\u6709\u8FD0\u884C\u3002\u7528 tb_env_recipes \u67E5\u770B,\u6216\u6362\u4E2A\u914D\u65B9`);
+        if (st !== "ready") return textOut4(`\u914D\u65B9\u8FD8\u5728\u9A8C\u8BC1(\u914D\u65B9 id=${useRecipe}),\u7A0D\u540E\u518D\u8DD1`);
       }
       if (typeof run.path === "string") {
         body.file = { path: run.path, ...typeof run.region === "string" ? { region: run.region } : {} };
@@ -86997,10 +87218,10 @@ function registerRunTools(server2, d7) {
       try {
         r7 = await withProgress(extra, "\u8FD0\u884C\u4E2D", () => call("POST", "run", body, RUN_TIMEOUT_MS));
       } catch (e6) {
-        return textOut3(humanErr(e6));
+        return textOut4(humanErr(e6));
       }
       const out2 = [];
-      const mm = isObj4(r7.missingModule) ? r7.missingModule : null;
+      const mm = isObj5(r7.missingModule) ? r7.missingModule : null;
       if (mm && typeof mm.hint === "string" && mm.hint) out2.push(mm.hint);
       out2.push(...notes2);
       const reason = String(r7.exitReason ?? "");
@@ -87014,7 +87235,7 @@ function registerRunTools(server2, d7) {
 ${tailBytes(r7.stdout, STDOUT_TAIL)}`);
       if (typeof r7.stderr === "string" && r7.stderr) out2.push(`stderr:
 ${tailBytes(r7.stderr, STDERR_TAIL)}`);
-      return textOut3(out2.join("\n"));
+      return textOut4(out2.join("\n"));
     }
   );
   const renderReview = (rv) => {
@@ -87067,8 +87288,8 @@ ${piece}
       }
     },
     async ({ entity, task }, extra) => {
-      if (!ENTITY_REF_RE2.test(entity)) return textOut3("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
-      if (task !== void 0 && !TASK_RE3.test(task)) return textOut3("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
+      if (!ENTITY_REF_RE2.test(entity)) return textOut4("\u5143\u7D20\u7F16\u53F7\u5E94\u5199\u6210 tb:<8 \u4F4D\u677F id>/E<n>(\u5982 tb:1a2b3c4d/E12)");
+      if (task !== void 0 && !TASK_RE3.test(task)) return textOut4("\u8BC4\u5206\u4EFB\u52A1 id \u4E0D\u5408\u6CD5");
       let r7;
       try {
         r7 = await withProgress(
@@ -87077,26 +87298,26 @@ ${piece}
           () => call("POST", "grade", { entity, ...task ? { task } : {} }, GRADE_TIMEOUT_MS)
         );
       } catch (e6) {
-        return textOut3(humanErr(e6));
+        return textOut4(humanErr(e6));
       }
       if (r7.ok === false) {
-        return textOut3(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r7.error ?? "unknown")}${typeof r7.setupLog === "string" && r7.setupLog ? `
+        return textOut4(`\u8BC4\u5206\u6CA1\u6709\u5B8C\u6210:${String(r7.error ?? "unknown")}${typeof r7.setupLog === "string" && r7.setupLog ? `
 setupLog:
 ${tailBytes(r7.setupLog, STDERR_TAIL)}` : ""}`);
       }
-      const out2 = renderGrade(isObj4(r7.grade) ? r7.grade : {});
+      const out2 = renderGrade(isObj5(r7.grade) ? r7.grade : {});
       if (r7.card === null) out2.push("\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F");
-      else if (isObj4(r7.card) && typeof r7.card.seq === "number") out2.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
+      else if (isObj5(r7.card) && typeof r7.card.seq === "number") out2.push("\u8BC4\u5206\u5361\u5DF2\u653E\u5230\u677F\u4E0A\u8BE5\u4EE3\u7801\u5757\u65C1");
       out2.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-      if (typeof r7.setupLog === "string" && r7.setupLog && !isObj4(r7.review)) out2.push(`setupLog:
+      if (typeof r7.setupLog === "string" && r7.setupLog && !isObj5(r7.review)) out2.push(`setupLog:
 ${tailBytes(r7.setupLog, STDERR_TAIL)}`);
-      if (isObj4(r7.review)) {
+      if (isObj5(r7.review)) {
         const gid = String(r7.review.gradeId ?? r7.gradeId ?? "");
         if (GRADE_ID_RE.test(gid)) mine.add(gid);
         out2.push(`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gid}:`);
         out2.push(...renderReview(r7.review));
       }
-      return textOut3(out2.join("\n"));
+      return textOut4(out2.join("\n"));
     }
   );
   server2.registerTool(
@@ -87116,7 +87337,7 @@ ${tailBytes(r7.setupLog, STDERR_TAIL)}`);
       }
     },
     async ({ gradeId, items }) => {
-      if (!GRADE_ID_RE.test(gradeId)) return textOut3("gradeId \u4E0D\u5408\u6CD5");
+      if (!GRADE_ID_RE.test(gradeId)) return textOut4("gradeId \u4E0D\u5408\u6CD5");
       const fetchReview = async () => {
         const r7 = await call("GET", "grade/reviews");
         return (Array.isArray(r7.reviews) ? r7.reviews : []).find((x) => String(x.gradeId) === gradeId) ?? null;
@@ -87124,32 +87345,32 @@ ${tailBytes(r7.setupLog, STDERR_TAIL)}`);
       if (!items) {
         try {
           const rv = await fetchReview();
-          if (!rv) return textOut3("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
-          return textOut3([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
+          if (!rv) return textOut4("\u6CA1\u6709\u8FD9\u6761\u5F85\u5B8C\u6210\u7684\u8BC4\u5BA1(\u53EF\u80FD\u5DF2\u7ECF\u5B8C\u6210,\u6216\u4E0D\u662F\u4F60\u7684)");
+          return textOut4([`\u8BC4\u5BA1\u4EFB\u52A1 gradeId=${gradeId}${rv.ref ? ` \xB7 ${String(rv.ref)}` : ""}:`, ...renderReview(rv)].join("\n"));
         } catch (e6) {
-          return textOut3(humanErr(e6));
+          return textOut4(humanErr(e6));
         }
       }
       try {
         const r7 = await call("POST", `grade/reviews/${gradeId}`, { items });
         mine.delete(gradeId);
-        const out2 = renderGrade(isObj4(r7.grade) ? r7.grade : {});
+        const out2 = renderGrade(isObj5(r7.grade) ? r7.grade : {});
         out2.push(r7.card === null ? "\u8BC4\u5206\u6709\u6548,\u4F46\u8BC4\u5206\u5361\u6CA1\u80FD\u653E\u4E0A\u677F" : "\u8BC4\u5206\u5361\u5DF2\u66F4\u65B0");
         out2.push("\u8FD9\u662F\u6211\u4EEC\u7684\u8BC4\u5206,\u4E0D\u662F\u8BFE\u7A0B\u5B98\u65B9\u6210\u7EE9");
-        return textOut3(out2.join("\n"));
+        return textOut4(out2.join("\n"));
       } catch (e6) {
-        const code = codeOf(e6);
+        const code = codeOf2(e6);
         if (e6 instanceof TbError && e6.status === 409 && code === "already_reviewed") {
           mine.delete(gradeId);
-          return textOut3("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
+          return textOut4("\u8FD9\u6B21\u8BC4\u5206\u7684\u4EE3\u7801\u8BC4\u5BA1\u5DF2\u7ECF\u5B8C\u6210\u8FC7\u4E86");
         }
         if (e6 instanceof TbError && e6.status === 404) {
           mine.delete(gradeId);
-          return textOut3("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
+          return textOut4("\u627E\u4E0D\u5230\u8FD9\u6B21\u8BC4\u5206(\u53EA\u80FD\u8BC4\u5BA1\u4F60\u81EA\u5DF1\u7684)");
         }
         if (e6 instanceof TbError && e6.status === 400) {
-          if (code === "bad_review_score") return textOut3("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
-          if (code === "bad_review_evidence") return textOut3("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
+          if (code === "bad_review_score") return textOut4("\u8BC4\u5BA1\u5931\u8D25:score \u53EA\u80FD\u662F 0\u30010.5 \u6216 1");
+          if (code === "bad_review_evidence") return textOut4("\u8BC4\u5BA1\u5931\u8D25:\u6BCF\u6761\u90FD\u8981\u5199\u4E00\u53E5\u975E\u7A7A\u7684\u8BC1\u636E evidence");
           if (code === "review_items_mismatch") {
             const sent = items.map((x) => x.index);
             let hintTxt = "";
@@ -87164,10 +87385,10 @@ ${tailBytes(r7.setupLog, STDERR_TAIL)}`);
               }
             } catch {
             }
-            return textOut3(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
+            return textOut4(`\u8BC4\u5BA1\u5931\u8D25:\u8BC4\u5BA1\u9879\u548C\u8981\u6C42\u7684\u5BF9\u4E0D\u4E0A,\u6BCF\u4E2A index \u5FC5\u987B\u6070\u597D\u4E00\u6761\u3002${hintTxt}`);
           }
         }
-        return textOut3(humanErr(e6));
+        return textOut4(humanErr(e6));
       }
     }
   );

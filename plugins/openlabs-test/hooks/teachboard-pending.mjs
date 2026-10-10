@@ -31,7 +31,16 @@ function parseEventsPage(raw) {
 }
 var KIND_ZH = { text: "\u6587\u5B57", code: "\u4EE3\u7801\u5757", math: "\u516C\u5F0F", shape: "\u5F62\u72B6", arrow: "\u7BAD\u5934", line: "\u8FDE\u7EBF", image: "\u56FE\u7247", freedraw: "\u624B\u5199", frame: "\u6846", figure: "\u56FE" };
 var CHANGE_ZH = { added: "\u65B0\u589E", edited: "\u6539\u4E86", deleted: "\u5220\u4E86" };
+var CHAPTER_REQ_RE = /^chapter:([0-9a-f]{8}):([1-9]\d*)$/;
 function itemLine(it, lang) {
+  if (it.kind === "board_request") {
+    const m = CHAPTER_REQ_RE.exec(it.id ?? "");
+    const title = clip(it.excerpt, 60);
+    if (m) {
+      return lang === "en" ? `asked for the next board \u201C${title}\u201D (project ${m[1]}, slot ${m[2]}): check which chapter it is with tb_get_project, then build it with tb_create_board({projectId:"${m[1]}", slot:${m[2]}, spec})` : `\u8BF7\u6C42\u4E0B\u4E00\u5757\u300C${title}\u300D(\u9879\u76EE ${m[1]},slot ${m[2]}):\u5148 tb_get_project \u770B\u5B83\u662F\u7B2C\u51E0\u7AE0,\u518D\u7528 tb_create_board({projectId:"${m[1]}", slot:${m[2]}, spec}) \u5EFA`;
+    }
+    return lang === "en" ? `asked for the next board \u201C${title}\u201D` : `\u8BF7\u6C42\u4E0B\u4E00\u5757\u300C${title}\u300D`;
+  }
   const who = it.ref ? it.ref.replace(/^tb:[0-9a-f]{8}\//, "") : "";
   const ex = it.excerpt ? lang === "en" ? ` \u201C${clip(it.excerpt, 60)}\u201D` : `\u300C${clip(it.excerpt, 60)}\u300D` : "";
   const hl = it.marks?.includes("highlight") ? lang === "en" ? " (highlighted)" : "(\u9AD8\u4EAE)" : "";
@@ -64,6 +73,9 @@ function formatEvents(events, lang = "zh") {
     out = lang === "en" ? `${head}
 - ${n} changes on ${byBoard.size} board(s) (${[...byBoard.keys()].join(", ")}); read them with tb_get_board.` : `${head}
 - ${byBoard.size} \u5757\u677F\u4E0A\u5171 ${n} \u5904\u53D8\u5316(${[...byBoard.keys()].join("\u3001")});\u7528 tb_get_board \u770B\u3002`;
+    const reqs = events.flatMap((e) => e.items.filter((i) => i.kind === "board_request").map((i) => `- ${itemLine(i, lang)}`));
+    if (reqs.length) out += `
+${reqs.join("\n")}`;
   }
   return out;
 }
