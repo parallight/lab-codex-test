@@ -8,8 +8,31 @@ import { fileURLToPath } from "node:url";
 import { readFileSync, writeFileSync, mkdirSync, renameSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
+
+// src/teachboard/base.ts
+var DEFAULT_TB_BASE = "https://www.parallight.ai";
+var LEGACY_DEFAULT_BASES = /* @__PURE__ */ new Set(["https://lab.parallight.ai", "https://parallight.ai"]);
+var norm = (b) => b.replace(/\/+$/, "");
+function canonicalBase(base2) {
+  const b = norm(base2);
+  return LEGACY_DEFAULT_BASES.has(b) ? DEFAULT_TB_BASE : b;
+}
+var sameBase = (a, b) => canonicalBase(a) === canonicalBase(b);
+function credsFileName(base2) {
+  const b = canonicalBase(base2);
+  if (b === DEFAULT_TB_BASE) return "teachboard.json";
+  let host;
+  try {
+    host = new URL(b).host;
+  } catch {
+    host = b;
+  }
+  return `teachboard.${host.replace(/[^A-Za-z0-9.-]/g, "-")}.json`;
+}
+
+// src/teachboard/events.ts
 var MAX_HEADER = 2e3;
-var DEFAULT_BASE = "https://lab.parallight.ai";
+var DEFAULT_BASE = DEFAULT_TB_BASE;
 var isObj = (v) => !!v && typeof v === "object" && !Array.isArray(v);
 var clip = (s, n) => {
   const t = typeof s === "string" ? s.replace(/\s+/g, " ").trim() : "";
@@ -118,7 +141,7 @@ function isTrustedBase(base2) {
     return false;
   }
   if (u.username || u.password || u.pathname !== "/" && u.pathname !== "" || u.search || u.hash) return false;
-  if (u.protocol === "https:") return u.hostname === "lab.parallight.ai" || u.hostname === "test.lab.parallight.ai";
+  if (u.protocol === "https:") return u.hostname === "www.parallight.ai" || u.hostname === "lab.parallight.ai" || u.hostname === "test.lab.parallight.ai";
   return u.protocol === "http:" && (u.hostname === "127.0.0.1" || u.hostname === "localhost");
 }
 function baseFromPluginRoot(root2) {
@@ -141,10 +164,12 @@ function baseFromPluginRoot(root2) {
 }
 function tokenFor(base2, dir = join(homedir(), ".parallight")) {
   if (!isTrustedBase(base2)) return null;
-  try {
-    const c = JSON.parse(readFileSync(join(dir, "teachboard.json"), "utf8"));
-    if (c.token && c.base === base2) return c.token;
-  } catch {
+  for (const name of [.../* @__PURE__ */ new Set([credsFileName(base2), "teachboard.json"])]) {
+    try {
+      const c = JSON.parse(readFileSync(join(dir, name), "utf8"));
+      if (c.token && typeof c.base === "string" && sameBase(c.base, base2)) return c.token;
+    } catch {
+    }
   }
   try {
     const a = JSON.parse(readFileSync(join(dir, "auth.json"), "utf8"));

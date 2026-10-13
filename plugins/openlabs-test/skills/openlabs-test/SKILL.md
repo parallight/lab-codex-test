@@ -24,7 +24,7 @@ description: "OpenLabs(Parallight Lab)与 Agentist 助教：在 Codex 里跟随�
 ### `:openlabs-test`(或"openlabs" / "open labs" / "打开 openlabs")
 参数 = `$ARGUMENTS`(去掉多余空格)。这是插件的总入口,先分流,再按下面对应的一节做:
 
-- **参数为空** → 用编号:1 学课程(看可用的 lab 和进度) / 2 做实验(开始 / 继续一个 lab) / 3 画成白板(把一个主题逐幕上板) / 4 连接白板账户。「学课程」「做实验」→「学课程」一节;「画成白板」→ 先问学员想学什么主题,再按「白板」一节做;「连接白板账户」→「白板」一节里「参数是 connect」的做法。
+- **参数为空** → 用编号:1 学课程(看可用的 lab 和进度) / 2 做实验(开始 / 继续一个 lab) / 3 画成白板(把一个主题逐幕上板) / 4 连接白板账户。「学课程」「做实验」→「学课程」一节;「画成白板」→ 先问学员想学习什么、或想探索什么 AI 内容,再按「白板」一节做;「连接白板账户」→「白板」一节里「参数是 connect」的做法。
 - **参数是 `connect`** →「白板」一节里「参数是 connect」的做法。
 - **参数是 `watch`**(或学员说「盯着板」「我写完你就看」)→ 调 `tb_watch`,按它返回的说明用**后台方式**启动那条命令,告诉学员「我在盯着板,你写完我就看」;命令结束把你唤醒时,读它的输出、照常回应(先 `tb_get_board` / `tb_describe`,学员的问题用 `tb_reply` 答在旁边),然后再后台启动同一条命令。学员说「别盯了」就停。(没有「后台任务结束自动唤醒」的宿主——比如 Codex——改为在你的回合里调 `tb_wait_changes`,并告诉学员盯板只在这一轮有效。)
 - **其它(想学的主题 / 参考资料)** →「白板」一节,参数就是主题。
@@ -45,9 +45,9 @@ description: "OpenLabs(Parallight Lab)与 Agentist 助教：在 Codex 里跟随�
 **语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
 板上的一切(标题、文字、图注、标签、图表名、回复框)一律用用户提出这个请求时所用的语言写。用户用英文 → 调 `tb_describe_schema` 时传 `lang:"en"`,板 spec 里设 `lang:"en"`;中文 → `lang:"zh"`;其它语言 → 内容用该语言写,`lang` 取最接近的 en/zh(非中日韩文字用 en)。把工具消息转给用户时用用户的语言(用户不是中文时,翻译中文的工具文本)。
 
-**参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`,把结果原样告诉学员(含短码与网址)。若结果说「请在浏览器核对短码后点连接」,等学员说点好了再调一次 `tb_connect` 确认已连上。到此为止,不要顺手建板。
+**参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`。第一次调用会立刻返回短码和链接 —— **先把短码原样告诉学员**(授权页会请他核对终端里的短码,一致才点「连接」),然后马上再调一次 `tb_connect`,它会等学员点完(最多 50 秒);还没点就把结果原样转告,等学员说点好了再调一次。连上后把结果里那句「想学习什么、或者想探索什么 AI 内容」原样转给学员。到此为止,不要顺手建板。
 
-**否则(参数是想学的主题 / 参考资料,或为空时先问学员想学什么)**:
+**否则(参数是想学习 / 想探索的主题、参考资料,或为空时先问学员想学习什么、或想探索什么 AI 内容)**:
 
 0. **先对齐,再上板**(Marvin 1009:没有这一步就没有个性化)。建板前要知道三件事:**目标**(学什么 / 探索什么 / 做什么实验,想做到什么程度)、**背景**(已经会什么、卡在哪)、**参考**(想沿着哪本书 / 哪门课 / 哪篇论文 / 哪份代码走,有没有自己的材料)。
    - 对话里还看不出来的 → 用**一条**消息问,最多 3 个问题,每个给 2–3 个可选项让学员点选,不要连环追问。
@@ -270,9 +270,9 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
 **语言规则 / Language rule**:Write everything on the board — titles, text, captions, labels, chart names, reply boxes — in the language the user wrote this request in. If the user writes English: call `tb_describe_schema` with `lang:"en"` and set `lang:"en"` in the board spec. Chinese → `lang:"zh"`. Other languages → write content in that language and set `lang` to the closer of en/zh (en for non-CJK). Relay tool messages to the user in their language (translate the Chinese tool texts when the user is not Chinese).
 板上的一切(标题、文字、图注、标签、图表名、回复框)一律用用户提出这个请求时所用的语言写。用户用英文 → 调 `tb_describe_schema` 时传 `lang:"en"`,板 spec 里设 `lang:"en"`;中文 → `lang:"zh"`;其它语言 → 内容用该语言写,`lang` 取最接近的 en/zh(非中日韩文字用 en)。把工具消息转给用户时用用户的语言(用户不是中文时,翻译中文的工具文本)。
 
-**参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`,把结果原样告诉学员(含短码与网址)。若结果说「请在浏览器核对短码后点连接」,等学员说点好了再调一次 `tb_connect` 确认已连上。到此为止,不要顺手建板。
+**参数是 `connect`**(或学员说「连接白板」):调 `tb_connect`。第一次调用会立刻返回短码和链接 —— **先把短码原样告诉学员**(授权页会请他核对终端里的短码,一致才点「连接」),然后马上再调一次 `tb_connect`,它会等学员点完(最多 50 秒);还没点就把结果原样转告,等学员说点好了再调一次。连上后把结果里那句「想学习什么、或者想探索什么 AI 内容」原样转给学员。到此为止,不要顺手建板。
 
-**否则(参数是想学的主题 / 参考资料,或为空时先问学员想学什么)**:
+**否则(参数是想学习 / 想探索的主题、参考资料,或为空时先问学员想学习什么、或想探索什么 AI 内容)**:
 
 0. **先对齐,再上板**(Marvin 1009:没有这一步就没有个性化)。建板前要知道三件事:**目标**(学什么 / 探索什么 / 做什么实验,想做到什么程度)、**背景**(已经会什么、卡在哪)、**参考**(想沿着哪本书 / 哪门课 / 哪篇论文 / 哪份代码走,有没有自己的材料)。
    - 对话里还看不出来的 → 用**一条**消息问,最多 3 个问题,每个给 2–3 个可选项让学员点选,不要连环追问。

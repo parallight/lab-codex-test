@@ -11208,13 +11208,13 @@ function _promise(Class2, innerType) {
 }
 // @__NO_SIDE_EFFECTS__
 function _custom(Class2, fn, _params) {
-  const norm = normalizeParams(_params);
-  norm.abort ?? (norm.abort = true);
+  const norm2 = normalizeParams(_params);
+  norm2.abort ?? (norm2.abort = true);
   const schema = new Class2({
     type: "custom",
     check: "custom",
     fn,
-    ...norm
+    ...norm2
   });
   return schema;
 }
@@ -84833,6 +84833,33 @@ function registerCheckTool(server2, deps = {}) {
 // src/teachboard/creds.ts
 import { readFileSync as readFileSync11, writeFileSync as writeFileSync6, mkdirSync as mkdirSync6, existsSync as existsSync10, rmSync as rmSync5, renameSync, chmodSync as chmodSync2 } from "node:fs";
 import { join as join19 } from "node:path";
+
+// src/teachboard/base.ts
+var DEFAULT_TB_BASE = "https://www.parallight.ai";
+var LEGACY_DEFAULT_BASES = /* @__PURE__ */ new Set(["https://lab.parallight.ai", "https://parallight.ai"]);
+var OUR_HOSTS = /* @__PURE__ */ new Set(["www.parallight.ai", "parallight.ai", "lab.parallight.ai", "test.lab.parallight.ai", "test.parallight.ai"]);
+var norm = (b6) => b6.replace(/\/+$/, "");
+function canonicalBase(base) {
+  const b6 = norm(base);
+  return LEGACY_DEFAULT_BASES.has(b6) ? DEFAULT_TB_BASE : b6;
+}
+var sameBase = (a6, b6) => canonicalBase(a6) === canonicalBase(b6);
+function isOurHost(u2) {
+  return u2.protocol === "https:" && !u2.username && !u2.password && OUR_HOSTS.has(u2.hostname);
+}
+function credsFileName(base) {
+  const b6 = canonicalBase(base);
+  if (b6 === DEFAULT_TB_BASE) return "teachboard.json";
+  let host;
+  try {
+    host = new URL(b6).host;
+  } catch {
+    host = b6;
+  }
+  return `teachboard.${host.replace(/[^A-Za-z0-9.-]/g, "-")}.json`;
+}
+
+// src/teachboard/creds.ts
 function createCredsStore(io, base) {
   return {
     get() {
@@ -84840,7 +84867,7 @@ function createCredsStore(io, base) {
       if (raw) {
         try {
           const c6 = JSON.parse(raw);
-          if (c6 && typeof c6.token === "string" && c6.token && c6.base === base) {
+          if (c6 && typeof c6.token === "string" && c6.token && typeof c6.base === "string" && sameBase(c6.base, base)) {
             return { ...c6, source: "teachboard" };
           }
         } catch {
@@ -84862,19 +84889,23 @@ function createCredsStore(io, base) {
     }
   };
 }
-function createFileCredsIO(dir, authFile) {
-  const file2 = join19(dir, "teachboard.json");
+function createFileCredsIO(dir, authFile, base = DEFAULT_TB_BASE) {
+  const file2 = join19(dir, credsFileName(base));
+  const legacy = join19(dir, "teachboard.json");
+  const readRaw = (f7) => {
+    try {
+      return existsSync10(f7) ? readFileSync11(f7, "utf8") : null;
+    } catch {
+      return null;
+    }
+  };
   return {
     read() {
-      try {
-        return existsSync10(file2) ? readFileSync11(file2, "utf8") : null;
-      } catch {
-        return null;
-      }
+      return readRaw(file2) ?? (legacy !== file2 ? readRaw(legacy) : null);
     },
     write(json2) {
       mkdirSync6(dir, { recursive: true, mode: 448 });
-      const tmp = join19(dir, `.teachboard.json.${process.pid}.tmp`);
+      const tmp = join19(dir, `.${credsFileName(base)}.${process.pid}.tmp`);
       rmSync5(tmp, { force: true });
       try {
         writeFileSync6(tmp, json2, { mode: 384, flag: "wx" });
@@ -84891,6 +84922,13 @@ function createFileCredsIO(dir, authFile) {
     },
     remove() {
       if (existsSync10(file2)) rmSync5(file2);
+      if (legacy !== file2) {
+        try {
+          const c6 = JSON.parse(readRaw(legacy) ?? "null");
+          if (c6 && typeof c6.base === "string" && sameBase(c6.base, base)) rmSync5(legacy);
+        } catch {
+        }
+      }
     },
     readLabAuth() {
       try {
@@ -84902,6 +84940,7 @@ function createFileCredsIO(dir, authFile) {
   };
 }
 var realCredsIO = createFileCredsIO(AUTH_DIR, AUTH_FILE);
+var credsIOFor = (base) => createFileCredsIO(AUTH_DIR, AUTH_FILE, base);
 
 // src/teachboard/client.ts
 var TbError = class extends Error {
@@ -84919,8 +84958,10 @@ var TbError = class extends Error {
   data;
 };
 function tbBase() {
-  return (process.env.PARALLIGHT_TEACHBOARD_BASE ?? "https://lab.parallight.ai").replace(/\/+$/, "");
+  return (process.env.PARALLIGHT_TEACHBOARD_BASE ?? DEFAULT_TB_BASE).replace(/\/+$/, "");
 }
+var MAX_REDIRECTS = 4;
+var REDIRECTS = /* @__PURE__ */ new Set([301, 302, 303, 307, 308]);
 var DEFAULT_TIMEOUT_MS = 6e4;
 var PASS_THROUGH = /* @__PURE__ */ new Set(["recipe_not_ready", "recipe_env_mismatch", "apt_not_allowed"]);
 function translate(status, body, token) {
@@ -84996,7 +85037,7 @@ function createTbClient(deps) {
       const headers = {};
       if (cred) headers.authorization = `Bearer ${cred.token}`;
       if (opts.agent) headers["x-parallight-mcp"] = "1";
-      const init = { method, headers };
+      const init = { method, headers, redirect: "manual" };
       if (body !== void 0) {
         headers["content-type"] = "application/json";
         init.body = JSON.stringify(body);
@@ -85007,9 +85048,24 @@ function createTbClient(deps) {
       let res;
       let text = "";
       try {
-        res = await deps.fetch(`${deps.base}/lab/api/teachboard/${path6}`, init);
+        let url2 = `${deps.base}/lab/api/teachboard/${path6}`;
+        for (let hop = 0; ; hop++) {
+          res = await deps.fetch(url2, init);
+          if (!REDIRECTS.has(res.status)) break;
+          const loc = res.headers.get("location");
+          if (!loc || hop >= MAX_REDIRECTS) break;
+          const from = new URL(url2);
+          const next = new URL(loc, from);
+          if (next.origin !== from.origin && !isOurHost(next)) {
+            throw new TbError("bad_redirect", res.status, "\u670D\u52A1\u5730\u5740\u8DF3\u5230\u4E86\u4E0D\u8BA4\u8BC6\u7684\u57DF\u540D,\u6CA1\u6709\u8DDF\u8FC7\u53BB(\u51ED\u636E\u4E0D\u4F1A\u5916\u53D1);\u8BF7\u8054\u7CFB\u6211\u4EEC");
+          }
+          if (res.status === 303 || (res.status === 301 || res.status === 302) && method !== "GET") break;
+          await res.body?.cancel().catch(() => void 0);
+          url2 = next.toString();
+        }
         text = await res.text();
       } catch (e6) {
+        if (e6 instanceof TbError) throw e6;
         if (e6?.name === "AbortError") {
           throw new TbError("timeout", 0, "\u8BF7\u6C42\u8D85\u65F6,\u7A0D\u540E\u518D\u8BD5(\u957F\u4EFB\u52A1\u53EF\u80FD\u4ECD\u5728\u4E91\u7AEF\u7EE7\u7EED)");
         }
@@ -86060,7 +86116,7 @@ var SAVE_FAIL_MSG = "\u5DF2\u6388\u6743,\u4F46\u4FDD\u5B58\u51ED\u8BC1\u5931\u8D
 function registerTeachboardTools(rawServer, deps = {}) {
   const server2 = rawServer;
   const base = tbBase();
-  const creds = deps.creds ?? createCredsStore(realCredsIO, base);
+  const creds = deps.creds ?? createCredsStore(credsIOFor(base), base);
   const client = deps.client ?? createTbClient({ fetch: (u2, i6) => fetch(u2, i6), creds, base });
   const openBrowser = deps.openBrowser ?? openInBrowser;
   const sleep3 = deps.sleep ?? ((ms) => new Promise((r7) => setTimeout(r7, ms)));
@@ -86082,7 +86138,7 @@ function registerTeachboardTools(rawServer, deps = {}) {
     return t;
   };
   const allowedOrigins = () => {
-    const o2 = /* @__PURE__ */ new Set(["https://parallight.ai", "https://www.parallight.ai"]);
+    const o2 = /* @__PURE__ */ new Set(["https://parallight.ai", "https://www.parallight.ai", "https://lab.parallight.ai"]);
     try {
       o2.add(new URL(base).origin);
     } catch {
@@ -86164,12 +86220,14 @@ function registerTeachboardTools(rawServer, deps = {}) {
     };
     schedule();
   };
-  const connectedMsg = (email3) => `\u5DF2\u8FDE\u63A5 \u2705 ${email3 ?? ""}\u3002\u8BF4\u4E00\u53E5\u4F60\u60F3\u5B66\u4EC0\u4E48(\u5E26\u4E0A\u53C2\u8003\u8D44\u6599),\u6211\u5C31\u628A\u5B83\u753B\u6210\u4E00\u5757\u677F\u3002`.replace("\u2705 \u3002", "\u2705\u3002");
+  const connectedMsg = (email3) => `\u5DF2\u8FDE\u63A5 \u2705 ${email3 ?? ""}\u3002\u8BF4\u4E00\u53E5\u4F60\u60F3\u5B66\u4E60\u4EC0\u4E48\u3001\u6216\u8005\u60F3\u63A2\u7D22\u4EC0\u4E48 AI \u5185\u5BB9(\u6700\u597D\u5E26\u4E0A\u53C2\u8003\u8D44\u6599:\u4E66\u3001\u8BFE\u3001\u8BBA\u6587\u6216\u4F60\u81EA\u5DF1\u7684\u4EE3\u7801),\u6211\u5C31\u628A\u5B83\u753B\u6210\u4E00\u5757\u677F\u3002`.replace("\u2705 \u3002", "\u2705\u3002");
+  const codeMsg = (p3, opened) => `${opened ? "\u5DF2\u5728\u6D4F\u89C8\u5668\u6253\u5F00\u6388\u6743\u9875\u3002" : ""}\u77ED\u7801:${p3.userCode} \u2014\u2014 \u8BF7\u6838\u5BF9\u6388\u6743\u9875\u4E0A\u663E\u793A\u7684\u662F\u540C\u4E00\u4E32,\u4E00\u81F4\u518D\u70B9\u300C\u8FDE\u63A5\u300D;\u4E0D\u4E00\u81F4\u5C31\u522B\u70B9\u3002
+\u6D4F\u89C8\u5668\u6CA1\u5F39\u51FA\u7684\u8BDD\u624B\u52A8\u6253\u5F00:${p3.verifyUrl}`;
   const run = async () => {
     if (creds.get()) {
       try {
         await client.call("GET", "agent/boards", void 0, { agent: true });
-        return `\u5DF2\u8FDE\u63A5 \u2705 ${creds.get()?.email ?? ""}`.trim();
+        return connectedMsg(creds.get()?.email);
       } catch (e6) {
         if (!(e6 instanceof TbError && e6.code === "not_connected")) return human(e6);
       }
@@ -86209,6 +86267,11 @@ function registerTeachboardTools(rawServer, deps = {}) {
         return human(e6);
       }
     }
+    if (opened) {
+      startBackground(p3);
+      return `${codeMsg(p3, true)}
+(\u7ED9 agent:\u628A\u4E0A\u9762\u7684\u77ED\u7801\u548C\u94FE\u63A5\u539F\u6837\u544A\u8BC9\u7528\u6237,\u7136\u540E\u9A6C\u4E0A\u518D\u8C03\u4E00\u6B21 tb_connect \u2014\u2014 \u5B83\u4F1A\u7B49\u7528\u6237\u5728\u6D4F\u89C8\u5668\u70B9\u5B8C,\u6700\u591A 50 \u79D2\u3002)`;
+    }
     stopBackground();
     const t0 = now();
     for (; ; ) {
@@ -86220,14 +86283,14 @@ function registerTeachboardTools(rawServer, deps = {}) {
       await sleep3(POLL_MS);
     }
     if (pending === p3 && now() < p3.expiresAt) startBackground(p3);
-    return `${opened ? "\u5DF2\u5728\u6D4F\u89C8\u5668\u6253\u5F00\u6388\u6743\u9875\u3002" : ""}\u8BF7\u5728\u6D4F\u89C8\u5668\u91CC\u6838\u5BF9\u77ED\u7801 ${p3.userCode} \u540E\u70B9\u300C\u8FDE\u63A5\u300D\u3002\u70B9\u5B8C\u544A\u8BC9\u6211\u4E00\u58F0(\u6216\u518D\u8BF4\u4E00\u6B21\u8FDE\u63A5)\u3002
-\u6D4F\u89C8\u5668\u6CA1\u5F39\u51FA\u7684\u8BDD\u624B\u52A8\u6253\u5F00:${p3.verifyUrl}`;
+    return `\u8FD8\u6CA1\u7B49\u5230\u70B9\u300C\u8FDE\u63A5\u300D\u3002${codeMsg(p3, false)}
+\u70B9\u5B8C\u544A\u8BC9\u6211\u4E00\u58F0(\u6216\u518D\u8BF4\u4E00\u6B21\u8FDE\u63A5)\u3002`;
   };
   server2.registerTool(
     "tb_connect",
     {
       title: "Connect teachboard",
-      description: "\u8FDE\u63A5\u7528\u6237\u7684 teachboard \u8D26\u6237:\u6253\u5F00\u6D4F\u89C8\u5668\u8BA9\u7528\u6237\u70B9\u300C\u8FDE\u63A5\u300D\u6388\u6743(\u50CF\u8FDE Stripe),\u65E0\u9700\u590D\u5236\u4EFB\u4F55 token\u3002\u5DF2\u8FDE\u63A5\u5219\u76F4\u63A5\u8FD4\u56DE\u3002\u82E5\u8FD4\u56DE\u300C\u8BF7\u5728\u6D4F\u89C8\u5668\u6838\u5BF9\u77ED\u7801\u300D,\u7B49\u7528\u6237\u70B9\u5B8C\u518D\u8C03\u4E00\u6B21\u5373\u53EF\u3002",
+      description: "\u8FDE\u63A5\u7528\u6237\u7684 teachboard \u8D26\u6237:\u6253\u5F00\u6D4F\u89C8\u5668\u8BA9\u7528\u6237\u70B9\u300C\u8FDE\u63A5\u300D\u6388\u6743(\u50CF\u8FDE Stripe),\u65E0\u9700\u590D\u5236\u4EFB\u4F55 token\u3002\u5DF2\u8FDE\u63A5\u5219\u76F4\u63A5\u8FD4\u56DE\u3002\u7B2C\u4E00\u6B21\u8C03\u7528\u7ACB\u523B\u8FD4\u56DE\u77ED\u7801\u548C\u94FE\u63A5:\u5148\u628A\u77ED\u7801\u539F\u6837\u544A\u8BC9\u7528\u6237(\u6388\u6743\u9875\u4F1A\u8BF7\u7528\u6237\u6838\u5BF9\u5B83),\u7136\u540E\u9A6C\u4E0A\u518D\u8C03\u4E00\u6B21,\u7B2C\u4E8C\u6B21\u4F1A\u7B49\u7528\u6237\u70B9\u5B8C(\u6700\u591A 50 \u79D2)\u3002",
       inputSchema: {}
     },
     async () => {
@@ -86378,7 +86441,7 @@ ${refLines.join("\n")}` + problemsBlock2(r7.problems);
       try {
         const r7 = await call("GET", "agent/boards");
         const boards = Array.isArray(r7?.boards) ? r7.boards : [];
-        if (!boards.length) return textOut4("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u60F3\u5B66\u4EC0\u4E48,\u6211\u6765\u5EFA\u7B2C\u4E00\u4E2A\u9879\u76EE\u3002");
+        if (!boards.length) return textOut4("\u8FD8\u6CA1\u6709\u677F\u3002\u8BF4\u4E00\u53E5\u60F3\u5B66\u4E60\u4EC0\u4E48\u3001\u6216\u8005\u60F3\u63A2\u7D22\u4EC0\u4E48 AI \u5185\u5BB9,\u6211\u6765\u5EFA\u7B2C\u4E00\u4E2A\u9879\u76EE\u3002");
         const groups = /* @__PURE__ */ new Map();
         for (const b6 of boards) {
           const pid = typeof b6.projectId === "string" && b6.projectId ? b6.projectId : void 0;
