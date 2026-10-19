@@ -85710,14 +85710,14 @@ type BoardSpec = {
     goal: string;                //   \u76EE\u6807:\u5B66\u4EC0\u4E48 / \u63A2\u7D22\u4EC0\u4E48 / \u505A\u4EC0\u4E48\u5B9E\u9A8C,\u505A\u5230\u4EC0\u4E48\u7A0B\u5EA6(\u2264300 \u5B57)
     background?: string;         //   \u80CC\u666F:\u5DF2\u7ECF\u4F1A\u4EC0\u4E48\u3001\u5361\u5728\u54EA(\u2264300 \u5B57)
     references?: string[];       //   \u53C2\u8003:\u4E66 / \u8BFE / \u8BBA\u6587 / \u4EE3\u7801 / \u5B66\u5458\u81EA\u5DF1\u7684\u6750\u6599(\u22648 \u6761\u3001\u5404 \u2264200 \u5B57)
-    path?: string[];             //   \u5B66\u4E60\u8DEF\u5F84:\u5E55\u7684\u6E05\u5355,\u4E00\u5E55\u4E00\u6761(\u226412 \u6761\u3001\u5404 \u226480 \u5B57)
+    path?: string[];             //   \u5B66\u4E60\u8DEF\u5F84:\u5E55\u7684\u6E05\u5355,\u4E00\u5E55\u4E00\u6761(\u5404 \u226480 \u5B57)
   };
-  acts: Act[];                   // 1\u201312 \u5E55;\u4E00\u5E55 = \u4E00\u4E2A\u5BFC\u822A\u9875
+  acts: Act[];                   // \u5E55\u6570\u6309\u8BB2\u6E05\u695A\u8FD9\u4E2A\u4E3B\u9898\u9700\u8981\u6765\u5B9A(\u4E0D\u8BBE\u4E0A\u9650);\u4E00\u5E55 = \u4E00\u4E2A\u5BFC\u822A\u9875,\u4E00\u5E55\u4E00\u4E2A\u8981\u70B9,\u592A\u6324\u5C31\u62C6\u6210\u4E24\u5E55
 };
 type Act = {
   id: string;                    // \u6574\u5757\u677F\u5185\u552F\u4E00,\u81EA\u53D6,\u5982 "intro"(\u53EA\u7559 A-Z a-z 0-9 _ -;\u91CD\u540D\u4F1A\u88AB\u6539\u540D)
   title: string;                 // \u5E55\u6807\u9898(\u226440 \u5B57),\u4E5F\u753B\u5728\u677F\u4E0A
-  items: Item[];                 // 1\u201312 \u6761
+  items: Item[];                 // \u6761\u6570\u6309\u8FD9\u4E00\u5E55\u7684\u5185\u5BB9\u9700\u8981\u6765\u5B9A(\u4E0D\u8BBE\u4E0A\u9650)
   edges?: Edge[];                // \u8FDE\u7EBF;\u53EF\u4EE5\u5F15\u7528\u66F4\u65E9\u5E55\u91CC\u7684\u6761\u76EE id(\u8DE8\u5E55\u7BAD\u5934);\u627E\u4E0D\u5230\u7684 id \u4F1A\u88AB\u4E22\u5F03\u5E76\u5199\u8FDB problems;\u672C\u5E55\u91CC\u540C\u540D\u6761\u76EE\u4F18\u5148
   layout?: "flow" | "grid" | "column";   // \u7F3A\u7701 flow:\u6309 edges \u62D3\u6251\u5DE6\u2192\u53F3;grid = 3 \u5217;column = \u5355\u5217
   play?: "write" | "show";       // \u8BB2\u8BFE\u65F6\u8FD9\u4E00\u5E55\u600E\u4E48\u51FA\u73B0:\u7F3A\u7701 write = \u4E00\u7B14\u7B14\u624B\u5199;show = \u6574\u5E55\u4E00\u6B21\u51FA\u73B0\u3002\u89C1\u300C\u6559\u6CD5 \xB7 \u624B\u5199\u53EA\u7ED9\u96BE\u61C2\u7684\u5185\u5BB9\u300D
@@ -85763,7 +85763,7 @@ caption \u2264120 \u5B57\u3002\`image\` \u672C\u671F\u4E0D\u652F\u6301(\u4F1A\u8
 - \u4F8B:\`hat theta = "argmax"_theta prod_i p(x_i ; theta)\` \xB7 \`x_t = sqrt(bar alpha_t) x_0 + sqrt(1 - bar alpha_t) epsilon\` \xB7 \`"argmin"_c bbb E[(a-c)^2] = bbb E[a]\`
 
 ## \u4E0A\u9650(\u670D\u52A1\u7AEF\u6267\u884C,\u8D85\u4E86\u622A\u65AD/\u4E22\u5F03\u5E76\u5199\u8FDB problems)
-acts \u226412 \xB7 \u6BCF\u5E55 items \u226412 \xB7 text \u2264600 \u5B57 \xB7 code \u22644000 \u5B57 \xB7 svg \u226460KB \xB7 chart \u603B\u70B9\u6570 \u22642000 \xB7 \u6574\u4EFD spec \u2264300KB \xB7 files \u22645 \u4E2A\u5404 \u226464KB \xB7 \u5E55\u6807\u9898 \u226440 \u5B57 \xB7 \u677F\u540D \u226460 \u5B57\u3002
+text \u2264600 \u5B57 \xB7 code \u22644000 \u5B57 \xB7 svg \u226460KB \xB7 chart \u603B\u70B9\u6570 \u22642000 \xB7 \u6574\u4EFD spec \u2264300KB \xB7 files \u22645 \u4E2A\u5404 \u226464KB \xB7 \u5E55\u6807\u9898 \u226440 \u5B57 \xB7 \u677F\u540D \u226460 \u5B57\u3002
 
 ## \u4F5C\u4E1A\u4EE3\u7801\u5757:\u53EA\u653E\u533A\u6BB5
 - \u4E00\u4E2A kernel / \u4E00\u4E2A\u51FD\u6570\u4E00\u5757,\`run:{path, region}\` \u6307\u5230\u5DE5\u4F5C\u533A\u91CC\u7684\u6587\u4EF6\u548C\u533A\u6BB5(\u5982 \`{path:"src/combine.cu", region:"HW1_1"}\`)\u3002
@@ -85814,14 +85814,14 @@ type BoardSpec = {
     goal: string;                //   what they want to learn / explore / try, and how far (\u2264300 chars)
     background?: string;         //   what they already know, where they are stuck (\u2264300 chars)
     references?: string[];       //   books / courses / papers / code / their own material to follow (\u22648, \u2264200 chars each)
-    path?: string[];             //   the act list, one line per act (\u226412, \u226480 chars each)
+    path?: string[];             //   the act list, one line per act (\u226480 chars each)
   };
-  acts: Act[];                   // 1\u201312 acts; one act = one navigation stop
+  acts: Act[];                   // as many acts as the topic needs (no cap); one act = one navigation stop, one point per act \u2014 split a crowded act in two
 };
 type Act = {
   id: string;                    // unique across the whole board, your choice, e.g. "intro" (A-Z a-z 0-9 _ - only; duplicates get renamed)
   title: string;                 // act title (\u226440 chars), drawn on the board
-  items: Item[];                 // 1\u201312 items
+  items: Item[];                 // as many items as the act needs (no cap)
   edges?: Edge[];                // connectors; may reference item ids from earlier acts (cross-act arrows); ids that cannot be found are dropped and reported in problems; a same-name item in this act wins
   layout?: "flow" | "grid" | "column";   // default flow: edges topology left\u2192right; grid = 3 columns; column = single column
   play?: "write" | "show";       // how the act appears in lecture mode: default write = handwritten stroke by stroke; show = the whole act at once. See "Teaching \xB7 handwriting is for what is hard"
@@ -85867,7 +85867,7 @@ Learners double-click formulas to edit and debug them; AsciiMath reads like the 
 - Examples: \`hat theta = "argmax"_theta prod_i p(x_i ; theta)\` \xB7 \`x_t = sqrt(bar alpha_t) x_0 + sqrt(1 - bar alpha_t) epsilon\` \xB7 \`"argmin"_c bbb E[(a-c)^2] = bbb E[a]\`
 
 ## Limits (enforced by the server; overflow is cut/dropped and reported in problems)
-acts \u226412 \xB7 items per act \u226412 \xB7 text \u2264600 \xB7 code \u22644000 chars \xB7 svg \u226460KB \xB7 chart points \u22642000 total \xB7 whole spec \u2264300KB \xB7 files \u22645 each \u226464KB \xB7 act title \u226440 \xB7 board title \u226460.
+text \u2264600 \xB7 code \u22644000 chars \xB7 svg \u226460KB \xB7 chart points \u22642000 total \xB7 whole spec \u2264300KB \xB7 files \u22645 each \u226464KB \xB7 act title \u226440 \xB7 board title \u226460.
 
 ## Homework code blocks: regions only
 - One kernel / one function per block, with \`run:{path, region}\` pointing at the workspace file and region (e.g. \`{path:"src/combine.cu", region:"HW1_1"}\`).
