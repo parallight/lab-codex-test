@@ -86534,6 +86534,12 @@ var CARD_TEACHING_ZH = `# \u5361\u7247\u600E\u4E48\u6559(\u5199\u5361\u7247\u65F
 - \u5EFA\u6CD5:tb_card_create \u7684 after \u63A5\u5B83\u6700\u4E3B\u8981\u7684\u524D\u7F6E;\u5176\u4F59\u524D\u7F6E\u548C\u6C47\u5408\u7528 tb_card_connect \u8865\u7EBF(\u4E0D\u80FD\u6210\u73AF)\u3002
 - \u4E00\u7AE0 6 \u5F20\u4EE5\u4E0A\u5361\u7247\u65F6\u81F3\u5C11\u8981\u6709\u4E00\u5904\u5206\u53C9\u6216\u6C47\u5408;\u53EA\u6709\u5185\u5BB9\u771F\u7684\u4E00\u6B65\u63A5\u4E00\u6B65\u65F6\u624D\u8FDE\u6210\u76F4\u7EBF\u3002\u5148\u5728\u8BA1\u5212\u91CC\u5199\u51FA\u7ED3\u6784(\u54EA\u5F20\u63A5\u54EA\u5F20),\u518D\u52A8\u624B\u3002
 
+## \u505A\u5B9E\u9A8C(\u7528\u6237\u8981\u505A\u5B9E\u9A8C\u3001\u5BF9\u6BD4\u65B9\u6848\u65F6)
+- \u5148\u6309\u5B9E\u9A8C\u8BBE\u8BA1\u548C\u7528\u6237\u6838\u5BF9\u65B9\u6848,\u7528\u6237\u786E\u8BA4\u540E\u518D\u5EFA\u5361\u7247\u3001\u518D\u8DD1:\u95EE\u9898\u548C\u5047\u8BBE\u3001\u8981\u6BD4\u8F83\u7684\u65B9\u6848\u3001\u53EA\u6539\u54EA\u4E2A\u53D8\u91CF(\u5176\u4F59\u4FDD\u6301\u4E0D\u53D8)\u3001\u5BF9\u7167\u7EC4 / \u57FA\u7EBF\u3001\u8861\u91CF\u6307\u6807\u3001\u7528\u54EA\u4E2A\u73AF\u5883\u3001\u5927\u6982\u82B1\u591A\u5C11\u65F6\u95F4 / GPU\u3002
+- \u7EC4\u7EC7\u6210\u56FE:\u4E00\u5F20\u300C\u5B9E\u9A8C\u76EE\u6807\u300D\u5361\u7247 \u2192 \u57FA\u7EBF\u5361\u7247 \u2192 \u6BCF\u4E2A\u53D8\u4F53\u4E00\u5F20\u5361\u7247(\u5404\u81EA\u4ECE\u57FA\u7EBF\u6216\u5B83\u4F9D\u8D56\u7684\u90A3\u5F20\u8FDE\u51FA\u6765,\u5199\u6E05\u8FD9\u5F20\u53EA\u6539\u4E86\u4EC0\u4E48)\u2192 \u6C47\u5230\u4E00\u5F20\u5BF9\u6BD4\u5361\u7247(\u7528\u8868\u683C\u628A\u5404\u65B9\u6848\u7684\u6307\u6807\u653E\u5728\u4E00\u8D77,\u5199\u7ED3\u8BBA)\u3002\u8981\u7528\u4E0A\u4E00\u6B65\u4EA7\u51FA\u7684\u5B9E\u9A8C,\u4ECE\u90A3\u5F20\u8FDE\u8FC7\u6765\u3002
+- \u6BCF\u5F20\u65B9\u6848\u5361\u7247\u5199:\u6539\u4E86\u4EC0\u4E48\u3001\u600E\u4E48\u8DD1(\u4EE3\u7801 / \u73AF\u5883)\u3001\u7ED3\u679C(\u6CA1\u8DD1\u5C31\u5199\u300C\u5F85\u8DD1\u300D)\u3002\u8DD1\u5B8C\u628A\u7ED3\u679C\u5199\u56DE\u8FD9\u5F20\u5361\u7247,\u518D\u66F4\u65B0\u5BF9\u6BD4\u5361\u7247\u3002
+- \u7528\u6237\u8BF4\u300C\u518D\u52A0\u4E00\u4E2A\u2026\u2026\u300D\u5C31\u4ECE\u5BF9\u5E94\u7684\u5361\u7247\u5206\u51FA\u4E00\u5F20\u65B0\u7684,\u5E76\u8FDE\u5230\u5BF9\u6BD4\u5361\u7247\u3002
+
 ## \u6BCF\u5F20\u5361\u7247\u600E\u4E48\u5199
 - \u516C\u5F0F\u7D27\u8DDF\u5728\u76F4\u89C9\u540E\u9762:\u5148\u4E00\u53E5\u8BDD\u6216\u4E00\u5F20\u56FE,\u518D\u4E0A\u6570\u5B66\u3002
 - \u8BF4\u6E05\u91CD\u8981\u5728\u54EA,\u4E0D\u7A7A\u558A\u300C\u5F88\u91CD\u8981\u300D;\u8FD1\u4F3C\u5C31\u8BF4\u8FD1\u4F3C\u3002
@@ -86554,6 +86560,12 @@ A card is one node in the knowledge graph. One card answers one question, and it
 - A connection means "understand A first, then B" \u2014 a prerequisite, not a page turn. An idea with two prerequisites gets connections from both cards; parallel branches (two methods, two examples, theory vs experiment) fan out from one card and merge again at a comparison or summary card.
 - How: tb_card_create's after = its main prerequisite; add the other prerequisites and merges with tb_card_connect (no cycles).
 - A chapter of 6+ cards has at least one branch or merge; chain cards in a straight line only when the content truly goes one step after another. Write the structure (which card follows which) into the plan before building.
+
+## Experiments (when the user wants to run or compare experiments)
+- First confirm an experiment design with the user, and only then build cards and run: the question and hypothesis, the variants to compare, the one variable each changes (everything else held fixed), the control / baseline, the metric, the environment, and the rough time / GPU cost.
+- Lay it out as a graph: an "Experiment goal" card \u2192 a baseline card \u2192 one card per variant (each connected from the baseline or the card it depends on, saying exactly what it changes) \u2192 merging into one comparison card (a table of every variant's metric, plus the conclusion). An experiment that uses an earlier one's output is connected from it.
+- Each variant card states what changes, how it runs (code / environment) and the result ("not run yet" until it runs). After a run, write the result back to its card and update the comparison card.
+- When the user says "add another \u2026", branch a new card from the matching card and connect it to the comparison card.
 
 ## Writing each card
 - The formula comes right after the intuition: a sentence or a picture first, then the math.
