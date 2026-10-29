@@ -86664,7 +86664,7 @@ function cardGuideText(lang) {
   return [flow, zh ? CARD_TEACHING_ZH : CARD_TEACHING_EN, zh ? PERSONA_ZH : PERSONA_EN, (zh ? "# \u5361\u7247\u6B63\u6587\u89C4\u77E9\n" : "# Card body rules\n") + (zh ? CARD_MD_RULES_ZH : CARD_MD_RULES_EN)].join("\n\n");
 }
 function registerCardTools(server2, d7) {
-  const boardUrl = (id) => canvasUrl(d7.base, `board=${id}`);
+  const boardUrl = (id) => canvasUrl(d7.base, `course=${id}`);
   const call = (method, path6, body) => d7.client.call(method, path6, body, { agent: true });
   const fail = (e6) => {
     if (e6 instanceof TbError) {
@@ -87679,7 +87679,7 @@ function ago(iso, now) {
 }
 var RUN_HINT = "\u5168\u90E8\u5E55\u5B8C\u6210\u540E:\u4E00\u53E5\u8BDD\u603B\u7ED3 + \u677F\u94FE\u63A5 + \u300C\u8BF4\u300E\u8DD1\u4E00\u4E0B E12\u300F\u6211\u5C31\u5728\u73AF\u5883\u91CC\u8DD1\u300D(E12 \u6362\u6210\u5B9E\u9645\u7684\u3001\u5199\u4E86 env \u7684\u4EE3\u7801\u5757\u7F16\u53F7;\u53EA\u6709\u5E26 env \u7684\u5757 agent \u624D\u80FD\u8DD1,\u6CA1\u6709\u5C31\u4E0D\u8BF4\u8FD9\u53E5)\u3002";
 function registerBoardTools(server2, d7) {
-  const boardUrl = (id) => canvasUrl(d7.base, `board=${id}`);
+  const boardUrl = (id) => canvasUrl(d7.base, `exp=${id}`);
   const call = (method, path6, body) => d7.client.call(method, path6, body, { agent: true });
   const boardLang = /* @__PURE__ */ new Map();
   const boardActs = /* @__PURE__ */ new Map();
