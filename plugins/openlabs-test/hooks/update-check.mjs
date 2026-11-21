@@ -14,7 +14,13 @@ import { join } from "node:path";
 var BACKEND_URL = process.env.PARALLIGHT_BACKEND_URL ?? "https://lab-agent.parallight.ai";
 var rawPluginName = process.env.PARALLIGHT_PLUGIN_NAME ?? "";
 var PLUGIN_NAME = /^[a-z0-9][a-z0-9-]{0,39}$/.test(rawPluginName) ? rawPluginName : "openlabs";
-var PLUGIN_MARKET = PLUGIN_NAME.endsWith("-test") ? "parallight-test" : "parallight-cc";
+var isTestRing = (name) => name.endsWith("-test");
+var flavorOf = (name) => /^openlabs(-v2)?(-test)?$/.test(name) ? "v2" : "v1";
+var isV2SideLine = (name) => /^openlabs-v2(-test)?$/.test(name);
+var marketOf = (name) => isV2SideLine(name) ? isTestRing(name) ? "parallight-v2-test" : "parallight-v2" : isTestRing(name) ? "parallight-test" : "parallight-cc";
+var IS_TEST_RING = isTestRing(PLUGIN_NAME);
+var PLUGIN_FLAVOR = flavorOf(PLUGIN_NAME);
+var PLUGIN_MARKET = marketOf(PLUGIN_NAME);
 var AUTH_DIR = join(homedir(), ".parallight");
 var AUTH_FILE = join(AUTH_DIR, "auth.json");
 var LLM_PROXY_URL = `${BACKEND_URL}/api/llm`;
@@ -74,6 +80,7 @@ var MARKET = {
 var NAME_RE = /^[a-z0-9][a-z0-9-]{0,39}$/;
 function updateNotice(o) {
   if (!o.latest || !NAME_RE.test(o.plugin)) return null;
+  if (/^openlabs-v2(-test)?$/.test(o.plugin)) return null;
   const latest = o.latest.trim();
   if (!parseVersion(latest) || !parseVersion(o.installed) || !isOutdated(o.installed, latest)) return null;
   const market = MARKET[o.host][o.plugin.endsWith("-test") ? "test" : "prod"];
