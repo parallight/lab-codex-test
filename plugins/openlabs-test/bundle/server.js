@@ -86109,9 +86109,9 @@ var ok3 = (r7) => r7.status >= 200 && r7.status < 300;
 var str = (v2) => typeof v2 === "string" ? v2 : "";
 var COURSE_ID_RE = /^[a-z0-9][a-z0-9-]{1,62}$/;
 var BOARD_ID_RE = /^[0-9a-f]{8}$/;
-var GUIDE_TOPICS = ["pedagogy", "scene", "annotate", "board", "cards", "film", "slides", "lecture"];
+var GUIDE_TOPICS = ["pedagogy", "scene", "annotate", "board", "cards", "film", "slides", "lecture", "blocks"];
 var PSK_LIB = "pro-slide-kit@0.4.2";
-var PSK_GUIDE_ZH = '# Pro Slide Kit \u753B\u9762\u5199\u6CD5\uFF08\u7ED9 agent\uFF09\n\n\u6BCF\u4E00\u5E55\u653E\u4E00\u5757 **Pro Slide Kit\uFF08PSK\uFF09\u753B\u9762**\uFF1A\u4E00\u5F20 PPT \u8D28\u611F\u7684\u8BB2\u89E3\u5C4F\uFF0C\u8DDF\u7740\u8BB2\u89E3\u4E00\u6B65\u4E00\u6B65\u52A8\u3002\u4F60\u53EA\u5199**\u7ED3\u6784\u548C\u6570\u636E**\uFF0C\u6392\u7248\u3001\u914D\u8272\uFF08\u6DF1\u6D45\u4E24\u5957\uFF09\u3001\u52A8\u753B\u3001\u5BF9\u9F50\u90FD\u7531 PSK \u8D1F\u8D23 \u2014\u2014 **\u4E0D\u8981\u5199\u5750\u6807\u3001\u989C\u8272\u503C\u3001\u5B57\u53F7**\u3002\n\n## \u653E\u5230\u677F\u4E0A\n\n\u4E00\u5E55\u91CC\u52A0\u4E00\u4E2A\u6761\u76EE\uFF1A\n\n```js\n{ kind: "scene", lib: "pro-slide-kit@0.4.2", size: "full", aspect: "16:9", title: "\u8FD9\u4E00\u5C4F\u8BB2\u4EC0\u4E48\uFF08\u4E00\u53E5\uFF09",\n  source: "export default (ctx) => ({ header, formula?, layout, hand?, steps })" }\n```\n\n- `source` \u662F ES \u6A21\u5757\uFF0C**\u53EA** `export default` \u4E00\u4E2A\u8FD4\u56DE\u573A\u666F\u6570\u636E\u7684\u51FD\u6570\uFF1B\u4E0D\u8981 `import`\uFF0C\u4E0D\u8981\u7528 `setTimeout`\u3001`document`\u3001`Math.random`\u3002\n- \u4E00\u5E55\u4E00\u5757\uFF0C`size: "full"`\u3002\u753B\u9762\u5C31\u662F\u8FD9\u4E00\u5E55\u7684\u4E3B\u4F53\uFF0C\u6B63\u6587 text \u6761\u76EE\u53EF\u4EE5\u4E0D\u8981\uFF08\u8981\u8BB2\u7684\u8BDD\u5199\u8FDB steps \u7684 `say`\uFF09\u3002\n\n## \u573A\u666F\u6570\u636E\n\n```js\n{\n  header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u89C4\u5219", icon: "sigma", title: "\u7AD9\u5728\u54EA\u91CC\uFF0C\u5C31\u770B\u90A3\u91CC\u7684\u5761\u5EA6" },  // title \u2264 24 \u5B57\n  formula: String.raw`w \\leftarrow w - \\part{eta}{\\eta}\\,\\part{g}{\\frac{dL}{dw}}`,       // \u53EF\u9009\uFF1A\u6807\u9898\u680F\u53F3\u4E0A\u89D2\u7684\u516C\u5F0F\n  layout: { type: "\u2026", \u2026 },                                                            // \u4E03\u79CD\u4E4B\u4E00\uFF0C\u89C1\u4E0B\n  hand: [ \u2026 ],                                                                         // \u53EF\u9009\uFF1A\u8001\u5E08\u5728\u753B\u9762\u4E0A\u5927\u5B57\u624B\u5199\n  caption: "lecture",                                                                  // \u53EF\u9009\uFF1A\u8BB2\u4E49\u7248\u5B57\u5E55\uFF08say \u662F\u4E00\u5C0F\u6BB5\u8BB2\u4E49\uFF0C\u81EA\u52A8\u6362\u884C\uFF0C\u6700\u591A\u4E09\u884C\uFF09\n  steps: [ { say: "\u8FD9\u4E00\u6B65\u8BF4\u7684\u8BDD\uFF08\u5C31\u662F\u5B57\u5E55\u548C\u914D\u97F3\uFF09", do: [ \u52A8\u4F5C\u2026 ] }, \u2026 ],                // 3\u20136 \u6B65\n}\n```\n\n- `say` \u662F\u8FD9\u4E00\u6B65**\u5FF5\u51FA\u6765\u7684\u8BDD**\uFF08\u914D\u97F3\u6309\u5B83\u751F\u6210\u3001\u5B57\u5E55\u663E\u793A\u5B83\uFF09\uFF0C\u4E00\u6B65\u4E00\u53E5\uFF0C\u2264 40 \u5B57\u3002\u652F\u6301 `$\u6570\u5B66$`\u3001`{q:\u5F69\u8272\u5B57}`\u3001`**\u7C97\u4F53**`\u3002\n- \u516C\u5F0F\u91CC\u7528 `\\part{\u540D\u5B57}{\u2026}` \u6807\u51FA\u80FD\u5355\u72EC\u9AD8\u4EAE\u7684\u9879\uFF0C`{ focus: ["\u540D\u5B57"] }` \u70B9\u4EAE\u5B83\u3002\n- `icon` \u53EA\u80FD\u7528\u8FD9\u4E9B\u540D\u5B57\uFF08\u522B\u7684\u753B\u4E0D\u51FA\u6765\uFF09\uFF1Ascan-eye sparkles trending-down trending-up triangle-alert target sigma git-compare arrow-left-right zap circle-check circle-x search code-xml network handshake lightbulb brain cpu database layers clock rocket book-open flask-conical chart-line chart-bar git-branch shield lock key cloud server globe user users message-square eye gauge infinity binary boxes puzzle repeat shuffle filter sliders-horizontal thumbs-up thumbs-down star flag info circle-help list-checks workflow route atom calculator image music\n- \u989C\u8272\u53EA\u5199\u8BED\u4E49\u540D\uFF1A`q`\uFF08\u84DD\u7D2B\uFF09`k`\uFF08\u9752\uFF09`v`\uFF08\u6A59\uFF09`out`\uFF08\u6D0B\u7EA2\uFF09`ok`\uFF08\u7EFF\uFF09`danger`\uFF08\u7EA2\uFF09\u3002\n- \u6570\u5B57\u8981**\u771F\u7B97\u51FA\u6765**\uFF08\u5199\u5728\u51FD\u6570\u91CC\u7B97\uFF09\uFF0C\u4E0D\u8981\u7F16\u3002\n\n## \u4E03\u79CD\u5E03\u5C40\uFF08\u6309\u8FD9\u4E00\u5E55\u8BB2\u4EC0\u4E48\u6765\u9009\uFF09\n\n| \u8BB2\u4EC0\u4E48 | `type` | \u586B\u4EC0\u4E48 |\n|---|---|---|\n| \u5F00\u573A\u95EE\u9898 / \u8981\u70B9 / \u56DE\u987E\uFF08**\u62FF\u4E0D\u51C6\u5C31\u7528\u5B83**\uFF09 | `points` | `items: [{ icon, title, text?, color? }]`\uFF083\u20134 \u6761\uFF0Cid \u4F9D\u6B21 `p1`\u2026\uFF09\uFF0C`columns?: 1|2`\uFF0C`lead?` |\n| \u51FD\u6570\u56FE\u50CF\u3001\u4E00\u4E2A\u70B9\u6CBF\u66F2\u7EBF\u8D70 | `plot` | `axes{x,y,xticks,ygrid,xlabel,ylabel}`\uFF0C`curves[{id,f,df,color,area}]`\uFF0C`marks`\uFF0C`notes`\uFF0C`point{id,curve,x,params}`\uFF0C`side{readout,spark}` |\n| \u516C\u5F0F\u63A8\u5BFC\u3001\u624B\u7B97\u51E0\u6B65 | `derive` | `lines: [{ id, tex, note? }]`\uFF08\u6309\u7B2C\u4E00\u4E2A `=` \u5BF9\u9F50\uFF1B`tex` \u4EE5 `=` \u5F00\u5934\u63A5\u4E0A\u4E00\u884C\uFF09 |\n| A \u548C B \u9010\u6761\u6BD4\u8F83 | `compare` | `sides: [{ id, title, icon, color, items: ["\u4E00\u683C\u4E00\u53E5", \u2026] }]`\uFF08**items \u662F\u5B57\u7B26\u4E32**\uFF0C\u6BCF\u8FB9\u6761\u6570\u76F8\u540C\u3001\u7B2C n \u6761\u5BF9\u9F50\u7B2C n \u884C\uFF09\uFF0C`rows?: ["\u884C\u6807\u7B7E", \u2026]`\uFF08\u5B57\u7B26\u4E32\uFF0Cid \u81EA\u52A8 `r1\u2026`\uFF09\uFF0C`verdict?{text,icon,color}` |\n| \u6570\u636E\u6D41 / \u6D41\u6C34\u7EBF\uFF08X \u2192 Q/K/V \u2192 \u8F93\u51FA\uFF09 | `pipeline` | `rows`\uFF0C`columns[{id, kind: tokens|matrix|numbers|bars|vector, data, head:[tex, \u5C0F\u5B57], color}]`\uFF0C`links[{from,to,kind: arrow|rows|fan}]` |\n| \u4EE3\u7801\u8BB2\u89E3\u3001\u6267\u884C\u8F68\u8FF9 | `code` | `code`\uFF08\u539F\u6587\uFF09\uFF0C`lang`\uFF0C`vars?{title, rows:[[key, \u663E\u793A\u540D]]}` |\n| \u51E0\u65B9\u4E4B\u95F4\u6309\u987A\u5E8F\u53D1\u6D88\u606F | `sequence` | `actors[{id,label,icon,color}]`\uFF0C`messages[{id,from,to,label}]` |\n\n## \u52A8\u4F5C\uFF08`do` \u91CC\u7684\u5BF9\u8C61\uFF0C\u952E\u540D\u5C31\u662F\u52A8\u8BCD\uFF09\n\n- `{ show: "id" | ["id", \u2026] }` \u51FA\u73B0(\u624B\u5199\u7528 `write`\uFF0C\u4E0D\u8981 `show`)\uFF08\u6309\u7C7B\u578B\u81EA\u52A8\u9009\u52A8\u753B\uFF09\uFF1B`{ hide: "id" }`\uFF1B`{ dim: "id", keep?: \u884C\u53F7 }` \u53D8\u6697\n- `{ focus: ["\u540D\u5B57"], color?, in?: "\u884Cid" }` \u70B9\u4EAE\u516C\u5F0F\u91CC\u7684 `\\part`\uFF1B`[]` \u6E05\u9664\n- \u5E03\u5C40\u4E13\u7528\uFF1A`plot` \u7684 `{ walk: "p", xs: [...] }` / `{ reset: "p", x, params, color }` / `{ arrow: "p", to, label }`\uFF1B`compare` \u7684 `{ pick: "\u8FB9id", row: 2 }`\uFF08**row \u5199\u884C\u53F7\u6570\u5B57**\uFF0C\u4ECE 1 \u6570\uFF09\uFF1B`pipeline` \u7684 `{ ring: "\u5217id", row }` `{ mark }` `{ weigh }`\uFF1B`code` \u7684 `{ line: 3, note? }` `{ vars: {\u2026} }` `{ trace: [[\u884C, {\u53D8\u91CF}, "\u8BF4\u660E"], \u2026] }`\n- \u677F\u4E66\uFF1A`{ write: "\u624B\u5199id" }`\u3001`{ circle: \u76EE\u6807 }`\u3001`{ underline: \u76EE\u6807 }`\u3001`{ box: \u76EE\u6807 }`\u3001`{ arrow: { from, to } }`\u3002\u76EE\u6807 = \u4EFB\u4F55 id\u3001`formula:\u540D\u5B57`\u3001\u8BFB\u6570\u884C `ro:key`\n\n**\u624B\u5199** `hand: [{ id, text | tex, near: "id", side: "below"|"right"|"left"|"above", size?: 40 }]`\uFF1A\u53EA\u5199\u8FD9\u4E00\u5C4F**\u6700\u91CD\u8981\u7684\u4E00\u53E5**\uFF08\u2264 12 \u5B57\u6216\u4E00\u4E2A\u77ED\u516C\u5F0F\uFF09\uFF0C\u653E\u5728\u7A7A\u5904\uFF08\u53F3\u680F\u7684 `right` \u4F1A\u51FA\u753B\u9762\uFF0CPSK \u4F1A\u81EA\u52A8\u6362\u5230\u4E0B\u9762\uFF09\u3002\n\n## \u89C4\u77E9\n\n1. \u4E00\u5C4F\u4E00\u4E2A\u8981\u70B9\uFF1B3\u20136 \u6B65\uFF1B\u6BCF\u6B65\u53EA\u6709\u4E00\u4E2A\u7126\u70B9\u5728\u52A8\u3002\n2. \u5148\u9009\u5E03\u5C40\u518D\u5199\u6570\u636E\uFF1B\u4E0D\u786E\u5B9A\u5C31\u7528 `points`\u3002\n3. \u6587\u5B57\u8981\u77ED\uFF1A\u6807\u9898 \u2264 24 \u5B57\uFF0C\u8981\u70B9\u6807\u9898 \u2264 12 \u5B57\u3001\u8BF4\u660E \u2264 30 \u5B57\uFF0C\u5B57\u5E55 \u2264 40 \u5B57\u3002\u592A\u957F\u4F1A\u6324\u574F\u7248\u9762\uFF08\u5B57\u88AB\u7F29\u5C0F\u6216\u6EA2\u51FA\uFF09\u3002\n4. \u4E0D\u5199\u5750\u6807\u3001\u4E0D\u5199\u989C\u8272\u503C\u3001\u4E0D\u5199 CSS\u3001\u4E0D\u5199\u5B9A\u65F6\u5668\uFF1BPSK \u4F1A\u81EA\u52A8\u5BF9\u9F50\u3001\u7ED9\u6807\u7B7E\u907F\u8BA9\u3002\u4E00\u5C4F\u653E\u4E0D\u4E0B\u5C31\u62C6\u6210\u4E24\u5E55\uFF0C\u6216\u8005\u51CF\u5C11\u6761\u76EE\u3002\n5. \u4E0A\u677F\u540E\u7528 tb_check \u770B\u8FD9\u4E00\u5C4F\u3002\u62A5\u300C\u52A8\u753B\u51FA\u9519\u300D\u65F6\uFF0C\u9519\u8BEF\u91CC\u5199\u4E86\u7B2C\u51E0\u6B65\u3001\u54EA\u4E2A\u52A8\u4F5C\u3001\u54EA\u91CC\u4E0D\u5BF9 \u2014\u2014 \u7167\u7740\u6539\u6E90\u7801\u518D\u67E5\u4E00\u6B21\uFF0C\u76F4\u5230\u753B\u9762\u51FA\u6765\u3002\n\n## \u4F8B\u5B50\uFF08\u5F00\u573A\uFF09\n\n```js\nexport default (ctx) => ({\n  header: { eyebrow: "\u7B2C 3 \u7AE0 \xB7 \u68AF\u5EA6\u4E0B\u964D", icon: "trending-down", title: "\u6709\u4E86\u5761\u5EA6\uFF0C\u600E\u4E48\u4E00\u6B65\u6B65\u8D70\u5230\u8C37\u5E95" },\n  layout: { type: "points", lead: "\u4E0A\u4E00\u7AE0\u7B97\u51FA\u4E86\u5761\u5EA6\uFF0C\u53EF\u5B83\u53EA\u56DE\u7B54\u4E86\u534A\u4E2A\u95EE\u9898\u3002", items: [\n    { icon: "route", title: "\u5F80\u54EA\u8D70\uFF1F", text: "\u7AD9\u5728\u4E00\u4E2A\u4F4D\u7F6E\uFF0C\u4E0B\u5761\u662F\u54EA\u4E2A\u65B9\u5411", color: "q" },\n    { icon: "gauge", title: "\u8D70\u591A\u8FDC\uFF1F", text: "\u5B66\u4E60\u7387\u592A\u5C0F\u8D70\u4E0D\u52A8\uFF0C\u592A\u5927\u4F1A\u6765\u56DE\u8DF3", color: "v" },\n    { icon: "target", title: "\u600E\u4E48\u6311\u6B65\u957F\uFF1F", text: "\u6709\u6CA1\u6709\u4E00\u4E2A\u80FD\u4E8B\u5148\u7B97\u51FA\u6765\u7684\u4E0A\u9650", color: "ok" } ] },\n  steps: [\n    { say: "\u4E0A\u4E00\u7AE0\u6211\u4EEC\u624B\u91CC\u591A\u4E86\u4E00\u6837\u4E1C\u897F\uFF1A**\u5761\u5EA6**", do: [{ show: "lead" }] },\n    { say: "\u7B2C\u4E00\u4E2A\u95EE\u9898\uFF1A**\u5F80\u54EA\u8D70**\u624D\u662F\u4E0B\u5761", do: [{ show: "p1" }] },\n    { say: "\u7B2C\u4E8C\u4E2A\u95EE\u9898\uFF1A\u6BCF\u4E00\u6B65**\u8D70\u591A\u8FDC**", do: [{ show: "p2" }] },\n    { say: "\u7B2C\u4E09\u4E2A\u95EE\u9898\uFF1A\u6B65\u957F\u6709\u6CA1\u6709**\u4E0A\u9650**", do: [{ show: "p3" }] } ],\n});\n```\n\n## \u4F8B\u5B50\uFF08\u51FD\u6570\u56FE\u50CF + \u8D70\u51E0\u6B65\uFF09\n\n```js\nexport default (ctx) => {\n  const L = (w) => 7.5 * w * w - 31.5 * w + 33.25, dL = (w) => 15 * w - 31.5;\n  const gd = (x, eta, n) => Array.from({ length: n }, () => (x = x - eta * dL(x)));\n  return {\n    header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u5B66\u4E60\u7387", icon: "gauge", title: "\u540C\u4E00\u6761\u5761\uFF0C\u4E09\u4E2A\u5B66\u4E60\u7387" },\n    formula: String.raw`w \\leftarrow w - \\part{eta}{\\eta}\\,\\frac{dL}{dw}`,\n    layout: { type: "plot",\n      axes: { x: [-1, 5.5], y: [0, 60], xticks: [0, 1, 2, 3, 4, 5], ygrid: [15, 30, 45], xlabel: "w", ylabel: "L(w)" },\n      curves: [{ id: "L", f: L, df: dL, color: "q", area: true }],\n      marks: [{ id: "min", curve: "L", x: 2.1, label: "\u8C37\u5E95", icon: "target" }],\n      point: { id: "p", curve: "L", x: 0, params: { eta: 0.05 }, color: "v" },\n      side: { readout: { title: "\u5B9E\u65F6\u8BFB\u6570", rows: [["i", "\u6B65\u6570", (s) => s.i], ["x", "w", (s) => s.x.toFixed(3)], ["eta", "\u5B66\u4E60\u7387 \u03B7", (s) => s.eta]] } } },\n    steps: [\n      { say: "\u4ECE w = 0 \u51FA\u53D1\uFF0C\u5B66\u4E60\u7387 **0.05**", do: [{ show: ["axes", "L", "min", "side", "p"] }] },\n      { say: "\u51E0\u6B65\u5C31\u5230\u8C37\u5E95", do: [{ focus: ["eta"], color: "ok" }, { walk: "p", xs: gd(0, 0.05, 5) }] },\n      { say: "\u6539\u6210 {danger:0.14}\uFF1A\u8D8A\u8DF3\u8D8A\u8FDC", do: [{ reset: "p", x: 0, params: { eta: 0.14 }, color: "danger" }, { walk: "p", xs: gd(0, 0.14, 3), jump: true }] } ],\n  };\n};\n```\n\n## \u4F8B\u5B50\uFF08A \u548C B \u5BF9\u6BD4\uFF09\n\n```js\nexport default (ctx) => ({\n  header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u8FDB\u9636", icon: "git-compare", title: "\u52A8\u91CF\u6CD5\uFF1A\u7A84\u957F\u5C71\u8C37\u91CC\u4E0D\u518D\u6765\u56DE\u8DF3" },\n  formula: String.raw`v \\leftarrow \\part{beta}{\\beta}\\,v - \\eta\\,\\frac{dL}{dw}`,\n  layout: { type: "compare",\n    rows: ["\u600E\u4E48\u66F4\u65B0", "\u6A2A\u5411\u9707\u8361", "\u6548\u679C"],\n    sides: [\n      { id: "gd", title: "\u7EAF\u68AF\u5EA6\u4E0B\u964D", icon: "trending-down", color: "danger",\n        items: ["\u53EA\u770B\u5F53\u4E0B\u7684\u5761\u5EA6", "\u6765\u56DE\u8DF3\uFF0C\u524D\u8FDB\u6162", "\u5B66\u4E60\u7387\u5927\u5C31\u53D1\u6563"] },\n      { id: "mom", title: "\u52A8\u91CF\u6CD5", icon: "gauge", color: "q",\n        items: ["\u7D2F\u79EF\u8FC7\u53BB\u7684\u5761\u5EA6", "\u6B63\u8D1F\u62B5\u6D88\uFF0C\u51E0\u4E4E\u4E0D\u8DF3", "\u540C\u6837\u6B65\u957F\u5FEB\u51E0\u500D"] } ],\n    verdict: { text: "\u52A8\u91CF = \u8BB0\u4F4F\u8FC7\u53BB\u7684\u65B9\u5411", icon: "target", color: "ok" } },\n  hand: [{ id: "b", tex: String.raw`\\beta \\approx 0.9`, near: "mom", side: "below" }],\n  steps: [\n    { say: "\u5DE6\u8FB9\u662F\u7EAF\u68AF\u5EA6\u4E0B\u964D\uFF0C\u6BCF\u4E00\u6B65\u53EA\u770B\u5F53\u4E0B\u7684\u5761\u5EA6", do: [{ show: ["r1", "r2", "r3", "gd"] }] },\n    { say: "\u5728\u7A84\u957F\u7684\u5C71\u8C37\u91CC\u5B83**\u6765\u56DE\u8DF3**", do: [{ pick: "gd", row: 2 }] },\n    { say: "\u52A8\u91CF\u6CD5\u628A\u8FC7\u53BB\u7684\u5761\u5EA6\u4E5F\u7B97\u8FDB\u6765", do: [{ show: "mom" }, { focus: ["beta"] }] },\n    { say: "\u6A2A\u5411\u7684\u6B63\u8D1F\u4E92\u76F8\u62B5\u6D88\uFF0C**\u51E0\u4E4E\u4E0D\u8DF3**", do: [{ pick: "mom", row: 2 }] },\n    { say: "\u5E38\u7528\u7684\u8D77\u70B9\uFF1A**\u03B2 \u53D6 0.9**", do: [{ show: "verdict" }, { write: "b" }] } ],\n});\n```\n\n';
+var PSK_GUIDE_ZH = '# Pro Slide Kit \u753B\u9762\u5199\u6CD5\uFF08\u7ED9 agent\uFF09\n\n\u6BCF\u4E00\u5E55\u653E\u4E00\u5757 **Pro Slide Kit\uFF08PSK\uFF09\u753B\u9762**\uFF1A\u4E00\u5F20 PPT \u8D28\u611F\u7684\u8BB2\u89E3\u5C4F\uFF0C\u8DDF\u7740\u8BB2\u89E3\u4E00\u6B65\u4E00\u6B65\u52A8\u3002\u4F60\u53EA\u5199**\u7ED3\u6784\u548C\u6570\u636E**\uFF0C\u6392\u7248\u3001\u914D\u8272\uFF08\u6DF1\u6D45\u4E24\u5957\uFF09\u3001\u52A8\u753B\u3001\u5BF9\u9F50\u90FD\u7531 PSK \u8D1F\u8D23 \u2014\u2014 **\u4E0D\u8981\u5199\u5750\u6807\u3001\u989C\u8272\u503C\u3001\u5B57\u53F7**\u3002\n\n## \u653E\u5230\u677F\u4E0A\n\n\u4E00\u5E55\u91CC\u52A0\u4E00\u4E2A\u6761\u76EE\uFF0C\u573A\u666F\u6570\u636E**\u76F4\u63A5\u5199\u6210 `data` \u5BF9\u8C61**\uFF08\u63A8\u8350\uFF1B\u5E73\u53F0\u66FF\u4F60\u751F\u6210\u6E90\u7801\uFF0C\u4E0D\u4F1A\u6709\u5F15\u53F7\u5199\u574F\u7684\u95EE\u9898\uFF09\uFF1A\n\n```js\n{ kind: "scene", lib: "pro-slide-kit@0.4.2", size: "full", aspect: "16:9", title: "\u8FD9\u4E00\u5C4F\u8BB2\u4EC0\u4E48\uFF08\u4E00\u53E5\uFF09",\n  data: { header, formula?, layout, hand?, steps } }\n```\n\n- \u53EA\u6709\u8981\u5199\u51FD\u6570\u7684\u65F6\u5019\uFF08`plot` \u7684\u66F2\u7EBF `f` / `df`\u3001\u8BFB\u6570\u884C\u3001\u5728\u51FD\u6570\u91CC\u628A\u6570\u7B97\u51FA\u6765\uFF09\u624D\u6539\u7528 `source`\uFF1A\u4E00\u4E2A ES \u6A21\u5757\uFF0C**\u53EA** `export default` \u4E00\u4E2A\u8FD4\u56DE\u573A\u666F\u6570\u636E\u7684\u51FD\u6570\uFF1B\u4E0D\u8981 `import`\uFF0C\u4E0D\u8981\u7528 `setTimeout`\u3001`document`\u3001`Math.random`\u3002source \u91CC\u5B57\u7B26\u4E32\u8981\u5F15\u7528\u8BCD\u8BED\u65F6\u7528\u300C\u300D\uFF0C\u4E0D\u8981\u518D\u5957\u540C\u6837\u7684\u5F15\u53F7\u3002\n- `layout.type` \u53EA\u80FD\u662F\u4E0B\u9762\u4E03\u79CD\u5E03\u5C40\u3002`flow_steps`\u3001`slide_bullets` \u8FD9\u4E9B\u662F\u53E6\u4E00\u5957**\u52A8\u753B\u6A21\u677F**\u7684\u540D\u5B57\uFF0C\u4E0D\u662F PSK \u5E03\u5C40\uFF0C\u522B\u5199\u8FDB PSK \u7684 layout\u3002\n- \u4E00\u5E55\u4E00\u5757\uFF0C`size: "full"`\u3002\u753B\u9762\u5C31\u662F\u8FD9\u4E00\u5E55\u7684\u4E3B\u4F53\uFF0C\u6B63\u6587 text \u6761\u76EE\u53EF\u4EE5\u4E0D\u8981\uFF08\u8981\u8BB2\u7684\u8BDD\u5199\u8FDB steps \u7684 `say`\uFF09\u3002\n\n## \u573A\u666F\u6570\u636E\n\n```js\n{\n  header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u89C4\u5219", icon: "sigma", title: "\u7AD9\u5728\u54EA\u91CC\uFF0C\u5C31\u770B\u90A3\u91CC\u7684\u5761\u5EA6" },  // title \u2264 24 \u5B57\n  formula: String.raw`w \\leftarrow w - \\part{eta}{\\eta}\\,\\part{g}{\\frac{dL}{dw}}`,       // \u53EF\u9009\uFF1A\u6807\u9898\u680F\u53F3\u4E0A\u89D2\u7684\u516C\u5F0F\n  layout: { type: "\u2026", \u2026 },                                                            // \u4E03\u79CD\u4E4B\u4E00\uFF0C\u89C1\u4E0B\n  hand: [ \u2026 ],                                                                         // \u53EF\u9009\uFF1A\u8001\u5E08\u5728\u753B\u9762\u4E0A\u5927\u5B57\u624B\u5199\n  caption: "lecture",                                                                  // \u53EF\u9009\uFF1A\u8BB2\u4E49\u7248\u5B57\u5E55\uFF08say \u662F\u4E00\u5C0F\u6BB5\u8BB2\u4E49\uFF0C\u81EA\u52A8\u6362\u884C\uFF0C\u6700\u591A\u4E09\u884C\uFF09\n  steps: [ { say: "\u8FD9\u4E00\u6B65\u8BF4\u7684\u8BDD\uFF08\u5C31\u662F\u5B57\u5E55\u548C\u914D\u97F3\uFF09", do: [ \u52A8\u4F5C\u2026 ] }, \u2026 ],                // 3\u20136 \u6B65\n}\n```\n\n- `say` \u662F\u8FD9\u4E00\u6B65**\u5FF5\u51FA\u6765\u7684\u8BDD**\uFF08\u914D\u97F3\u6309\u5B83\u751F\u6210\u3001\u5B57\u5E55\u663E\u793A\u5B83\uFF09\uFF0C\u4E00\u6B65\u4E00\u53E5\uFF0C\u2264 40 \u5B57\u3002\u652F\u6301 `$\u6570\u5B66$`\u3001`{q:\u5F69\u8272\u5B57}`\u3001`**\u7C97\u4F53**`\u3002\n- \u516C\u5F0F\u91CC\u7528 `\\part{\u540D\u5B57}{\u2026}` \u6807\u51FA\u80FD\u5355\u72EC\u9AD8\u4EAE\u7684\u9879\uFF0C`{ focus: ["\u540D\u5B57"] }` \u70B9\u4EAE\u5B83\u3002\n- `icon` \u53EA\u80FD\u7528\u8FD9\u4E9B\u540D\u5B57\uFF08\u522B\u7684\u753B\u4E0D\u51FA\u6765\uFF09\uFF1Ascan-eye sparkles trending-down trending-up triangle-alert target sigma git-compare arrow-left-right zap circle-check circle-x search code-xml network handshake lightbulb brain cpu database layers clock rocket book-open flask-conical chart-line chart-bar git-branch shield lock key cloud server globe user users message-square eye gauge infinity binary boxes puzzle repeat shuffle filter sliders-horizontal thumbs-up thumbs-down star flag info circle-help list-checks workflow route atom calculator image music\n- \u989C\u8272\u53EA\u5199\u8BED\u4E49\u540D\uFF1A`q`\uFF08\u84DD\u7D2B\uFF09`k`\uFF08\u9752\uFF09`v`\uFF08\u6A59\uFF09`out`\uFF08\u6D0B\u7EA2\uFF09`ok`\uFF08\u7EFF\uFF09`danger`\uFF08\u7EA2\uFF09\u3002\n- \u6570\u5B57\u8981**\u771F\u7B97\u51FA\u6765**\uFF08\u5199\u5728\u51FD\u6570\u91CC\u7B97\uFF09\uFF0C\u4E0D\u8981\u7F16\u3002\n\n## \u4E03\u79CD\u5E03\u5C40\uFF08\u6309\u8FD9\u4E00\u5E55\u8BB2\u4EC0\u4E48\u6765\u9009\uFF09\n\n| \u8BB2\u4EC0\u4E48 | `type` | \u586B\u4EC0\u4E48 |\n|---|---|---|\n| \u5F00\u573A\u95EE\u9898 / \u8981\u70B9 / \u56DE\u987E\uFF08**\u62FF\u4E0D\u51C6\u5C31\u7528\u5B83**\uFF09 | `points` | `items: [{ icon, title, text?, color? }]`\uFF083\u20134 \u6761\uFF0Cid \u4F9D\u6B21 `p1`\u2026\uFF09\uFF0C`columns?: 1|2`\uFF0C`lead?` |\n| \u51FD\u6570\u56FE\u50CF\u3001\u4E00\u4E2A\u70B9\u6CBF\u66F2\u7EBF\u8D70 | `plot` | `axes{x,y,xticks,ygrid,xlabel,ylabel}`\uFF0C`curves[{id,f,df,color,area}]`\uFF0C`marks`\uFF0C`notes`\uFF0C`point{id,curve,x,params}`\uFF0C`side{readout,spark}` |\n| \u516C\u5F0F\u63A8\u5BFC\u3001\u624B\u7B97\u51E0\u6B65 | `derive` | `lines: [{ id, tex, note? }]`\uFF08\u6309\u7B2C\u4E00\u4E2A `=` \u5BF9\u9F50\uFF1B`tex` \u4EE5 `=` \u5F00\u5934\u63A5\u4E0A\u4E00\u884C\uFF09 |\n| A \u548C B \u9010\u6761\u6BD4\u8F83 | `compare` | `sides: [{ id, title, icon, color, items: ["\u4E00\u683C\u4E00\u53E5", \u2026] }]`\uFF08**items \u662F\u5B57\u7B26\u4E32**\uFF0C\u6BCF\u8FB9\u6761\u6570\u76F8\u540C\u3001\u7B2C n \u6761\u5BF9\u9F50\u7B2C n \u884C\uFF09\uFF0C`rows?: ["\u884C\u6807\u7B7E", \u2026]`\uFF08\u5B57\u7B26\u4E32\uFF0Cid \u81EA\u52A8 `r1\u2026`\uFF09\uFF0C`verdict?{text,icon,color}` |\n| \u6570\u636E\u6D41 / \u6D41\u6C34\u7EBF\uFF08X \u2192 Q/K/V \u2192 \u8F93\u51FA\uFF09 | `pipeline` | `rows`\uFF0C`columns[{id, kind: tokens|matrix|numbers|bars|vector, data, head:[tex, \u5C0F\u5B57], color}]`\uFF0C`links[{from,to,kind: arrow|rows|fan}]` |\n| \u4EE3\u7801\u8BB2\u89E3\u3001\u6267\u884C\u8F68\u8FF9 | `code` | `code`\uFF08\u539F\u6587\uFF09\uFF0C`lang`\uFF0C`vars?{title, rows:[[key, \u663E\u793A\u540D]]}` |\n| \u51E0\u65B9\u4E4B\u95F4\u6309\u987A\u5E8F\u53D1\u6D88\u606F | `sequence` | `actors[{id,label,icon,color}]`\uFF0C`messages[{id,from,to,label}]` |\n\n## \u52A8\u4F5C\uFF08`do` \u91CC\u7684\u5BF9\u8C61\uFF0C\u952E\u540D\u5C31\u662F\u52A8\u8BCD\uFF09\n\n- `{ show: "id" | ["id", \u2026] }` \u51FA\u73B0(\u624B\u5199\u7528 `write`\uFF0C\u4E0D\u8981 `show`)\uFF08\u6309\u7C7B\u578B\u81EA\u52A8\u9009\u52A8\u753B\uFF09\uFF1B`{ hide: "id" }`\uFF1B`{ dim: "id", keep?: \u884C\u53F7 }` \u53D8\u6697\n- `{ focus: ["\u540D\u5B57"], color?, in?: "\u884Cid" }` \u70B9\u4EAE\u516C\u5F0F\u91CC\u7684 `\\part`\uFF1B`[]` \u6E05\u9664\n- \u5E03\u5C40\u4E13\u7528\uFF1A`plot` \u7684 `{ walk: "p", xs: [...] }` / `{ reset: "p", x, params, color }` / `{ arrow: "p", to, label }`\uFF1B`compare` \u7684 `{ pick: "\u8FB9id", row: 2 }`\uFF08**row \u5199\u884C\u53F7\u6570\u5B57**\uFF0C\u4ECE 1 \u6570\uFF09\uFF1B`pipeline` \u7684 `{ ring: "\u5217id", row }` `{ mark }` `{ weigh }`\uFF1B`code` \u7684 `{ line: 3, note? }` `{ vars: {\u2026} }` `{ trace: [[\u884C, {\u53D8\u91CF}, "\u8BF4\u660E"], \u2026] }`\n- \u677F\u4E66\uFF1A`{ write: "\u624B\u5199id" }`\u3001`{ circle: \u76EE\u6807 }`\u3001`{ underline: \u76EE\u6807 }`\u3001`{ box: \u76EE\u6807 }`\u3001`{ arrow: { from, to } }`\u3002\u76EE\u6807 = \u4EFB\u4F55 id\u3001`formula:\u540D\u5B57`\u3001\u8BFB\u6570\u884C `ro:key`\n\n**\u624B\u5199** `hand: [{ id, text | tex, near: "id", side: "below"|"right"|"left"|"above", size?: 40 }]`\uFF1A\u53EA\u5199\u8FD9\u4E00\u5C4F**\u6700\u91CD\u8981\u7684\u4E00\u53E5**\uFF08\u2264 12 \u5B57\u6216\u4E00\u4E2A\u77ED\u516C\u5F0F\uFF09\uFF0C\u653E\u5728\u7A7A\u5904\uFF08\u53F3\u680F\u7684 `right` \u4F1A\u51FA\u753B\u9762\uFF0CPSK \u4F1A\u81EA\u52A8\u6362\u5230\u4E0B\u9762\uFF09\u3002\n\n## \u89C4\u77E9\n\n1. \u4E00\u5C4F\u4E00\u4E2A\u8981\u70B9\uFF1B3\u20136 \u6B65\uFF1B\u6BCF\u6B65\u53EA\u6709\u4E00\u4E2A\u7126\u70B9\u5728\u52A8\u3002\n2. \u5148\u9009\u5E03\u5C40\u518D\u5199\u6570\u636E\uFF1B\u4E0D\u786E\u5B9A\u5C31\u7528 `points`\u3002\n3. \u6587\u5B57\u8981\u77ED\uFF1A\u6807\u9898 \u2264 24 \u5B57\uFF0C\u8981\u70B9\u6807\u9898 \u2264 12 \u5B57\u3001\u8BF4\u660E \u2264 30 \u5B57\uFF0C\u5B57\u5E55 \u2264 40 \u5B57\u3002\u592A\u957F\u4F1A\u6324\u574F\u7248\u9762\uFF08\u5B57\u88AB\u7F29\u5C0F\u6216\u6EA2\u51FA\uFF09\u3002\n4. \u4E0D\u5199\u5750\u6807\u3001\u4E0D\u5199\u989C\u8272\u503C\u3001\u4E0D\u5199 CSS\u3001\u4E0D\u5199\u5B9A\u65F6\u5668\uFF1BPSK \u4F1A\u81EA\u52A8\u5BF9\u9F50\u3001\u7ED9\u6807\u7B7E\u907F\u8BA9\u3002\u4E00\u5C4F\u653E\u4E0D\u4E0B\u5C31\u62C6\u6210\u4E24\u5E55\uFF0C\u6216\u8005\u51CF\u5C11\u6761\u76EE\u3002\n5. \u4E0A\u677F\u540E\u7528 tb_check \u770B\u8FD9\u4E00\u5C4F\u3002\u62A5\u300C\u52A8\u753B\u51FA\u9519\u300D\u65F6\uFF0C\u9519\u8BEF\u91CC\u5199\u4E86\u7B2C\u51E0\u6B65\u3001\u54EA\u4E2A\u52A8\u4F5C\u3001\u54EA\u91CC\u4E0D\u5BF9 \u2014\u2014 \u7167\u7740\u6539\u6E90\u7801\u518D\u67E5\u4E00\u6B21\uFF0C\u76F4\u5230\u753B\u9762\u51FA\u6765\u3002\n\n## \u4F8B\u5B50\uFF08\u5F00\u573A\uFF09\n\n```js\nexport default (ctx) => ({\n  header: { eyebrow: "\u7B2C 3 \u7AE0 \xB7 \u68AF\u5EA6\u4E0B\u964D", icon: "trending-down", title: "\u6709\u4E86\u5761\u5EA6\uFF0C\u600E\u4E48\u4E00\u6B65\u6B65\u8D70\u5230\u8C37\u5E95" },\n  layout: { type: "points", lead: "\u4E0A\u4E00\u7AE0\u7B97\u51FA\u4E86\u5761\u5EA6\uFF0C\u53EF\u5B83\u53EA\u56DE\u7B54\u4E86\u534A\u4E2A\u95EE\u9898\u3002", items: [\n    { icon: "route", title: "\u5F80\u54EA\u8D70\uFF1F", text: "\u7AD9\u5728\u4E00\u4E2A\u4F4D\u7F6E\uFF0C\u4E0B\u5761\u662F\u54EA\u4E2A\u65B9\u5411", color: "q" },\n    { icon: "gauge", title: "\u8D70\u591A\u8FDC\uFF1F", text: "\u5B66\u4E60\u7387\u592A\u5C0F\u8D70\u4E0D\u52A8\uFF0C\u592A\u5927\u4F1A\u6765\u56DE\u8DF3", color: "v" },\n    { icon: "target", title: "\u600E\u4E48\u6311\u6B65\u957F\uFF1F", text: "\u6709\u6CA1\u6709\u4E00\u4E2A\u80FD\u4E8B\u5148\u7B97\u51FA\u6765\u7684\u4E0A\u9650", color: "ok" } ] },\n  steps: [\n    { say: "\u4E0A\u4E00\u7AE0\u6211\u4EEC\u624B\u91CC\u591A\u4E86\u4E00\u6837\u4E1C\u897F\uFF1A**\u5761\u5EA6**", do: [{ show: "lead" }] },\n    { say: "\u7B2C\u4E00\u4E2A\u95EE\u9898\uFF1A**\u5F80\u54EA\u8D70**\u624D\u662F\u4E0B\u5761", do: [{ show: "p1" }] },\n    { say: "\u7B2C\u4E8C\u4E2A\u95EE\u9898\uFF1A\u6BCF\u4E00\u6B65**\u8D70\u591A\u8FDC**", do: [{ show: "p2" }] },\n    { say: "\u7B2C\u4E09\u4E2A\u95EE\u9898\uFF1A\u6B65\u957F\u6709\u6CA1\u6709**\u4E0A\u9650**", do: [{ show: "p3" }] } ],\n});\n```\n\n## \u4F8B\u5B50\uFF08\u51FD\u6570\u56FE\u50CF + \u8D70\u51E0\u6B65\uFF09\n\n```js\nexport default (ctx) => {\n  const L = (w) => 7.5 * w * w - 31.5 * w + 33.25, dL = (w) => 15 * w - 31.5;\n  const gd = (x, eta, n) => Array.from({ length: n }, () => (x = x - eta * dL(x)));\n  return {\n    header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u5B66\u4E60\u7387", icon: "gauge", title: "\u540C\u4E00\u6761\u5761\uFF0C\u4E09\u4E2A\u5B66\u4E60\u7387" },\n    formula: String.raw`w \\leftarrow w - \\part{eta}{\\eta}\\,\\frac{dL}{dw}`,\n    layout: { type: "plot",\n      axes: { x: [-1, 5.5], y: [0, 60], xticks: [0, 1, 2, 3, 4, 5], ygrid: [15, 30, 45], xlabel: "w", ylabel: "L(w)" },\n      curves: [{ id: "L", f: L, df: dL, color: "q", area: true }],\n      marks: [{ id: "min", curve: "L", x: 2.1, label: "\u8C37\u5E95", icon: "target" }],\n      point: { id: "p", curve: "L", x: 0, params: { eta: 0.05 }, color: "v" },\n      side: { readout: { title: "\u5B9E\u65F6\u8BFB\u6570", rows: [["i", "\u6B65\u6570", (s) => s.i], ["x", "w", (s) => s.x.toFixed(3)], ["eta", "\u5B66\u4E60\u7387 \u03B7", (s) => s.eta]] } } },\n    steps: [\n      { say: "\u4ECE w = 0 \u51FA\u53D1\uFF0C\u5B66\u4E60\u7387 **0.05**", do: [{ show: ["axes", "L", "min", "side", "p"] }] },\n      { say: "\u51E0\u6B65\u5C31\u5230\u8C37\u5E95", do: [{ focus: ["eta"], color: "ok" }, { walk: "p", xs: gd(0, 0.05, 5) }] },\n      { say: "\u6539\u6210 {danger:0.14}\uFF1A\u8D8A\u8DF3\u8D8A\u8FDC", do: [{ reset: "p", x: 0, params: { eta: 0.14 }, color: "danger" }, { walk: "p", xs: gd(0, 0.14, 3), jump: true }] } ],\n  };\n};\n```\n\n## \u4F8B\u5B50\uFF08A \u548C B \u5BF9\u6BD4\uFF09\n\n```js\nexport default (ctx) => ({\n  header: { eyebrow: "\u68AF\u5EA6\u4E0B\u964D \xB7 \u8FDB\u9636", icon: "git-compare", title: "\u52A8\u91CF\u6CD5\uFF1A\u7A84\u957F\u5C71\u8C37\u91CC\u4E0D\u518D\u6765\u56DE\u8DF3" },\n  formula: String.raw`v \\leftarrow \\part{beta}{\\beta}\\,v - \\eta\\,\\frac{dL}{dw}`,\n  layout: { type: "compare",\n    rows: ["\u600E\u4E48\u66F4\u65B0", "\u6A2A\u5411\u9707\u8361", "\u6548\u679C"],\n    sides: [\n      { id: "gd", title: "\u7EAF\u68AF\u5EA6\u4E0B\u964D", icon: "trending-down", color: "danger",\n        items: ["\u53EA\u770B\u5F53\u4E0B\u7684\u5761\u5EA6", "\u6765\u56DE\u8DF3\uFF0C\u524D\u8FDB\u6162", "\u5B66\u4E60\u7387\u5927\u5C31\u53D1\u6563"] },\n      { id: "mom", title: "\u52A8\u91CF\u6CD5", icon: "gauge", color: "q",\n        items: ["\u7D2F\u79EF\u8FC7\u53BB\u7684\u5761\u5EA6", "\u6B63\u8D1F\u62B5\u6D88\uFF0C\u51E0\u4E4E\u4E0D\u8DF3", "\u540C\u6837\u6B65\u957F\u5FEB\u51E0\u500D"] } ],\n    verdict: { text: "\u52A8\u91CF = \u8BB0\u4F4F\u8FC7\u53BB\u7684\u65B9\u5411", icon: "target", color: "ok" } },\n  hand: [{ id: "b", tex: String.raw`\\beta \\approx 0.9`, near: "mom", side: "below" }],\n  steps: [\n    { say: "\u5DE6\u8FB9\u662F\u7EAF\u68AF\u5EA6\u4E0B\u964D\uFF0C\u6BCF\u4E00\u6B65\u53EA\u770B\u5F53\u4E0B\u7684\u5761\u5EA6", do: [{ show: ["r1", "r2", "r3", "gd"] }] },\n    { say: "\u5728\u7A84\u957F\u7684\u5C71\u8C37\u91CC\u5B83**\u6765\u56DE\u8DF3**", do: [{ pick: "gd", row: 2 }] },\n    { say: "\u52A8\u91CF\u6CD5\u628A\u8FC7\u53BB\u7684\u5761\u5EA6\u4E5F\u7B97\u8FDB\u6765", do: [{ show: "mom" }, { focus: ["beta"] }] },\n    { say: "\u6A2A\u5411\u7684\u6B63\u8D1F\u4E92\u76F8\u62B5\u6D88\uFF0C**\u51E0\u4E4E\u4E0D\u8DF3**", do: [{ pick: "mom", row: 2 }] },\n    { say: "\u5E38\u7528\u7684\u8D77\u70B9\uFF1A**\u03B2 \u53D6 0.9**", do: [{ show: "verdict" }, { write: "b" }] } ],\n});\n```\n\n';
 var PSK_GUIDE_EN = "Pro Slide Kit guide (written in Chinese; every field name, layout type and action below is the same in English boards \u2014 write header / say / items in the board's language).\n\n" + PSK_GUIDE_ZH;
 var LECTURE_STYLE = "lecture";
 var LECTURE_STYLE_IDS = ["feynman", "visual", "handson"];
@@ -86127,8 +86127,12 @@ var LECTURE_BASE_ZH = `# \u8BB2\u4E49\u7248\u5199\u6CD5(\u50CF\u9AD8\u8001\u5E08
 
 ## \u6BCF\u4E00\u5C4F
 
-- \u4E00\u5E55 = \u4E00\u4E2A scene \u6761\u76EE(lib:"${PSK_LIB}",size:"full",aspect:"16:9"),**items \u91CC\u53EA\u653E\u5B83**;\u4E0D\u653E text / code / \u56FE / \u4FBF\u7B7E(\u53EA\u6709 handson \u98CE\u683C\u53EF\u4EE5\u5728\u5C4F\u4E0A\u591A\u653E\u4E00\u4E2A\u80FD\u8FD0\u884C\u7684 code \u6761\u76EE)\u3002\u5C4F\u6807\u9898\u4E0D\u4F1A\u88AB\u5FF5\u51FA\u6765,\u8BB2\u7684\u8BDD\u4ECE say \u5F00\u59CB\u3002
-- \u573A\u666F\u6570\u636E\u52A0 \`caption: "lecture"\`(\u5B57\u5E55\u81EA\u52A8\u6362\u884C,\u6700\u591A\u4E09\u884C)\u3002
+- \u4E00\u5E55 = \u4E00\u4E2A scene \u6761\u76EE(lib:"${PSK_LIB}",size:"full",aspect:"16:9");\u5C4F\u6807\u9898\u4E0D\u4F1A\u88AB\u5FF5\u51FA\u6765,\u8BB2\u7684\u8BDD\u4ECE say \u5F00\u59CB\u3002\u5C4F\u4E0A\u8FD8\u80FD\u653E\u4EC0\u4E48,\u770B\u8FD9\u4E00\u5C4F\u7684\u7C7B\u578B(act \u4E0A\u5199 \`screen\`):
+  - \`screen:"explain"\`(\u7F3A\u7701)\u8BB2\u89E3\u5C4F:items \u91CC**\u53EA\u653E**\u8FD9\u5757 PSK;\u4E0D\u653E text / code / \u56FE / \u4FBF\u7B7E\u3002
+  - \`screen:"run"\` \u5B9E\u9A8C\u5C4F:PSK + **\u6070\u597D\u4E00\u4E2A\u80FD\u8FD0\u884C\u7684 code \u6761\u76EE**(\u5199\u660E env,\u628A\u5173\u952E\u6570\u5B57 print \u51FA\u6765)\u3002say \u91CC\u5148\u8BA9\u5B66\u5458\u731C\u7ED3\u679C,\u518D\u8BF4\u300C\u4F60\u81EA\u5DF1\u8DD1\u4E00\u4E0B\u300D\u3002
+  - \`screen:"ask"\` \u63D0\u95EE\u5C4F:PSK + **\u6070\u597D\u4E00\u9053 choice \u9009\u62E9\u9898**(\u6BCF\u4E2A\u9009\u9879\u5E26 explain)\u3002say \u91CC\u628A\u95EE\u9898\u8BB2\u51FA\u6765,\u4E0D\u8981\u628A\u7B54\u6848\u8BF4\u7834\u3002
+- **\u522B\u8FDE\u7740\u8BB2**:\u4E00\u95E8\u8BFE\u4E0D\u662F\u653E\u5E7B\u706F\u7247\u3002\u8FDE\u7EED\u8BB2\u4E86 3 \u5C4F,\u4E0B\u4E00\u5C4F\u5C31\u8BE5\u8BA9\u5B66\u5458\u52A8\u624B(run \u6216 ask);\u5B9A\u5B66\u4E60\u8DEF\u5F84\u65F6\u5C31\u628A\u54EA\u51E0\u5C4F\u662F run / ask \u6392\u597D\u3002\u4E3B\u9898\u786E\u5B9E\u6CA1\u6709\u53EF\u8DD1\u3001\u53EF\u95EE\u7684,\u624D\u6574\u5757\u90FD\u7528\u8BB2\u89E3\u5C4F\u3002
+- \u573A\u666F\u6570\u636E(data \u6216 source \u8FD4\u56DE\u7684\u5BF9\u8C61)\u91CC\u52A0 \`caption: "lecture"\`(\u5B57\u5E55\u81EA\u52A8\u6362\u884C,\u6700\u591A\u4E09\u884C);\u4E0D\u8981\u5199\u5728 scene \u6761\u76EE\u5916\u5C42\u3002
 - \u4E00\u5C4F\u51E0\u6B65\u3001\u6BCF\u6B65 say \u591A\u957F,\u6309\u4E0B\u9762\u9009\u5B9A\u7684\u98CE\u683C;\u8FD9\u4E00\u6B65\u753B\u9762\u4E0A\u51FA\u73B0\u4EC0\u4E48,say \u5C31\u8BB2\u5230\u4EC0\u4E48\u3002
 - \u753B\u9762\u4E0A\u53EA\u7559**\u770B\u7684\u4E1C\u897F**:\u56FE\u3001\u66F2\u7EBF\u3001\u5BF9\u6BD4\u8868\u3001\u63A8\u5BFC\u7684\u5F0F\u5B50\u3001\u5C11\u91CF\u5173\u952E\u8BCD(\u8981\u70B9\u6807\u9898 \u2264 8 \u5B57\u3001\u8BF4\u660E \u2264 16 \u5B57)\u3002\u8BB2\u7684\u8BDD\u4E0D\u8981\u518D\u6284\u5230\u753B\u9762\u4E0A\u3002
 
@@ -86213,13 +86217,82 @@ function lectureGuide(style, lang) {
 }
 var LECTURE_GUIDE_ZH = LECTURE_BASE_ZH + "\n" + LECTURE_STYLE_ZH.feynman;
 var LECTURE_GUIDE_EN = lectureGuide("feynman", "en");
+var KIT_SCREEN_TYPES = ["explain", "run", "ask", "tools"];
+var KIT_TOOL_BLOCKS = ["agent", "terminal", "files", "browser", "vscode"];
+var isToolBlock = (it) => typeof it.kind === "string" && KIT_TOOL_BLOCKS.includes(it.kind);
+var TOOLS_SCREEN_EXTRA = /* @__PURE__ */ new Set(["text", "code"]);
+var TOOLS_SCREEN_MAX = 3;
+function kitToolsScreenIssues(act, lang) {
+  const zh = lang === "zh";
+  const items = (Array.isArray(act.items) ? act.items : []).filter(isObj2);
+  const tools = items.filter(isToolBlock);
+  const others = items.filter((it) => !isToolBlock(it) && !TOOLS_SCREEN_EXTRA.has(str(it.kind)));
+  const out2 = [];
+  if (!tools.length) out2.push(zh ? `\u5DE5\u5177\u5C4F(screen:"tools")\u81F3\u5C11\u653E\u4E00\u4E2A\u5DE5\u5177\u5757(${KIT_TOOL_BLOCKS.join(" / ")})` : `a tools screen (screen:"tools") needs at least one tool block (${KIT_TOOL_BLOCKS.join(" / ")})`);
+  if (tools.length > TOOLS_SCREEN_MAX) out2.push(zh ? `\u5DE5\u5177\u5C4F\u6700\u591A\u653E ${TOOLS_SCREEN_MAX} \u4E2A\u5DE5\u5177\u5757(\u73B0\u5728 ${tools.length} \u4E2A):\u591A\u7684\u53E6\u5F00\u4E00\u5C4F` : `at most ${TOOLS_SCREEN_MAX} tool blocks on a tools screen (found ${tools.length}): put the rest on another screen`);
+  if (others.length) out2.push(zh ? `\u5DE5\u5177\u5C4F\u4E0A\u53EA\u653E\u5DE5\u5177\u5757\u3001\u6587\u5B57\u548C\u4EE3\u7801\u5757(\u591A\u4E86 ${others.map((it) => str(it.kind) || "?").join("\u3001")}):\u8BB2\u89E3\u653E\u5230\u524D\u4E00\u5C4F` : `a tools screen holds only tool blocks, text and code (found ${others.map((it) => str(it.kind) || "?").join(", ")}): put the explanation on the previous screen`);
+  return out2;
+}
+var BLOCKS_GUIDE_ZH = `# \u5DE5\u5177\u5757:\u628A\u677F\u53F3\u4E0B\u89D2\u300C+\u300D\u91CC\u7684\u4E1C\u897F\u653E\u5230\u67D0\u4E00\u5C4F\u4E0A
+
+\u5B66\u5458\u5728\u677F\u53F3\u4E0B\u89D2\u7684\u300C+\u300D\u91CC\u80FD\u63D2\u4EE3\u7801\u5757\u3001Agent\u3001\u7EC8\u7AEF\u3001\u6587\u4EF6\u6811\u3001\u6D4F\u89C8\u5668\u3002\u4F60\u4E5F\u80FD\u628A\u5B83\u4EEC\u653E\u5230\u6307\u5B9A\u7684\u4E00\u5C4F\u4E0A,\u5199\u6CD5\u548C\u522B\u7684\u6761\u76EE\u4E00\u6837,\u653E\u8FDB act.items:
+
+| \u6761\u76EE | \u677F\u4E0A\u662F\u4EC0\u4E48 | \u5B57\u6BB5 |
+|---|---|---|
+| {"kind":"code", \u2026} | \u4EE3\u7801\u5757(Python \u7B49,\u53EF\u8FD0\u884C) | \u89C1\u5143\u7D20\u5951\u7EA6 |
+| {"kind":"agent"} | Agent \u5BF9\u8BDD\u5757:\u5B66\u5458\u5728\u91CC\u9762\u8BA9 AI \u5199\u4EE3\u7801\u3001\u8DD1\u5B9E\u9A8C | caption? |
+| {"kind":"terminal"} | \u7EC8\u7AEF:\u5B66\u5458\u73AF\u5883\u91CC\u7684\u771F\u5B9E shell | caption? |
+| {"kind":"files"} | \u6587\u4EF6\u6811:\u770B\u3001\u6539\u73AF\u5883\u5DE5\u4F5C\u533A\u91CC\u7684\u6587\u4EF6 | caption? |
+| {"kind":"browser","url":"https://\u2026"} | \u6D4F\u89C8\u5668\u5757:\u4E00\u5F20\u7F51\u9875,\u7F29\u5230 1/4 \u7A97\u53E3\u5927\u5C0F,\u5B66\u5458\u53EF\u653E\u5927 | url \u5FC5\u586B(\u5B8C\u6574\u7684 http(s) \u5730\u5740);caption? |
+| {"kind":"vscode"} | VSCode \u5361\u7247:\u5B66\u5458\u70B9\u5F00\u540E\u5728\u81EA\u5DF1\u7684\u73AF\u5883\u91CC\u7528 VSCode \u5199\u4EE3\u7801(\u6BCF\u5F20\u5361\u4E00\u4E2A\u5DE5\u4F5C\u533A) | env?(\u73AF\u5883 id,\u6765\u81EA tb_list_envs;\u4E0D\u5199\u7528\u8FD9\u5757\u677F\u7684\u9ED8\u8BA4\u73AF\u5883,\u6CA1\u6709\u5C31\u662F python-cpu);caption? |
+
+\u600E\u4E48\u653E:
+- \u65B0\u5F00\u4E00\u5C4F:tb_add_act,act \u91CC\u5199 screen:"tools"(\u5DE5\u5177\u5C4F:\u81F3\u5C11 1 \u4E2A\u3001\u6700\u591A ${TOOLS_SCREEN_MAX} \u4E2A\u5DE5\u5177\u5757,\u53E6\u53EF\u5E26\u4E00\u53E5\u6587\u5B57\u3001\u4E00\u4E2A\u4EE3\u7801\u5757;\u4E0D\u9700\u8981 Pro Slide Kit \u753B\u9762)\u3002\u7528 after \u6307\u5B9A\u653E\u5728\u54EA\u4E00\u5C4F\u540E\u9762;\u8981\u628A\u5DF2\u6709\u7684\u4E00\u5C4F\u6574\u4E2A\u6362\u6210\u5DE5\u5177\u5C4F,\u7528 replace\u3002
+- \u8FD9\u4E9B\u5757\u5EFA\u51FA\u6765\u662F\u7A7A\u7684,**\u4F60\u542F\u52A8\u4E0D\u4E86\u5B83\u4EEC**:Agent \u5757\u8981\u5B66\u5458\u81EA\u5DF1\u53D1\u7B2C\u4E00\u53E5\u8BDD\u624D\u5F00\u59CB;\u7EC8\u7AEF\u548C\u6587\u4EF6\u6811\u5B66\u5458\u5148\u770B\u5230\u4E00\u5F20\u300C\u542F\u52A8\u300D\u5361\u7247,\u70B9\u4E86\u624D\u8FDE\u5230\u5B66\u5458\u81EA\u5DF1\u7684\u73AF\u5883(\u7528\u7684\u662F\u5B66\u5458\u7684\u73AF\u5883\u548C\u989D\u5EA6)\u3002\u6240\u4EE5\u522B\u8BF4\u300C\u5DF2\u7ECF\u5E2E\u4F60\u8DD1\u8D77\u6765\u4E86\u300D\u3002\u5728\u540C\u4E00\u5C4F\u7528\u4E00\u53E5 text \u544A\u8BC9\u5B66\u5458\u5728\u8FD9\u4E2A\u5757\u91CC\u505A\u4EC0\u4E48\u3002
+- \u6D4F\u89C8\u5668\u5757:\u4F60\u5199\u7684\u5730\u5740,\u5B66\u5458\u7B2C\u4E00\u6B21\u770B\u5230\u7684\u662F\u4E00\u5F20\u300C\u52A0\u8F7D\u7F51\u9875\u300D\u5361\u7247,\u70B9\u4E86\u624D\u52A0\u8F7D\u3002\u5F88\u591A\u7AD9\u7981\u6B62\u88AB\u5D4C\u5165(GitHub\u3001arXiv\u3001Google \u7B49),\u8FD9\u7C7B\u5730\u5740\u5B66\u5458\u4F1A\u770B\u5230\u300C\u5728\u65B0\u6807\u7B7E\u6253\u5F00\u300D\u3002\u6211\u4EEC\u81EA\u5DF1\u7684\u7AD9(openlabs.live \u7B49)\u548C\u5185\u7F51\u5730\u5740\u4E0D\u80FD\u653E\u3002
+- \u5220\u6389 / \u6362\u6389\u4E00\u4E2A\u5DE5\u5177\u5757:tb_delete \u5B83\u7684\u7F16\u53F7,\u518D\u6309\u9700\u8981\u91CD\u65B0\u52A0\u3002
+- VSCode \u5361\u7247:\u6253\u5F00\u8981\u5B66\u5458\u81EA\u5DF1\u70B9(GPU \u73AF\u5883\u8FD8\u8981\u5B66\u5458\u5728\u73AF\u5883\u9762\u677F\u91CC\u786E\u8BA4),\u4F60\u6253\u4E0D\u5F00\u3002\u76EE\u524D\u53EA\u5728\u6D4B\u8BD5\u7AD9\u7684\u677F\u4E0A\u662F\u6D3B\u7684,\u522B\u5904\u663E\u793A\u5360\u4F4D\u3002
+- \u8FD8\u4E0D\u80FD\u653E\u7684:PDF \u9884\u89C8(\u6B63\u5728\u505A,\u505A\u597D\u540E\u4F1A\u52A0\u5230\u8FD9\u91CC)\u3002`;
+var BLOCKS_GUIDE_EN = `# Tool blocks: putting the "+" menu items on a given screen
+
+In the "+" at the bottom-right of the board the learner can insert a code block, an Agent, a terminal, a file tree and a browser. You can place the same blocks on a specific screen; they are ordinary items in act.items:
+
+| Item | What it is on the board | Fields |
+|---|---|---|
+| {"kind":"code", \u2026} | code block (Python etc., runnable) | see the element contract |
+| {"kind":"agent"} | Agent chat block: the learner asks an AI to write code and run experiments | caption? |
+| {"kind":"terminal"} | terminal: a real shell in the learner's environment | caption? |
+| {"kind":"files"} | file tree: view and edit files in the environment workspace | caption? |
+| {"kind":"browser","url":"https://\u2026"} | browser block: a web page shown at quarter-window size, the learner can enlarge it | url required (a full http(s) address); caption? |
+| {"kind":"vscode"} | VSCode card: the learner opens VSCode in their own environment (one workspace per card) | env? (an environment id from tb_list_envs; default = the board's default environment, else python-cpu); caption? |
+
+How to place them:
+- A new screen: tb_add_act with screen:"tools" in the act (a tools screen: 1 to ${TOOLS_SCREEN_MAX} tool blocks, plus optionally one line of text and one code block; no Pro Slide Kit screen needed). Use after to choose which screen it follows, or replace to swap an existing screen for it.
+- The blocks are created empty and **you cannot start them**: the Agent block starts when the learner sends the first message; for the terminal and the file tree the learner first sees a "Start" card and the block connects to the learner's own environment only after a click (it uses the learner's environment and quota). So never say "it is already running". Add one text item on the same screen telling the learner what to do in the block.
+- Browser block: for an address you wrote, the learner first sees a "load page" card and the page loads only after a click. Many sites refuse to be embedded (GitHub, arXiv, Google\u2026); for those the learner gets "open in a new tab". Our own sites (openlabs.live etc.) and private-network addresses are not allowed.
+- To remove or replace a tool block: tb_delete its ref, then add again if needed.
+- VSCode card: only the learner can open it (a GPU environment also needs the learner's confirmation in the environment panel). For now it is live only on the test site; elsewhere it shows a placeholder.
+- Not available yet: PDF preview (in progress; it will be added here).`;
+var kitScreenType = (act) => act.screen === void 0 ? "explain" : typeof act.screen === "string" && KIT_SCREEN_TYPES.includes(act.screen) ? act.screen : null;
+var kitActIsHandsOn = (act) => {
+  const t = kitScreenType(act);
+  return t === "run" || t === "ask" || t === "tools" || (Array.isArray(act.items) ? act.items : []).some((it) => isObj2(it) && (it.kind === "code" || it.kind === "choice"));
+};
+var LECTURE_HANDS_ON_EVERY = 3;
 function kitLectureIssues(act, lang, style) {
   const zh = lang === "zh";
   const items = (Array.isArray(act.items) ? act.items : []).filter(isObj2);
   const psk = items.filter((it) => it.kind === "scene" && typeof it.lib === "string" && it.lib.startsWith("pro-slide-kit@"));
-  const codeOk = style === "handson" ? items.filter((it) => it.kind === "code").slice(0, 1) : [];
+  const screen = kitScreenType(act);
+  if (screen === "tools") return kitToolsScreenIssues(act, lang);
+  const extraKind = screen === "run" ? "code" : screen === "ask" ? "choice" : style === "handson" ? "code" : null;
+  const extra = extraKind ? items.filter((it) => it.kind === extraKind) : [];
+  const codeOk = extra.slice(0, 1);
   const others = items.filter((it) => !psk.includes(it) && !codeOk.includes(it));
   const out2 = [];
+  if (act.screen !== void 0 && !screen) out2.push(zh ? `screen \u53EA\u80FD\u662F ${KIT_SCREEN_TYPES.map((t) => `"${t}"`).join(" / ")}` : `screen must be one of ${KIT_SCREEN_TYPES.map((t) => `"${t}"`).join(" / ")}`);
+  if (screen === "run" && !extra.length) out2.push(zh ? '\u5B9E\u9A8C\u5C4F(screen:"run")\u8981\u6709\u4E00\u4E2A\u80FD\u8FD0\u884C\u7684 code \u6761\u76EE(\u5199\u660E env)' : 'a run screen (screen:"run") needs one runnable code item (with its env)');
+  if (screen === "ask" && !extra.length) out2.push(zh ? '\u63D0\u95EE\u5C4F(screen:"ask")\u8981\u6709\u4E00\u9053 choice \u9009\u62E9\u9898' : 'an ask screen (screen:"ask") needs one choice item');
   if (psk.length !== 1) out2.push(zh ? `\u8BB2\u4E49\u7248\u6BCF\u4E00\u5C4F\u6070\u597D\u4E00\u5757 Pro Slide Kit \u753B\u9762(\u73B0\u5728 ${psk.length} \u5757)` : `a lecture screen holds exactly one Pro Slide Kit screen (found ${psk.length})`);
   if (others.length) out2.push(zh ? `\u8BB2\u4E49\u7248\u7684\u5C4F\u4E0A\u4E0D\u653E\u522B\u7684\u6761\u76EE(\u591A\u4E86 ${others.map((it) => str(it.kind) || "?").join("\u3001")}):\u8981\u8BB2\u7684\u5199\u8FDB say,\u8981\u770B\u7684\u753B\u8FDB PSK \u753B\u9762` : `no other items on a lecture screen (found ${others.map((it) => str(it.kind) || "?").join(", ")}): put the telling into say and the visuals into the PSK screen`);
   if (psk.length === 1 && !/caption\s*:\s*["'`]lecture["'`]/.test(str(psk[0].source))) out2.push(zh ? `\u573A\u666F\u6570\u636E\u8981\u52A0 caption: "lecture"(\u8BB2\u4E49\u5B57\u5E55)` : `add caption: "lecture" to the scene data (lecture subtitles)`);
@@ -86230,6 +86303,20 @@ var kitActHasPsk = (act) => (Array.isArray(act.items) ? act.items : []).some((it
 var kitPskHasSay = (scene) => /\bsay\s*:\s*(?!(["'`])\s*\1)\S/.test(str(scene.source));
 var PSK_NO_SAY_ZH = "PSK \u753B\u9762\u91CC\u4E00\u6B65 say \u90FD\u6CA1\u6709:\u8BB2\u7684\u8BDD\u5199\u8FDB steps \u6BCF\u4E00\u6B65\u7684 say(\u5B57\u5E55\u548C\u914D\u97F3\u6309\u5B83\u751F\u6210)";
 var PSK_NO_SAY_EN = "the PSK screen has no say in any step: write the telling into each step's say (subtitles and voice come from it)";
+var PSK_LAYOUTS = /* @__PURE__ */ new Set(["points", "plot", "derive", "compare", "pipeline", "code", "sequence"]);
+function kitPskSourceIssues(scene, lang) {
+  const zh = lang === "zh";
+  const src = str(scene.source);
+  if (!src.trim()) return [];
+  const out2 = [];
+  const m5 = kitSceneSyntaxError(src);
+  if (m5 !== null) {
+    out2.push(zh ? `\u753B\u9762\u6E90\u7801\u6709\u8BED\u6CD5\u9519\u8BEF(${m5}),\u6D4F\u89C8\u5668\u91CC\u4F1A\u663E\u793A\u300C\u52A8\u753B\u51FA\u9519\u300D:\u5E38\u89C1\u539F\u56E0\u662F\u5B57\u7B26\u4E32\u91CC\u53C8\u5957\u4E86\u540C\u6837\u7684\u5F15\u53F7 \u2014\u2014 \u91CC\u9762\u7684\u5F15\u53F7\u6539\u6210\u300C\u300D\u6216\u52A0\u53CD\u659C\u6760` : `the scene source has a syntax error (${m5}) and will show "animation error" in the browser: usually a quote inside a string using the same quote \u2014 use another quote or escape it`);
+  }
+  const bad = [...src.matchAll(/layout\s*:\s*\{\s*type\s*:\s*["'`]([^"'`]+)["'`]/g)].map((x) => x[1]).filter((t) => !PSK_LAYOUTS.has(t));
+  if (bad.length) out2.push(zh ? `\u6CA1\u6709\u300C${bad.join("\u3001")}\u300D\u8FD9\u79CD\u5E03\u5C40,\u53EA\u80FD\u7528:${[...PSK_LAYOUTS].join(" / ")}(\u89C1 tb_guide({topic:"slides"}))` : `there is no layout "${bad.join(", ")}"; use one of ${[...PSK_LAYOUTS].join(" / ")} (see tb_guide({topic:"slides"}))`);
+  return out2;
+}
 var pskScenesOf = (act) => actItemsFlat(act).filter((it) => it.kind === "scene" && typeof it.lib === "string" && it.lib.startsWith("pro-slide-kit@"));
 var lectureOf = (d7, input) => {
   const on = !!d7.lecture || isObj2(input.brief) && input.brief.style === LECTURE_STYLE;
@@ -86238,7 +86325,7 @@ var lectureOf = (d7, input) => {
 var tbGuide = {
   name: "tb_guide",
   title: "OpenLabs Canvas guides",
-  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u53D6\u4E00\u4EFD\u521B\u4F5C\u89C4\u8303\u3002pedagogy = \u8BB2\u6CD5(\u7528\u6237\u8981\u5B66\u4E1C\u897F\u65F6\u600E\u4E48\u8BB2:\u8BFE\u7A0B\u50CF\u8BB2\u4E49\u7684\u8BFE\u5802\u5B9E\u5F55,\u5B9E\u9A8C\u5148\u731C\u518D\u8DD1;" + (host === "online" ? "system prompt \u91CC\u7684\u5951\u7EA6\u5DF2\u5E26,\u62FF\u4E0D\u51C6\u65F6\u518D\u8BFB" : "\u5EFA\u677F\u524D\u8BFB") + ");scene = \u677F\u4E0A\u52A8\u753B\u7684\u521B\u4F5C\u6307\u5BFC + scene \u5951\u7EA6 + \u5B8C\u6574\u8303\u4F8B(**\u5199 scene \u524D\u5148\u8BFB**);annotate = \u677F\u4E0A\u6807\u6CE8 + \u89E3\u8BF4(\u50CF\u8001\u5E08\u4E00\u6837\u5708\u3001\u5212\u3001\u6807\u3001\u8D34\u4FBF\u7B7E;**\u8C03 tb_annotate \u524D\u5148\u8BFB**);board = \u5143\u7D20\u5951\u7EA6" + (host === "online" ? "(\u5C31\u662F system prompt \u91CC\u90A3\u4E00\u8282)" : "(\u540C tb_describe_schema)") + ";cards = \u5361\u7247\u600E\u4E48\u5199;film = \u5361\u7247\u52A8\u753B\u89C4\u8303;slides = Pro Slide Kit \u8BB2\u89E3\u5C4F\u5199\u6CD5(**\u6BCF\u4E00\u5E55\u5199 PSK \u753B\u9762\u524D\u5148\u8BFB**);lecture = \u8BB2\u4E49\u7248(\u8D39\u66FC\u8BB2\u4E49\u98CE\u683C,\u6BCF\u5C4F\u4E00\u5757 PSK\u3001\u5B57\u5E55\u662F\u8BB2\u4E49\u6B63\u6587)\u5199\u6CD5\u3002" + (host === "mcp" ? " Get one authoring guide: pedagogy (how to teach when the user wants to learn \u2014 read before building), scene (how to explain with a board scene + its contract + a worked example \u2014 read before writing a scene), annotate (marking up a board like a teacher + spoken beats \u2014 read before tb_annotate), board, cards, film, slides (how to write a Pro Slide Kit screen \u2014 read before writing one)." : "") : "Get one authoring guide: pedagogy (how to teach when the user wants to learn; already in the contract in the system prompt \u2014 re-read when unsure); scene (how to explain with a board scene + its contract + a worked example \u2014 **read before writing a scene**); annotate (marking up a board like a teacher + spoken beats \u2014 **read before tb_annotate**); board (the contract section of the system prompt); cards (how to write cards); film (card animation rules); slides (how to write a Pro Slide Kit screen \u2014 **read before writing one**).",
+  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u53D6\u4E00\u4EFD\u521B\u4F5C\u89C4\u8303\u3002pedagogy = \u8BB2\u6CD5(\u7528\u6237\u8981\u5B66\u4E1C\u897F\u65F6\u600E\u4E48\u8BB2:\u8BFE\u7A0B\u50CF\u8BB2\u4E49\u7684\u8BFE\u5802\u5B9E\u5F55,\u5B9E\u9A8C\u5148\u731C\u518D\u8DD1;" + (host === "online" ? "system prompt \u91CC\u7684\u5951\u7EA6\u5DF2\u5E26,\u62FF\u4E0D\u51C6\u65F6\u518D\u8BFB" : "\u5EFA\u677F\u524D\u8BFB") + ");scene = \u677F\u4E0A\u52A8\u753B\u7684\u521B\u4F5C\u6307\u5BFC + scene \u5951\u7EA6 + \u5B8C\u6574\u8303\u4F8B(**\u5199 scene \u524D\u5148\u8BFB**);annotate = \u677F\u4E0A\u6807\u6CE8 + \u89E3\u8BF4(\u50CF\u8001\u5E08\u4E00\u6837\u5708\u3001\u5212\u3001\u6807\u3001\u8D34\u4FBF\u7B7E;**\u8C03 tb_annotate \u524D\u5148\u8BFB**);board = \u5143\u7D20\u5951\u7EA6" + (host === "online" ? "(\u5C31\u662F system prompt \u91CC\u90A3\u4E00\u8282)" : "(\u540C tb_describe_schema)") + ";cards = \u5361\u7247\u600E\u4E48\u5199;film = \u5361\u7247\u52A8\u753B\u89C4\u8303;slides = Pro Slide Kit \u8BB2\u89E3\u5C4F\u5199\u6CD5(**\u6BCF\u4E00\u5E55\u5199 PSK \u753B\u9762\u524D\u5148\u8BFB**);lecture = \u8BB2\u4E49\u7248(\u8D39\u66FC\u8BB2\u4E49\u98CE\u683C,\u6BCF\u5C4F\u4E00\u5757 PSK\u3001\u5B57\u5E55\u662F\u8BB2\u4E49\u6B63\u6587)\u5199\u6CD5;blocks = \u5DE5\u5177\u5757(\u628A\u677F\u4E0A\u300C+\u300D\u91CC\u7684 Agent / \u7EC8\u7AEF / \u6587\u4EF6\u6811 / \u6D4F\u89C8\u5668\u653E\u5230\u67D0\u4E00\u5C4F;**\u653E\u8FD9\u4E9B\u5757\u524D\u5148\u8BFB**)\u3002" + (host === "mcp" ? ' Get one authoring guide: pedagogy (how to teach when the user wants to learn \u2014 read before building), scene (how to explain with a board scene + its contract + a worked example \u2014 read before writing a scene), annotate (marking up a board like a teacher + spoken beats \u2014 read before tb_annotate), board, cards, film, slides (how to write a Pro Slide Kit screen \u2014 read before writing one), blocks (placing the "+" menu tool blocks \u2014 Agent / terminal / file tree / browser \u2014 on a screen; read before adding one).' : "") : 'Get one authoring guide: pedagogy (how to teach when the user wants to learn; already in the contract in the system prompt \u2014 re-read when unsure); scene (how to explain with a board scene + its contract + a worked example \u2014 **read before writing a scene**); annotate (marking up a board like a teacher + spoken beats \u2014 **read before tb_annotate**); board (the contract section of the system prompt); cards (how to write cards); film (card animation rules); slides (how to write a Pro Slide Kit screen \u2014 **read before writing one**); blocks (placing the "+" menu tool blocks \u2014 Agent / terminal / file tree / browser \u2014 on a screen; **read before adding one**).',
   params: {
     topic: { type: "string", enum: GUIDE_TOPICS, description: "which guide / \u54EA\u4E00\u4EFD" },
     style: { type: "string", enum: LECTURE_STYLE_IDS, description: "topic=lecture:\u9009\u5B9A\u7684\u98CE\u683C;\u4E0D\u7ED9 = \u8D26\u6237\u9ED8\u8BA4 / lecture style; omitted = account default" }
@@ -86254,7 +86341,8 @@ var tbGuide = {
       }
       return lectureGuide(style, d7.lang === "en" ? "en" : "zh");
     }
-    if (!GUIDE_TOPICS.includes(topic)) return d7.lang === "zh" ? "topic \u53EA\u80FD\u662F pedagogy / scene / annotate / board / cards / film / slides / lecture" : "topic must be pedagogy / scene / annotate / board / cards / film / slides";
+    if (topic === "blocks") return d7.lang === "en" ? BLOCKS_GUIDE_EN : BLOCKS_GUIDE_ZH;
+    if (!GUIDE_TOPICS.includes(topic)) return d7.lang === "zh" ? "topic \u53EA\u80FD\u662F pedagogy / scene / annotate / board / cards / film / slides / lecture / blocks" : "topic must be pedagogy / scene / annotate / board / cards / film / slides / lecture / blocks";
     return d7.guide(topic, d7.lang);
   }
 };
@@ -86622,8 +86710,9 @@ var tbAddAct = {
   description: (lang, host) => host === "mcp" ? '\u7ED9\u5DF2\u6709\u7684\u677F\u8FFD\u52A0\u4E00\u4E2A\u90E8\u5206(\u4E00\u4E2A\u90E8\u5206\u4E00\u6B21\u8C03\u7528)\u3002act \u7ED3\u6784\u540C BoardSpec \u91CC\u7684 Act(\u89C1 tb_describe_schema)\u3002\u4F5C\u4E1A\u4EE3\u7801\u5757\u53EA\u653E\u533A\u6BB5(run:{path,region},\u4E00\u4E2A kernel \u4E00\u5757,\u22644000 \u5B57\u7B26,\u8D85\u957F\u6574\u5757\u53D8\u63D0\u793A);env \u5FC5\u987B\u6765\u81EA tb_list_envs\u3002\u5EFA\u677F\u65F6\u7684 defaultEnv \u4F1A\u5E26\u5230\u672C\u90E8\u5206\u7684 code \u5757;\u53EA\u6709\u7ED1\u4E86 env \u7684\u4EE3\u7801\u5757 agent \u624D\u80FD\u8FDC\u7A0B\u8DD1;code \u5757\u53EF\u5E26 recipe:"<\u914D\u65B9id>"(\u9700\u8981 env,\u914D\u65B9\u57FA\u7840\u73AF\u5883\u987B\u4E0E\u5757 env \u76F8\u540C)\u3002edges \u53EF\u4EE5\u5F15\u7528\u66F4\u65E9\u90E8\u5206\u91CC\u7684\u6761\u76EE id(\u8DE8\u90E8\u5206\u7BAD\u5934;\u627E\u4E0D\u5230\u7684 id \u88AB\u4E22\u5F03\u5E76\u5199\u8FDB problems,\u672C\u90E8\u5206\u540C\u540D\u6761\u76EE\u4F18\u5148)\u3002act.id \u6574\u5757\u677F\u5185\u552F\u4E00\u3002\u4F20 index/total \u8BA9\u8FDB\u5EA6\u884C\u663E\u793A\u300C\u7B2C 3/7 \u90E8\u5206\u300D\u3002\u7ED3\u679C\u9996\u884C\u662F\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u7528\u6237);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u4FEE\u6B63\u540E\u518D\u52A0\u4E0B\u4E00\u90E8\u5206\u3002 ' + BOARD_LANG_RULE : lang === "zh" ? "\u7ED9\u5F53\u524D\u8FD9\u5757\u677F\u52A0\u4E00\u4E2A\u90E8\u5206(\u4E00\u4E2A\u90E8\u5206\u4E00\u6B21\u8C03\u7528;act \u7ED3\u6784\u89C1\u5951\u7EA6\u91CC\u7684 Act)\u3002\u53EA\u6709\u5168\u65B0\u8BDD\u9898\u624D\u65B0\u5F00\u5E55;\u9488\u5BF9\u677F\u4E0A\u5DF2\u6709\u5185\u5BB9\u7684\u63D0\u95EE / \u89E3\u91CA\u7528 tb_reply\u3002\u677F\u4E0A\u8FD8\u6CA1\u6709\u90E8\u5206\u65F6,\u8FD9\u6B21\u8C03\u7528**\u5FC5\u987B\u5E26 brief**(\u548C\u5B66\u5458\u6838\u5BF9\u8FC7\u7684\u76EE\u6807 / \u80CC\u666F / \u53C2\u8003 / \u90E8\u5206\u6E05\u5355)\u2014\u2014 \u6CA1\u6838\u5BF9\u8FC7\u5C31\u5148\u95EE / \u5148\u6838\u5BF9,\u522B\u8C03\u3002\u4F20 index/total \u8BA9\u8FDB\u5EA6\u884C\u663E\u793A\u300C\u7B2C 3/7 \u90E8\u5206\u300D\u3002\u7ED3\u679C\u9996\u884C\u662F\u8FDB\u5EA6\u884C(\u539F\u6837\u8F6C\u7ED9\u5B66\u5458);problems \u975E\u7A7A\u8981\u8BFB\u5E76\u5728\u4E0B\u4E00\u90E8\u5206\u4FEE\u6B63\u3002" : "Add one act to the current board (one call per act; act shape = Act in the contract). Only a brand-new topic gets a new act; questions / explanations about existing content go through tb_reply. When the board has no acts yet this call MUST carry brief (the goal / background / references / act list agreed with the learner) \u2014 align first, do not call before that. Pass index/total so the progress line reads 'Act 3/7'. The first line of the result is a progress line (relay it as is); fix non-empty problems in the next act.",
   params: {
     boardId: { type: "string", optionalOn: "online", description: "\u677F id(8 \u4F4D hex);\u7F51\u9875\u4E0A\u7F3A\u7701 = \u5F53\u524D\u8FD9\u5757\u677F,\u5F80\u8FD9\u4E00\u8F6E tb_create_board / tb_create_project \u65B0\u5EFA\u7684\u677F\u52A0\u90E8\u5206\u65F6\u586B\u5B83 / board id; online default = the current board", descriptionOn: { mcp: "\u677F id(8 \u4F4D hex,tb_create_board / tb_list_boards \u7ED9\u7684)" } },
-    act: { type: "object", description: '\u4E00\u4E2A\u90E8\u5206:{id,title,items,edges?,layout?,play?,visual?,visualWhy?}(play:"show" = \u8BB2\u8BFE\u65F6\u6574\u4E2A\u90E8\u5206\u4E00\u6B21\u51FA\u73B0,\u7F3A\u7701\u4E00\u7B14\u7B14\u624B\u5199;visual = \u8FD9\u4E00\u5C4F\u4F60\u5224\u65AD\u8981\u4EC0\u4E48:"picture" / "animation" / "none",none \u65F6 visualWhy \u5199\u4E00\u53E5\u7406\u7531 \u2014\u2014 \u7CFB\u7EDF\u6309\u4F60\u7684\u8868\u6001\u6838\u5BF9) / one act; visual = what this screen needs in your judgement (picture / animation / none + visualWhy), checked against what you wrote' },
+    act: { type: "object", description: '\u4E00\u4E2A\u90E8\u5206:{id,title,items,edges?,layout?,play?,visual?,visualWhy?,screen?}(screen = \u8FD9\u4E00\u5C4F\u7684\u7C7B\u578B:"explain" \u8BB2\u89E3 / "run" \u5B9E\u9A8C / "ask" \u63D0\u95EE / "tools" \u5DE5\u5177\u5C4F \u2014\u2014 \u653E Agent / \u7EC8\u7AEF / \u6587\u4EF6\u6811 / \u6D4F\u89C8\u5668\u5757,\u5148\u8BFB tb_guide({topic:"blocks"});play:"show" = \u8BB2\u8BFE\u65F6\u6574\u4E2A\u90E8\u5206\u4E00\u6B21\u51FA\u73B0,\u7F3A\u7701\u4E00\u7B14\u7B14\u624B\u5199;visual = \u8FD9\u4E00\u5C4F\u4F60\u5224\u65AD\u8981\u4EC0\u4E48:"picture" / "animation" / "none",none \u65F6 visualWhy \u5199\u4E00\u53E5\u7406\u7531 \u2014\u2014 \u7CFB\u7EDF\u6309\u4F60\u7684\u8868\u6001\u6838\u5BF9) / one act; visual = what this screen needs in your judgement (picture / animation / none + visualWhy), checked against what you wrote' },
     after: { type: "string", description: "\u653E\u5728\u54EA\u4E00\u90E8\u5206\u4E4B\u540E(actId);\u7F3A\u7701\u8FFD\u52A0\u5230\u672B\u5C3E / insert after this actId; default append" },
+    replace: { type: "string", description: "\u6574\u5C4F\u66FF\u6362:\u8981\u6362\u6389\u7684\u90A3\u4E00\u90E8\u5206\u7684 actId(\u4ECE tb_get_board \u8BFB)\u3002\u90A3\u4E00\u5C4F\u539F\u6765\u7684\u5185\u5BB9\u64A4\u6389,\u8FD9\u4E2A act \u7AD9\u5230\u5B83\u7684\u4F4D\u7F6E(\u64AD\u653E\u987A\u5E8F\u4E0D\u53D8,\u522B\u7684\u5C4F\u4E0D\u632A);\u65B0\u90E8\u5206\u4F1A\u5F97\u5230\u4E00\u4E2A\u65B0 id,\u89C1\u7ED3\u679C\u3002\u53EA\u6539\u4E00\u4E24\u5904\u7528 tb_update,\u4E0D\u8981\u6574\u5C4F\u66FF\u6362 / replace this part (its actId): its content is removed and this act takes its place; the new part gets a new id" },
     index: { type: "integer", minimum: 1, description: "\u8FD9\u662F\u7B2C\u51E0\u90E8\u5206(\u7ED9\u8FDB\u5EA6\u884C\u7528)" },
     total: { type: "integer", minimum: 1, description: "\u8BA1\u5212\u5171\u51E0\u4E2A\u90E8\u5206(\u7ED9\u8FDB\u5EA6\u884C\u7528)" },
     brief: BRIEF_PARAM,
@@ -86652,11 +86741,23 @@ var tbAddAct = {
       const stop = kitVisualGate(d7.pictureGate, `${boardId}:${str(act.id)}`, [{ act, index: gateIndex }], { visualDefault: d7.visualDefault ?? "picture", lang, psk: d7.pskRequired, lecture: lectureOf(d7, input) });
       if (stop) return stop;
     }
-    const body = { act: kitStripVisual(act), ...typeof input.after === "string" ? { after: input.after } : {}, ...d7.gridBoards ? { grid: true } : {}, ...pre.body ?? {} };
+    const replace = typeof input.replace === "string" && input.replace.trim() ? input.replace.trim() : "";
+    const body = { act: kitStripVisual(act), ...replace ? { replace } : typeof input.after === "string" ? { after: input.after } : {}, ...d7.gridBoards ? { grid: true } : {}, ...pre.body ?? {} };
     const r7 = await d7.call("POST", `agent/boards/${boardId}/acts`, body);
+    if (!ok3(r7) && r7.json?.error === "replace_not_found") {
+      return zh ? `\u274C \u6CA1\u6709\u6267\u884C,\u677F\u4E0A\u6CA1\u6709\u53D8\u5316:\u8981\u66FF\u6362\u7684\u90E8\u5206\u300C${replace}\u300D\u4E0D\u5728\u677F\u4E0A(\u53EF\u80FD\u5DF2\u7ECF\u88AB\u6362\u6389\u6216\u5220\u6389)\u3002\u5148 tb_get_board \u770B\u73B0\u5728\u6709\u54EA\u4E9B\u90E8\u5206,\u7528\u5B83\u5217\u51FA\u7684 id` : `\u274C Nothing was done, the board is unchanged: part "${replace}" is not on the board (already replaced or deleted?). Read tb_get_board and use an id it lists`;
+    }
     if (!ok3(r7)) return d7.errorText(r7, lang);
     const j7 = r7.json ?? {};
     const ids = (Array.isArray(j7.entityIds) ? j7.entityIds : []).map((x) => kitEntityRef(boardId, x));
+    if (replace) {
+      const t = typeof act.title === "string" && act.title.trim() ? act.title.trim().slice(0, 40) : String(j7.actId ?? "");
+      const head = zh ? `\u2705 \u5DF2\u628A\u8FD9\u4E00\u5C4F\u6362\u6210\u300C${t}\u300D,${landsLine(d7, zh)} \xB7 ${d7.boardUrl(boardId)}` : `\u2705 Replaced that screen with "${t}"; ${landsLine(d7, zh)} \xB7 ${d7.boardUrl(boardId)}`;
+      const pics = kitVisualNotes([{ act, index: 2 }], { visualDefault: d7.visualDefault ?? "picture", lang, psk: d7.pskRequired, lecture: lectureOf(d7, input) });
+      return `${head}
+
+${zh ? `\u539F\u90E8\u5206 ${replace} \u5DF2\u64A4\u6389;\u65B0\u90E8\u5206\u7684 id \u662F ${String(j7.actId ?? "")}(\u4E4B\u540E\u6539\u5B83\u3001\u5728\u5B83\u540E\u9762\u52A0\u5185\u5BB9\u7528\u8FD9\u4E2A id)` : `part ${replace} is gone; the new part's id is ${String(j7.actId ?? "")} (use it from now on)`}(seq ${String(j7.seq ?? "?")})${zh ? "\u5143\u7D20\u7F16\u53F7" : " refs"}:${ids.join(" ") || (zh ? "\u65E0" : "none")}` + kitProblemsBlock(j7.problems) + pics;
+    }
     let n2 = Number.isInteger(input.index) && input.index > 0 ? input.index : void 0;
     if (n2 === void 0 && readCount !== void 0) n2 = readCount + 1;
     if (n2 === void 0) {
@@ -87112,6 +87213,136 @@ var KIT_SCENE_TEMPLATES = {
     }
   }
 };
+var CJK_Q = "[\\u3400-\\u9fff\\u3000-\\u303f\\uff00-\\uffef]";
+var INNER_QUOTE_RE = new RegExp(`(?<=${CJK_Q})"([^"\\n\\\\]*[\\u3400-\\u9fffA-Za-z0-9][^"\\n\\\\]*)"(?=${CJK_Q})`, "g");
+var pskParses = (src) => kitSceneSyntaxError(src) === null;
+function fixRawNewlinesInStrings(src) {
+  let out2 = "", q3 = null, i6 = 0;
+  const tpl = [];
+  while (i6 < src.length) {
+    const c6 = src[i6], n2 = src[i6 + 1];
+    if (q3 === "'" || q3 === '"') {
+      if (c6 === "\\") {
+        out2 += c6 + (n2 ?? "");
+        i6 += 2;
+        continue;
+      }
+      if (c6 === q3) q3 = null;
+      if (c6 === "\n") {
+        out2 += "\\n";
+        i6++;
+        continue;
+      }
+      if (c6 === "\r") {
+        i6++;
+        continue;
+      }
+      out2 += c6;
+      i6++;
+      continue;
+    }
+    if (q3 === "`") {
+      if (c6 === "\\") {
+        out2 += c6 + (n2 ?? "");
+        i6 += 2;
+        continue;
+      }
+      if (c6 === "`") q3 = null;
+      else if (c6 === "$" && n2 === "{") {
+        tpl.push(0);
+        q3 = null;
+        out2 += "${";
+        i6 += 2;
+        continue;
+      }
+      out2 += c6;
+      i6++;
+      continue;
+    }
+    if (c6 === "/" && n2 === "/") {
+      const e6 = src.indexOf("\n", i6);
+      const j7 = e6 < 0 ? src.length : e6;
+      out2 += src.slice(i6, j7);
+      i6 = j7;
+      continue;
+    }
+    if (c6 === "/" && n2 === "*") {
+      const e6 = src.indexOf("*/", i6 + 2);
+      const j7 = e6 < 0 ? src.length : e6 + 2;
+      out2 += src.slice(i6, j7);
+      i6 = j7;
+      continue;
+    }
+    if (c6 === "'" || c6 === '"' || c6 === "`") q3 = c6;
+    else if (tpl.length && c6 === "{") tpl[tpl.length - 1]++;
+    else if (tpl.length && c6 === "}") {
+      if (tpl[tpl.length - 1] === 0) {
+        tpl.pop();
+        q3 = "`";
+      } else tpl[tpl.length - 1]--;
+    }
+    out2 += c6;
+    i6++;
+  }
+  return out2;
+}
+function kitSceneSyntaxError(src) {
+  const body = src.replace(/\bexport\s+default\s+/, "return ").replace(/(^|\n)([ \t]*)export\s+(?=(?:const|let|var|function|async|class)\b)/g, "$1$2");
+  try {
+    new Function("ctx", body);
+    return null;
+  } catch (e6) {
+    return e6 instanceof Error ? e6.message : String(e6);
+  }
+}
+function kitRepairSceneSource(src) {
+  if (pskParses(src)) return src;
+  const quotes = (s) => s.replace(INNER_QUOTE_RE, "\u201C$1\u201D");
+  for (const f7 of [quotes, fixRawNewlinesInStrings, (s) => fixRawNewlinesInStrings(quotes(s))]) {
+    const fixed = f7(src);
+    if (fixed !== src && pskParses(fixed)) return fixed;
+  }
+  return src;
+}
+var kitRepairPskQuotes = kitRepairSceneSource;
+function kitNormalizePskScene(it, lang) {
+  let data2 = it.data;
+  if (typeof data2 === "string") {
+    try {
+      data2 = JSON.parse(data2);
+    } catch {
+      return lang === "en" ? "data is not valid JSON" : "data \u4E0D\u662F\u5408\u6CD5\u7684 JSON";
+    }
+  }
+  const outerLecture = typeof it.caption === "string" && it.caption.trim().toLowerCase() === "lecture";
+  if (outerLecture) delete it.caption;
+  if (isObj2(data2) && !(typeof it.source === "string" && it.source.trim())) {
+    const d7 = { ...data2 };
+    if (outerLecture && d7.caption === void 0) d7.caption = "lecture";
+    const lay = isObj2(d7.layout) ? d7.layout : null;
+    const tpl = lay && typeof lay.type === "string" && Object.prototype.hasOwnProperty.call(KIT_SCENE_TEMPLATES, lay.type) ? lay.type : null;
+    if (tpl && lay) {
+      const { type: _t, ...params } = lay;
+      const head = isObj2(d7.header) ? d7.header : {};
+      it.template = tpl;
+      it.params = { title: str(head.title) || str(it.title), ...params };
+      delete it.lib;
+      delete it.data;
+      return null;
+    }
+    it.source = `export default (ctx) => (${JSON.stringify(d7, null, 1)});
+`;
+    delete it.data;
+    return null;
+  }
+  delete it.data;
+  if (typeof it.source === "string") {
+    let src = it.source;
+    if (outerLecture && !/caption\s*:/.test(src)) src = src.replace(/^(\s*export\s+default\s*\(\s*ctx\s*\)\s*=>\s*\(\s*\{)/, '$1 caption: "lecture",');
+    it.source = kitRepairPskQuotes(src);
+  }
+  return null;
+}
 function kitExpandSceneTemplates(act, lang) {
   const errs = [];
   const walk3 = (items) => {
@@ -87119,6 +87350,12 @@ function kitExpandSceneTemplates(act, lang) {
     for (const it of items) {
       if (!isObj2(it)) continue;
       if (it.kind === "group") walk3(it.items);
+      if (it.kind === "scene" && typeof it.lib === "string" && it.lib.startsWith("pro-slide-kit@")) {
+        const e6 = kitNormalizePskScene(it, lang);
+        if (e6) errs.push(`scene ${str(it.id) || "?"}:${e6}`);
+      } else if (it.kind === "scene" && typeof it.source === "string" && it.source.trim()) {
+        it.source = kitRepairSceneSource(it.source);
+      }
       if (it.kind !== "scene" || typeof it.template !== "string" || typeof it.source === "string" && it.source.trim()) continue;
       let params = it.params;
       if (typeof params === "string") {
@@ -87174,12 +87411,21 @@ function kitVisualIssueList(act, index, visualDefault, lang, o2 = {}) {
     hard(zh ? "\u8FD9\u4E00\u5C4F\u662F\u7A7A\u7684(items \u91CC\u4EC0\u4E48\u90FD\u6CA1\u6709):\u4E00\u5C4F\u8981\u628A\u5185\u5BB9\u4E00\u6B21\u5199\u5168\u518D\u63D0\u4EA4,\u4E0D\u8981\u5148\u653E\u7A7A\u58F3\u5C4F\u518D\u8865" : "this screen is empty (no items): write the whole screen in one go; do not submit an empty placeholder to fill in later");
     return out2;
   }
+  for (const sc of pskScenesOf(act)) kitPskSourceIssues(sc, lang).forEach(hard);
+  for (const sc of actItemsFlat(act).filter((it) => it.kind === "scene" && typeof it.source === "string" && !(typeof it.lib === "string" && it.lib.startsWith("pro-slide-kit@")))) {
+    const m5 = kitSceneSyntaxError(str(sc.source));
+    if (m5 !== null) hard(zh ? `\u52A8\u753B ${str(sc.id) || ""} \u6E90\u7801\u6709\u8BED\u6CD5\u9519\u8BEF(${m5}),\u6D4F\u89C8\u5668\u91CC\u4F1A\u663E\u793A\u300C\u52A8\u753B\u51FA\u9519\u300D:\u5E38\u89C1\u539F\u56E0\u662F\u5B57\u7B26\u4E32\u91CC\u76F4\u63A5\u6362\u4E86\u884C(\u8981\u5199\u6210 \\n)\u6216\u5957\u4E86\u540C\u6837\u7684\u5F15\u53F7` : `animation ${str(sc.id) || ""} has a syntax error (${m5}) and will show "animation error": usually a raw line break inside a string (write \\n) or a nested same quote`);
+  }
   if (o2.lecture) {
     const lec = kitLectureIssues(act, lang, typeof o2.lecture === "string" ? o2.lecture : void 0);
     if (lec.length) {
       lec.forEach(hard);
       hard(zh ? '\u5148\u8BFB tb_guide({topic:"lecture"})' : 'read tb_guide({topic:"lecture"}) first');
     }
+    return out2;
+  }
+  if (kitScreenType(act) === "tools") {
+    kitToolsScreenIssues(act, lang).forEach(hard);
     return out2;
   }
   if (o2.psk && !kitActHasPsk(act)) hard(zh ? `\u6CA1\u6709 Pro Slide Kit \u753B\u9762:\u6BCF\u4E00\u5E55\u90FD\u8981\u6709\u4E00\u5757(scene \u6761\u76EE,lib:"${PSK_LIB}",size:"full";\u5148\u8BFB tb_guide({topic:"slides"}),\u8BB2\u89E3\u5199\u8FDB\u5B83\u6BCF\u4E00\u6B65\u7684 say)` : `no Pro Slide Kit screen: every act needs one (a scene item with lib:"${PSK_LIB}", size:"full"; read tb_guide({topic:"slides"}) first and put the telling into each step's say)`);
@@ -87221,9 +87467,23 @@ function kitFingerprint(v2) {
 function kitVisualGate(gate, key, acts, o2) {
   if (!gate) return null;
   const zh = o2.lang === "zh";
-  const bad = acts.map((a6) => ({ a: a6, issues: kitVisualIssueList(a6.act, a6.index, o2.visualDefault, o2.lang, { psk: o2.psk, lecture: o2.lecture }) })).filter((x) => x.issues.length);
+  const boardKey = key.includes(":") ? key.slice(0, key.lastIndexOf(":")) : key;
+  let freshRhythm = false;
+  const rhythm = (a6) => {
+    if (!o2.lecture) return [];
+    if (kitActIsHandsOn(a6.act)) {
+      gate.add(`${boardKey}#do:${a6.index}`);
+      return [];
+    }
+    if (a6.index <= LECTURE_HANDS_ON_EVERY || gate.has(`${boardKey}#rhythm:${a6.index}`)) return [];
+    for (let i6 = a6.index - LECTURE_HANDS_ON_EVERY; i6 < a6.index; i6++) if (gate.has(`${boardKey}#do:${i6}`)) return [];
+    gate.add(`${boardKey}#rhythm:${a6.index}`);
+    freshRhythm = true;
+    return [{ hard: false, text: zh ? `\u5DF2\u7ECF\u8FDE\u7740\u8BB2\u4E86 ${LECTURE_HANDS_ON_EVERY} \u5C4F,\u5B66\u5458\u4E00\u76F4\u5728\u770B:\u8FD9\u4E00\u5C4F\u6539\u6210\u5B9E\u9A8C\u5C4F(screen:"run",PSK + \u4E00\u4E2A\u80FD\u8FD0\u884C\u7684 code)\u6216\u63D0\u95EE\u5C4F(screen:"ask",PSK + \u4E00\u9053 choice);\u8FD9\u4E2A\u4E3B\u9898\u786E\u5B9E\u6CA1\u6709\u53EF\u8DD1\u3001\u53EF\u95EE\u7684,\u539F\u6837\u518D\u53D1\u4E00\u6B21` : `${LECTURE_HANDS_ON_EVERY} screens in a row only talk: make this one a run screen (screen:"run", PSK + one runnable code item) or an ask screen (screen:"ask", PSK + one choice); if the topic truly has nothing to run or ask, send it again unchanged` }];
+  };
+  const bad = acts.map((a6) => ({ a: a6, issues: [...kitVisualIssueList(a6.act, a6.index, o2.visualDefault, o2.lang, { psk: o2.psk, lecture: o2.lecture }), ...rhythm(a6)] })).filter((x) => x.issues.length);
   const anyHard = bad.some((x) => x.issues.some((i6) => i6.hard));
-  if (!bad.length || !anyHard && gate.has(key)) return null;
+  if (!bad.length || !anyHard && gate.has(key) && !freshRhythm) return null;
   gate.add(key);
   const list2 = bad.map((x) => zh ? `${screenName(x.a, zh)}:${x.issues.map((i6) => i6.text).join(";")}` : `${screenName(x.a, zh)}: ${x.issues.map((i6) => i6.text).join("; ")}`).join("\n");
   let tail2;
@@ -87236,12 +87496,14 @@ function kitVisualGate(gate, key, acts, o2) {
     if (repeats >= 1) tail2 += zh ? `
 \u26A0 \u8FD9\u6B21\u63D0\u4EA4\u548C\u4E4B\u524D\u88AB\u9000\u56DE\u7684\u5185\u5BB9\u4E00\u6A21\u4E00\u6837(\u7B2C ${repeats + 1} \u6B21\u539F\u6837\u91CD\u53D1),\u4EC0\u4E48\u90FD\u6CA1\u6539\u3002${repeats >= 2 ? "\u522B\u518D\u539F\u6837\u91CD\u8BD5\u4E86:\u505C\u4E0B\u6765\u544A\u8BC9\u7528\u6237\u8FD9\u4E00\u5C4F\u5361\u5728\u54EA\u4E00\u6761,\u8BF7\u7528\u6237\u51B3\u5B9A\u3002" : "\u8981\u771F\u6B63\u6539\u5185\u5BB9\u624D\u884C\u3002"}` : `
 \u26A0 This is identical to content already refused (sent unchanged ${repeats + 1} times); nothing was changed. ${repeats >= 2 ? "Stop retrying unchanged content: tell the user which rule this screen is stuck on and let them decide." : "The content itself has to change."}`;
+  } else if (o2.lecture) {
+    tail2 = zh ? "\u6539\u597D\u7528\u540C\u6837\u7684 id \u518D\u8C03\u4E00\u6B21(\u8FD9\u4E00\u6761\u53EA\u63D0\u8FD9\u4E00\u6B21)\u3002" : "Call again with the same ids (this point is raised only once).";
   } else {
     tail2 = zh ? '\u54EA\u91CC\u8981\u56FE\u3001\u8981\u52A8\u753B\u7531\u4F60\u6309\u5185\u5BB9\u5224\u65AD:\u8981\u56FE\u5C31\u628A\u56FE(figure / chart / plot / glyph / shape + edges)\u5199\u8FDB\u8FD9\u4E00\u5C4F\u81EA\u5DF1\u7684 items,\u8981\u52A8\u753B\u5C31\u5199 scene;\u8FD9\u4E00\u5C4F\u786E\u5B9E\u4E0D\u9700\u8981,\u5C31\u6807 visual:"none" \u5E76\u5728 visualWhy \u5199\u4E00\u53E5\u7406\u7531(\u8BB2\u8FF0\u91CC\u4E5F\u522B\u518D\u8BF4\u300C\u770B\u56FE\u300D\u300C\u62D6\u52A8\u300D)\u3002\u6539\u597D\u7528\u540C\u6837\u7684 id \u518D\u8C03\u4E00\u6B21(\u8FD9\u51E0\u6761\u53EA\u62E6\u8FD9\u4E00\u6B21)\u3002' : `You decide where a picture or an animation belongs: for a picture, put it (figure / chart / plot / glyph / shapes + edges) into that screen's own items; for an animation, write the scene; if the screen truly needs none, mark visual:"none" with a one-line visualWhy (and do not tell the learner to look at or drag anything). Call again with the same ids (these points are raised only once).`;
   }
-  return zh ? `\u6CA1\u6709\u4E0A\u677F,\u753B\u9762\u5BF9\u4E0D\u4E0A:
+  return zh ? `\u6CA1\u6709\u4E0A\u677F,${anyHard || !o2.lecture ? "\u753B\u9762\u5BF9\u4E0D\u4E0A" : "\u8282\u594F\u8981\u8C03\u4E00\u4E0B"}:
 ${list2}
-${tail2}` : `Not placed \u2014 the visuals do not match:
+${tail2}` : `Not placed \u2014 ${anyHard || !o2.lecture ? "the visuals do not match" : "the pacing needs a change"}:
 ${list2}
 ${tail2}`;
 }
@@ -87256,8 +87518,8 @@ function kitVisualNotes(acts, o2) {
 ${lines.join("\n")}` : "";
 }
 function kitStripVisual(act) {
-  if (!("visual" in act) && !("visualWhy" in act)) return act;
-  const { visual: _v, visualWhy: _w, ...rest } = act;
+  if (!("visual" in act) && !("visualWhy" in act) && !("screen" in act)) return act;
+  const { visual: _v, visualWhy: _w, screen: _s6, ...rest } = act;
   return rest;
 }
 var tbCheck = {
@@ -87482,11 +87744,25 @@ ${kitRenderPlan(j7, lang)}`;
 var ENTITY_RE = /^tb:([0-9a-f]{8})\/E([1-9]\d{0,8})$/;
 var ACT_ID = /^[A-Za-z0-9_-]{1,80}$/;
 var KIT_TONES = ["neutral", "accent", "warn", "ok"];
-var KIT_UPDATE_FIELDS = ["text", "ascii", "latex", "code", "label", "tone", "svg"];
+var SCENE_SOURCE_SHOW = 3e3;
+var SCENE_SOURCE_FULL = 65536;
+function sceneDescribeLines(v2, lang, show = SCENE_SOURCE_SHOW) {
+  if (!isObj2(v2)) return [];
+  const zh = lang === "zh";
+  const src = str(v2.source);
+  const out2 = [zh ? `\u753B\u9762:${str(v2.summary) || "\u753B\u9762"}${src ? " \u2014\u2014 \u5DF2\u7ECF\u5EFA\u597D\u3001\u6709\u5185\u5BB9,\u4E0D\u662F\u7A7A\u5360\u4F4D,\u4E0D\u8981\u91CD\u5EFA" : ""}` : `scene: ${str(v2.lib) || "scene"}${str(v2.title) ? ` \u201C${str(v2.title)}\u201D` : ""}${src ? " \u2014 already built with content, not an empty placeholder; do not rebuild it" : " (empty)"}`];
+  if (src) out2.push(`source:
+${src.length > show ? `${src.slice(0, show)}
+\u2026(${zh ? `\u540E\u9762\u8FD8\u6709 ${src.length - show} \u5B57;\u53EA\u8BFB\u8FD9\u4E00\u4E2A\u5143\u7D20\u80FD\u770B\u5230\u5168\u6587` : `${src.length - show} more chars; describe this element alone for the full source`})` : src}`);
+  if (src) out2.push(zh ? "\u8981\u6539\u8FD9\u4E2A\u753B\u9762:tb_update \u7684 source \u5B57\u6BB5,\u6574\u6BB5\u6362\u6210\u65B0\u6E90\u7801(\u5E93\u4E0D\u53D8)" : "To change this scene: tb_update with the source field, replacing the whole source (same library)");
+  return out2;
+}
+var KIT_UPDATE_FIELDS = ["text", "ascii", "latex", "code", "label", "tone", "svg", "source"];
 var KIT_UPDATE_MAX = 100;
 var KIT_FORMULA_MAX = 600;
 var KIT_FIELD_MAX = 2e4;
 var KIT_SVG_MAX = 6e4;
+var KIT_SOURCE_MAX = 65536;
 var KIT_REPLY_MAX_ITEMS = 20;
 var KIT_DESCRIBE_MAX = 20;
 function kitNormalizeRef(v2, o2 = {}) {
@@ -87567,6 +87843,7 @@ var tbDescribe = {
       const body = [];
       for (const k7 of ["text", "ascii", "latex", "code", "label", "svg"]) if (str(x[k7])) body.push(`${k7}:
 ${str(x[k7])}`);
+      body.push(...sceneDescribeLines(x.scene, lang, list2.length <= 2 ? SCENE_SOURCE_FULL : SCENE_SOURCE_SHOW));
       const edges = isObj2(x.edges) ? x.edges : {};
       const ins = strList(edges.in), outs = strList(edges.out);
       if (ins.length || outs.length) body.push(zh ? `\u7BAD\u5934:\u8FDB ${ins.join(" ") || "\u65E0"};\u51FA ${outs.join(" ") || "\u65E0"}` : `arrows: in ${ins.join(" ") || "none"}; out ${outs.join(" ") || "none"}`);
@@ -87614,7 +87891,7 @@ ${zh ? `\u88AB\u56DE\u7B54\u7684\u5143\u7D20 ${entity};\u56DE\u7B54\u6846\u5143\
 var tbUpdate = {
   name: "tb_update",
   title: "Update OpenLabs Canvas entities",
-  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u6539\u677F\u4E0A\u5DF2\u6709\u7684\u5143\u7D20,\u4E00\u6B21\u4E00\u6279:\u6BCF\u6761\u6539\u52A8\u53EA\u586B\u4E00\u4E2A\u5B57\u6BB5 \u2014\u2014 text(\u6587\u5B57)/ ascii(\u516C\u5F0F,AsciiMath,\u4F18\u5148\u7528\u5B83)/ latex(\u516C\u5F0F,AsciiMath \u5199\u4E0D\u51FA\u6765\u65F6\u624D\u7528)/ code(\u4EE3\u7801\u5757)/ label(\u5F62\u72B6\u6216\u7BAD\u5934\u7684\u6807\u7B7E)/ tone(\u5F62\u72B6\u914D\u8272 neutral|accent|warn|ok)/ svg(SVG \u56FE figure:\u6574\u6BB5\u65B0\u7684 <svg>\u2026</svg>,\u539F\u5730\u6362\u6389\u8FD9\u5F20\u56FE,\u5148 tb_describe \u770B\u539F\u6765\u7684 SVG)\u3002\u516C\u5F0F \u2264600 \u5B57;\u540C\u4E00\u5143\u7D20\u540C\u4E00\u5B57\u6BB5\u4E00\u6279\u53EA\u6539\u4E00\u6B21\u3002\u5148 tb_describe \u770B\u6E05\u3002\u6539\u4EE3\u7801\u540E\u53EF\u63A5 tb_run\u3002" + (host === "online" ? "" : "\u7528\u6237\u81EA\u5DF1\u6539\u8FC7\u7684\u5143\u7D20\u4F1A\u56DE conflicts,\u5148 tb_describe \u770B\u8FC7\u518D\u51B3\u5B9A;\u8981\u8986\u76D6\u5148\u95EE\u7528\u6237,\u540C\u610F\u540E\u5E26 force:true\u3002") + "\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002" : "Edit elements already on the board (wrong code / text / formula / label / colour), one batch per call: each change carries exactly one field \u2014 text / ascii (formula, AsciiMath, preferred) / latex (only when AsciiMath cannot express it) / code / label (shape or arrow) / tone (shape colour neutral|accent|warn|ok) / svg (a figure: a whole new <svg>\u2026</svg> replaces the picture in place; tb_describe shows the current SVG). Formulas \u2264600 chars; one change per element and field per batch. tb_describe first to see the full content. The first line of the result is a progress line.",
+  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u6539\u677F\u4E0A\u5DF2\u6709\u7684\u5143\u7D20,\u4E00\u6B21\u4E00\u6279:\u6BCF\u6761\u6539\u52A8\u53EA\u586B\u4E00\u4E2A\u5B57\u6BB5 \u2014\u2014 text(\u6587\u5B57)/ ascii(\u516C\u5F0F,AsciiMath,\u4F18\u5148\u7528\u5B83)/ latex(\u516C\u5F0F,AsciiMath \u5199\u4E0D\u51FA\u6765\u65F6\u624D\u7528)/ code(\u4EE3\u7801\u5757)/ label(\u5F62\u72B6\u6216\u7BAD\u5934\u7684\u6807\u7B7E)/ tone(\u5F62\u72B6\u914D\u8272 neutral|accent|warn|ok)/ svg(SVG \u56FE figure:\u6574\u6BB5\u65B0\u7684 <svg>\u2026</svg>,\u539F\u5730\u6362\u6389\u8FD9\u5F20\u56FE,\u5148 tb_describe \u770B\u539F\u6765\u7684 SVG)/ source(\u753B\u9762 scene:Pro Slide Kit \u6216 manim-web \u753B\u9762\u7684\u6574\u6BB5\u65B0\u6E90\u7801,\u539F\u5730\u6362\u6389\u3001\u5E93\u4E0D\u53D8;\u5148 tb_describe \u5355\u72EC\u8BFB\u8FD9\u4E2A\u753B\u9762\u62FF\u5230\u6E90\u7801\u5168\u6587,\u6539\u5B8C\u7528 tb_check \u770B\u4E00\u773C)\u3002\u516C\u5F0F \u2264600 \u5B57;\u540C\u4E00\u5143\u7D20\u540C\u4E00\u5B57\u6BB5\u4E00\u6279\u53EA\u6539\u4E00\u6B21\u3002\u5148 tb_describe \u770B\u6E05\u3002\u6539\u4EE3\u7801\u540E\u53EF\u63A5 tb_run\u3002" + (host === "online" ? "" : "\u7528\u6237\u81EA\u5DF1\u6539\u8FC7\u7684\u5143\u7D20\u4F1A\u56DE conflicts,\u5148 tb_describe \u770B\u8FC7\u518D\u51B3\u5B9A;\u8981\u8986\u76D6\u5148\u95EE\u7528\u6237,\u540C\u610F\u540E\u5E26 force:true\u3002") + "\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002" : "Edit elements already on the board (wrong code / text / formula / label / colour), one batch per call: each change carries exactly one field \u2014 text / ascii (formula, AsciiMath, preferred) / latex (only when AsciiMath cannot express it) / code / label (shape or arrow) / tone (shape colour neutral|accent|warn|ok) / svg (a figure: a whole new <svg>\u2026</svg> replaces the picture in place; tb_describe shows the current SVG) / source (a scene: the whole new source of a Pro Slide Kit or manim-web scene, replaced in place, same library; describe that scene alone first to get its full source, then tb_check it). Formulas \u2264600 chars; one change per element and field per batch. tb_describe first to see the full content. The first line of the result is a progress line.",
   params: {
     boardId: { type: "string", host: "mcp", description: "\u677F id(8 \u4F4D hex)" },
     changes: { type: "array", items: { type: "object" }, minItems: 1, maxItems: KIT_UPDATE_MAX, description: '[{entity:"E12", code:"\u2026"}, {entity:"tb:\u2026/E3", tone:"warn"}] / changes' },
@@ -87650,7 +87927,7 @@ var tbUpdate = {
       }
       const v2 = c6[k7];
       const formula = k7 === "ascii" || k7 === "latex";
-      const max = formula ? KIT_FORMULA_MAX : k7 === "svg" ? KIT_SVG_MAX : KIT_FIELD_MAX;
+      const max = formula ? KIT_FORMULA_MAX : k7 === "svg" ? KIT_SVG_MAX : k7 === "source" ? KIT_SOURCE_MAX : KIT_FIELD_MAX;
       if (typeof v2 !== "string" || v2.length > max) {
         bad.push(`${at}:${zh ? `${k7} \u5FC5\u987B\u662F\u4E0D\u8D85\u8FC7 ${max} \u5B57\u7684\u5B57\u7B26\u4E32` : `${k7} must be a string of at most ${max} chars`}`);
         return;
@@ -87691,19 +87968,35 @@ var tbDelete = {
   name: "tb_delete",
   title: "Delete OpenLabs Canvas entities",
   hosts: ["mcp"],
-  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u5220\u677F\u4E0A\u7684\u5143\u7D20(\u8FDE\u540C\u5B83\u7684\u6807\u7B7E\u548C\u6302\u5728\u5B83\u8EAB\u4E0A\u7684\u7BAD\u5934)\u3002reconnect:true \u65F6\u628A\u88AB\u5220\u8282\u70B9\u8FDB\u51FA\u7684\u7BAD\u5934\u63A5\u6210\u4E00\u6761\u3002\u5220\u4E4B\u524D\u786E\u8BA4\u7528\u6237\u771F\u7684\u8981\u5220\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002" : "Delete elements from the board (with their labels and the arrows attached to them). reconnect:true joins the arrows going in and out of a removed node. Confirm with the user before deleting. Show the first line of the result to the user.",
+  description: (lang, host) => lang === "zh" || host === "mcp" ? "\u5220\u677F\u4E0A\u7684\u5143\u7D20(\u8FDE\u540C\u5B83\u7684\u6807\u7B7E\u548C\u6302\u5728\u5B83\u8EAB\u4E0A\u7684\u7BAD\u5934),\u6216\u8005\u5220\u6389\u4E00\u6574\u5C4F\u3002\u5220\u5143\u7D20:entities \u7ED9\u7F16\u53F7;reconnect:true \u65F6\u628A\u88AB\u5220\u8282\u70B9\u8FDB\u51FA\u7684\u7BAD\u5934\u63A5\u6210\u4E00\u6761\u3002\u5220\u4E00\u6574\u5C4F:\u53EA\u7ED9 act(\u90A3\u4E00\u90E8\u5206\u7684 actId,\u4ECE tb_get_board \u8BFB),\u90A3\u4E00\u5C4F\u7684\u5185\u5BB9\u548C\u5B83\u5728\u8BB2\u89E3\u91CC\u7684\u90A3\u4E00\u6B65\u4E00\u8D77\u64A4\u6389,\u522B\u7684\u5C4F\u4E0D\u632A\u3002entities \u548C act \u53EA\u7ED9\u4E00\u4E2A\u3002\u5220\u4E4B\u524D\u786E\u8BA4\u7528\u6237\u771F\u7684\u8981\u5220\u3002\u7ED3\u679C\u9996\u884C\u7ED9\u7528\u6237\u3002" : "Delete elements from the board (with their labels and the arrows attached to them), or delete a whole screen. Elements: pass entities; reconnect:true joins the arrows going in and out of a removed node. A whole screen: pass only act (that part's actId from tb_get_board); its content and its step in the walkthrough are removed, other screens stay where they are. Pass either entities or act. Confirm with the user before deleting. Show the first line of the result to the user.",
   params: {
     boardId: { type: "string", host: "mcp", description: "\u677F id(8 \u4F4D hex)" },
     entities: { type: "array", items: { type: "string" }, minItems: 1, maxItems: KIT_UPDATE_MAX, description: "\u8981\u5220\u7684\u5143\u7D20\u7F16\u53F7 / refs to delete" },
+    act: { type: "string", description: "\u5220\u6389\u4E00\u6574\u5C4F:\u90A3\u4E00\u90E8\u5206\u7684 actId(\u7ED9\u4E86\u5B83\u5C31\u4E0D\u8981\u7ED9 entities)/ delete a whole screen: that part's actId (then omit entities)" },
     reconnect: { type: "boolean", description: "\u88AB\u5220\u8282\u70B9\u7684\u4E0A\u6E38\u7BAD\u5934\u63A5\u5230\u4E0B\u6E38 / reconnect arrows" }
   },
-  required: ["boardId", "entities"],
+  required: ["boardId"],
   async run(input, d7) {
     const lang = d7.lang ?? "zh", zh = lang === "zh";
     const boardId = d7.host === "online" ? d7.boardId ?? "" : str(input.boardId).trim();
     if (!BOARD_ID_RE.test(boardId)) return zh ? "\u677F id \u5E94\u662F 8 \u4F4D\u5341\u516D\u8FDB\u5236(\u7528 tb_list_boards \u67E5)" : "The board id must be 8 hex characters (look it up with tb_list_boards)";
     const raw = Array.isArray(input.entities) ? input.entities : [];
-    if (!raw.length || raw.length > KIT_UPDATE_MAX) return zh ? `entities \u8981 1\u2013${KIT_UPDATE_MAX} \u4E2A` : `entities: 1\u2013${KIT_UPDATE_MAX}`;
+    const actId = typeof input.act === "string" ? input.act.trim() : "";
+    if (actId) {
+      if (raw.length) return zh ? "entities \u548C act \u53EA\u80FD\u7ED9\u4E00\u4E2A:\u5220\u5143\u7D20\u7ED9 entities,\u5220\u4E00\u6574\u5C4F\u7ED9 act" : "Pass either entities (elements) or act (a whole screen), not both";
+      if (!/^[A-Za-z0-9_-]{1,80}$/.test(actId)) return zh ? "act \u8981\u662F tb_get_board \u5217\u51FA\u7684\u90E8\u5206 id" : "act must be a part id listed by tb_get_board";
+      const r8 = await d7.call("POST", `agent/boards/${boardId}/delete`, { act: actId });
+      if (!ok3(r8) && r8.status === 404 && Array.isArray(r8.json?.acts)) {
+        return zh ? `\u274C \u6CA1\u6709\u6267\u884C,\u677F\u4E0A\u6CA1\u6709\u53D8\u5316:\u90E8\u5206\u300C${actId}\u300D\u4E0D\u5728\u677F\u4E0A(\u53EF\u80FD\u5DF2\u7ECF\u88AB\u6362\u6389\u6216\u5220\u6389)\u3002\u5148 tb_get_board \u770B\u73B0\u5728\u6709\u54EA\u4E9B\u90E8\u5206` : `\u274C Nothing was done, the board is unchanged: part "${actId}" is not on the board (already replaced or deleted?). Read tb_get_board first`;
+      }
+      if (!ok3(r8)) return kitEntityErr(r8, lang) ?? d7.errorText(r8, lang);
+      const j8 = r8.json ?? {};
+      const t = str(j8.title) || actId;
+      return `${zh ? `\u2705 \u5DF2\u5220\u6389\u300C${t}\u300D\u8FD9\u4E00\u5C4F,${landsLine(d7, zh)} \xB7 ${d7.boardUrl(boardId)}` : `\u2705 Removed the screen "${t}"; ${landsLine(d7, zh)} \xB7 ${d7.boardUrl(boardId)}`}
+
+${zh ? "\u90E8\u5206" : "part"} ${actId}(seq ${String(j8.seq ?? "?")})`;
+    }
+    if (!raw.length || raw.length > KIT_UPDATE_MAX) return zh ? `entities \u8981 1\u2013${KIT_UPDATE_MAX} \u4E2A(\u5220\u4E00\u6574\u5C4F\u6539\u7528 act)` : `entities: 1\u2013${KIT_UPDATE_MAX} (to delete a whole screen pass act instead)`;
     const entities = [];
     for (const v2 of raw) {
       const ref = kitNormalizeRef(v2, { board: boardId, only: boardId });
@@ -91506,7 +91799,7 @@ function byteSlice(buf, offset, max) {
 var tail = (s, n2) => s.length > n2 ? s.slice(-n2) : s;
 var q2 = (v2) => encodeURIComponent(v2);
 function registerBoardProjectTools(server2, d7) {
-  const boardUrl = (id) => canvasUrl(d7.base, `board=${id}`);
+  const boardUrl = (id) => d7.flavor === "v2" ? appBoardUrl(d7.base, id) : canvasUrl(d7.base, `board=${id}`);
   const call = (method, path6, body, timeoutMs) => d7.client.call(method, path6, body, timeoutMs ? { timeoutMs } : {});
   const runFail = (err4, data2, status) => {
     if (err4 === "env_not_ready") {
@@ -92605,7 +92898,7 @@ function registerTeachboardTools(rawServer, deps2 = {}) {
   const v2 = (deps2.flavor ?? PLUGIN_FLAVOR) === "v2";
   if (!v2) registerCardTools(hinted, { client, base, human });
   registerResearchTools(hinted, { client, base, human, v2: (deps2.flavor ?? PLUGIN_FLAVOR) === "v2" });
-  registerBoardProjectTools(hinted, { client, base, human });
+  registerBoardProjectTools(hinted, { client, base, human, flavor: deps2.flavor ?? PLUGIN_FLAVOR });
   if (!v2) registerFilmTools(hinted, { client, base, human, fetchAsset: deps2.fetchAsset });
   registerTbV2Tools(hinted, client, human);
   if (!v2) registerProjectTools(hinted, { client, human });
