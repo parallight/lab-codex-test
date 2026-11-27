@@ -72,6 +72,7 @@ description: "OpenLabs(Parallight Lab)与 Agentist 助教：在 Codex 里跟随�
 
    - **改某一屏**:先 `tb_get_board` 找到那一屏和它里面元素的编号。改里面的内容用 `tb_update`(文字 / 公式 / 代码 / SVG 图;**画面(Pro Slide Kit、manim-web)用 `source` 字段整段换源码**,先 `tb_describe` 单独读那个画面拿到全文,改完 `tb_check` 看一眼);在某一屏后面加一屏用 `tb_add_act` 的 `after`;**整屏重做用 `tb_add_act` 的 `replace`**(给那一部分的 id:原来的内容撤掉,新的一屏站到它的位置,别的屏不挪;新部分会得到一个新 id);去掉几个元素用 `tb_delete` 的 `entities`,**删掉一整屏用 `tb_delete` 的 `act`**(先和用户确认)。别为了改一处把整块板重建。
    - **给学员一个动手的地方**:用户说「加个终端 / Agent / 文件树 / 浏览器 / VSCode」「放一个网页在板上」时,加一屏工具屏(`tb_add_act`,act 里 `screen:"tools"`),条目写 `{"kind":"agent"}` / `{"kind":"terminal"}` / `{"kind":"files"}` / `{"kind":"browser","url":"https://…"}` / `{"kind":"vscode"}`;先读 `tb_guide({topic:"blocks"})`。这些块建出来是空的,只有学员在浏览器里点开才会开始,不要说已经帮他跑起来了。
+   - **把本机的 PDF 放到板上**:用户说「把这份 PDF / 论文 / 讲义放到板上」并给了文件时,用 `tb_add_pdf`(`path` = 用户说的那个本机文件路径,`after` 指定放在哪一屏后面)。板上会多一屏,里面是一页一页翻的 PDF,用户可以在页上划线批注。带密码或权限保护的传不了,请用户在板上点「+」里的 PDF 自己加。你读不到 PDF 里的内容,不要假装读过。
 
 7. **板上新动静**:工具结果末尾的「📌 学员在板上的新动静」、以及学员发话时自动附上的同样内容,都是学员刚在板上做的事 —— 当成学员在对你说话来回应(问题答在旁边,改动先看懂再接着讲);学员想让你一直盯着,用 :openlabs-test watch。
 
@@ -366,6 +367,7 @@ Lab 助手在服务端,手里有这个 lab 的参考解、知识点清单、教�
 
    - **改某一屏**:先 `tb_get_board` 找到那一屏和它里面元素的编号。改里面的内容用 `tb_update`(文字 / 公式 / 代码 / SVG 图;**画面(Pro Slide Kit、manim-web)用 `source` 字段整段换源码**,先 `tb_describe` 单独读那个画面拿到全文,改完 `tb_check` 看一眼);在某一屏后面加一屏用 `tb_add_act` 的 `after`;**整屏重做用 `tb_add_act` 的 `replace`**(给那一部分的 id:原来的内容撤掉,新的一屏站到它的位置,别的屏不挪;新部分会得到一个新 id);去掉几个元素用 `tb_delete` 的 `entities`,**删掉一整屏用 `tb_delete` 的 `act`**(先和用户确认)。别为了改一处把整块板重建。
    - **给学员一个动手的地方**:用户说「加个终端 / Agent / 文件树 / 浏览器 / VSCode」「放一个网页在板上」时,加一屏工具屏(`tb_add_act`,act 里 `screen:"tools"`),条目写 `{"kind":"agent"}` / `{"kind":"terminal"}` / `{"kind":"files"}` / `{"kind":"browser","url":"https://…"}` / `{"kind":"vscode"}`;先读 `tb_guide({topic:"blocks"})`。这些块建出来是空的,只有学员在浏览器里点开才会开始,不要说已经帮他跑起来了。
+   - **把本机的 PDF 放到板上**:用户说「把这份 PDF / 论文 / 讲义放到板上」并给了文件时,用 `tb_add_pdf`(`path` = 用户说的那个本机文件路径,`after` 指定放在哪一屏后面)。板上会多一屏,里面是一页一页翻的 PDF,用户可以在页上划线批注。带密码或权限保护的传不了,请用户在板上点「+」里的 PDF 自己加。你读不到 PDF 里的内容,不要假装读过。
 
 7. **板上新动静**:工具结果末尾的「📌 学员在板上的新动静」、以及学员发话时自动附上的同样内容,都是学员刚在板上做的事 —— 当成学员在对你说话来回应(问题答在旁边,改动先看懂再接着讲);学员想让你一直盯着,用 :openlabs-test watch。
 
